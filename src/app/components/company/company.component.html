@@ -1,0 +1,124 @@
+<div class="">
+  <div class="tabs is-fullwidth">
+    <ul>
+      <li [class.is-active]="activeTab === 0">
+        <a (click)="setActiveTab(0)">
+          <span class="icon is-large"><i class="fas fa-info" aria-hidden="true"></i></span>
+          <span><h4>About</h4></span>
+        </a>
+        <div class=" section-vspacing" *ngIf="activeTab === 0">
+          
+        </div>
+      </li>
+      <li [class.is-active]="activeTab === 1">
+        <a (click)="setActiveTab(1)">
+          <span class="icon is-large"><i class="fas fa-hammer" aria-hidden="true"></i></span>
+          <span><h4>Works</h4></span>
+        </a>
+      </li>
+      <li [class.is-active]="activeTab === 2">
+        <a (click)="setActiveTab(2)">
+          <span class="icon is-large"><i class="fas fa-phone" aria-hidden="true"></i></span>
+          <span><h4>Contact</h4></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="has-text-centered">
+    <h2 class="block">Get In Touch With Us</h2>
+    <h4 class="block">For More Information About Our Products & Services, Please Feel To Drop Us An Email.
+      <br>Our Staff Always Be There To Help You Out. Do Not Hesitate!
+    </h4>
+  </div>
+  <div class="is-flex is-justify-content-space-evenly">
+    <div class="m-5">
+      <div class="is-flex my-5">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <rect width="40" height="40" fill="url(#pattern0)"/>
+          <defs>
+          <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlink:href="#image0_135_527" transform="scale(0.01)"/>
+          </pattern>
+          <image id="image0_135_527" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAABc5JREFUeAHtnVfoJEUQxn/mHDCjImJAz4AYEN/UBzFgQMVT70DvzvyiqBgwvBgQwYSCqCj6IgYQMaFgQgRR9EFMGDAr5pyz8x3TMgzsurv/7uowXbDMhtmZqu/r7unuquqGKhWBikBFoCJQEagIVAQqAhWBikBFoCIwDoE1gF2Bo4ELgcuBG4Hb25fe6zv9pnN07urjLlh/mw6BDYAjW9DfAP6Z8fU6cAMwH1h/OhXq2SsDRzSl+wHgjxkJGEfcX8CjwDHAahXu0Qhs2DY33wUgYRRB3wKXAaqJVVoE1IRcC/xsSESfoJ+Aa4D1hszKMm2z8UVEIvrEfA2cBiw3NGK2Bp5NiIg+Mc8AWw6FlMOaUvhNwmQ4cr4HjiqZFDUD12VAhCPEHfVsWbY0YlYE7sqQDEfKvYC640WIRspPZEyGI+XxEkb9KwCPFEBGl5SVcq0manfvLIgMR8oduT5TNAJ2RpR2vDi3WrJ/M+OqOaPSiHD2yLZ9cyFlUyCl0bcD0ffxM2DjHEi5v+Ca0SdV3eGk5ZABkeHIOTBVRlYF3hsgIW83boNVUiTljAGS4WrJqakRosHSRwMm5ENA00PJyMkDJsPVkhOSYQN4qRLCy6kQsksl478B8E4pkCJ/gau2Qz9ekQIhsR7mik6Rj+X8pru9qH1dANwNyNsXo3B8EJuQbSMYrh7NkiZ8Z9w0uH47PlLPT/EC0eQUY0I09a0B6KSiQDhrT+VJkyoX4jxLY68EFDo0reg/VxsWHBWaaPKqkaH3zdEpJGfZg0a6Ruv+KorkVwMjfwAUZjpXUbioxcNemEQJtNvKgAz1lC6aKxOd/19qpPMWnXuavd3byDifvZZtjHTe04yFzo0ONjBOeR2+5U0DvQ/yrfQk11toYJhyRHzLQwZ6L/Ct9CTXU3879Gj45kkUmfKcWwz0PnFKnbycfpyBYSH69BZjJ80kmIty/0LXkKcCWPW0gd7KZTQXOfdDE/KjZ3+1pl2ULRVa7wPM2WhTjkMbpusrksWXHGpAhnTe2ZfC01xnbSPjnptxDqtvi+a0lBllUYjW7N/c6vNXRgb6yGSy6KaLbEVtRhOrvA/NZ+04Byu3A6zSrZUDH02s5oZU8j5uZmx3m8HS3dv/WjRVukfUyHiLnlYXSOWynz5hDJS8hmcCvxg1q05PRf5HEz28LKbgnbHu+A5wHrBDz3I9uNW0yc/+rjER0k3kR1/sRvNNDqgYx98bH7uCC+Rr1/sYOrh7ypEWXRZHBsGBkcLx2OhsAFrDyqoHkwLoo3SQNzLa+KNfEK6vtWTpogh9XKJ93h74e8CkyHaNdZKSewZMiKIlkxP5q0OsADeqzU7l+z+bYLx5ybHRKiQPXypAWelxU6pkSK91gE8HRMonrc0pc7J0FVGr0hn7PocnzURHOfnCY4MV+v5aKzgbUdT5KwWTovjd7JaYVa9Ly7CGLqnW15dNsi1L2SvSbHAokjR5uU+WTHSUlvu1hJWBNBrXathFyFkFNF1nF8FExwjLLCbfTZYW8i9OlMWkOR/fYIW+nhxwURJwLEqA1gN5LCNSFBOWXfd2WiLlxHkxA1LeGtKuCZsA7ydMyueAUvYGJXJqaTeC0M+Aaa+vYOw9BsVEx1gNHK3jpsYR9FtOq412cPT6VrmKKTi2NPBLImrEK7ozXkxAxPbJKyKySgcBreQzrjkJ+VvUeNwOBsm9vSoCKdr7sMoIBBSbe5shKQr9XH6ELvXrFgFtcfGwASlPlrRJS+jSowjykJuGvdAs2bRWaCNKu74AE3C+H+ZaQXXd0sCyskcbPcp/7YsU7ae7kZXypd5H61y95oEUTRZmsb1EDkRqTxItej9rTdFE5uY5GJqTjpvNmKamzKooC4rlBO6suoqU56eoKTpX/6kSEAFt8Hgu8OUYYpS8f87/rO0bUMVhXlrE7AcoV/7W9nVJO31ezK6cw6S2Wl0RqAhUBCoCFYGKQEWgIlARqAhYIvAvo5A1qGvBjrMAAAAASUVORK5CYII="/>
+          </defs>
+        </svg>
+        <div class="">
+          <h2>Address</h2>
+          <h4>236 5th SE Avenue, New York NY1000, United States</h4>
+        </div>
+      </div>
+      <div class="is-flex my-5">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <rect width="40" height="40" fill="url(#pattern0)"/>
+          <defs>
+          <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlink:href="#image0_135_540" transform="scale(0.01)"/>
+          </pattern>
+          <image id="image0_135_540" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAABRZJREFUeAHtnUnI1VYYhl/HKmptqzgsFMSiSGuLC3WprVRERMXqwgEVpbR2oDijG10WcVGriDjixoUrFVGo4rQQREWx2I3QihWxOOOAs94XEgi5N7nJny/nD/e8gZ/cJOc/+c7z5jtJzv3OdwEtIiACIiACIiACIiACIiACIiACvQF8C2ADgD3B30oAnwmNOwL9AHwH4CiAFwDeJfydAvClO7P8OlNnALMBHAfwOkGARsJQsLl+oSq/tV8BuJpDhLgwbwFMK9/M1j9Dh5oI6wC8KSBGKM5DAP1bH1l5LaQYfxgIEQrC9ZbyzG39mvmkFIVp8fkZgD6tj86+haMBvCpBEIq6yt7c1q6RXdW5ksSgIP8C6NTaCG1bN6lEMcJuT09cOTQ76ECQYzns8bpodwBPHQhCT/nca9IZGz/OkRgURI/AGUT50aEgjwFwYFJLCoHNDgWhl3yfYosOBQOH4ZOQi/Wfop5O4D/HHvIg3RwdfeRYEHphL2FPJlDWcEla96cbe4IeXdvBO54k2KLdAD5qB0FOiHwyAXYdaV1LGcd+TTZHRzjK+9KhKPcAfCjs6QRuOxRkYbopOkoCRQIZ8nRpGsfKeL2dceAh2wB0zGiP98X2liwIx8p4r9KSkcCKEgX5LaMNKhYhMLEEQRgktzxyDn3MQWCAsSAMsGMMsJYCBP43EoXxvwsK2KF/DQhYBDmwm5olojYEfjbwkCM2pqgWEhhuIMh6obQlcL2gKNttzVFtOwoKclkIbQnMKCgIn7B62Jrkd23dADAAIc+AYbzsFL8R2rd+Z0FBdtmb5HeN4wsKcgcAJ4pqMSLAUVnO5Yh3RXm2pxvZomoCAhyhzSNAvKymHRhfSkMLzsDlEMoIY5u8r+5AQS/Z5z1BYwBMGhDvivJs00tGGdvkfXV8884jQrysBhuNL6FFBQWhQMwYpMWIAN/ci8Zs3QrCVY1MUjXLDLxktzDaEaCX3DQQRRGLdprgFwNBOO16pKFNXlf1AYAbBqJw6twgr0kaNp4zZ+OPtW3ZvlLwJs8kB8ws5P0AJmda/WMkylkAH2e8WJiwhi+pW2spA69Fzs/Yr/NBliFOOvJymRkB0hbviP4PPWVgAsWoCFnixVjG2xHmk4ai0OO+DgKx2QWFnpBFhKi4/EyPWZIgcEvv/iJndtI4uEbbTLfx3EBofqf/TUvTT2gc+/NGYKuwjyMD3qUT/ATA3QqL4uXQ/08VFoSe6l2MMaenna6wKPRgTrPwahlSm5TDG3IV7h2NbDjklRpBY5dWWBCK5N2gJrsuF7N4G3lAln1MdT7YN08Z5jCJZhYR4mUO+yYI2zu/4l3XBB9FYXKA+NVZle39PgrCbxcvVFQU5ujyMtU5H4XvV1SUT330EraZiQhcpnzK2i2O8VUQtnseAEYvZoXlopz3kZRVGu/i9yU9ffaQsO38nUMXV3+zc1wMDfJ9zQlATFzWDFjZxxnwpyVCYHU7isJAP80OjogRfuR33uzLy/aGaP38WndyaIDW9QQYucKXtCi0Mj8rJW29BnV7mFflkgNR1tSdWTsSCXCYZVOJ7yprE8+sA6kEphpGRIZdn34zMRV584Ndaik92NcXTevBX3n4ofnpVCIrgb61t+mNAJiOPLzas67/rv3O+9isJ1K5fAR4f5kDgGGrzcbD/gKwGACDwbU4IMD5JHMBMLsEEz5zetzvQdZTJSdwIIBOIQIiIAIiIAIiIAIiIAIiUA0C7wFk4xZSk6gipAAAAABJRU5ErkJggg=="/>
+          </defs>
+          </svg>
+          
+        <div class="">
+          <h2>Phone</h2>
+          <h4>Mobile: + (84) 546-6789<br>Hotline: +(84) 456-6789</h4>
+        </div>
+      </div>
+      <div class="is-flex my-5">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <rect width="40" height="40" fill="url(#pattern0)"/>
+          <defs>
+          <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlink:href="#image0_135_538" transform="scale(0.01)"/>
+          </pattern>
+          <image id="image0_135_538" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAABQdJREFUeAHtnUeoLEUYRo9ZzIo5Y0LMimJAFEXEhe58iAguXQku3YmKoIgbxYVuXepCRHBhAMWIYsKsiBlzwpydD+qH5jpOd01Xp5mv4FL3vpmp6jqnq+bv6qp+4GQCJmACJmACJmACJmACJmACJmACJmACJmACJmACJmACJmACJtCUwN7AKcBFwKY1+VFb1ea9mkLq+n0HAjcBrwL/rPnPK8CNwAFdQ59X/k7A7cBvay5h3kn4K3AbsOM8cF3825Gz4eg1i6gdEd4Cju1CQLXMo4FvLKNWRvSc74DjqwBL/r4f8LFlNJYRUj4C9i0pIsq61zKyZYSUewJiqfwCy1haRkg5v5QMlfOAhbQWcn8pIRr//rSQ1kL+APYpIeUSy2gtI4ati0sIucFCigm5voSQ44CHLKW1FDEUy2LpvNnE4fMWky1G83yabO0kbZYKf8diasV8AFwBbNGJiQ2FbpUq+8xi/iPmK+Dq2Sz4thuY9fLn9qny7y2Gn9KtiJ17IV9Tye7pYNZxOl7XF3eWusao4Zz98hHA3cDfa9JjFDkdk02p5QeuBE7ILONU4NEVlqK2qY05SQzFsnWKM175oZmlKVR+cYXE6MZcbgirW7oa0jT9JIatkwqJS//fU+E5N/U3T414t1JOlDeVXPc0ckPY3dL36i+VdhcXEgB/SJXl3DfeOjXq88oBRnljzb9eIoTdLn3m2znt7ExIAPwCuArYMqMf7jB777XAz3MOOModOle0eCuwS0a7NBJcDnyyoF2dCwlwb6ZhSVfyTZNuCWtsVdgY5Qyd/5XG+YObNiK9T9+VLzdoR29CAuQzwNmZjdEqFh3o0KHyMpN/pwGPNRARfHoXEhUv07ihQuU+T6LBhEhM190/5C+bvzHAMDuokAC17Bek4v33MoaDqK8u11ImhbBDBCKjEBKASoeQUW7TfAyh+qiEBLgPC11kRXl1uXqoork9M4KNri5mRykkAC4zDbF/ZRoiyvm/PL7DDskQobcqhH2hg6FSxzlqIQHySeDMTGhHpcZFGRtzRXm5E6InA490JCKObxJC4mC1kOzwTDGnA49XID47uy44J7OMg4C7eroOmpQQidHkpfad5Exexn1+RWU5MwWqQ3Wpzjgpus4nJySA/JgmL7UxqHQa8rbzZIWEmC/TzOk2BazEwoxPe+wR0Y7IJy8kGvJ+CpUVjuamGNLeHlBEtGNlhESDngPOzTByxiyMfWIEIuL4V05INExh7YkLxNSFxVFO3/nKChFIXfgpXFXYGilCWL3WN+wm9a20kACgG1xPAU9PYB/LWggJMVPILWRkQ5eFWMg4v0zHMpy5h7iHuIcs6o3uIe4h7iHuISPrBRZiIR6WFvWCRa/5S31kvcdCVlGIFpkt6oZ+rTmfO+I+QZtcm2sMvQyDa9qIiM9eZiHFTshLA2qbXJsXx7TLaaq9Veu/dm0jovrZh91LWveSB6tA2/5+loW0FpK7xLXWmdbeTnW4GPq476ulu8Qb9ICZKW/+H0qKFvnl7E3JUqMl/vM2xA/V2LHXq8eyd/ao8TB3GPC6h6/a4VtLV7Xlu5ekh3TdMlsIXX2Ox9jP1r6OT0xuBrpYuV8rVysF9ejTJk8x6AvIUPW8NNufch2g/+RmFGkP4CTgwrT/WxtoVv1HbdUaY7XdyQRMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMwARMoAGBfwH9psmzFqdRJwAAAABJRU5ErkJggg=="/>
+          </defs>
+          </svg>
+          
+        <div class="">
+          <h2>Mail</h2>
+          <h4>Personal : vincent4552&#64;gmail.com<br>Student: TP061209&#64;mail.apu.edu.my</h4>
+        </div>
+      </div>
+    </div>
+    <div class="m-5">
+      <div class="field">
+        <p class="control">
+          <input
+            class="input is-large is-rounded"
+            type="text"
+            placeholder="Your Name"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input
+            class="input is-large is-rounded"
+            type="email"
+            placeholder="Email address"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input
+            class="input is-large is-rounded"
+            type="text"
+            placeholder="Subject"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <div class="control">
+          <textarea class="textarea is-large is-rounded" placeholder="Message"></textarea>
+        </div>
+      </div>
+      <div class="my-5">
+        <button class="button is-large is-black is-rounded is-fullwidth">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
