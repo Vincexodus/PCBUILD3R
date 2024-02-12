@@ -3,12 +3,12 @@ import { ProductCardComponent } from '../product-card/product-card.component';
 import { DividerComponent } from '../utils/divider/divider.component';
 
 @Component({
-  selector: 'app-product-slideshow',
+  selector: 'app-category-slideshow',
   standalone: true,
   imports: [ProductCardComponent, DividerComponent],
-  templateUrl: './product-slideshow.component.html',
-  styleUrl: './product-slideshow.component.sass'
+  templateUrl: './category-slideshow.component.html',
+  styleUrl: './category-slideshow.component.sass'
 })
-export class ProductSlideshowComponent {
+export class CategorySlideshowComponent {
   @Input() title: string = "";
 }

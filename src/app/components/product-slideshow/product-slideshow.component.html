@@ -1,1 +1,47 @@
-<p>product-slideshow works!</p>
+<div class="has-text-centered section-vspacing">
+  <h1 class="block py-5">{{ title }}</h1>
+  <div class="my-5">
+    <div class="is-flex is-justify-content-space-between">
+      <a class="my-auto" onclick="">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" width="40" height="40" rx="20" transform="rotate(90 40 0)" fill="#F0F0F0"/>
+          <path d="M17.1906 27.6629L10.336 20.8083C10.2295 20.7021 10.145 20.576 10.0873 20.4372C10.0297 20.2983 10 20.1494 10 19.999C10 19.8487 10.0297 19.6998 10.0873 19.5609C10.145 19.4221 10.2295 19.296 10.336 19.1898L17.1906 12.3352C17.4053 12.1206 17.6964 12 17.9999 12C18.3034 12 18.5945 12.1206 18.8091 12.3352C19.0237 12.5498 19.1443 12.8409 19.1443 13.1444C19.1443 13.4479 19.0237 13.739 18.8091 13.9536L13.9052 18.8576L27.9 18.8576C28.203 18.8576 28.4936 18.9779 28.7079 19.1922C28.9221 19.4064 29.0425 19.697 29.0425 20C29.0425 20.303 28.9221 20.5936 28.7079 20.8078C28.4936 21.0221 28.203 21.1424 27.9 21.1424L13.9052 21.1424L18.8101 26.0464C19.0247 26.261 19.1452 26.5521 19.1452 26.8556C19.1452 27.1591 19.0247 27.4502 18.8101 27.6648C18.5954 27.8794 18.3043 28 18.0008 28C17.6973 28 17.4062 27.8794 17.1916 27.6648L17.1906 27.6629Z" fill="black"/>
+        </svg>
+      </a>
+      <app-product-card
+        [imageUrl]="'../../../assets/cooler/cooler (1).png'"
+        [productName]="'Cooler Master Hyper 212 EVO V2'"
+        [rating]="4"
+        [price]="140"
+      ></app-product-card>
+      <app-product-card
+        [imageUrl]="'../../../assets/cooler/cooler (4).png'"
+        [productName]="'MasterLiquid ML360L ARGB '"
+        [rating]="3.5"
+        [price]="240"
+      ></app-product-card>
+      <app-product-card
+        [imageUrl]="'../../../assets/mobo/mobo (2).png'"
+        [productName]="'Intel Z790 Gaming Motherboard '"
+        [rating]="4.5"
+        [price]="180"
+      ></app-product-card>
+      <app-product-card
+        [imageUrl]="'../../../assets/cpu/processor (2).png'"
+        [productName]="'Intel Core i7-9700F Processor'"
+        [rating]="4.5"
+        [price]="130"
+      ></app-product-card>
+      <a class="my-auto" onclick="">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect y="40" width="40" height="40" rx="20" transform="rotate(-90 0 40)" fill="#F0F0F0"/>
+          <path d="M22.8094 12.3371L29.664 19.1917C29.7705 19.2979 29.855 19.424 29.9127 19.5628C29.9703 19.7017 30 19.8506 30 20.001C30 20.1513 29.9703 20.3002 29.9127 20.4391C29.855 20.5779 29.7705 20.704 29.664 20.8102L22.8094 27.6648C22.5947 27.8794 22.3037 28 22.0001 28C21.6966 28 21.4055 27.8794 21.1909 27.6648C20.9763 27.4502 20.8557 27.1591 20.8557 26.8556C20.8557 26.5521 20.9763 26.261 21.1909 26.0464L26.0948 21.1424L12.1 21.1424C11.797 21.1424 11.5064 21.0221 11.2921 20.8078C11.0779 20.5936 10.9575 20.303 10.9575 20C10.9575 19.697 11.0779 19.4064 11.2921 19.1922C11.5064 18.9779 11.797 18.8576 12.1 18.8576L26.0948 18.8576L21.19 13.9536C20.9753 13.739 20.8548 13.4479 20.8548 13.1444C20.8548 12.8409 20.9753 12.5498 21.19 12.3352C21.4046 12.1206 21.6957 12 21.9992 12C22.3027 12 22.5938 12.1206 22.8084 12.3352L22.8094 12.3371Z" fill="black"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <button class="button is-medium is-rounded">
+    View All
+  </button>
+</div>
+<app-divider></app-divider>
