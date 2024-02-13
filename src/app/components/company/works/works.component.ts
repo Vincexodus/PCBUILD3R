@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-contact',
+  selector: 'app-work',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './contact.component.html',
-  styleUrl: './contact.component.sass'
+  templateUrl: './works.component.html',
+  styleUrl: './works.component.sass'
 })
-
-export class ContactComponent {
+export class WorksComponent {
   @Input() show: boolean = false;
+
 }

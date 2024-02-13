@@ -1,1 +1,72 @@
-<p>contact works!</p>
+<div *ngIf="show"  class="section-vspacing">
+  <div class="has-text-centered">
+    <h2 class="block">Get In Touch With Us</h2>
+    <h4 class="block">For More Information About Our Products & Services, Please Feel To Drop Us An Email.
+      <br>Our Staff Always Be There To Help You Out. Do Not Hesitate!
+    </h4>
+  </div>
+  <div class="is-flex is-justify-content-space-evenly mt-6">
+    <div class="m-5">
+      <div class="is-flex my-5">
+        <i class="fa-solid fa-location-dot fa-2xl px-5 mt-5" style="color: #000000;"></i>
+        <div class="">
+          <h2>Address</h2>
+          <h4>236 5th SE Avenue, New York NY1000, United States</h4>
+        </div>
+      </div>
+      <div class="is-flex my-5">
+        <i class="fa-solid fa-phone fa-2xl px-5 mt-5" style="color: #000000;"></i>
+        <div class="">
+          <h2>Phone</h2>
+          <h4>Mobile: + (84) 546-6789<br>Hotline: +(84) 456-6789</h4>
+        </div>
+      </div>
+      <div class="is-flex my-5">
+        <i class="fa-solid fa-envelope fa-2xl px-5 mt-5" style="color: #000000;"></i>
+        <div class="">
+          <h2>Mail</h2>
+          <h4>Personal : vincent4552&#64;gmail.com<br>Student: TP061209&#64;mail.apu.edu.my</h4>
+        </div>
+      </div>
+    </div>
+    <div class="contact-container">
+      <div class="field">
+        <p class="control">
+          <input
+            class="input is-large is-rounded"
+            type="text"
+            placeholder="Your Name"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input
+            class="input is-large is-rounded"
+            type="email"
+            placeholder="Email address"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input
+            class="input is-large is-rounded"
+            type="text"
+            placeholder="Subject"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <div class="control">
+          <textarea class="textarea is-large is-rounded" placeholder="Message"></textarea>
+        </div>
+      </div>
+      <div class="my-5">
+        <button class="button is-large is-black is-rounded is-fullwidth">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,12 +6,24 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
+import { AboutComponent } from './components/company/about/about.component';
+import { WorksComponent } from './components/company/works/works.component';
+import { ContactComponent } from './components/company/contact/contact.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'company', component: CompanyComponent },
+  {
+    path: 'company',
+    component: CompanyComponent,
+    children: [
+      { path: 'about', component: AboutComponent },
+      { path: 'works', component: WorksComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: '', redirectTo: 'about', pathMatch: 'full' }, // Default tab
+    ],
+  },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
