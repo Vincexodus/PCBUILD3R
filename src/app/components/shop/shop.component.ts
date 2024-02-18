@@ -1,15 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from '../utils/pagination/pagination.component';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent],
+  imports: [CommonModule, ProductCardComponent, PaginationComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.sass'
 })
 export class ShopComponent {
   @Input() filteredCategory: string = "Graphic Card";
   productCategory: string[] = ["Processor", "Motherboard", "RAM", "Power Supply", "Liquid Cooler"];
+
+  isDropdownActive = false;
+
+  toggleDropdown() {
+    this.isDropdownActive = !this.isDropdownActive;
+  }
 }

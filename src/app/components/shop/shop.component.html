@@ -1,28 +1,85 @@
 <div class="has-text-centered section-vspacing">
   <div class="columns">
-    <div class="column is-one-quarter">
-      <div class="contact-container">
-        <div class="my-5 is-flex is-flex-direction-row">
-          <h1>Filters</h1>
-          <i class="fa-solid fa-sliders" style="color: #000000;"></i>
+    <div class="column is-one-fifth">
+      <div class="filter-container box is-sticky">
+        <div class="my-2 is-flex is-justify-content-space-between">
+          <h3 class="has-text-weight-bold">Filters</h3>
+          <i class="fa-solid fa-sliders" style="color: #000000; margin-top: auto; margin-bottom: auto;"></i>
         </div>
         <hr>
-        <div class="my-5 is-justify-content-space-between" *ngFor="let category of productCategory">
+        <div class="my-2 is-justify-content-space-between" *ngFor="let category of productCategory">
           <a href="" class="is-flex is-justify-content-space-between">
-            <h3 class="p-2">{{ category }}</h3>
-            <i class="fa-thin fa-greater-than" style="color: #000000;"></i>
+            <h4 class="p-2">{{ category }}</h4>
+            <i class="fa-solid fa-caret-right my-auto" style="color: #000000;"></i>
           </a>
         </div>
         <hr>
-        <div class="my-5">
-          <button class="button is-black is-rounded is-fullwidth">
+        <div class="has-text-left">
+          <h3 class="pb-2 has-text-weight-bold">Price</h3>
+          <div class="columns">
+            <div class="column field">
+              <p class="control">
+                <input
+                  class="input is-rounded is-small "
+                  type="text"
+                  placeholder="Min"
+                />
+              </p>
+            </div>
+            <div class="column field">
+              <p class="control">
+                <input
+                  class="input is-rounded is-small "
+                  type="text"
+                  placeholder="Max"
+                />
+              </p>
+            </div>
+            <div class="column is-one-quarter">
+              <button class="button is-black is-small is-rounded is-fullwidth">
+                <i class="fa-solid fa-play" style="color: #ffffff;"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <button class="button is-small is-black is-rounded is-fullwidth">
             Apply Filter
           </button>
         </div>
       </div>
     </div>
     <div class="column">
-      <h1 class="block py-2">{{ filteredCategory }}</h1>
+      <div class="is-flex is-justify-content-space-between">
+        <h1>{{ filteredCategory }}</h1>
+        <div class="is-flex">
+          <p class="px-2 m-auto">Showing 1-10 of 100 Products</p>
+          <h4 class="px-2 m-auto">Sort by: </h4>
+          <div class="dropdown is-right" [class.is-active]="isDropdownActive">
+            <div class="dropdown-trigger">
+              <button class="button is-rounded" (click)="toggleDropdown()" aria-haspopup="true" aria-controls="dropdown-menu3">
+                <span><h4>Most Popular</h4></span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+              <div class="dropdown-content">
+                <a href="#" class="dropdown-item">
+                  <h4>Best Match</h4>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <h4>Price High to Low</h4>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <h4>Price Low to High</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="my-2">
         <div class="is-flex is-justify-content-space-between py-2">
           <app-product-card
@@ -81,4 +138,5 @@
       </div>
     </div>
   </div>
+  <app-pagination></app-pagination>
 </div>

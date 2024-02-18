@@ -1,1 +1,46 @@
-<p>product-detail works!</p>
+<div class="my-5">
+  <div class="columns">
+    <div class="column is-one-fifth">
+      <a class="box img-bg-side">
+        <img class="img-side" src="../../../assets/gpu/gpu (2).png" alt="">
+      </a>
+      <a class="box img-bg-side">
+        <img class="img-side" src="../../../assets/gpu/gpu (2).png" alt="">
+      </a>
+      <a class="box img-bg-side">
+        <img class="img-side" src="../../../assets/gpu/gpu (2).png" alt="">
+      </a>
+    </div>
+    <div class="column is-two-fifth">
+      <div class="box img-bg">
+        <img class="" src="../../../assets/gpu/gpu (2).png" alt="">
+      </div>
+    </div>
+    <div class="column">
+      <h2 class="block">{{ productName }}</h2>
+      <div class="is-flex">
+        <app-product-rating [rating]=productRating></app-product-rating>
+        <h3 class="block">{{ stockQuantity }} in stock</h3>
+      </div>
+      <h3 class="block">MYR {{ price }}</h3>
+      <p class="block">{{ productDesc }}</p>
+      <hr>
+      <div class="columns">
+        <div class="column is-one-third">
+          <app-product-counter></app-product-counter>
+        </div>
+        <div class="column">
+          <button class="button is-black is-rounded is-fullwidth">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-product-review></app-product-review>
+  <app-product-slideshow 
+    [title]="'YOU MAY ALSO LIKE'"
+    [showDivider]="false"
+  >
+  </app-product-slideshow>
+</div>

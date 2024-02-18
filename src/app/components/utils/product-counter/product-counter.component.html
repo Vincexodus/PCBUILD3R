@@ -1,0 +1,13 @@
+<div class="counter-container has-background-primary">
+  <div class="is-flex is-justify-content-space-between">
+    <a (click)="decrement()" class="p-2 pl-5">
+      <i class="fa-solid fa-minus" style="color: #000000;"></i>
+    </a>
+    <div class="p-2">
+      <div class="counter-value">{{ counterValue }}</div>
+    </div>
+    <a (click)="increment()" class="p-2 pr-5">
+      <i class="fa-solid fa-plus" style="color: #000000;"></i>
+    </a>
+  </div>
+</div>

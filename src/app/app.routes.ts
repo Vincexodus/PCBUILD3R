@@ -10,10 +10,12 @@ import { AboutComponent } from './components/company/about/about.component';
 import { WorksComponent } from './components/company/works/works.component';
 import { ContactComponent } from './components/company/contact/contact.component';
 import { ShopComponent } from './components/shop/shop.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
+  { path: 'productDetail', component: ProductDetailComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   {
