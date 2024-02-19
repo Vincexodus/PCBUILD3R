@@ -11,13 +11,17 @@ import { WorksComponent } from './components/company/works/works.component';
 import { ContactComponent } from './components/company/contact/contact.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'productDetail', component: ProductDetailComponent },
+  { path: 'shoppingCart', component: ShoppingCartComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'checkout', component: CheckoutComponent },
   {
     path: 'company',
     component: CompanyComponent,

@@ -1,0 +1,23 @@
+<div class="is-flex is-justify-content-space-between">
+  <div class="rounded-div">
+    <img src="../../../assets/cooler/cooler (2).png" alt="">
+  </div>
+  <div class="mx-5 my-auto">
+    <h4 class="has-text-weight-bold">{{ productName }}</h4>
+    <h4>{{ productDesc1 }}</h4>
+    <h4>{{ productDesc2 }}</h4>
+  </div>
+  <div class="mx-5 my-auto">
+    <h4 class="has-text-weight-bold">MYR {{ price }}</h4>
+  </div>
+  <div class="mx-5 my-auto">
+    <app-product-counter></app-product-counter>
+  </div>
+  <div class="mx-5 my-auto">
+    <h4 class="has-text-weight-bold">MYR {{ subtotal }}</h4>
+  </div>
+  <div class="mx-5 my-auto">
+    <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+  </div>
+</div>
+<div class="divider" *ngIf="!islastItem"></div>

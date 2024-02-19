@@ -1,1 +1,85 @@
-<p>shopping-cart works!</p>
+<div class="my-5">
+  <h1 class="block"></h1>
+  <div class="columns">
+    <div class="column card-container">
+      <div class="columns has-text-centered">
+        <div class="column is-one-third">
+          <h4>Product</h4>
+        </div>
+        <div class="column">
+          <h4>Price</h4>
+        </div>
+        <div class="column">
+          <h4>Quantity</h4>
+        </div>
+        <div class="column">
+          <h4>Subtotal</h4>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <app-shopping-cart-item
+        [productName] = '"Gradient Graphic T-shirt"'
+        [productDesc1] = '"Size: large"'
+        [productDesc2] = '"Color: white"'
+        [price] = "145"
+        [subtotal] = "145"
+      ></app-shopping-cart-item>
+      <app-shopping-cart-item
+        [productName] = '"Gradient Graphic T-shirt"'
+        [productDesc1] = '"Size: large"'
+        [productDesc2] = '"Color: white"'
+        [price] = "145"
+        [subtotal] = "145"
+      ></app-shopping-cart-item>
+      <app-shopping-cart-item
+        [productName] = '"Gradient Graphic T-shirt"'
+        [productDesc1] = '"Size: large"'
+        [productDesc2] = '"Color: white"'
+        [price] = "145"
+        [subtotal] = "145"
+        [islastItem] = "true"
+      ></app-shopping-cart-item>
+    </div>
+    <div class="column is-one-third">
+      <div class="card-container">
+        <h3 class="has-text-weight-bold">Order Summary</h3>
+        <hr>
+        <div class="my-2 is-justify-content-space-between" *ngFor="let payment of payments">
+          <div class="is-flex is-justify-content-space-between py-1" *ngIf="payment.value != 0">
+            <h4 class="has-text-grey">{{ payment.key }}</h4>
+            <h4 class="has-text-weight-bold"><span *ngIf="isDiscount(payment.key)">-</span>
+              MYR {{ payment.value }}
+            </h4>
+          </div>
+        </div>
+        <hr>
+        <div class="is-flex is-justify-content-space-between">
+          <h4 class="pb-2">Total</h4>
+          <h4 class="pb-2 has-text-weight-bold">MYR 148</h4>
+        </div>
+        <div class="columns">
+          <div class="column field m-0">
+            <p class="control">
+              <input
+                class="input is-rounded"
+                type="text"
+                placeholder="Add promo code"
+              />
+            </p>
+          </div>
+          <div class="column is-one-third">
+            <button class="button is-black is-rounded is-fullwidth">
+              <h4 class="has-text-white">Apply</h4>
+            </button>
+          </div>
+        </div>
+        <div class="">
+          <button class="button is-black is-rounded is-fullwidth">
+            <h4 class="has-text-white">Go To Checkout</h4>
+            <i class="fa-solid fa-arrow-right pl-2" style="color: #ffffff;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
