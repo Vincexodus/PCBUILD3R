@@ -1,11 +1,107 @@
-<div class="section-vspacing">
+<div class="my-5">
+  <h1>Billing Details</h1>
   <div class="columns">
     <div class="column">
-
+      <div class="card-container">
+        <div class="is-flex is-justify-content-space-between">
+          <div class="field">
+            <p class="control">
+              <input
+                class="input is-rounded"
+                type="text"
+                placeholder="First Name"
+              />
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <input
+                class="input is-rounded"
+                type="text"
+                placeholder="Last Name"
+              />
+            </p>
+          </div>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input
+              class="input is-rounded"
+              type="text"
+              placeholder="Country/Region"
+            />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input
+              class="input is-rounded"
+              type="text"
+              placeholder="Street address"
+            />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input
+              class="input is-rounded"
+              type="text"
+              placeholder="Town/City"
+            />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input
+              class="input is-rounded"
+              type="text"
+              placeholder="Province"
+            />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input
+              class="input is-rounded"
+              type="text"
+              placeholder="ZIP code"
+            />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input
+              class="input is-rounded"
+              type="email"
+              placeholder="Email Address"
+            />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input
+              class="input is-rounded"
+              type="text"
+              placeholder="Additional Information"
+            />
+          </p>
+        </div>
+      </div>
     </div>
     <div class="column">
       <div class="card-container">
-        <h3 class="has-text-weight-bold">Order Summary</h3>
+        <div class="is-flex is-justify-content-space-between">
+          <h3 class="has-text-weight-bold">Product</h3>
+          <h3 class="has-text-weight-bold">Subtotal</h3>
+        </div>
+        <div class="my-2 is-justify-content-space-between" *ngFor="let item of cartItems">
+          <div class="is-flex is-justify-content-space-between py-1" *ngIf="item.value != 0">
+            <h4 class="has-text-grey">{{ item.key }}</h4>
+            <h4 class="has-text-weight-bold"><span *ngIf="isDiscount(item.key)">-</span>
+              MYR {{ item.value }}
+            </h4>
+          </div>
+        </div>
         <hr>
         <div class="my-2 is-justify-content-space-between" *ngFor="let payment of payments">
           <div class="is-flex is-justify-content-space-between py-1" *ngIf="payment.value != 0">
@@ -15,31 +111,25 @@
             </h4>
           </div>
         </div>
-        <hr>
         <div class="is-flex is-justify-content-space-between">
           <h4 class="pb-2">Total</h4>
           <h4 class="pb-2 has-text-weight-bold">MYR 148</h4>
         </div>
-        <div class="columns">
-          <div class="column field m-0">
-            <p class="control">
-              <input
-                class="input is-rounded"
-                type="text"
-                placeholder="Add promo code"
-              />
-            </p>
-          </div>
-          <div class="column is-one-third">
-            <button class="button is-black is-rounded is-fullwidth">
-              <h4 class="has-text-white">Apply</h4>
-            </button>
+        <div class="control py-5">
+          <div class="columns">
+            <label class="column radio">
+              <input type="radio" name="foobar">
+              Direct Bank Transfer
+            </label>
+            <label class="column radio">
+              <input type="radio" name="foobar" checked>
+              Cash on Delivery
+            </label>
           </div>
         </div>
         <div class="">
           <button class="button is-black is-rounded is-fullwidth">
-            <h4 class="has-text-white">Go To Checkout</h4>
-            <i class="fa-solid fa-arrow-right pl-2" style="color: #ffffff;"></i>
+            <h4 class="has-text-white">Place order</h4>
           </button>
         </div>
       </div>

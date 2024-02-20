@@ -9,24 +9,24 @@
     </div>
     <div class="is-flex is-flex-direction-column">
       <h4 class="pb-5 is-size-6">COMPANY</h4>
-      <a href="" class="py-2 has-text-grey is-size-7">Home</a>
-      <a href="" class="py-2 has-text-grey is-size-7">About</a>
-      <a href="" class="py-2 has-text-grey is-size-7">Works</a>
-      <a href="" class="py-2 has-text-grey is-size-7">Contact</a>
+      <a [routerLink]="['/']" class="py-2 has-text-grey is-size-7">Home</a>
+      <a [routerLink]="['/company', 'about']" class="py-2 has-text-grey is-size-7">About</a>
+      <a [routerLink]="['/company', 'work']" class="py-2 has-text-grey is-size-7">Works</a>
+      <a [routerLink]="['/company', 'contact']" class="py-2 has-text-grey is-size-7">Contact</a>
     </div>
     <div class="is-flex is-flex-direction-column">
       <h4 class="pb-5 is-size-6">ACCOUNT</h4>
-      <a href="" class="py-2 has-text-grey is-size-7">My Account</a>
-      <a href="" class="py-2 has-text-grey is-size-7">Login/Register</a>
-      <a href="" class="py-2 has-text-grey is-size-7">Cart</a>
-      <a href="" class="py-2 has-text-grey is-size-7">Wishlist</a>
+      <a [routerLink]="['/account']" class="py-2 has-text-grey is-size-7">My Account</a>
+      <a [routerLink]="['/login']" class="py-2 has-text-grey is-size-7">Login/Register</a>
+      <a [routerLink]="['/shoppingCart']" class="py-2 has-text-grey is-size-7">Cart</a>
+      <a [routerLink]="['/wishlist']" class="py-2 has-text-grey is-size-7">Wishlist</a>
     </div>
     <div class="is-flex is-flex-direction-column">
       <h4 class="pb-5 is-size-6">HELP</h4>
-      <a href="" class="py-2 has-text-grey is-size-7">Privacy Policy</a>
-      <a href="" class="py-2 has-text-grey is-size-7">Terms Of Use</a>
-      <a href="" class="py-2 has-text-grey is-size-7">FAQ</a>
-      <a href="" class="py-2 has-text-grey is-size-7">FAQ</a>
+      <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">Privacy Policy</a>
+      <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">Terms Of Use</a>
+      <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">FAQ</a>
+      <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">FAQ</a>
     </div>
   </div>
   <hr class="">
