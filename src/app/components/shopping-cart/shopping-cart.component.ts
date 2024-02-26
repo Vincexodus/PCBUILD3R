@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
 import { Payment } from '../../interfaces/payment';
 
@@ -12,6 +12,8 @@ import { Payment } from '../../interfaces/payment';
 })
 
 export class ShoppingCartComponent {
+  @Input() show: boolean = false;
+  
   payments: Payment[] = [
     { key: 'Sub Total', value: 565 },
     { key: 'Discount (-20%)', value: 113 },

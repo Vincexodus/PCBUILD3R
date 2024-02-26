@@ -5,7 +5,7 @@
         <h3 class="has-text-weight-bold">Navigation</h3>
         <hr>
         <div class="my-2 is-justify-content-space-between" *ngFor="let dir of directories">
-          <a [routerLink]="[dir.link]" class="is-flex">
+          <a [routerLink]="['/account', dir.link]" class="is-flex">
             <i class="{{ dir.icon }} pt-2" style="color: #000000;"></i>
             <h4 class="p-2">{{ dir.name }}</h4>
           </a>
@@ -13,10 +13,10 @@
       </div>
     </div>
     <div class="column">
-      <app-order-history></app-order-history>
-      <app-wishlist></app-wishlist>
-      <app-shopping-cart></app-shopping-cart>
-      <app-edit-profile></app-edit-profile>
+      <app-order-history [show]="isActiveTab('orderHistory')"></app-order-history>
+      <app-wishlist [show]="isActiveTab('wishlist')"></app-wishlist>
+      <app-shopping-cart [show]="isActiveTab('shoppingCart')"></app-shopping-cart>
+      <app-edit-profile [show]="isActiveTab('editProfile')"></app-edit-profile>
     </div>
   </div>
 </div>

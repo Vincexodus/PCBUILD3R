@@ -41,9 +41,10 @@ export const routes: Routes = [
     component: AccountComponent,
     children: [
       { path: 'orderHistory', component: OrderHistoryComponent },
-      { path: 'wishList', component: WishlistComponent },
+      { path: 'wishlist', component: WishlistComponent },
       { path: 'shoppingCart', component: ShoppingCartComponent },
       { path: 'editProfile', component: EditProfileComponent },
+      { path: '', redirectTo: 'orderHistory', pathMatch: 'full' },
     ],
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

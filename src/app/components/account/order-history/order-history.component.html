@@ -1,1 +1,36 @@
-<p>order-history works!</p>
+<div *ngIf="show"  class="">
+  <div class="card-container">
+    <div class="columns has-text-centered">
+      <div class="column is-one-third">
+        <h4>Order Id</h4>
+      </div>
+      <div class="column">
+        <h4>Date</h4>
+      </div>
+      <div class="column">
+        <h4>Total</h4>
+      </div>
+      <div class="column">
+        <h4>Status</h4>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns"  *ngFor="">
+      <div class="column">
+        <h4>#1</h4>
+      </div>
+      <div class="column">
+        <h4>4 April, 2022</h4>
+      </div>
+      <div class="column">
+        <h4>$145 (5 Products)</h4>
+      </div>
+      <div class="column">
+        <h4>Processing</h4>
+      </div>
+      <div class="column">
+        <h4>View Details</h4>
+      </div>
+    </div>
+  </div>
+</div>
