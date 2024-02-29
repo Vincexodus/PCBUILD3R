@@ -1,0 +1,24 @@
+<div class="is-flex is-justify-content-space-between">
+  <div class="is-flex">
+    <div class="rounded-div">
+      <img src="../../../../../assets/cooler/cooler (2).png" alt="">
+    </div>
+    <div class="mx-5 my-auto">
+      <h4 class="has-text-weight-bold">{{ productName }}</h4>
+      <h4>{{ productDesc1 }}</h4>
+      <h4>{{ productDesc2 }}</h4>
+      <h4 class="has-text-weight-bold">MYR {{ price }}</h4>
+    </div>
+  </div>
+  <div class="my-auto">
+    <button class="button is-small is-black is-rounded">
+    Add to Cart
+    </button>
+  </div>
+  <div class="my-auto px-2">
+    <a href="">
+      <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+    </a>
+  </div>
+</div>
+<div class="divider" *ngIf="!islastItem"></div>

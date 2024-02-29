@@ -1,36 +1,36 @@
-<div *ngIf="show"  class="">
-  <div class="card-container">
-    <div class="columns has-text-centered">
-      <div class="column is-one-third">
-        <h4>Order Id</h4>
-      </div>
-      <div class="column">
-        <h4>Date</h4>
-      </div>
-      <div class="column">
-        <h4>Total</h4>
-      </div>
-      <div class="column">
-        <h4>Status</h4>
-      </div>
+<div *ngIf="show"  class="card-container">
+  <div class="columns">
+    <div class="column is-one-fifth">
+      <h4>Order Id</h4>
     </div>
-    <div class="divider"></div>
-    <div class="columns"  *ngFor="">
-      <div class="column">
-        <h4>#1</h4>
-      </div>
-      <div class="column">
-        <h4>4 April, 2022</h4>
-      </div>
-      <div class="column">
-        <h4>$145 (5 Products)</h4>
-      </div>
-      <div class="column">
-        <h4>Processing</h4>
-      </div>
-      <div class="column">
-        <h4>View Details</h4>
-      </div>
+    <div class="column is-one-fifth">
+      <h4>Date</h4>
+    </div>
+    <div class="column is-one-fifth">
+      <h4>Total</h4>
+    </div>
+    <div class="column">
+      <h4>Status</h4>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="columns mt-2" *ngFor="let i of getNumberArray(5); let index = index">
+    <div class="column">
+      <h4>#{{ i }}</h4>
+    </div>
+    <div class="column">
+      <h4>4 April, 2022</h4>
+    </div>
+    <div class="column">
+      <h4>$145 (5 Products)</h4>
+    </div>
+    <div class="column">
+      <h4>Processing</h4>
+    </div>
+    <div class="column">
+      <a href="">
+        <h4 class="has-text-success">View Details</h4>
+      </a>
     </div>
   </div>
 </div>
