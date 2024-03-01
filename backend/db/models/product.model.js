@@ -1,0 +1,51 @@
+const mongoose = require('mongoose');
+
+const ProductSchema = new mongoose.Schema({
+  _productId: {
+      type: mongoose.Types.ObjectId,
+      required: false
+  },
+  _categoryId: {
+      type: mongoose.Types.ObjectId,
+      required: false
+  },
+  _inventoryId: {
+      type: mongoose.Types.ObjectId,
+      required: false
+  },
+  _discountId: {
+      type: mongoose.Types.ObjectId,
+      required: false
+  },
+  productName: {
+      type: String,
+      required: true
+  },
+  desc: {
+      type: String,
+      required: true,
+  },
+  SKU: {
+      type: String,
+      required: true,
+  },
+  price: {
+      type: mongoose.Types.Decimal128,
+      required: false,
+  },
+  createdAt: {
+      type: Date,
+      required: false,
+      default: Date.now
+  },
+  modifiedAt: {
+      type: Date,
+  },
+  deletedAt: {
+      type: Date,
+  },
+})
+
+const Product = mongoose.model('Product', ProductSchema);
+
+module.exports = { Product }
