@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../service/product.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-intro-card',
@@ -7,6 +9,17 @@ import { Component } from '@angular/core';
   templateUrl: './intro-card.component.html',
   styleUrl: './intro-card.component.sass'
 })
-export class IntroCardComponent {
+export class IntroCardComponent implements OnInit{
+  
+  constructor(private productService: ProductService) { }
 
+  ngOnInit(): void {
+      
+  }
+
+  createProductCategory() {
+    this.productService.createProductCategory('GPU', 'Graphic Processing Unit').subscribe((response:any) => {
+      console.log(response);
+    })
+  }
 }

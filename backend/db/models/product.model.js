@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
-  _productId: {
-      type: mongoose.Types.ObjectId,
-      required: false
-  },
-  _categoryId: {
+  _productCategoryId: {
       type: mongoose.Types.ObjectId,
       required: false
   },
@@ -31,7 +27,7 @@ const ProductSchema = new mongoose.Schema({
   },
   price: {
       type: mongoose.Types.Decimal128,
-      required: false,
+      required: true,
   },
   createdAt: {
       type: Date,

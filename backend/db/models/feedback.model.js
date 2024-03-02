@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const FeedbackSchema = new mongoose.Schema({
-  _feedbackId: {
-      type: mongoose.Types.ObjectId,
-      required: true
-  },
   subject: {
       type: String,
       required: true

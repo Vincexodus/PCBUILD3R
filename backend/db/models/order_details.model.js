@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const OrderDetailsSchema = new mongoose.Schema({
-  _orderDetailsId: {
-      type: mongoose.Types.ObjectId,
-      required: true
-  },
   _userId: {
       type: mongoose.Types.ObjectId,
       required: true

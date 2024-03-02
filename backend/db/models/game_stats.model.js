@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const GameStatsSchema = new mongoose.Schema({
-  _gameStatsId: {
-      type: mongoose.Types.ObjectId,
-      required: true
-  },
   _userId: {
       type: mongoose.Types.ObjectId,
       required: true

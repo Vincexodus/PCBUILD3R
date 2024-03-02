@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProductCategorySchema = new mongoose.Schema({
-  _productCategoryId: {
-      type: mongoose.Types.ObjectId,
-      required: true
-  },
-  name: {
+  productCategoryName: {
       type: String,
       required: true
   },
@@ -15,7 +11,7 @@ const ProductCategorySchema = new mongoose.Schema({
   },
   createdAt: {
       type: Date,
-      required: true,
+      required: false,
       default: Date.now
   },
   modifiedAt: {

@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const SessionSchema = new mongoose.Schema({
-  _sessionId: {
-      type: mongoose.Types.ObjectId,
-      required: true
-  },
   _feedbackId: {
       type: mongoose.Types.ObjectId,
       required: true
