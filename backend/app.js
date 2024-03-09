@@ -38,44 +38,34 @@ app.use(function (req, res, next) {
   next();
 });
 
-// check whether the request has a valid JWT access token
+// authenticate using JWT access token
 let authenticate = (req, res, next) => {
   let token = req.header('x-access-token');
 
   // verify the JWT
   jwt.verify(token, User.getJWTSecret(), (err, decoded) => {
       if (err) {
-          // there was an error
-          // jwt is invalid - * DO NOT AUTHENTICATE *
           res.status(401).send(err);
       } else {
-          // jwt is valid
           req.user_id = decoded._id;
           next();
       }
   });
 }
 
-// Verify Refresh Token Middleware (which will be verifying the session)
 let verifySession = (req, res, next) => {
-  // grab the refresh token from the request header
   let refreshToken = req.header('x-refresh-token');
 
-  // grab the _id from the request header
   let _id = req.header('_id');
 
   User.findByIdAndToken(_id, refreshToken).then((user) => {
       if (!user) {
-          // user couldn't be found
           return Promise.reject({
               'error': 'User not found. Make sure that the refresh token and user id are correct'
           });
       }
 
-
-      // if the code reaches here - the user was found
-      // therefore the refresh token exists in the database - but we still have to check if it has expired or not
-
+      // user found
       req.user_id = user._id;
       req.userObject = user;
       req.refreshToken = refreshToken;
@@ -84,19 +74,16 @@ let verifySession = (req, res, next) => {
 
       user.sessions.forEach((session) => {
           if (session.token === refreshToken) {
-              // check if the session has expired
+              // If token not expired
               if (User.hasRefreshTokenExpired(session.expiresAt) === false) {
-                  // refresh token has not expired
                   isSessionValid = true;
               }
           }
       });
 
       if (isSessionValid) {
-          // the session is VALID - call next() to continue with processing this web request
           next();
       } else {
-          // the session is not valid
           return Promise.reject({
               'error': 'Refresh token has expired or the session is invalid'
           })
@@ -112,18 +99,23 @@ let verifySession = (req, res, next) => {
 // LIST ROUTES
 
 // Get all product category
-app.get("/productCategory", (req, res) => {
-  ProductCategory.find({}).then((category) => {
+app.get("/productCategory", authenticate, (req, res) => {
+  ProductCategory.find({
+    // _userId: req.user_id
+  }).then((category) => {
     res.send(category);
-  });
+  }).catch((e) => {
+    res.send(e);
+  })
 });
 
 // Create product category
-app.post("/productCategory", (req, res) => {
+app.post("/productCategory", authenticate, (req, res) => {
   let productCategory = req.body;
   let newProductCategory = new ProductCategory({
     productCategoryName: productCategory.productCategoryName,
     desc: productCategory.desc,
+    // _userId: req.user_id
   });
 
   newProductCategory.save().then((newDoc) => {
@@ -132,7 +124,7 @@ app.post("/productCategory", (req, res) => {
 });
 
 // Update product category
-app.patch("/productCategory/:id", (req, res) => {
+app.patch("/productCategory/:id", authenticate, (req, res) => {
   ProductCategory.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -144,16 +136,17 @@ app.patch("/productCategory/:id", (req, res) => {
 });
 
 // Delete products
-app.delete("/productCategory/:id", (req, res) => {
+app.delete("/productCategory/:id", authenticate, (req, res) => {
   ProductCategory.findOneAndDelete({
     _id: req.params.id,
+    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   });
 });
 
 // Get all product using product category id
-app.get("/productCategory/:productCategoryId/products", (req, res) => {
+app.get("/productCategory/:productCategoryId/products", authenticate, (req, res) => {
   Product.find({
     _productCategoryId: req.params.productCategoryId,
   }).then((products) => {
@@ -162,9 +155,11 @@ app.get("/productCategory/:productCategoryId/products", (req, res) => {
 });
 
 // Create a product using product category id
-app.post("/productCategory/:productCategoryId/products", (req, res) => {
+app.post("/productCategory/:productCategoryId/products", authenticate, (req, res) => {
   ProductCategory.findOne({
     _id: req.params.productCategoryId,
+    // _userId: req.user_id
+
   })
     .then((product) => {
       if (product) {
@@ -197,10 +192,11 @@ app.post("/productCategory/:productCategoryId/products", (req, res) => {
 
 // Update product using product category id
 app.patch(
-  "/productCategory/:productCategoryId/products/:productId",
+  "/productCategory/:productCategoryId/products/:productId", authenticate,
   (req, res) => {
     ProductCategory.findOne({
       _id: req.params.productCategoryId,
+      // _userId: req.user_id
     })
       .then((category) => {
         if (category) {
@@ -235,10 +231,11 @@ app.patch(
 
 // Delete product using product category id
 app.delete(
-  "/productCategory/:productCategoryId/products/:productId",
+  "/productCategory/:productCategoryId/products/:productId", authenticate,
   (req, res) => {
     ProductCategory.findOne({
       _id: req.params.productCategoryId,
+      // _userId: req.user_id
     })
       .then((category) => {
         if (category) {
@@ -281,7 +278,6 @@ app.post('/users', (req, res) => {
       return newUser.createSession();
   }).then((refreshToken) => {
       // Session created successfully - refreshToken returned.
-      // now we geneate an access auth token for the user
 
       return newUser.generateAccessAuthToken().then((accessToken) => {
           // access auth token generated successfully, now we return an object containing the auth tokens
@@ -310,7 +306,6 @@ app.post('/users/login', (req, res) => {
   User.findByCredentials(email, password).then((user) => {
       return user.createSession().then((refreshToken) => {
           // Session created successfully - refreshToken returned.
-          // now we geneate an access auth token for the user
 
           return user.generateAccessAuthToken().then((accessToken) => {
               // access auth token generated successfully, now we return an object containing the auth tokens
