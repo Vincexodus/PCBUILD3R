@@ -19,12 +19,14 @@ import { WishlistComponent } from './components/account/wishlist/wishlist.compon
 import { EditProfileComponent } from './components/account/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
+  { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent },
+  
   { path: 'home', component: HomeComponent },
+  
   { path: 'shop', component: ShopComponent },
   { path: 'productDetail', component: ProductDetailComponent },
   { path: 'shoppingCart', component: ShoppingCartComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'checkout', component: CheckoutComponent },
   {
     path: 'company',
@@ -47,8 +49,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'orderHistory', pathMatch: 'full' },
     ],
   },
+
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({ 

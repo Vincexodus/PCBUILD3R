@@ -4,12 +4,10 @@
 $family-sans-serif: 'Lexend', sans-serif
 $family-primary: $family-sans-serif
 
-@import 'palette'
+$footer-padding: 2rem 0rem 1.5rem
 
 @import "../node_modules/bulma/bulma"
-
-// font-family: 'Francois One', sans-serif;
-// font-family: 'Lexend', sans-serif;
+@import 'palette'
 
 h1, h2, h3, h4, h5, h6, p
   color: black
@@ -36,3 +34,29 @@ body
 .section-vspacing
   margin-top: 3rem
   margin-bottom: 3rem
+
+.divider
+  height: 1px
+  background-color: $primary
+  margin: 5px 0px
+
+.card-container
+  padding: 20px
+  border-radius: 25px
+  border: 1px solid $primary
+
+.auth-width
+  width: 25rem
+
+.auth-banner
+  width: 50%
+  border-radius: 50px
+  padding: 2.5rem
+  background-color: $primary
+
+.item-rounded-bg
+  width: 5rem
+  height: 5rem
+  border-radius: 12.5px
+  background-color: $primary
+  margin: 5px 0px

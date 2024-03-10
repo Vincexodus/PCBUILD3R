@@ -1,23 +1,18 @@
 const mongoose = require('mongoose');
 
-const GameStatsSchema = new mongoose.Schema({
-  _userId: {
+const OrderItemsSchema = new mongoose.Schema({
+  _orderId: {
       type: mongoose.Types.ObjectId,
       required: true
   },
-  _sessionId: {
+  _productId: {
       type: mongoose.Types.ObjectId,
       required: true
   },
-  level: {
+  quantity: {
       type: Number,
       required: true,
       default: 1
-  },
-  experience: {
-      type: Number,
-      required: true,
-      default: 0
   },
   createdAt: {
       type: Date,
@@ -29,6 +24,4 @@ const GameStatsSchema = new mongoose.Schema({
   },
 })
 
-const GameStats = mongoose.model('GameStats', GameStatsSchema);
-
-module.exports = { GameStats }
+module.exports = mongoose.model('OrderItems', OrderItemsSchema);

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const ProductInventorySchema = new mongoose.Schema({
-  _productCategoryId: {
+const CartItemSchema = new mongoose.Schema({
+  _productId: {
       type: mongoose.Types.ObjectId,
       required: true
   },
@@ -17,11 +17,6 @@ const ProductInventorySchema = new mongoose.Schema({
   modifiedAt: {
       type: Date,
   },
-  deletedAt: {
-      type: Date,
-  },
 })
 
-const ProductInventory = mongoose.model('ProductInventory', ProductInventorySchema);
-
-module.exports = { ProductInventory }
+module.exports = mongoose.model('CartItem', CartItemSchema);

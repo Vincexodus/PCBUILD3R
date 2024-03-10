@@ -1,17 +1,23 @@
 const mongoose = require('mongoose');
 
-const OrderDetailsSchema = new mongoose.Schema({
+const GameStatsSchema = new mongoose.Schema({
   _userId: {
       type: mongoose.Types.ObjectId,
       required: true
   },
-  _paymentId: {
+  _sessionId: {
       type: mongoose.Types.ObjectId,
       required: true
   },
-  total: {
-      type: mongoose.Types.Decimal128,
-      required: true
+  level: {
+      type: Number,
+      required: true,
+      default: 1
+  },
+  experience: {
+      type: Number,
+      required: true,
+      default: 0
   },
   createdAt: {
       type: Date,
@@ -23,6 +29,4 @@ const OrderDetailsSchema = new mongoose.Schema({
   },
 })
 
-const OrderDetails = mongoose.model('OrderDetails', OrderDetailsSchema);
-
-module.exports = { OrderDetails }
+module.exports = mongoose.model('GameStats', GameStatsSchema);

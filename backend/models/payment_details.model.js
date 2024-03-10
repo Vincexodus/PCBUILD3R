@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 
-const FeedbackSchema = new mongoose.Schema({
-  subject: {
-      type: String,
+const PaymentDetailsSchema = new mongoose.Schema({
+  _orderId: {
+      type: mongoose.Types.ObjectId,
       required: true
   },
-  rating: {
-      type: Number,
+  amount: {
+      type: mongoose.Types.Decimal128,
       required: true,
-      default: 1
   },
-  desc: {
+  status: {
       type: String,
       required: true,
   },
@@ -24,6 +23,4 @@ const FeedbackSchema = new mongoose.Schema({
   },
 })
 
-const Feedback = mongoose.model('Feedback', FeedbackSchema);
-
-module.exports = { Feedback }
+module.exports = mongoose.model('PaymentDetails', PaymentDetailsSchema);

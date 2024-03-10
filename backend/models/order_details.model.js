@@ -1,18 +1,17 @@
 const mongoose = require('mongoose');
 
-const OrderItemsSchema = new mongoose.Schema({
-  _orderId: {
+const OrderDetailsSchema = new mongoose.Schema({
+  _userId: {
       type: mongoose.Types.ObjectId,
       required: true
   },
-  _productId: {
+  _paymentId: {
       type: mongoose.Types.ObjectId,
       required: true
   },
-  quantity: {
-      type: Number,
-      required: true,
-      default: 1
+  total: {
+      type: mongoose.Types.Decimal128,
+      required: true
   },
   createdAt: {
       type: Date,
@@ -24,6 +23,4 @@ const OrderItemsSchema = new mongoose.Schema({
   },
 })
 
-const OrderItems = mongoose.model('OrderItems', OrderItemsSchema);
-
-module.exports = { OrderItems }
+module.exports = mongoose.model('OrderDetails', OrderDetailsSchema);
