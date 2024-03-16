@@ -11,7 +11,7 @@ const orderDetailsRoutes = require('./routes/order_details');
 const orderItemsRoutes = require('./routes/order_items');
 const paymentDetailsRoutes = require('./routes/payment_details');
 const productCategoryRoutes = require('./routes/product_category');
-const productInventoryRoutes = require('./routes/');
+const productInventoryRoutes = require('./routes/product_inventory');
 const productRoutes = require('./routes/product');
 const sessionRoutes = require('./routes/session');
 const userAddressRoutes = require('./routes/user_address');
@@ -57,7 +57,7 @@ app.use("/product", productRoutes);
 app.use("/session", sessionRoutes);
 app.use("/userAddress", userAddressRoutes);
 app.use("/userPayment", userPaymentRoutes);
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 app.use("/wishlist", wishlistRoutes);
 
 app.listen(3000, () => {

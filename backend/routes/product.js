@@ -1,24 +1,27 @@
+const express = require("express");
+const router = express.Router();
+const authenticate = require('../middleware/authenticate');
 
-// Get all product using product category id
-app.get("/productCategory/:productCategoryId/products", authenticate, (req, res) => {
+const ProductCategory = require('../models/product_category.model')
+const Product = require('../models/product.model')
+
+// Get all product
+router.get("", authenticate, (req, res) => {
   Product.find({
-    _productCategoryId: req.params.productCategoryId,
   }).then((products) => {
     res.send(products);
   });
 });
 
-// Create a product using product category id
-app.post("/productCategory/:productCategoryId/products", authenticate, (req, res) => {
+// Create product
+router.post("", authenticate, (req, res) => {
+  let product = req.body;
   ProductCategory.findOne({
-    _id: req.params.productCategoryId,
+    _id: product.productCategoryId,
     // _userId: req.user_id
-
   })
-    .then((product) => {
-      if (product) {
-        // list object with the specified conditions was found
-        // therefore the currently authenticated user can create new tasks
+    .then((category) => {
+      if (category) {
         return true;
       }
 
@@ -27,9 +30,10 @@ app.post("/productCategory/:productCategoryId/products", authenticate, (req, res
     })
     .then((canCreateProduct) => {
       if (canCreateProduct) {
-        let product = req.body;
         let newProduct = new Product({
-          _productCategoryId: req.params.productCategoryId,
+          _productCategoryId: product.productCategoryId,
+          _inventoryId: product._inventoryId,
+          _discountId: product._discountId,
           productName: product.productName,
           desc: product.desc,
           SKU: product.SKU,
@@ -44,12 +48,11 @@ app.post("/productCategory/:productCategoryId/products", authenticate, (req, res
     });
 });
 
-// Update product using product category id
-app.patch(
-  "/productCategory/:productCategoryId/products/:productId", authenticate,
-  (req, res) => {
+// Update product
+router.patch("/:id", authenticate, (req, res) => {
+    let product = req.body;
     ProductCategory.findOne({
-      _id: req.params.productCategoryId,
+      _id: product.productCategoryId,
       // _userId: req.user_id
     })
       .then((category) => {
@@ -66,10 +69,7 @@ app.patch(
         if (canUpdateProduct) {
           // the currently authenticated user can update tasks
           Product.findOneAndUpdate(
-            {
-              _id: req.params.productId,
-              _productCategoryId: req.params.productCategoryId,
-            },
+            { _id: req.params.id },
             {
               $set: req.body,
             }
@@ -83,35 +83,14 @@ app.patch(
   }
 );
 
-// Delete product using product category id
-app.delete(
-  "/productCategory/:productCategoryId/products/:productId", authenticate,
-  (req, res) => {
-    ProductCategory.findOne({
-      _id: req.params.productCategoryId,
-      // _userId: req.user_id
-    })
-      .then((category) => {
-        if (category) {
-          // list object with the specified conditions was found
-          // therefore the currently authenticated user can make updates to tasks within this list
-          return true;
-        }
+// Delete product
+router.delete("/:id", authenticate, (req, res) => {
+  Product.findOneAndDelete({
+    _id: req.params.id,
+    // _userId: req.user_id
+  }).then((removedDoc) => {
+    res.send(removedDoc);
+  });
+});
 
-        // else - the list object is undefined
-        return false;
-      })
-      .then((canDeleteProduct) => {
-        if (canDeleteProduct) {
-          Product.findOneAndDelete({
-            _id: req.params.productId,
-            _productCategoryId: req.params.productCategoryId,
-          }).then((removedDoc) => {
-            res.send(removedDoc);
-          });
-        } else {
-          res.sendStatus(404);
-        }
-      });
-  }
-);
+module.exports = router;
