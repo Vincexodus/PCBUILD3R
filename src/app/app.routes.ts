@@ -17,6 +17,11 @@ import { AccountComponent } from './components/account/account.component';
 import { OrderHistoryComponent } from './components/account/order-history/order-history.component';
 import { WishlistComponent } from './components/account/wishlist/wishlist.component';
 import { EditProfileComponent } from './components/account/edit-profile/edit-profile.component';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { AdminProductComponent } from './components/admin/admin-product/admin-product.component';
+import { AdminPaymentComponent } from './components/admin/admin-payment/admin-payment.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -47,6 +52,17 @@ export const routes: Routes = [
       { path: 'shoppingCart', component: ShoppingCartComponent },
       { path: 'editProfile', component: EditProfileComponent },
       { path: '', redirectTo: 'orderHistory', pathMatch: 'full' },
+    ],
+  },
+  {
+    path: 'admin',
+    component: AdminHomeComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'adminProduct', component: AdminProductComponent },
+      { path: 'adminPayment', component: AdminPaymentComponent },
+      { path: 'adminUser', component: AdminUserComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 

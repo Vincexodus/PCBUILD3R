@@ -1,0 +1,78 @@
+<div *ngIf="show" class="">
+  <div class="is-flex mt-2">
+    <div class="is-flex pr-2">
+      <input class="input is-small is-rounded" type="text" placeholder="Search for products">
+      <div class="button is-small is-rounded is-white">
+        <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
+      </div>
+    </div>
+    <button class="button is-small is-primary is-rounded" (click)="openModal()">
+      <i class="fa-solid fa-plus pr-2" style="color: #000000;"></i>
+      Add Product
+    </button>
+    <div class="modal is-active" *ngIf="isActive">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button" (click)="closeModal()">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <div class="card-container my-5">
+    <div class="columns">
+      <div class="column is-one-fifth">
+        <h4>Order Id</h4>
+      </div>
+      <div class="column is-one-fifth">
+        <h4>Date</h4>
+      </div>
+      <div class="column is-one-fifth">
+        <h4>Total</h4>
+      </div>
+      <div class="column">
+        <h4>Status</h4>
+      </div>
+      <div class="column">
+        <h4>Action</h4>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns mt-2" *ngFor="let i of getNumberArray(10); let index = index">
+      <div class="column">
+        <h4>#{{ i }}</h4>
+      </div>
+      <div class="column">
+        <h4>4 April, 2022</h4>
+      </div>
+      <div class="column">
+        <h4>$145 (5 Products)</h4>
+      </div>
+      <div class="column">
+        <h4>Processing</h4>
+      </div>
+      <div class="column">
+        <div class="is-flex">
+          <button class="button is-small is-primary is-rounded">
+            <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
+            Edit
+          </button>
+          <div class="px-5">
+            <a href="">
+              <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-pagination></app-pagination>
+</div>

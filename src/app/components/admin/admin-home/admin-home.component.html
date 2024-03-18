@@ -1,0 +1,30 @@
+<div class="columns fill-height">
+  <div class="column is-one-fifth has-background-primary">
+    <div class="m-5">
+      <h1 class="has-text-black pr-5 has-text-weight-bold">PCBUILD3R</h1>
+    </div>
+    <div class="m-5 is-justify-content-space-between" *ngFor="let dir of directories">
+      <a [routerLink]="['/admin', dir.link]" class="is-flex" (click)="updateTitle(dir.name)">
+        <i class="{{ dir.icon }} pt-2" style="color: #000000;"></i>
+        <h4 class="p-2">{{ dir.name }}</h4>
+      </a>
+    </div>
+  </div>
+  <div class="column">
+    <div class="m-5">
+      <div class="is-flex is-justify-content-space-between">
+        <h1 class="has-text-black pr-5 has-text-weight-bold">{{ currTitle }}</h1>
+        <div class="">
+          <a [routerLink]="['/login']" class="is-rounded">
+            <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+          </a>
+        </div>
+      </div>
+
+      <app-dashboard [show]="isActiveTab('dashboard')"></app-dashboard>
+      <app-admin-product [show]="isActiveTab('adminProduct')"></app-admin-product>
+      <app-admin-payment [show]="isActiveTab('adminPayment')"></app-admin-payment>
+      <app-admin-user [show]="isActiveTab('adminUser')"></app-admin-user>
+    </div>
+  </div>
+</div>
