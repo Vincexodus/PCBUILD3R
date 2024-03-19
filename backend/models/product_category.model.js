@@ -5,9 +5,13 @@ const ProductCategorySchema = new mongoose.Schema({
       type: String,
       required: true
   },
-  desc: {
+  productCategoryNameShort: {
       type: String,
-      required: true,
+      required: true
+  },
+  productCategoryImage: {
+      data: Buffer,
+      type: String,
   },
   createdAt: {
       type: Date,

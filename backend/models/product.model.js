@@ -21,10 +21,6 @@ const ProductSchema = new mongoose.Schema({
       type: String,
       required: true,
   },
-  SKU: {
-      type: String,
-      required: true,
-  },
   price: {
       type: mongoose.Types.Decimal128,
       required: true,

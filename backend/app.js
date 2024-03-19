@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
       'x-access-token, x-refresh-token'
   );
 
-  next();
+  next();  
 });
 
 app.use("/cartItem", cartItemRoutes);

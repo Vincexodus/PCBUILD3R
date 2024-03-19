@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Payment } from '../../interfaces/payment';
+import { Payment } from '../../interface/payment';
 
 @Component({
   selector: 'app-checkout',

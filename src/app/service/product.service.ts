@@ -7,22 +7,24 @@ import { WebRequestService } from './web-request.service';
 export class ProductService {
   constructor(private webReqService: WebRequestService) { }
 
+  // Product Category Routes
   getProductCategory() {
     return this.webReqService.get('productCategory');
   }
 
-  createProductCategory(productCategoryName: string, desc: string) {
-    return this.webReqService.post('productCategory', { productCategoryName, desc });
+  createProductCategory(productCategoryName: string, productCategoryNameShort: string, productCategoryImage: string | ArrayBuffer | null) {
+    return this.webReqService.post('productCategory', { productCategoryName, productCategoryNameShort, productCategoryImage });
   }
 
-  updateProductCategory(id: string, productCategoryName: string, desc: string) {
-    return this.webReqService.patch(`productCategory/${id}`, { productCategoryName, desc });
+  updateProductCategory(id: string, productCategoryName: string, productCategoryNameShort: string, productCategoryImage: string | ArrayBuffer | null) {
+    return this.webReqService.patch(`productCategory/${id}`, { productCategoryName, productCategoryNameShort, productCategoryImage });
   }
   
   deleteProductCategory(id: string) {
     return this.webReqService.delete(`productCategory/${id}`);
   }
-  
+
+  // Product Routes
   createProduct(productCategoryId: string, productName: string, desc: string, sku: number, price: number) {
     return this.webReqService.post(`productCategory/${productCategoryId}/products`, { productName, desc, sku, price });
   }

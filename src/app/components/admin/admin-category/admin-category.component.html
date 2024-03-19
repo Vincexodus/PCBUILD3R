@@ -1,0 +1,174 @@
+<div *ngIf="show" class="">
+  <div class="is-flex mt-2">
+    <div class="is-flex pr-2">
+      <input #searchKeyword class="input is-small is-rounded" type="text" placeholder="Search for category" (input)="categorySearch(searchKeyword.value)">
+      <div class="is-small is-rounded is-white">
+        <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
+      </div>
+    </div>
+    <button class="button is-small is-primary is-rounded" (click)="openAddModal()">
+      <i class="fa-solid fa-plus pr-2" style="color: #000000;"></i>
+      Add Category
+    </button>
+    <div class="modal is-active" *ngIf="isAddModalActive">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title ">Add Category</p>
+          <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="px-2">
+            <div class="columns">
+              <div class="column is-one-third">Category Image</div>
+              <div class="column">
+                <input type="file" accept="image/*" (input)="onFileSelected($event)"><br>
+                <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="img-size">
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">Category Name</div>
+              <div class="column">
+                <input #categoryName class="input is-small" type="text">
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">Category Name (Short Form)</div>
+              <div class="column">
+                <input #categoryNameShort class="input is-small" type="text">
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success is-rounded is-small" 
+                  (click)="addCategory(categoryName.value, categoryNameShort.value)">Save changes</button>
+          <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <div class="card-container my-5">
+    <div class="columns">
+      <div class="column">
+        <h4>Id</h4>
+      </div>
+      <div class="column">
+        <h4>Image (Preview)</h4>
+      </div>
+      <div class="column">
+        <h4>Name</h4>
+      </div>
+      <div class="column">
+        <h4>Name (Short)</h4>
+      </div>
+      <div class="column">
+        <h4>Created At</h4>
+      </div>
+      <div class="column">
+        <h4>Version</h4>
+      </div>
+      <div class="column">
+        <h4>Action</h4>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns mt-2" *ngFor="let category of productCategory">
+      <div class="column">
+        <h4>{{ maskString(category._id) }}</h4>
+      </div>
+      <div class="column">
+        <img *ngIf="category.productCategoryImage" [src]="category.productCategoryImage" alt="Selected Image" class="image is-64x64">
+      </div>
+      <div class="column">
+        <h4>{{ category.productCategoryName }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ category.productCategoryNameShort }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ category.createdAt }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ category.__v }}</h4>
+      </div>
+      <div class="column">
+        <div class="is-flex">
+          <button class="button is-small is-primary is-rounded" (click)="openEditModal(category._id)">
+            <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
+            Edit
+          </button>
+          <div class="modal is-active" *ngIf="editModalStates[category._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title ">Edit Product Category</p>
+                <button class="delete" aria-label="close" (click)="closeEditModal(category._id)"></button>
+              </header>
+              <section class="modal-card-body">
+                <div class="px-2">
+                  <div class="columns">
+                    <div class="column is-one-third">Category Id</div>
+                    <div class="column">
+                      <input [(ngModel)]="category._id" class="input is-small" type="text" placeholder="" disabled="" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="px-2">
+                  <div class="columns">
+                    <div class="column is-one-third">Category Image</div>
+                    <div class="column">
+                      <input type="file" accept="image/*" (input)="onFileSelected($event)" required><br>
+                      <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="image is-64x64">
+                    </div>
+                  </div>
+                </div>
+                <div class="px-2">
+                  <div class="columns">
+                    <div class="column is-one-third">Category</div>
+                    <div class="column">
+                      <input [(ngModel)]="editCategoryName" #categoryName class="input is-small" type="text" required>
+                    </div>
+                  </div>
+                  <div class="columns">
+                    <div class="column is-one-third">Category Name (Short Form)</div>
+                    <div class="column">
+                      <input [(ngModel)]="editCategoryNameShort" #categoryNameShort class="input is-small" type="text" required>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success is-rounded is-small" (click)="editCategory(category._id, categoryName.value, categoryNameShort.value)">Save changes</button>
+                <button class="button is-rounded is-small" (click)="closeEditModal(category._id)">Cancel</button>
+              </footer>
+            </div>
+          </div>
+          <div class="px-5">
+            <a (click)="openDeleteModal(category._id)">
+              <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+            </a>
+          </div>
+          <div class="modal is-active" *ngIf="deleteModalStates[category._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title ">Delete Product Category</p>
+                <button class="delete" aria-label="close" (click)="closeDeleteModal(category._id)"></button>
+              </header>
+              <section class="modal-card-body">
+                <div class="">
+                  Are you sure to delete {{ category.productCategoryName }}?
+                </div>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success is-rounded is-small" (click)="deleteCategory(category._id)">Yes</button>
+                <button class="button is-rounded is-small" (click)="closeDeleteModal(category._id)">No</button>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,15 +14,62 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Modal title</p>
+          <p class="modal-card-title ">Add Product</p>
           <button class="delete" aria-label="close" (click)="closeModal()"></button>
         </header>
         <section class="modal-card-body">
-          <!-- Content ... -->
+          <div class="px-2">
+            <div class="columns">
+              <div class="column is-one-third">Product Name</div>
+              <div class="column">
+                <input class="input is-small" type="text" placeholder="">
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">Product Category</div>
+              <div class="column">
+                <div class="dropdown" [class.is-active]="isDropdownActive">
+                  <div class="dropdown-trigger">
+                    <button class="button" (click)="toggleDropdown()" aria-haspopup="true" aria-controls="dropdown-menu3">
+                      <span><h4>Most Popular</h4></span>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                    <div class="dropdown-content">
+                      <a href="#" class="dropdown-item">
+                        <h4>Best Match</h4>
+                      </a>
+                      <a href="#" class="dropdown-item">
+                        <h4>Price High to Low</h4>
+                      </a>
+                      <a href="#" class="dropdown-item">
+                        <h4>Price Low to High</h4>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">Product Description</div>
+              <div class="column">
+                <textarea class="textarea" placeholder="Message"></textarea>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-one-third">Product Price (MYR)</div>
+              <div class="column">
+                <input class="input is-small" type="text" placeholder="">
+              </div>
+            </div>
+          </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
-          <button class="button" (click)="closeModal()">Cancel</button>
+          <button class="button is-success is-rounded is-small">Save changes</button>
+          <button class="button is-rounded is-small" (click)="closeModal()">Cancel</button>
         </footer>
       </div>
     </div>

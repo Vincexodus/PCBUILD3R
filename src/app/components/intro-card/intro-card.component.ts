@@ -16,10 +16,4 @@ export class IntroCardComponent implements OnInit{
   ngOnInit(): void {
       
   }
-
-  createProductCategory() {
-    this.productService.createProductCategory('GPU', 'Graphic Processing Unit').subscribe((response:any) => {
-      console.log(response);
-    })
-  }
 }

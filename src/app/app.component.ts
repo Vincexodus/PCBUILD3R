@@ -4,15 +4,17 @@ import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/ro
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminFooterComponent } from './components/admin/admin-footer/admin-footer.component';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, AdminFooterComponent ],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, AdminFooterComponent, NgToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
+  title="PCBuild3R";
   isAdmin: boolean = false;
   currentMessage: string = 'Hello, World';
 

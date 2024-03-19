@@ -1,13 +1,26 @@
 const express = require("express");
 const router = express.Router();
+var multer  = require('multer');
+var fs = require('fs');
+var path = require('path');
 const authenticate = require('../middleware/authenticate');
 
 const ProductCategory = require('../models/product_category.model')
 
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+var upload = multer({ storage: storage });
+
 // Get all product category
-router.get("", authenticate, (req, res) => {
+router.get("", (req, res) => {
   ProductCategory.find({
-    // _userId: req.user_id
   }).then((category) => {
     res.send(category);
   }).catch((e) => {
@@ -16,11 +29,12 @@ router.get("", authenticate, (req, res) => {
 });
 
 // Create product category
-router.post("", authenticate, (req, res) => {
+router.post("", upload.single('image'), (req, res) => {
   let productCategory = req.body;
   let newProductCategory = new ProductCategory({
     productCategoryName: productCategory.productCategoryName,
-    desc: productCategory.desc,
+    productCategoryNameShort: productCategory.productCategoryNameShort,
+    productCategoryImage: productCategory.productCategoryImage,
     // _userId: req.user_id
   });
 
@@ -30,7 +44,7 @@ router.post("", authenticate, (req, res) => {
 });
 
 // Update product category
-router.patch("/:id", authenticate, (req, res) => {
+router.patch("/:id", (req, res) => {
   ProductCategory.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -42,7 +56,7 @@ router.patch("/:id", authenticate, (req, res) => {
 });
 
 // Delete product category
-router.delete("/:id", authenticate, (req, res) => {
+router.delete("/:id", (req, res) => {
   ProductCategory.findOneAndDelete({
     _id: req.params.id,
     // _userId: req.user_id

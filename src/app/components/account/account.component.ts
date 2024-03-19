@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Directory } from '../../interfaces/directory';
+import { Directory } from '../../interface/directory';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { WishlistComponent } from './wishlist/wishlist.component';

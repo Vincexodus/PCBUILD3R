@@ -4,6 +4,7 @@ import { CompanyComponent } from './components/company/company.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { NgToastModule } from 'ng-angular-popup'
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AboutComponent } from './components/company/about/about.component';
@@ -22,6 +23,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { AdminProductComponent } from './components/admin/admin-product/admin-product.component';
 import { AdminPaymentComponent } from './components/admin/admin-payment/admin-payment.component';
 import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
+import { AdminCategoryComponent } from './components/admin/admin-category/admin-category.component';
 
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -59,9 +61,10 @@ export const routes: Routes = [
     component: AdminHomeComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'adminProduct', component: AdminProductComponent },
-      { path: 'adminPayment', component: AdminPaymentComponent },
-      { path: 'adminUser', component: AdminUserComponent },
+      { path: 'product', component: AdminProductComponent },
+      { path: 'category', component: AdminCategoryComponent },
+      { path: 'payment', component: AdminPaymentComponent },
+      { path: 'user', component: AdminUserComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
@@ -71,7 +74,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({ 
-  imports: [RouterModule.forRoot(routes)], 
+  imports: [RouterModule.forRoot(routes), NgToastModule], 
   exports: [RouterModule], 
 }) 
 export class AppRoutingModule {}

@@ -20,6 +20,7 @@ export class AdminProductComponent {
 
   openModal(): void {
     this.isActive = true;
+    // service here
   }
 
   closeModal(): void {
@@ -30,5 +31,11 @@ export class AdminProductComponent {
     if (event.key === 'Escape') {
       this.closeModal();
     }
+  }
+
+  isDropdownActive = false;
+
+  toggleDropdown() {
+    this.isDropdownActive = !this.isDropdownActive;
   }
 }

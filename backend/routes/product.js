@@ -36,7 +36,6 @@ router.post("", authenticate, (req, res) => {
           _discountId: product._discountId,
           productName: product.productName,
           desc: product.desc,
-          SKU: product.SKU,
           price: product.price,
         });
         newProduct.save().then((newDoc) => {
