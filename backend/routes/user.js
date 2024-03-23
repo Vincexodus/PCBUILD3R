@@ -5,9 +5,20 @@ const authenticate = require('../middleware/authenticate');
 
 const User = require("../models/user.model");
 
-// Get all product category
+// Get all users
 router.get("", authenticate, (req, res) => {
   User.find({
+  }).then((user) => {
+    res.send(user);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
+// Get user by id
+router.get("/:id", authenticate, (req, res) => {
+  User.find({
+    _id: req.params.id
   }).then((user) => {
     res.send(user);
   }).catch((e) => {

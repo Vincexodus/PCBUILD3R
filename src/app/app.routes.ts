@@ -32,9 +32,9 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   
   { path: 'shop', component: ShopComponent },
-  { path: 'productDetail', component: ProductDetailComponent },
-  { path: 'shoppingCart', component: ShoppingCartComponent },
-  { path: 'checkout', component: CheckoutComponent },
+  // { path: 'productDetail', component: ProductDetailComponent },
+  // { path: 'shoppingCart', component: ShoppingCartComponent },
+  // { path: 'checkout', component: CheckoutComponent },
   {
     path: 'company',
     component: CompanyComponent,

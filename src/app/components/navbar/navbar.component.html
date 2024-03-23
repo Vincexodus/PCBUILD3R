@@ -1,70 +1,64 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      <h1 class="has-text-black pr-5 has-text-weight-bold">PCBUILD3R</h1>
-    </a>
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a [routerLink]="['/shop']" class="navbar-item has-text-black">
-        <h4>Shop</h4>
+<div class="body-width">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <h1 class="has-text-black pr-5 has-text-weight-bold">PCBUILD3R</h1>
       </a>
-
-      <a [routerLink]="['/productDetail']" class="navbar-item has-text-black">
-        <h4>Product Detail</h4>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </a>
-
-      <a [routerLink]="['/shoppingCart']" class="navbar-item has-text-black">
-        <h4>Shopping Cart</h4>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a [routerLink]="['/company', 'about']" class="navbar-link has-text-black">
-          <h4>Company</h4>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a [routerLink]="['/shop']" class="navbar-item has-text-black">
+          <h4>Shop</h4>
         </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a [routerLink]="['/company', 'about']" class="navbar-link has-text-black">
+            <h4>Company</h4>
+          </a>
 
-        <div class="navbar-dropdown">
-          <a [routerLink]="['/company', 'about']" class="navbar-item has-text-black">
-            <h4>About</h4>
-          </a>
-          <a [routerLink]="['/company', 'works']" class="navbar-item has-text-black">
-            <h4>Works</h4>
-          </a>
-          <a [routerLink]="['/company', 'contact']" class="navbar-item has-text-black">
-            <h4>Contact</h4>
-          </a>
-        </div>
-      </div>
-      
-      <div class="navbar-item">
-        <input class="input is-small is-rounded" type="text" placeholder="Search for products">
-        <div class="button is-rounded is-white">
-          <i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i>
-        </div>
-      </div>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="is-flex is-flex-direction-row">
-          <div class="px-5">
-            <a [routerLink]="['/checkout']" class="is-rounded">
-              <i class="fa-solid fa-cart-shopping" style="color: #000000;"></i>
+          <div class="navbar-dropdown">
+            <a [routerLink]="['/company', 'about']" class="navbar-item has-text-black">
+              <h4>About</h4>
             </a>
-          </div>
-          <div class="">
-            <a [routerLink]="['/login']" class="is-rounded">
-              <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+            <a [routerLink]="['/company', 'works']" class="navbar-item has-text-black">
+              <h4>Works</h4>
+            </a>
+            <a [routerLink]="['/company', 'contact']" class="navbar-item has-text-black">
+              <h4>Contact</h4>
             </a>
           </div>
         </div>
       </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="is-flex is-flex-direction-row">
+            <div class="pr-5 pt-1" *ngIf="userEmail !== ''">
+              <h4>{{ userEmail }}</h4>
+            </div>
+            <div class="pr-5">
+              <a [routerLink]="['/checkout']" class="is-rounded">
+                <i class="fa-solid fa-cart-shopping" style="color: #000000;"></i>
+              </a>
+            </div>
+            <ng-container *ngIf="userEmail === ''">
+              <a [routerLink]="['/login']" class="is-rounded">
+                <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="userEmail !== ''">
+              <a (click)="logout()" class="is-rounded">
+                <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i>
+              </a>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>

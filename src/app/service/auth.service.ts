@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { WebRequestService } from './web-request.service';
 import { Router } from '@angular/router';
-import { shareReplay, tap } from 'rxjs';
+import { Subject, shareReplay, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,31 +11,36 @@ export class AuthService {
 
   constructor(private http: HttpClient, private webService: WebRequestService, private router: Router) { }
 
+  private loginSuccessSubject = new Subject<any>();
+
+  loginSuccess$ = this.loginSuccessSubject.asObservable();
+
+  emitLoginSuccess(value: any) {
+    this.loginSuccessSubject.next(value);
+  }
+  
   login(email: string, password: string) {
     return this.webService.login(email, password).pipe(
       shareReplay(),
       tap((res: HttpResponse<any>) => {
         // the auth tokens will be in the header of this response
         this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'));
-        console.log("LOGGED IN!");
       })
     )
   }
 
   signup(name: string, email: string, telephone: string, password: string) {
-    return this.webService.signup(name, email, telephone, password).pipe(
+    return this.webService.signup(false, name, email, telephone, password).pipe(
       shareReplay(),
       tap((res: HttpResponse<any>) => {
         // the auth tokens will be in the header of this response
         this.setSession(res.body._id, res.headers.get('x-access-token'), res.headers.get('x-refresh-token'));
-        console.log("Successfully signed up and now logged in!");
       })
     )
   }
 
   logout() {
     this.removeSession();
-
     this.router.navigate(['/login']);
   }
 

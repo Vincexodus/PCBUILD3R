@@ -4,28 +4,25 @@
       <h2 class="has-text-black">PCBUILD3R</h2>
       <p class="has-text-grey">We have hardware that suits your style and which you're proud to build.</p>
       <a href="https://github.com/Vincexodus/PCBuild3R" target="_blank">
-        <i class="fa-brands fa-github" style="color: #000000;"></i>
+        <i class="fa-brands fa-github" style="color: #000000; font-size: 24px;"></i>
       </a>
     </div>
     <div class="is-flex is-flex-direction-column">
-      <h4 class="pb-5 is-size-6">COMPANY</h4>
-      <a [routerLink]="['/']" class="py-2 has-text-grey is-size-7">Home</a>
+      <h4 class="pb-2 is-size-6">COMPANY</h4>
       <a [routerLink]="['/company', 'about']" class="py-2 has-text-grey is-size-7">About</a>
-      <a [routerLink]="['/company', 'work']" class="py-2 has-text-grey is-size-7">Works</a>
+      <a [routerLink]="['/company', 'works']" class="py-2 has-text-grey is-size-7">Works</a>
       <a [routerLink]="['/company', 'contact']" class="py-2 has-text-grey is-size-7">Contact</a>
     </div>
     <div class="is-flex is-flex-direction-column">
-      <h4 class="pb-5 is-size-6">ACCOUNT</h4>
-      <a [routerLink]="['/account']" class="py-2 has-text-grey is-size-7">My Account</a>
-      <a [routerLink]="['/login']" class="py-2 has-text-grey is-size-7">Login/Register</a>
-      <a [routerLink]="['/shoppingCart']" class="py-2 has-text-grey is-size-7">Cart</a>
-      <a [routerLink]="['/wishlist']" class="py-2 has-text-grey is-size-7">Wishlist</a>
+      <h4 class="pb-2 is-size-6">ACCOUNT</h4>
+      <a [routerLink]="['/account', 'orderHistory']" class="py-2 has-text-grey is-size-7">Order History</a>
+      <a [routerLink]="['/account', 'wishlist']" class="py-2 has-text-grey is-size-7">Wishlist</a>
+      <a [routerLink]="['/account', 'editProfile']" class="py-2 has-text-grey is-size-7">Edit Profile</a>
     </div>
     <div class="is-flex is-flex-direction-column">
-      <h4 class="pb-5 is-size-6">HELP</h4>
+      <h4 class="pb-2 is-size-6">HELP</h4>
       <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">Privacy Policy</a>
       <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">Terms Of Use</a>
-      <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">FAQ</a>
       <a [routerLink]="['/checkout']" class="py-2 has-text-grey is-size-7">FAQ</a>
     </div>
   </div>

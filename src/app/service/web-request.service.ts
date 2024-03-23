@@ -31,7 +31,7 @@ export class WebRequestService {
   }
 
   login(email: string, password: string) {
-    return this.http.post(`${this.ROOT_URL}/users/login`, {
+    return this.http.post(`${this.ROOT_URL}/user/login`, {
       email,
       password
     }, {
@@ -39,8 +39,9 @@ export class WebRequestService {
       });
   }
 
-  signup(name: string, email: string, telephone: string, password: string) {
-    return this.http.post(`${this.ROOT_URL}/users`, {
+  signup(isAdmin: boolean, name: string, email: string, telephone: string, password: string) {
+    return this.http.post(`${this.ROOT_URL}/user`, {
+      isAdmin,
       name,
       email,
       telephone,

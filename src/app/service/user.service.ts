@@ -8,9 +8,13 @@ export class UserService {
 
   constructor(private webReqService: WebRequestService) { }
 
-  // Product Category Routes
+  // User Routes
   getUser() {
     return this.webReqService.get('user');
+  }
+
+  getUserById(id: string) {
+    return this.webReqService.get(`user/${id}`);
   }
 
   createUser(isAdmin: boolean, username: string, userEmail: string, userPassword: string, userTelephone: string) {
