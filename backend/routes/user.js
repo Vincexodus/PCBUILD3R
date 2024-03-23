@@ -1,8 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const verifySession = require("../middleware/verifySession");
+const authenticate = require('../middleware/authenticate');
 
 const User = require("../models/user.model");
+
+// Get all product category
+router.get("", authenticate, (req, res) => {
+  User.find({
+  }).then((user) => {
+    res.send(user);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
 
 // User sign up
 router.post("", (req, res) => {

@@ -4,6 +4,7 @@ import { ProductService } from '../../../service/product.service';
 import { ProductCategory } from '../../../interface/product-category.model';
 import { NgToastService } from 'ng-angular-popup';
 import { FormsModule } from '@angular/forms';
+import { UtilService } from '../../../service/util.service';
 
 @Component({
   selector: 'app-admin-category',
@@ -23,7 +24,7 @@ export class AdminCategoryComponent implements OnInit {
   editModalStates: { [categoryId: string]: boolean } = {};
   imageUrl: string | ArrayBuffer | null = null;
 
-  constructor(private productService: ProductService, private toast: NgToastService) { }
+  constructor(private productService: ProductService, private toast: NgToastService, private util: UtilService) { }
   
   ngOnInit() {
     this.getCategory();
@@ -39,6 +40,10 @@ export class AdminCategoryComponent implements OnInit {
     }
   }
 
+  maskString(input: string): string {
+    return this.util.maskString(input);
+  }
+
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
@@ -50,24 +55,13 @@ export class AdminCategoryComponent implements OnInit {
     }
   }
 
-  inputValidation(...strings: string[]): boolean {
-    if(strings.some(str => !str)) {
-      this.toast.error({detail:"FAILED",summary:'Invalid Inputs!', duration:2000, position:'topCenter'});
-      return true;
-    }
-    return false;
-  }
-
-  maskString(input: string): string {
-    const maskedIdLength = 8; // Length of the masked ID
-    const ellipsis = '...';
-    if (input.length <= maskedIdLength) {
-      return input; // Return the original ID if it's shorter than or equal to the masked length
+  onEditImage(input: string | ArrayBuffer | null) : string | ArrayBuffer | null {
+    if (!this.imageUrl) {
+      return input;
     } else {
-      return input.substring(0, maskedIdLength) + ellipsis; // Return the masked ID
+      return this.imageUrl
     }
   }
-  
 
   openAddModal(): void {
     this.isAddModalActive = true;
@@ -104,9 +98,9 @@ export class AdminCategoryComponent implements OnInit {
     });
   }
 
-  addCategory(productCategoryName: string, productCategoryNameShort: string) {
-    if (!this.inputValidation(productCategoryName, productCategoryNameShort)) {
-      this.productService.createProductCategory(productCategoryName, productCategoryNameShort, this.imageUrl).subscribe(() => {
+  addCategory(productCategoryName: string, productCategoryNameShort: string, categoryImage: string | ArrayBuffer | null) {
+    if (!this.util.strValidation(productCategoryName, productCategoryNameShort)) {
+      this.productService.createProductCategory(productCategoryName, productCategoryNameShort, categoryImage).subscribe(() => {
         this.toast.success({detail:"SUCCESS",summary:'Product Category Added!', duration:2000, position:'topCenter'});
         this.getCategory();
         this.closeAddModal();
@@ -116,9 +110,9 @@ export class AdminCategoryComponent implements OnInit {
     }
   }
 
-  editCategory(id: string, productCategoryName: string, productCategoryNameShort: string) {
-    if (!this.inputValidation(productCategoryName, productCategoryNameShort)) {
-      this.productService.updateProductCategory(id, productCategoryName, productCategoryNameShort, this.imageUrl).subscribe(() => {
+  editCategory(id: string, productCategoryName: string, productCategoryNameShort: string, categoryImage: string | ArrayBuffer | null) {
+    if (!this.util.strValidation(productCategoryName, productCategoryNameShort)) {
+      this.productService.updateProductCategory(id, productCategoryName, productCategoryNameShort, categoryImage).subscribe(() => {
         this.toast.warning({detail:"SUCCESS",summary:'Product Category Updated!', duration:2000, position:'topCenter'});
         this.getCategory();
         this.closeEditModal(id);

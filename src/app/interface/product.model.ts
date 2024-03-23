@@ -4,8 +4,9 @@ export interface Product {
   _inventoryId: string;
   _discountId: string;
   productName: string;
+  productImage: string | ArrayBuffer | null;
   desc: string;
-  price: number;
+  price: { "$numberDecimal" : number };
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }

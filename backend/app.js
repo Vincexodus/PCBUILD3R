@@ -29,7 +29,7 @@ mongoose.connect("mongodb://localhost:27017/PCBUILD3R")
     console.log(e);
   });
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb'}));
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -57,7 +57,7 @@ app.use("/product", productRoutes);
 app.use("/session", sessionRoutes);
 app.use("/userAddress", userAddressRoutes);
 app.use("/userPayment", userPaymentRoutes);
-app.use("/users", userRoutes);
+app.use("/user", userRoutes);
 app.use("/wishlist", wishlistRoutes);
 
 app.listen(3000, () => {

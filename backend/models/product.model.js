@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
   _productCategoryId: {
       type: mongoose.Types.ObjectId,
-      required: false
+      required: true
   },
   _inventoryId: {
       type: mongoose.Types.ObjectId,
@@ -17,6 +17,10 @@ const ProductSchema = new mongoose.Schema({
       type: String,
       required: true
   },
+  productImage: {
+    data: Buffer,
+    type: String,
+},
   desc: {
       type: String,
       required: true,

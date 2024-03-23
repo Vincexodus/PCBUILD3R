@@ -1,9 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
-
+var multer  = require('multer');
 const ProductCategory = require('../models/product_category.model')
 const Product = require('../models/product.model')
+
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+var upload = multer({ storage: storage });
 
 // Get all product
 router.get("", authenticate, (req, res) => {
@@ -14,73 +25,33 @@ router.get("", authenticate, (req, res) => {
 });
 
 // Create product
-router.post("", authenticate, (req, res) => {
+router.post("", authenticate, upload.single('image'), (req, res) => {
   let product = req.body;
-  ProductCategory.findOne({
-    _id: product.productCategoryId,
-    // _userId: req.user_id
-  })
-    .then((category) => {
-      if (category) {
-        return true;
-      }
-
-      // else - the list object is undefined
-      return false;
-    })
-    .then((canCreateProduct) => {
-      if (canCreateProduct) {
-        let newProduct = new Product({
-          _productCategoryId: product.productCategoryId,
-          _inventoryId: product._inventoryId,
-          _discountId: product._discountId,
-          productName: product.productName,
-          desc: product.desc,
-          price: product.price,
-        });
-        newProduct.save().then((newDoc) => {
-          res.send(newDoc);
-        });
-      } else {
-        res.sendStatus(404);
-      }
-    });
+  let newProduct = new Product({
+    _productCategoryId: product._productCategoryId,
+    _inventoryId: product._inventoryId,
+    _discountId: product._discountId,
+    productName: product.productName,
+    productImage: product.productImage,
+    desc: product.desc,
+    price: product.price,
+  });
+  newProduct.save().then((newDoc) => {
+    res.send(newDoc);
+  });
 });
 
 // Update product
 router.patch("/:id", authenticate, (req, res) => {
-    let product = req.body;
-    ProductCategory.findOne({
-      _id: product.productCategoryId,
-      // _userId: req.user_id
-    })
-      .then((category) => {
-        if (category) {
-          // list object with the specified conditions was found
-          // therefore the currently authenticated user can make updates to tasks within this list
-          return true;
-        }
-
-        // else - the list object is undefined
-        return false;
-      })
-      .then((canUpdateProduct) => {
-        if (canUpdateProduct) {
-          // the currently authenticated user can update tasks
-          Product.findOneAndUpdate(
-            { _id: req.params.id },
-            {
-              $set: req.body,
-            }
-          ).then(() => {
-            res.send({ message: "Product Updated successfully." });
-          });
-        } else {
-          res.sendStatus(404);
-        }
-      });
-  }
-);
+  Product.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $set: req.body,
+    }
+  ).then(() => {
+    res.send({ message: "Product Updated successfully." });
+  });
+});
 
 // Delete product
 router.delete("/:id", authenticate, (req, res) => {

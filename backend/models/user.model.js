@@ -7,6 +7,10 @@ const bcrypt = require("bcryptjs");
 const jwtSecret = "jwt_secrety_key";
 
 const UserSchema = new mongoose.Schema({
+  isAdmin: {
+    type: Boolean,
+    required: true,
+  },
   name: {
     type: String,
     required: true,

@@ -19,31 +19,24 @@ export class ProductService {
   updateProductCategory(id: string, productCategoryName: string, productCategoryNameShort: string, productCategoryImage: string | ArrayBuffer | null) {
     return this.webReqService.patch(`productCategory/${id}`, { productCategoryName, productCategoryNameShort, productCategoryImage });
   }
-  
+
   deleteProductCategory(id: string) {
     return this.webReqService.delete(`productCategory/${id}`);
   }
 
   // Product Routes
-  createProduct(productCategoryId: string, productName: string, desc: string, sku: number, price: number) {
-    return this.webReqService.post(`productCategory/${productCategoryId}/products`, { productName, desc, sku, price });
+  getProduct() {
+    return this.webReqService.get(`product`);
   }
-  
-  getProduct(productCategoryId: string) {
-    return this.webReqService.get(`productCategory/${productCategoryId}/products`);
-  }
-
-  updateProduct(productCategoryId: string, productId: string,  productName: string, desc: string, sku: number, price: number) {
-    return this.webReqService.patch(`productCategory/${productCategoryId}/products/${productId}`, { productName, desc, sku, price });
+  createProduct(_productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, desc: string, price: Number) {
+    return this.webReqService.post(`product`, { _productCategoryId, productName, productImage, desc, price });
   }
 
-  deleteProduct(productCategoryId: string, productId: string) {
-    return this.webReqService.delete(`productCategory/${productCategoryId}/products/${productId}`);
+  updateProduct(productId: string, _productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, desc: string, price: Number) {
+    return this.webReqService.patch(`product/${productId}`, { _productCategoryId, productName, productImage, desc, price });
   }
 
-  // complete(task: Task) {
-  //   return this.webReqService.patch(`lists/${task._listId}/tasks/${task._id}`, {
-  //     completed: !task.completed
-  //   });
-  // }
+  deleteProduct(productId: string) {
+    return this.webReqService.delete(`product/${productId}`);
+  }
 }

@@ -23,7 +23,7 @@
               <div class="column is-one-third">Category Image</div>
               <div class="column">
                 <input type="file" accept="image/*" (input)="onFileSelected($event)"><br>
-                <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="img-size">
+                <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="add-img-size">
               </div>
             </div>
             <div class="columns">
@@ -42,7 +42,7 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button is-success is-rounded is-small" 
-                  (click)="addCategory(categoryName.value, categoryNameShort.value)">Save changes</button>
+                  (click)="addCategory(categoryName.value, categoryNameShort.value, this.imageUrl)">Save changes</button>
           <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
         </footer>
       </div>
@@ -113,8 +113,6 @@
                       <input [(ngModel)]="category._id" class="input is-small" type="text" placeholder="" disabled="" required>
                     </div>
                   </div>
-                </div>
-                <div class="px-2">
                   <div class="columns">
                     <div class="column is-one-third">Category Image</div>
                     <div class="column">
@@ -122,8 +120,6 @@
                       <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="image is-64x64">
                     </div>
                   </div>
-                </div>
-                <div class="px-2">
                   <div class="columns">
                     <div class="column is-one-third">Category</div>
                     <div class="column">
@@ -139,7 +135,7 @@
                 </div>
               </section>
               <footer class="modal-card-foot">
-                <button class="button is-success is-rounded is-small" (click)="editCategory(category._id, categoryName.value, categoryNameShort.value)">Save changes</button>
+                <button class="button is-success is-rounded is-small" (click)="editCategory(category._id, categoryName.value, categoryNameShort.value,  onEditImage(category.productCategoryImage))">Save changes</button>
                 <button class="button is-rounded is-small" (click)="closeEditModal(category._id)">Cancel</button>
               </footer>
             </div>

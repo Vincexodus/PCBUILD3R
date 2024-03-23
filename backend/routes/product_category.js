@@ -19,7 +19,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 // Get all product category
-router.get("", (req, res) => {
+router.get("", authenticate, (req, res) => {
   ProductCategory.find({
   }).then((category) => {
     res.send(category);
@@ -29,7 +29,7 @@ router.get("", (req, res) => {
 });
 
 // Create product category
-router.post("", upload.single('image'), (req, res) => {
+router.post("", authenticate, upload.single('image'), (req, res) => {
   let productCategory = req.body;
   let newProductCategory = new ProductCategory({
     productCategoryName: productCategory.productCategoryName,
@@ -44,7 +44,7 @@ router.post("", upload.single('image'), (req, res) => {
 });
 
 // Update product category
-router.patch("/:id", (req, res) => {
+router.patch("/:id", authenticate, (req, res) => {
   ProductCategory.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -56,7 +56,7 @@ router.patch("/:id", (req, res) => {
 });
 
 // Delete product category
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authenticate, (req, res) => {
   ProductCategory.findOneAndDelete({
     _id: req.params.id,
     // _userId: req.user_id
