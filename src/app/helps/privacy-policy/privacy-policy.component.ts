@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-work',
+  selector: 'app-privacy-policy',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './works.component.html',
-  styleUrl: './works.component.sass'
+  templateUrl: './privacy-policy.component.html',
+  styleUrl: './privacy-policy.component.sass'
 })
-export class WorksComponent {
+export class PrivacyPolicyComponent {
   @Input() show: boolean = false;
+  
 }

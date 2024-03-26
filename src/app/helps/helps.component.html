@@ -1,0 +1,27 @@
+<div class="body-width section-vspacing">
+  <div class="tabs is-fullwidth">
+    <ul>
+      <li [class.is-active]="isActiveTab('privacyPolicy')">
+        <a [routerLink]="['/help', 'privacyPolicy']">
+          <span class="icon"><i class="fa-solid fa-shield-halved" style="color: #000000;"></i></span>
+          <span><h4>Privacy Policy</h4></span>
+        </a>
+      </li>
+      <li [class.is-active]="isActiveTab('termOfUse')">
+        <a [routerLink]="['/help', 'termsOfUse']">
+          <span class="icon"><i class="fa-solid fa-users" style="color: #000000"></i></span>
+          <span><h4>Terms of Use</h4></span>
+        </a>
+      </li>
+      <li [class.is-active]="isActiveTab('faq')">
+        <a [routerLink]="['/help', 'faq']">
+          <span class="icon"><i class="fa-solid fa-question" style="color: #000000"></i></span>
+          <span><h4>FAQ`</h4></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <app-privacy-policy [show]="isActiveTab('privacyPolicy')"></app-privacy-policy>
+  <app-terms-of-use [show]="isActiveTab('termsOfUse')"></app-terms-of-use>
+  <app-faq [show]="isActiveTab('faq')"></app-faq>
+</div>

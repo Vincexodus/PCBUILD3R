@@ -24,6 +24,10 @@ import { AdminProductComponent } from './components/admin/admin-product/admin-pr
 import { AdminPaymentComponent } from './components/admin/admin-payment/admin-payment.component';
 import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 import { AdminCategoryComponent } from './components/admin/admin-category/admin-category.component';
+import { HelpsComponent } from './helps/helps.component';
+import { PrivacyPolicyComponent } from './helps/privacy-policy/privacy-policy.component';
+import { FaqComponent } from './helps/faq/faq.component';
+import { TermsOfUseComponent } from './helps/terms-of-use/terms-of-use.component';
 
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -54,6 +58,16 @@ export const routes: Routes = [
       { path: 'shoppingCart', component: ShoppingCartComponent },
       { path: 'editProfile', component: EditProfileComponent },
       { path: '', redirectTo: 'orderHistory', pathMatch: 'full' },
+    ],
+  },
+  {
+    path: 'help',
+    component: HelpsComponent,
+    children: [
+      { path: 'privacyPolicy', component: PrivacyPolicyComponent },
+      { path: 'termsOfUse', component: TermsOfUseComponent },
+      { path: 'faq', component: FaqComponent },
+      { path: '', redirectTo: 'privacyPolicy', pathMatch: 'full' },
     ],
   },
   {

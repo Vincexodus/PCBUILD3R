@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-work',
+  selector: 'app-faq',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './works.component.html',
-  styleUrl: './works.component.sass'
+  templateUrl: './faq.component.html',
+  styleUrl: './faq.component.sass'
 })
-export class WorksComponent {
+export class FaqComponent {
   @Input() show: boolean = false;
+  
 }
