@@ -11,7 +11,7 @@
       </a>
     </div>
   
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-menu">
       <div class="navbar-start">
         <a [routerLink]="['/shop']" class="navbar-item has-text-black">
           <h4>Shop</h4>
@@ -36,27 +36,40 @@
       </div>
   
       <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="is-flex is-flex-direction-row">
-            <div class="pr-5 pt-1" *ngIf="userEmail !== ''">
+        <div class="navbar-menu" *ngIf="userEmail !== ''">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link has-text-black">
               <h4>{{ userEmail }}</h4>
-            </div>
-            <div class="pr-5">
-              <a [routerLink]="['/checkout']" class="is-rounded">
-                <i class="fa-solid fa-cart-shopping" style="color: #000000;"></i>
+            </a>
+            <div class="navbar-dropdown">
+              <a [routerLink]="['/account', 'orderHistory']" class="navbar-item has-text-black">
+                <h4>Order History</h4>
+              </a>
+              <a [routerLink]="['/account', 'wishlist']" class="navbar-item has-text-black">
+                <h4>Wishlist</h4>
+              </a>
+              <a [routerLink]="['/account', 'editProfile']" class="navbar-item has-text-black">
+                <h4>Edit Profile</h4>
               </a>
             </div>
-            <ng-container *ngIf="userEmail === ''">
-              <a [routerLink]="['/login']" class="is-rounded">
-                <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
-              </a>
-            </ng-container>
-            <ng-container *ngIf="userEmail !== ''">
-              <a (click)="logout()" class="is-rounded">
-                <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i>
-              </a>
-            </ng-container>
           </div>
+        </div>
+        <div class="navbar-item">
+          <div class="pr-5 pt-2">
+            <a [routerLink]="['/checkout']" class="is-rounded">
+              <i class="fa-solid fa-cart-shopping" style="color: #000000;"></i>
+            </a>
+          </div>
+          <ng-container *ngIf="userEmail === ''">
+            <a [routerLink]="['/login']" class="pt-2 is-rounded">
+              <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="userEmail !== ''">
+            <a (click)="logout()" class="pt-2 is-rounded">
+              <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i>
+            </a>
+          </ng-container>
         </div>
       </div>
     </div>
