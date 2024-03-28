@@ -8,7 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './product-card.component.sass'
 })
 export class ProductCardComponent {
-  @Input() imageUrl: string = "";
+  @Input() redirect : string = "";
+  @Input() imageUrl: string | ArrayBuffer | null = "";
   @Input() productName: string = "";
   @Input() rating: number = 0;
   @Input() price: number = 0;

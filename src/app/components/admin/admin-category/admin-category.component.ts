@@ -94,7 +94,9 @@ export class AdminCategoryComponent implements OnInit {
 
   getCategory() {
     this.productService.getProductCategory().subscribe((productCategory: ProductCategory[]) => {
-      this.productCategory = productCategory;
+      this.productCategory = productCategory.sort((a, b) => {
+        return a.productCategoryName.localeCompare(b.productCategoryName);
+      });
     });
   }
 

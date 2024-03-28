@@ -24,6 +24,17 @@ router.get("", authenticate, (req, res) => {
   });
 });
 
+// Get all product category
+router.get("/latest", authenticate, (req, res) => {
+  Product.aggregate([{
+    $sample: { size: 16 }
+  }]).then((category) => {
+    res.send(category);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
 // Create product
 router.post("", authenticate, upload.single('image'), (req, res) => {
   let product = req.body;

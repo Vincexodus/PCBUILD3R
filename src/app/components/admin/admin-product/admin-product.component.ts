@@ -43,7 +43,8 @@ export class AdminProductComponent implements OnInit {
   productSearch(keyword: string): void {
     if (keyword.length != 0) {
       this.products = this.products.filter(product =>
-        product.productName.toLowerCase().includes(keyword.toLowerCase())
+        product.productName.toLowerCase().includes(keyword.toLowerCase()) ||
+        this.categoryNameById(product._productCategoryId).toLowerCase().includes(keyword.toLowerCase())
       );
     } else {
       this.getProducts();
@@ -140,7 +141,9 @@ export class AdminProductComponent implements OnInit {
 
   getProducts() {
     this.productService.getProduct().subscribe((products: Product[]) => {
-      this.products = products;
+      this.products = products.sort((a, b) => {
+        return a.productName.localeCompare(b.productName);
+      });
     });
   }
 

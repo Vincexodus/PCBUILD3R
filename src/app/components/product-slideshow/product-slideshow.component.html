@@ -1,40 +1,28 @@
 <div class="body-width has-text-centered section-vspacing">
   <h1 class="block py-2">{{ title }}</h1>
   <div class="my-2">
-    <div class="is-flex is-justify-content-space-between py-2">
-      <a class="rounded-icon-bg my-auto" onclick="">
+    <div class="is-flex">
+      <a class="rounded-icon-bg my-auto" (click)="prev()">
         <i class="fa-solid fa-arrow-left pt-3" style="color: #000000;"></i>
       </a>
-      <app-product-card
-        [imageUrl]="'../../../assets/cooler/cooler (1).png'"
-        [productName]="'Cooler Master Hyper 212 EVO V2'"
-        [rating]="4"
-        [price]="140"
-      ></app-product-card>
-      <app-product-card
-        [imageUrl]="'../../../assets/cooler/cooler (4).png'"
-        [productName]="'MasterLiquid ML360L ARGB '"
-        [rating]="3.5"
-        [price]="240"
-      ></app-product-card>
-      <app-product-card
-        [imageUrl]="'../../../assets/mobo/mobo (2).png'"
-        [productName]="'Intel Z790 Gaming Motherboard '"
-        [rating]="4.5"
-        [price]="180"
-      ></app-product-card>
-      <app-product-card
-        [imageUrl]="'../../../assets/cpu/processor (2).png'"
-        [productName]="'Intel Core i7-9700F Processor'"
-        [rating]="4.5"
-        [price]="130"
-      ></app-product-card>
-      <a class="rounded-icon-bg my-auto" onclick="">
+      <ngx-slick-carousel #slickModal="slick-carousel" 
+      [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let product of products">
+            <app-product-card
+            [redirect]="'/shop'"
+            [imageUrl]="product.productImage"
+            [productName]="product.productName"
+            [rating]="0"
+            [price]="product.price.$numberDecimal"
+            ></app-product-card>
+        </div>
+      </ngx-slick-carousel>
+      <a class="rounded-icon-bg my-auto" (click)="next()">
         <i class="fa-solid fa-arrow-right pt-3" style="color: #000000;"></i>
       </a>
     </div>
   </div>
-  <button class="button is-rounded">
+  <button class="button is-rounded mt-5" [routerLink]="['/shop']">
     View All
   </button>
 </div>

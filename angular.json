@@ -31,9 +31,14 @@
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/styles.sass"
+              "src/styles.sass",
+              "node_modules/slick-carousel/slick/slick.scss",
+              "node_modules/slick-carousel/slick/slick-theme.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/slick-carousel/slick/slick.min.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {

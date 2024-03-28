@@ -28,6 +28,9 @@ export class ProductService {
   getProduct() {
     return this.webReqService.get(`product`);
   }
+  getLatestProduct() {
+    return this.webReqService.get(`product/latest`);
+  }
   createProduct(_productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, desc: string, price: Number) {
     return this.webReqService.post(`product`, { _productCategoryId, productName, productImage, desc, price });
   }

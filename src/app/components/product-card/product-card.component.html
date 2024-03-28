@@ -1,18 +1,20 @@
-<div class="card rounded">
-  <div class="card-image has-background-primary rounded-top">
-    <figure class="image is-square m-auto">
-      <img [src]="imageUrl" alt="Product card image">
-    </figure>
-  </div>
-  <div class="card-content">
-    <div class="media">
-      <div class="media-content">
-        <p class="title is-6">{{ productName }}</p>
-        <p class="subtitle is-6">{{ rating }}</p>
+<div class="card-outline rounded mx-5">
+  <a href="{{ redirect }}">
+    <div class="card-image add-img-size m-auto">
+      <img [src]="imageUrl" class="p-2">
+    </div>
+    <div class="card-content has-background-primary rounded-bottom">
+      <div class="media">
+        <div class="media-content">
+          <div class="title-height">
+            <p class="title is-6">{{ productName }}</p>
+          </div>
+          <p class="subtitle is-6">{{ rating }}</p>
+        </div>
+      </div>
+      <div class="content">
+        <p>MYR {{ price }}</p>
       </div>
     </div>
-    <div class="content">
-      <p>MYR {{ price }}</p>
-    </div>
-  </div>
+  </a>
 </div>
