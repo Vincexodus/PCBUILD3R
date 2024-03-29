@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-card',
@@ -14,10 +13,4 @@ export class ProductCardComponent {
   @Input() productName: string = "";
   @Input() rating: number = 0;
   @Input() price: number = 0;
-  
-  // constructor(private sanitizer: DomSanitizer) {}
-
-  // sanitizeUrl(url: string): SafeUrl {
-  //   return this.sanitizer.bypassSecurityTrustUrl(url);
-  // }
 }

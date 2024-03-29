@@ -24,24 +24,6 @@ router.get("", authenticate, (req, res) => {
   });
 });
 
-// Get product
-router.get("/:id", authenticate, (req, res) => {
-  Product.find({
-    _id: req.params.id
-  }).then((products) => {
-    if (products.length === 0) {
-      return res.status(400).send("Product ID not found");
-    }
-    res.send(products);
-  }).catch((e) => {
-    // if (e.name === 'CastError') {
-    //   return res.status(400).send("Invalid Product ID");
-    // } else {
-    //   res.send(e);
-    // }
-  })
-});
-
 // Get 16 latest products
 router.get("/latest", authenticate, (req, res) => {
   Product.find()
@@ -63,7 +45,24 @@ router.get("/top", authenticate, (req, res) => {
   }).catch((e) => {
     res.send(e);
   })
+});
 
+// Get product
+router.get("/:id", authenticate, (req, res) => {
+  Product.find({
+    _id: req.params.id
+  }).then((products) => {
+    if (products.length === 0) {
+      return res.status(400).send("Product ID not found");
+    }
+    res.send(products);
+  }).catch((e) => {
+    if (e.name === 'CastError') {
+      return res.status(400).send("Invalid Product ID");
+    } else {
+      res.send(e);
+    }
+  })
 });
 
 // Create product

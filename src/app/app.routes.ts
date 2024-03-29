@@ -29,11 +29,12 @@ import { FaqComponent } from './helps/faq/faq.component';
 import { TermsOfUseComponent } from './helps/terms-of-use/terms-of-use.component';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
-  // { path: 'productDetail/:productId', component: ProductDetailComponent },
+
+  { path: 'productDetail/:productId', component: ProductDetailComponent },
   // { path: 'checkout', component: CheckoutComponent },
   {
     path: 'company',
@@ -77,7 +78,6 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
-
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];

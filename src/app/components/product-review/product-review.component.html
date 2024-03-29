@@ -1,31 +1,10 @@
 <div class="section-vspacing">
-  <div class="tabs is-fullwidth">
-    <ul>
-      <li [class.is-active]="isDetails" (click)="toggleDetails(true)">
-        <a>
-          <span class="icon"><i class="fa-solid fa-info" style="color: #000000"></i></span>
-          <span><h4>Product Details</h4></span>
-        </a>
-      </li>
-      <li [class.is-active]="!isDetails" (click)="toggleDetails(false)">
-        <a>
-          <span class="icon"><i class="fa-regular fa-face-smile" style="color: #000000;"></i></span>
-          <span><h4>Rating & Reviews</h4></span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="" *ngIf="isDetails">
-    <h3>{{ productName }}</h3>
-    <h4>{{ productDescription }}</h4>
-    <h4>{{ productFeatures }}</h4>
-  </div>
-  <div class="has-text-centered" *ngIf="!isDetails">
+  <div class="has-text-centered">
     <div class="is-flex is-justify-content-space-between">
-      <h3 class="my-auto">All Reviews (451)</h3>
+      <h3 class="block">All Reviews (451)</h3>
       <div class="dropdown is-right" [class.is-active]="isDropdownActive">
         <div class="dropdown-trigger">
-          <button class="button is-rounded has-background-primary" (click)="toggleDropdown()" aria-haspopup="true" aria-controls="dropdown-menu3">
+          <button class="button is-rounded" (click)="toggleDropdown()" aria-haspopup="true" aria-controls="dropdown-menu3">
             <span><h4>Relevance</h4></span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>

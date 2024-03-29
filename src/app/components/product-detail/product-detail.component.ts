@@ -7,11 +7,12 @@ import { ProductService } from '../../service/product.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Product } from '../../interface/product.model';
 import { error } from 'console';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [ProductRatingComponent, ProductCounterComponent, ProductReviewComponent, ProductSlideshowComponent],
+  imports: [CommonModule, ProductRatingComponent, ProductCounterComponent, ProductReviewComponent, ProductSlideshowComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.sass'
 })
@@ -29,21 +30,19 @@ export class ProductDetailComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService) { }
 
   ngOnInit() {
-    // this.route.params.subscribe(
-    //   (params: Params) => {
-    //     if (params['productId']) {
-    //       this.selectedProductId = (params['productId']);
-    //       this.productService.getProductById((params['productId'])).subscribe((product: Product) => {
-    //         this.product = product;
-    //       }, (error) => {
-    //         this.router.navigate(['/productNotFound']);
-    //       })
-    //     } else {
-    //       console.error('Error fetching product:', error);
-    //       this.router.navigate(['/productNotFound']);
-    //     }
-    //   }
-    // )
+    this.route.params.subscribe((params: Params) => {
+        if (params['productId']) {
+          this.selectedProductId = (params['productId']);
+          this.productService.getProductById((params['productId'])).subscribe((product: Product[]) => {
+            this.product = product[0];
+          }, (error) => {
+            this.router.navigate(['/productNotFound']);
+          })
+        } else {
+          this.router.navigate(['/productNotFound']);
+        }
+      }
+    )
   }
 
 }

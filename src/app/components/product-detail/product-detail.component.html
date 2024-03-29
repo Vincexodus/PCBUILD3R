@@ -1,18 +1,18 @@
 <div class="body-width my-5">
-  <div class="columns">
+  <div class="columns" *ngIf="product">
     <div class="column is-two-fifth">
-      <div class="box img-bg">
-        <img class="" src="{{ product.productImage }}" alt="">
+      <div class="card-container display-container">
+        <img class="img-display-size" [src]="this.product.productImage" alt="">
       </div>
     </div>
     <div class="column">
-      <h2 class="block">Test</h2>
+      <h2 class="block">{{ this.product.productName }}</h2>
       <div class="is-flex">
         <app-product-rating [rating]=productRating></app-product-rating>
         <h3 class="block">{{ stockQuantity }} in stock</h3>
       </div>
-      <h3 class="block">MYR {{ price }}</h3>
-      <p class="block">{{ productDesc }}</p>
+      <h3 class="block">MYR {{ this.product.price.$numberDecimal }}</h3>
+      <p class="block">{{ this.product.desc }}</p>
       <hr>
       <div class="columns">
         <div class="column is-one-third">
@@ -27,7 +27,7 @@
     </div>
   </div>
   <app-product-review></app-product-review>
-  <app-product-slideshow 
+  <app-product-slideshow
     [title]="'YOU MAY ALSO LIKE'"
     [showDivider]="false"
   >

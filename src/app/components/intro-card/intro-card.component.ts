@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../service/product.service';
-import { response } from 'express';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,11 +8,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './intro-card.component.html',
   styleUrl: './intro-card.component.sass'
 })
-export class IntroCardComponent implements OnInit{
-  
-  constructor(private productService: ProductService) { }
+export class IntroCardComponent{
 
-  ngOnInit(): void {
-      
-  }
 }
