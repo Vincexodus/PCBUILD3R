@@ -1,72 +1,84 @@
 <div *ngIf="show"  class="section-vspacing">
   <div class="has-text-centered">
     <h1 class="block">Get In Touch With Us</h1>
-    <h4 class="block">For More Information About Our Products & Services, Please Feel To Drop Us An Email.
+    <h4 class="block is-size-6">For More Information About Our Products & Services, Please Feel To Drop Us An Email.
       <br>Our Staff Always Be There To Help You Out. Do Not Hesitate!
     </h4>
   </div>
-  <div class="is-flex is-justify-content-space-evenly mt-6">
-    <div class="m-5">
-      <div class="is-flex my-5">
-        <i class="fa-solid fa-location-dot px-5 mt-5" style="color: #000000;"></i>
-        <div class="">
-          <h2>Address</h2>
-          <h4>236 5th SE Avenue, New York NY1000, United States</h4>
+  <div class="columns mt-5">
+    <div class="column">
+      <div class="m-5">
+        <div class="is-flex my-5">
+          <i class="fa-solid fa-location-dot px-5 mt-2" style="color: #000000;"></i>
+          <div class="">
+            <h2 class="block is-size-5">Address</h2>
+            <h4 class="is-size-6">Asia Pacific University of Technology & Innovation (APU)
+              Jalan Teknologi 5,
+              Technology Park Malaysia,
+              Bukit Jalil,
+              Kuala Lumpur 57000,
+              Malaysia.</h4>
+          </div>
         </div>
-      </div>
-      <div class="is-flex my-5">
-        <i class="fa-solid fa-phone px-5 mt-5" style="color: #000000;"></i>
-        <div class="">
-          <h2>Phone</h2>
-          <h4>Mobile: + (84) 546-6789<br>Hotline: +(84) 456-6789</h4>
+        <div class="is-flex my-5">
+          <i class="fa-solid fa-phone px-5 mt-2" style="color: #000000;"></i>
+          <div class="">
+            <h2 class="block is-size-5">Phone</h2>
+            <h4 class="is-size-6">Mobile: +(60) 1234-56789<br>Hotline: +(60) 1234-56789</h4>
+          </div>
         </div>
-      </div>
-      <div class="is-flex my-5">
-        <i class="fa-solid fa-envelope px-5 mt-5" style="color: #000000;"></i>
-        <div class="">
-          <h2>Mail</h2>
-          <h4>Personal : vincent4552&#64;gmail.com<br>Student: TP061209&#64;mail.apu.edu.my</h4>
+        <div class="is-flex my-5">
+          <i class="fa-solid fa-envelope px-5 mt-2" style="color: #000000;"></i>
+          <div class="">
+            <h2 class="block is-size-5">Mail</h2>
+            <h4 class="is-size-6">Personal : vincent4552&#64;gmail.com<br>Student: TP061209&#64;mail.apu.edu.my</h4>
+          </div>
         </div>
       </div>
     </div>
-    <div class="card-container contact-width">
-      <div class="field">
-        <p class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Your Name"
-          />
-        </p>
-      </div>
-      <div class="field">
-        <p class="control">
-          <input
-            class="input"
-            type="email"
-            placeholder="Email address"
-          />
-        </p>
-      </div>
-      <div class="field">
-        <p class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Subject"
-          />
-        </p>
-      </div>
-      <div class="field">
-        <div class="control">
-          <textarea class="textarea" placeholder="Message"></textarea>
+    <div class="column">
+      <form [formGroup]="contactForm" (submit)="handleFormSubmit()">
+        <div class="contact-width m-auto">
+          <div class="field">
+            <p class="control">
+              <input formControlName="name"
+                class="input"
+                type="text"
+                placeholder="Your Name"
+              />
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <input formControlName="email"
+                class="input"
+                type="email"
+                placeholder="Email address"
+              />
+            </p>
+          </div>
+          <div class="field">
+            <p class="control">
+              <input formControlName="subject"
+                class="input"
+                type="text"
+                placeholder="Subject"
+              />
+            </p>
+          </div>
+          <div class="field">
+            <div class="control">
+              <textarea formControlName="message" class="textarea" placeholder="Message"></textarea>
+            </div>
+          </div>
+          <div class="mt-2">
+            <button type="submit" class="button is-black is-fullwidth" [disabled]="loading">
+              <ng-container *ngIf="loading; else submitText">Submitting<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
+              <ng-template #submitText>Submit</ng-template>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="mt-2">
-        <button class="button is-black is-rounded is-fullwidth">
-          Submit
-        </button>
-      </div>
+      </form>
     </div>
   </div>
 </div>

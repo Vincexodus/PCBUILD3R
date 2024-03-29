@@ -1,46 +1,52 @@
-<div *ngIf="show"  class="section-vspacing">
-  <div class="columns">
-    <div class="column p-5">
-      <img src="../../../../assets/pc/pc (3).png" alt="">
-    </div>
-    <div class="column p-5 has-text-justified">
-      <h1>Origin</h1>
-      <h4>Launced in 2015, Exclusive is South Asia's premier online shopping
-        makterplace with an active presense in Bangladesh. Supported
-        by wide range of tailored marketing, data and service solutions,
-        Exclusive has 10,500 sallers and 300 brands and serves 3
-        millioons customers across the region.
-        Exclusive has more than 1 Million products to offer, growing at a
-        very fast. 
-        Exclusive offers a diverse assotment in categories
-        ranging from consumer.</h4>
+<div *ngIf="show" class="section-vspacing">
+  <div class="columns my-6">
+    <div class="column content is-two-thirds has-text-centered m-auto">
+      <h2 class="block">PCBUILD3R</h2>
+      <p class="block is-size-6">Elevating Hardware Proficiency through 3D Simulation and Comprehensive Guideline on Personal 
+        Computer Building.</p>
     </div>
   </div>
-  <div class="column is-half has-text-centered my-5 mx-auto">
-    <h1>Tech Stack</h1>
-    <div class="image">
-      <img src="../../../../assets/icons/mean-stack.png" alt="">
+  <div class="columns my-6">
+    <div class="column content is-two-thirds has-text-centered m-auto">
+      <h2 class="block">Introduction</h2>
+      <p class="block is-size-6">PCBUILD3R is a full stack website project built using the MEAN stack, Three.js, and relevant 3D rendering modules. 
+        <span class="has-text-weight-bold">Disclaimer: This is a demo project used for the purpose of Final Year Project (FYP).</span>
+      </p>
     </div>
-    <h4 class="has-text-justified">Launced in 2015, Exclusive is South Asia's premier online shopping
-      makterplace with an active presense in Bangladesh. Supported
-      by wide range of tailored marketing, data and service solutions,
-      Exclusive has 10,500 sallers and 300 brands and serves 3
-      millioons customers across the region.
-      Exclusive has more than 1 Million products to offer, growing at a
-      very fast. 
-      Exclusive offers a diverse assotment in categories
-      ranging from consumer.</h4>
   </div>
-  <div class="column is-half has-text-centered my-5 mx-auto">
-    <h1>Disclaimer</h1>
-    <h4 class="has-text-justified">Launced in 2015, Exclusive is South Asia's premier online shopping
-      makterplace with an active presense in Bangladesh. Supported
-      by wide range of tailored marketing, data and service solutions,
-      Exclusive has 10,500 sallers and 300 brands and serves 3
-      millioons customers across the region.
-      Exclusive has more than 1 Million products to offer, growing at a
-      very fast. 
-      Exclusive offers a diverse assotment in categories
-      ranging from consumer.</h4>
+  <div class="columns my-6">
+    <div class="column content is-two-thirds has-text-centered m-auto">
+      <h2 class="block">Objectives</h2>
+      <ul class="has-text-justified">
+        <li>To aid consumers in defining their preferences in PC building in terms of budget, purpose, performance, and design.</li>
+        <li>To offer consumers personalized build recommendations, recommending them the hardware components based on their needs.</li>
+        <li>To provide immersive and enjoyable learning experience by leveraging elements of gamification such as 3D simulation and reward system.</li>
+        <li>To nurture a mutually beneficial situation where users get to acquire valuable skills while platform focuses on user engagement and revenue generation.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="columns my-6">
+    <div class="column content is-two-thirds has-text-centered m-auto">
+      <h2 class="">Features</h2>
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let features of featuresSlides" class="slide">
+          <img src="{{ features.directory }}" alt="" width="100%">
+          <div class="pt-3">
+            <p class="is-size-6 m-auto">{{ features.description }}</p>
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div>
+  </div>
+  <div class="columns my-6">
+    <div class="column content is-two-thirds has-text-centered m-auto">
+      <h2 class="block">References</h2>
+      <ul class="has-text-justified">
+        <li>To aid consumers in defining their preferences in PC building in terms of budget, purpose, performance, and design.</li>
+        <li>To offer consumers personalized build recommendations, recommending them the hardware components based on their needs.</li>
+        <li>To provide immersive and enjoyable learning experience by leveraging elements of gamification such as 3D simulation and reward system.</li>
+        <li>To nurture a mutually beneficial situation where users get to acquire valuable skills while platform focuses on user engagement and revenue generation.</li>
+      </ul>
+    </div>
   </div>
 </div>

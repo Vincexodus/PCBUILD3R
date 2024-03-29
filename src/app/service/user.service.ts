@@ -28,4 +28,8 @@ export class UserService {
   deleteUser(id: string) {
     return this.webReqService.delete(`user/${id}`);
   }
+
+  sendEmail(name: string, email: string, subject: string, message: string) {
+    return this.webReqService.post('send-email', { name, email, subject, message });
+  }
 }

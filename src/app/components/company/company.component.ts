@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AboutComponent } from './about/about.component';
-import { WorksComponent } from './works/works.component';
 import { ContactComponent } from './contact/contact.component';
 
 @Component({
   selector: 'app-company',
   standalone: true,
-  imports: [CommonModule, RouterLink, AboutComponent, WorksComponent, ContactComponent],
+  imports: [CommonModule, RouterLink, AboutComponent, ContactComponent],
   templateUrl: './company.component.html',
   styleUrl: './company.component.sass'
 })

@@ -4,24 +4,17 @@
       <li [class.is-active]="isActiveTab('about')">
         <a [routerLink]="['/company', 'about']">
           <span class="icon"><i class="fa-solid fa-info" style="color: #000000;"></i></span>
-          <span><h4>About</h4></span>
-        </a>
-      </li>
-      <li [class.is-active]="isActiveTab('works')">
-        <a [routerLink]="['/company', 'works']">
-          <span class="icon"><i class="fa-solid fa-briefcase" style="color: #000000"></i></span>
-          <span><h4>Works</h4></span>
+          <span><h3>About</h3></span>
         </a>
       </li>
       <li [class.is-active]="isActiveTab('contact')">
         <a [routerLink]="['/company', 'contact']">
           <span class="icon"><i class="fa-solid fa-address-bookl" style="color: #000000"></i></span>
-          <span><h4>Contact</h4></span>
+          <span><h3>Contact</h3></span>
         </a>
       </li>
     </ul>
   </div>
   <app-about [show]="isActiveTab('about')"></app-about>
-  <app-work [show]="isActiveTab('works')"></app-work>
   <app-contact [show]="isActiveTab('contact')"></app-contact>
 </div>

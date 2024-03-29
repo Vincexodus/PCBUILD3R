@@ -24,15 +24,46 @@ router.get("", authenticate, (req, res) => {
   });
 });
 
-// Get all product category
+// Get product
+router.get("/:id", authenticate, (req, res) => {
+  Product.find({
+    _id: req.params.id
+  }).then((products) => {
+    if (products.length === 0) {
+      return res.status(400).send("Product ID not found");
+    }
+    res.send(products);
+  }).catch((e) => {
+    // if (e.name === 'CastError') {
+    //   return res.status(400).send("Invalid Product ID");
+    // } else {
+    //   res.send(e);
+    // }
+  })
+});
+
+// Get 16 latest products
 router.get("/latest", authenticate, (req, res) => {
-  Product.aggregate([{
-    $sample: { size: 16 }
-  }]).then((category) => {
-    res.send(category);
+  Product.find()
+  .sort({ createdAt: -1 })
+  .limit(16)
+  .then((products) => {
+    res.send(products);
   }).catch((e) => {
     res.send(e);
   })
+});
+
+// Get 16 best selling products 
+router.get("/top", authenticate, (req, res) => {
+  Product.aggregate([{
+    $sample: { size: 16 }
+  }]).then((products) => {
+    res.send(products);
+  }).catch((e) => {
+    res.send(e);
+  })
+
 });
 
 // Create product

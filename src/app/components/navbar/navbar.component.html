@@ -14,25 +14,14 @@
     <div class="navbar-menu">
       <div class="navbar-start">
         <a [routerLink]="['/shop']" class="navbar-item has-text-black">
-          <h4>Shop</h4>
+          <h3>Shop</h3>
         </a>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a [routerLink]="['/company', 'about']" class="navbar-link has-text-black">
-            <h4>Company</h4>
-          </a>
-
-          <div class="navbar-dropdown">
-            <a [routerLink]="['/company', 'about']" class="navbar-item has-text-black">
-              <h4>About</h4>
-            </a>
-            <a [routerLink]="['/company', 'works']" class="navbar-item has-text-black">
-              <h4>Works</h4>
-            </a>
-            <a [routerLink]="['/company', 'contact']" class="navbar-item has-text-black">
-              <h4>Contact</h4>
-            </a>
-          </div>
-        </div>
+        <a [routerLink]="['/company', 'about']" class="navbar-item has-text-black">
+          <h3>About</h3>
+        </a>
+        <a [routerLink]="['/company', 'contact']" class="navbar-item has-text-black">
+          <h3>Contact</h3>
+        </a>
       </div>
   
       <div class="navbar-end">
@@ -56,7 +45,7 @@
         </div>
         <div class="navbar-item">
           <div class="pr-5 pt-2">
-            <a [routerLink]="['/checkout']" class="is-rounded">
+            <a [routerLink]="['/account', 'shoppingCart']" class="is-rounded">
               <i class="fa-solid fa-cart-shopping" style="color: #000000;"></i>
             </a>
           </div>

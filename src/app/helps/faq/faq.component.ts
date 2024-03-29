@@ -23,7 +23,7 @@ export class FaqComponent {
     {
       question: "Disclaimer: Is PCBuild3R fully functional for real-world use?",
       answer: "PCBuild3R is a mockup/prototype designed for educational purposes as part of a Final Year Project (FYP). \
-                While it provides an interactive learning experience for PC building, it may not encompass all functionalities required for real-world PC assembly"
+                While it provides an interactive learning experience for PC building, it may not encompass all functionalities required for real-world PC assembly."
     },
     {
       question: "What is PCBuild3R?",

@@ -8,7 +8,6 @@ import { NgToastModule } from 'ng-angular-popup'
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AboutComponent } from './components/company/about/about.component';
-import { WorksComponent } from './components/company/works/works.component';
 import { ContactComponent } from './components/company/contact/contact.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
@@ -30,21 +29,17 @@ import { FaqComponent } from './helps/faq/faq.component';
 import { TermsOfUseComponent } from './helps/terms-of-use/terms-of-use.component';
 
 export const routes: Routes = [
+  { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
-  
-  { path: 'home', component: HomeComponent },
-  
   { path: 'shop', component: ShopComponent },
-  // { path: 'productDetail', component: ProductDetailComponent },
-  // { path: 'shoppingCart', component: ShoppingCartComponent },
+  // { path: 'productDetail/:productId', component: ProductDetailComponent },
   // { path: 'checkout', component: CheckoutComponent },
   {
     path: 'company',
     component: CompanyComponent,
     children: [
       { path: 'about', component: AboutComponent },
-      { path: 'works', component: WorksComponent },
       { path: 'contact', component: ContactComponent },
       { path: '', redirectTo: 'about', pathMatch: 'full' }, // Default tab
     ],

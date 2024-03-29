@@ -4,7 +4,6 @@ import { DividerComponent } from '../utils/divider/divider.component';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../service/product.service';
 import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
-import { ProductCategory } from '../../interface/product-category.model';
 import { Product } from '../../interface/product.model';
 import { RouterLink } from '@angular/router';
 
@@ -30,11 +29,20 @@ export class ProductSlideshowComponent implements OnInit {
   }
 
   getLatestProduct() {
-    this.productService.getLatestProduct().subscribe((products: Product[]) => {
-      this.products = products.sort((a, b) => {
-        return a.productName.localeCompare(b.productName);
+    if (this.title === "NEW ARRIVALS") {
+      this.productService.getLatestProduct().subscribe((products: Product[]) => {
+        this.products = products.sort((a, b) => {
+          return a.productName.localeCompare(b.productName);
+        });
       });
-    });
+    } else if (this.title === "TOP SELLING") {
+      this.showDivider = false;
+      this.productService.getTopProduct().subscribe((products: Product[]) => {
+        this.products = products.sort((a, b) => {
+          return a.productName.localeCompare(b.productName);
+        });
+      });
+    }
   }
 
   next() {

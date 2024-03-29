@@ -9,7 +9,7 @@
       [config]="slideConfig">
         <div ngxSlickItem *ngFor="let product of products">
             <app-product-card
-            [redirect]="'/shop'"
+            [productId]="product._id"
             [imageUrl]="product.productImage"
             [productName]="product.productName"
             [rating]="0"

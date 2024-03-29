@@ -1,23 +1,12 @@
-<div class="my-5">
+<div class="body-width my-5">
   <div class="columns">
-    <div class="column is-one-fifth">
-      <a class="box img-bg-side">
-        <img class="img-side" src="../../../assets/gpu/gpu (2).png" alt="">
-      </a>
-      <a class="box img-bg-side">
-        <img class="img-side" src="../../../assets/gpu/gpu (2).png" alt="">
-      </a>
-      <a class="box img-bg-side">
-        <img class="img-side" src="../../../assets/gpu/gpu (2).png" alt="">
-      </a>
-    </div>
     <div class="column is-two-fifth">
       <div class="box img-bg">
-        <img class="" src="../../../assets/gpu/gpu (2).png" alt="">
+        <img class="" src="{{ product.productImage }}" alt="">
       </div>
     </div>
     <div class="column">
-      <h2 class="block">{{ productName }}</h2>
+      <h2 class="block">Test</h2>
       <div class="is-flex">
         <app-product-rating [rating]=productRating></app-product-rating>
         <h3 class="block">{{ stockQuantity }} in stock</h3>

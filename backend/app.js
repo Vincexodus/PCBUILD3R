@@ -1,6 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const { Resend } = require('resend');
+
+require('dotenv').config();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
 const cartItemRoutes = require('./routes/cart_item');
@@ -59,6 +63,30 @@ app.use("/userAddress", userAddressRoutes);
 app.use("/userPayment", userPaymentRoutes);
 app.use("/user", userRoutes);
 app.use("/wishlist", wishlistRoutes);
+
+app.post('/send-email', async (req, res) => {
+  try {
+    let msg = req.body;
+    const { data, error } = await resend.emails.send({
+      from: 'ResendApp <onboarding@resend.dev>',
+      to: "vincent4552@gmail.com",
+      subject: "PCBUILD3R Contact Message",
+      html: `
+      <p><strong>Message Subject:</strong><br><br>${msg.subject}</p>
+      <p><strong>Message Details:</strong><br><br>${msg.message}</p>
+      <p><strong>From:</strong> ${msg.name} (${msg.email})</p>
+      `,    
+    });
+
+    if (error) {
+      return res.status(500).json({ error: 'Failed to send email' });
+    }
+    return res.status(200).json({ message: 'Email sent successfully' });
+  } catch (err) {
+    console.error('Error sending email:', err);
+    return res.status(500).json({ error: 'Failed to send email' });
+  }
+});
 
 app.listen(3000, () => {
   console.log("Server is listening on port 3000...");
