@@ -14,14 +14,6 @@ const OrderItemsSchema = new mongoose.Schema({
       required: true,
       default: 1
   },
-  createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now
-  },
-  modifiedAt: {
-      type: Date,
-  },
 })
 
 module.exports = mongoose.model('OrderItems', OrderItemsSchema);

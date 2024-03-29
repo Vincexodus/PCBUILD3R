@@ -20,7 +20,7 @@ const ProductSchema = new mongoose.Schema({
   productImage: {
     data: Buffer,
     type: String,
-},
+  },
   desc: {
       type: String,
       required: true,
@@ -29,16 +29,9 @@ const ProductSchema = new mongoose.Schema({
       type: mongoose.Types.Decimal128,
       required: true,
   },
-  createdAt: {
-      type: Date,
-      required: false,
-      default: Date.now
-  },
-  modifiedAt: {
-      type: Date,
-  },
-  deletedAt: {
-      type: Date,
+  quantity: {
+    type: Number,
+    required: true
   },
 })
 

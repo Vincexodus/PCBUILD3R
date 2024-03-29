@@ -2,49 +2,60 @@ const express = require("express");
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 
-const Feedback = require('../models/feedback.model')
+const Review = require('../models/review.model')
 
-// Get all feedback
+// Get all Review
 router.get("", authenticate, (req, res) => {
-  Feedback.find({
+  Review.find({
     // _userId: req.user_id
-  }).then((feedback) => {
-    res.send(feedback);
+  }).then((review) => {
+    res.send(review);
   }).catch((e) => {
     res.send(e);
   })
 });
 
-// Create new feedback
+// Get all Review
+router.get("/:id", authenticate, (req, res) => {
+  Review.find({
+    _id: req.params.id
+  }).then((review) => {
+    res.send(review);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
+// Create new Review
 router.post("", authenticate, (req, res) => {
-  let feedback = req.body;
-  let newFeedback = new Feedback({
-    subject: feedback.subject,
-    rating: feedback.rating,
-    desc: feedback.desc,
+  let review = req.body;
+  let newReview = new Review({
+    subject: review.subject,
+    rating: review.rating,
+    desc: review.desc,
     // _userId: req.user_id
   });
 
-  newFeedback.save().then((newDoc) => {
+  newReview.save().then((newDoc) => {
     res.send(newDoc);
   });
 });
 
-// Update feedback
+// Update Review
 router.patch("/:id", authenticate, (req, res) => {
-  Feedback.findOneAndUpdate(
+  Review.findOneAndUpdate(
     { _id: req.params.id },
     {
       $set: req.body,
     }
   ).then(() => {
-    res.send({ message: "Feedback updated successfully" });
+    res.send({ message: "Review updated successfully" });
   });
 });
 
-// Delete feedback
+// Delete Review
 router.delete("/:id", authenticate, (req, res) => {
-  Feedback.findOneAndDelete({
+  Review.findOneAndDelete({
     _id: req.params.id,
     // _userId: req.user_id
   }).then((removedDoc) => {

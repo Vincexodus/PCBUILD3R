@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { Directory } from '../../interface/directory';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { OrderHistoryComponent } from './order-history/order-history.component';
-import { WishlistComponent } from './wishlist/wishlist.component';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, RouterLink, OrderHistoryComponent, WishlistComponent, ShoppingCartComponent,
+  imports: [CommonModule, RouterLink, OrderHistoryComponent, ShoppingCartComponent,
             EditProfileComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.sass'

@@ -19,7 +19,7 @@ export class UtilService {
   numValidation(...numbers: string[]): boolean {
     const numericRegex = /^[0-9]*\.?[0-9]*$/;
     
-    if (numbers.every(number => numericRegex.test(number))) {
+    if (numbers.every(number => numericRegex.test(number) && parseFloat(number) >= 0)) {
         return false;
     } else {
         this.toast.error({detail: "FAILED", summary: 'Invalid Inputs!', duration: 2000, position: 'topCenter'});

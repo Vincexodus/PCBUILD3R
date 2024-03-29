@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 var multer  = require('multer');
-const ProductCategory = require('../models/product_category.model')
 const Product = require('../models/product.model')
 
 var storage = multer.diskStorage({
@@ -47,6 +46,28 @@ router.get("/top", authenticate, (req, res) => {
   })
 });
 
+// Get 16 best relevant products 
+router.get("/common/:id", authenticate, (req, res) => {
+  const productId = req.params.id;
+
+  Product.findOne({ _id: productId }).then((product) => {
+    if (!product) {
+      return res.status(404).send("Product not found");
+    }
+    const productCategoryId = product._productCategoryId;
+    Product.aggregate([
+      { $match: { _productCategoryId: productCategoryId, _id: { $ne: productId } } },
+      { $sample: { size: 8 } }
+    ]).then((result) => {
+      res.send(result);
+    }).catch((e) => {
+      res.status(500).send(e);
+    });
+  }).catch((e) => {
+    res.status(500).send(e);
+  });
+});
+
 // Get product
 router.get("/:id", authenticate, (req, res) => {
   Product.find({
@@ -76,6 +97,7 @@ router.post("", authenticate, upload.single('image'), (req, res) => {
     productImage: product.productImage,
     desc: product.desc,
     price: product.price,
+    quantity: product.quantity,
   });
   newProduct.save().then((newDoc) => {
     res.send(newDoc);

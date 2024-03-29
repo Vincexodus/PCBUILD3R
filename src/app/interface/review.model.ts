@@ -1,4 +1,4 @@
-export interface Feedback {
+export interface Review {
   _id: string;
   subject: string;
   rating: number;

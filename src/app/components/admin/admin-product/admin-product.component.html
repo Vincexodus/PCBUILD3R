@@ -65,11 +65,18 @@
                 <input #productPrice class="input is-small" type="text">
               </div>
             </div>
+            <div class="columns">
+              <div class="column is-one-third">Stock Quantity</div>
+              <div class="column">
+                <input #productQuantity class="input is-small" type="text">
+              </div>
+            </div>
           </div>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-success is-rounded is-small" 
-                  (click)="addProduct(this.selectedCategoryId, productName.value, this.imageUrl, productDes.value, productPrice.value)">Save changes</button>
+                  (click)="addProduct(this.selectedCategoryId, productName.value, this.imageUrl, productDes.value, productPrice.value, productQuantity.value)">
+                  Save changes</button>
           <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
         </footer>
       </div>
@@ -96,7 +103,7 @@
         <h4>Price</h4>
       </div>
       <div class="column">
-        <h4>Version</h4>
+        <h4>Stock Quantity</h4>
       </div>
       <div class="column">
         <h4>Action</h4>
@@ -123,7 +130,7 @@
         <h4>{{ product.price.$numberDecimal }}</h4>
       </div>
       <div class="column">
-        <h4>{{ product.__v }}</h4>
+        <h4>{{ product.quantity }}</h4>
       </div>
       <div class="column">
         <div class="is-flex">
@@ -193,10 +200,17 @@
                     <input [(ngModel)]="editProductPrice" #productPrice class="input is-small" type="text" required>
                   </div>
                 </div>
+                <div class="columns">
+                  <div class="column is-one-third">Stock Quantity</div>
+                  <div class="column">
+                    <input [(ngModel)]="editProductQuantity" #productQuantity class="input is-small" type="text" required>
+                  </div>
+                </div>
               </section>
               <footer class="modal-card-foot">
                 <button class="button is-success is-rounded is-small" 
-                      (click)="editProduct(product._id, product._productCategoryId, productName.value, onEditImage(product.productImage), productDes.value, productPrice.value)">Save changes</button>
+                      (click)="editProduct(product._id, product._productCategoryId, productName.value, onEditImage(product.productImage), 
+                      productDes.value, productPrice.value, productQuantity.value)">Save changes</button>
                 <button class="button is-rounded is-small" (click)="closeEditModal(product._id)">Cancel</button>
               </footer>
             </div>

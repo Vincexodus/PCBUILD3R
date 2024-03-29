@@ -14,16 +14,23 @@ export class ProductRatingComponent {
   getStarsArray(rating: number): number[] {
     const starsArray = [];
     const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
 
     for (let i = 0; i < fullStars; i++) {
       starsArray.push(i);
     }
 
-    if (hasHalfStar) {
-      starsArray.push(0.5);
+    return starsArray;
+  }
+
+  getRemainingStarsArray(rating: number): number[] {
+    const starsArray = [];
+    const fullStars = Math.floor(rating);
+    const remainingStars = 5 - rating;
+    
+    for (let i = 0; i < remainingStars; i++) {
+      starsArray.push(i);
     }
 
     return starsArray;
-  }
+}
 }

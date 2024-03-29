@@ -9,19 +9,17 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const app = express();
 const cartItemRoutes = require('./routes/cart_item');
 const discountRoutes = require('./routes/discount');
-const feedbackRoutes = require('./routes/feedback');
+const reviewRoutes = require('./routes/review');
 const gameStatsRoutes = require('./routes/game_stats');
 const orderDetailsRoutes = require('./routes/order_details');
 const orderItemsRoutes = require('./routes/order_items');
 const paymentDetailsRoutes = require('./routes/payment_details');
 const productCategoryRoutes = require('./routes/product_category');
-const productInventoryRoutes = require('./routes/product_inventory');
 const productRoutes = require('./routes/product');
 const sessionRoutes = require('./routes/session');
 const userAddressRoutes = require('./routes/user_address');
 const userPaymentRoutes = require('./routes/user_payment');
 const userRoutes = require('./routes/user');
-const wishlistRoutes = require('./routes/wishlist');
 
 // Connect to mongo db
 mongoose.connect("mongodb://localhost:27017/PCBUILD3R")
@@ -50,20 +48,19 @@ app.use(function (req, res, next) {
 
 app.use("/cartItem", cartItemRoutes);
 app.use("/discount", discountRoutes);
-app.use("/feedback", feedbackRoutes);
+app.use("/review", reviewRoutes);
 app.use("/gameStats", gameStatsRoutes);
 app.use("/orderDetails", orderDetailsRoutes);
 app.use("/orderItems", orderItemsRoutes);
 app.use("/paymentDetails", paymentDetailsRoutes);
 app.use("/productCategory", productCategoryRoutes);
-app.use("/productInventory", productInventoryRoutes);
 app.use("/product", productRoutes);
 app.use("/session", sessionRoutes);
 app.use("/userAddress", userAddressRoutes);
 app.use("/userPayment", userPaymentRoutes);
 app.use("/user", userRoutes);
-app.use("/wishlist", wishlistRoutes);
 
+// send email on contact page
 app.post('/send-email', async (req, res) => {
   try {
     let msg = req.body;

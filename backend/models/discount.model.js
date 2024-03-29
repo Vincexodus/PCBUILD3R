@@ -17,17 +17,6 @@ const DiscountSchema = new mongoose.Schema({
       type: Boolean,
       required: true
   },
-  createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now
-  },
-  modifiedAt: {
-      type: Date,
-  },
-  deletedAt: {
-      type: Date,
-  },
 })
 
 module.exports = mongoose.model('Discount', DiscountSchema);

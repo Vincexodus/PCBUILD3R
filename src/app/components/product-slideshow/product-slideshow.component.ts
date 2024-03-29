@@ -16,6 +16,8 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductSlideshowComponent implements OnInit {
   @Input() title: string = "";
+  @Input() selectedProductId: string = "";
+  @Input() cutWidth: boolean = true;
   @Input() showDivider: boolean = true;
   @ViewChild('slickModal')
   slickModal!: SlickCarouselComponent;
@@ -42,7 +44,15 @@ export class ProductSlideshowComponent implements OnInit {
           return a.productName.localeCompare(b.productName);
         });
       });
-    }
+    } else if (this.title === "YOU MAY ALSO LIKE") {
+      this.showDivider = false;
+      this.productService.getCommonProduct(this.selectedProductId).subscribe((products: Product[]) => {
+        console.log(this.products);
+        this.products = products.sort((a, b) => {
+          return a.productName.localeCompare(b.productName);
+        });
+      });
+    } 
   }
 
   next() {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductCounterComponent } from '../utils/product-counter/product-counter.component';
 import { ProductRatingComponent } from '../utils/product-rating/product-rating.component';
 import { ProductReviewComponent } from '../product-review/product-review.component';
@@ -8,6 +8,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Product } from '../../interface/product.model';
 import { error } from 'console';
 import { CommonModule } from '@angular/common';
+import { Review } from '../../interface/review.model';
+import { NgToastService } from 'ng-angular-popup';
+import { UtilService } from '../../service/util.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,16 +21,18 @@ import { CommonModule } from '@angular/common';
 })
 
 export class ProductDetailComponent implements OnInit {
+  loading = false;
   product!: Product;
-  @Input() productName: string = "Nvidia GEForce RTX3060";
-  @Input() productRating: number = 4.5;
-  @Input() stockQuantity: number = 1000;
-  @Input() price: number = 360;
-  @Input() productDesc: string = "This graphic t-shirt is perfect for any occasion. Crafted from a soft and breathable fabric. If offers superior comfort and style.";
+  reviews!: Review[];
+  productRating: number = 0;
+  productReviewNum: number = 0;
+  stockQuantity: number = 0;
+  @ViewChild('counterComponent') counterComponent: any;
 
   selectedProductId: string = "";
 
-  constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService, 
+              private toast: NgToastService, private util: UtilService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -35,6 +40,7 @@ export class ProductDetailComponent implements OnInit {
           this.selectedProductId = (params['productId']);
           this.productService.getProductById((params['productId'])).subscribe((product: Product[]) => {
             this.product = product[0];
+            this.getProductReviews(params['productId']);
           }, (error) => {
             this.router.navigate(['/productNotFound']);
           })
@@ -45,4 +51,29 @@ export class ProductDetailComponent implements OnInit {
     )
   }
 
+  getProductReviews(productId: string) {
+    this.productService.getProductReview(productId).subscribe((reviews: Review[]) => {
+      this.reviews = reviews;
+      this.productReviewNum = reviews.length;
+      if (this.productReviewNum > 0) {
+        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+        this.productRating = Math.round(totalRating / this.productReviewNum * 10) / 10;
+      }
+    })
+  }
+
+  onCounterChange(value: number) {
+    console.log('Counter value:', value);
+    // You can use the counter value here as needed
+  }
+
+  addCartItem(productId: string) {
+    const counterValue = this.counterComponent.counterValue;
+    console.log(productId, " ", counterValue);
+    // this.productService.createProductCategory(productCategoryName, productCategoryNameShort, categoryImage).subscribe(() => {
+    //   this.toast.success({detail:"SUCCESS",summary:'Product Category Added!', duration:2000, position:'topCenter'});
+    // }, (error) => {
+    //   console.log(error);    
+    // })
+  }
 }

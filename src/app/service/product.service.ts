@@ -29,28 +29,38 @@ export class ProductService {
     return this.webReqService.get(`product`);
   }
 
-  // Product Routes
   getProductById(productId: string) {
     return this.webReqService.get(`product/${productId}`);
   }
-
+  
   getLatestProduct() {
     return this.webReqService.get(`product/latest`);
   }
-
+  
   getTopProduct() {
     return this.webReqService.get(`product/top`);
   }
-
-  createProduct(_productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, desc: string, price: Number) {
-    return this.webReqService.post(`product`, { _productCategoryId, productName, productImage, desc, price });
+  
+  getCommonProduct(productId: string) {
+    return this.webReqService.get(`product/common/${productId}`);
   }
 
-  updateProduct(productId: string, _productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, desc: string, price: Number) {
-    return this.webReqService.patch(`product/${productId}`, { _productCategoryId, productName, productImage, desc, price });
+  createProduct(_productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, 
+                desc: string, price: Number, quantity: Number) {
+    return this.webReqService.post(`product`, { _productCategoryId, productName, productImage, desc, price, quantity });
+  }
+
+  updateProduct(productId: string, _productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, 
+                desc: string, price: Number, quantity: Number) {
+    return this.webReqService.patch(`product/${productId}`, { _productCategoryId, productName, productImage, desc, price, quantity });
   }
 
   deleteProduct(productId: string) {
     return this.webReqService.delete(`product/${productId}`);
+  }
+
+  // Product Review Routes
+  getProductReview(productId: string) {
+    return this.webReqService.get(`review/${productId}`);
   }
 }

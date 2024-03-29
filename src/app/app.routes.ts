@@ -15,7 +15,6 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AccountComponent } from './components/account/account.component';
 import { OrderHistoryComponent } from './components/account/order-history/order-history.component';
-import { WishlistComponent } from './components/account/wishlist/wishlist.component';
 import { EditProfileComponent } from './components/account/edit-profile/edit-profile.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
@@ -50,7 +49,6 @@ export const routes: Routes = [
     component: AccountComponent,
     children: [
       { path: 'orderHistory', component: OrderHistoryComponent },
-      { path: 'wishlist', component: WishlistComponent },
       { path: 'shoppingCart', component: ShoppingCartComponent },
       { path: 'editProfile', component: EditProfileComponent },
       { path: '', redirectTo: 'orderHistory', pathMatch: 'full' },

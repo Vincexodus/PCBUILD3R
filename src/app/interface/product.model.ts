@@ -7,6 +7,7 @@ export interface Product {
   productImage: string | ArrayBuffer | null;
   desc: string;
   price: { "$numberDecimal" : number };
+  quantity: Number;
   createdAt: Date;
   __v: Number;
 }

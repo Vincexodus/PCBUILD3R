@@ -13,14 +13,6 @@ const PaymentDetailsSchema = new mongoose.Schema({
       type: String,
       required: true,
   },
-  createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now
-  },
-  modifiedAt: {
-      type: Date,
-  },
 })
 
 module.exports = mongoose.model('PaymentDetails', PaymentDetailsSchema);

@@ -7,7 +7,6 @@ import { UtilService } from '../../../service/util.service';
 import { ProductService } from '../../../service/product.service';
 import { FormsModule } from '@angular/forms';
 import { ProductCategory } from '../../../interface/product-category.model';
-
 @Component({
   selector: 'app-admin-product',
   standalone: true,
@@ -18,6 +17,7 @@ import { ProductCategory } from '../../../interface/product-category.model';
 export class AdminProductComponent implements OnInit {
   @Input() show: boolean = false;
   products!: Product[];
+  productQuantity: number | "" = "";
   productCategory!: ProductCategory[];
   isAddModalActive: boolean = false;
   selectedCategoryId: string = "";
@@ -25,6 +25,7 @@ export class AdminProductComponent implements OnInit {
   editProductCategory: string = "";
   editProductDesc: string = "";
   editProductPrice: number | "" = "";
+  editProductQuantity: Number | "" = "";
   editProductImage: string | ArrayBuffer | null = null;
   deleteModalStates: { [productId: string]: boolean } = {};
   editModalStates: { [productId: string]: boolean } = {};
@@ -127,6 +128,7 @@ export class AdminProductComponent implements OnInit {
     this.editProductDesc = product ? product.desc : '';
     this.editProductPrice = product ? product.price.$numberDecimal : '';
     this.editProductImage= product ? product.productImage : '';
+    this.editProductQuantity= product ? product.quantity : '';
   }
 
   closeEditModal(productId: string) {
@@ -147,9 +149,9 @@ export class AdminProductComponent implements OnInit {
     });
   }
 
-  addProduct(productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, productDesc: string, productPrice: string) {
-    if (!this.util.strValidation(productCategoryId, productName, productDesc) && !this.util.numValidation(productPrice)) {
-      this.productService.createProduct(productCategoryId, productName, productImage, productDesc, parseFloat(productPrice)).subscribe(() => {
+  addProduct(productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, productDesc: string, productPrice: string, productQuantity: string) {
+    if (!this.util.strValidation(productCategoryId, productName, productDesc, productQuantity) && !this.util.numValidation(productPrice, productQuantity)) {
+      this.productService.createProduct(productCategoryId, productName, productImage, productDesc, parseFloat(productPrice), parseFloat(productQuantity)).subscribe(() => {
         this.toast.success({detail:"SUCCESS",summary:'Product Added!', duration:2000, position:'topCenter'});
         this.getProducts();
         this.closeAddModal();
@@ -159,9 +161,9 @@ export class AdminProductComponent implements OnInit {
     }
   }
 
-  editProduct(id: string, productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, productDesc: string, productPrice: string) {
-    if (!this.util.strValidation(productCategoryId, productName, productDesc, productPrice) && !this.util.numValidation(productPrice)) {
-      this.productService.updateProduct(id, productCategoryId, productName, productImage, productDesc, parseFloat(productPrice)).subscribe(() => {
+  editProduct(id: string, productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, productDesc: string, productPrice: string, productQuantity: string) {
+    if (!this.util.strValidation(productCategoryId, productName, productDesc, productPrice, productQuantity) && !this.util.numValidation(productPrice, productQuantity)) {
+      this.productService.updateProduct(id, productCategoryId, productName, productImage, productDesc, parseFloat(productPrice), parseFloat(productQuantity)).subscribe(() => {
         this.toast.warning({detail:"SUCCESS",summary:'Product Updated!', duration:2000, position:'topCenter'});
         this.getProducts();
         this.closeEditModal(id);

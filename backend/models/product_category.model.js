@@ -18,12 +18,6 @@ const ProductCategorySchema = new mongoose.Schema({
       required: false,
       default: Date.now
   },
-  modifiedAt: {
-      type: Date,
-  },
-  deletedAt: {
-      type: Date,
-  },
 })
 
 module.exports = mongoose.model('ProductCategory', ProductCategorySchema);

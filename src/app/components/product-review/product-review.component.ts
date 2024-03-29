@@ -11,6 +11,7 @@ import { ProductReviewCardComponent } from '../product-review-card/product-revie
   styleUrl: './product-review.component.sass'
 })
 export class ProductReviewComponent {
+  @Input() totalReviews: number = 0;
   isDropdownActive = false;
 
   toggleDropdown() {

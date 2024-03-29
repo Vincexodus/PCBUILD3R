@@ -13,14 +13,6 @@ const OrderDetailsSchema = new mongoose.Schema({
       type: mongoose.Types.Decimal128,
       required: true
   },
-  createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now
-  },
-  modifiedAt: {
-      type: Date,
-  },
 })
 
 module.exports = mongoose.model('OrderDetails', OrderDetailsSchema);
