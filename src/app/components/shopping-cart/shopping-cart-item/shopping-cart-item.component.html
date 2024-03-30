@@ -1,23 +1,48 @@
-<div class="is-flex is-justify-content-space-between">
-  <div class="item-rounded-bg cart-item-img-size">
-    <img src="../../../../assets/cooler/cooler (2).png" alt="">
+<div class="divider"></div>
+<div class="columns my-2">
+  <a href="productDetail/{{ productId }}" class="column">
+    <div class="">
+      <img [src]="imageUrl" class="">
+    </div>
+  </a>
+  <div class="column my-auto has-text-justified">
+    <h4 class="has-text-weight-bold ">{{ productName }}</h4>
+    <h4 class="">{{ productDesc }}</h4>
   </div>
-  <div class="mx-5 my-auto">
-    <h4 class="has-text-weight-bold">{{ productName }}</h4>
-    <h4>{{ productDesc1 }}</h4>
-    <h4>{{ productDesc2 }}</h4>
-  </div>
-  <div class="mx-5 my-auto">
+  <div class="column my-auto has-text-centered">
     <h4 class="has-text-weight-bold">MYR {{ price }}</h4>
   </div>
-  <div class="mx-5 my-auto">
-    <app-product-counter></app-product-counter>
+  <div class="column my-auto has-text-centered">
+    <app-product-counter
+      [productId]="productId" 
+      [inputCounter]="quantity"
+      #counterComponent (counterChange)="onCounterChange($event)">
+    </app-product-counter>
   </div>
-  <div class="mx-5 my-auto">
+  <div class="column my-auto has-text-centered">
     <h4 class="has-text-weight-bold">MYR {{ subtotal }}</h4>
   </div>
-  <div class="mx-5 my-auto">
-    <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+  <div class="column my-auto has-text-centered">
+    <a (click)="openDeleteModal(cartItemId)">
+      <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+    </a>
+  </div>
+  <div class="modal is-active" *ngIf="deleteModalStates[cartItemId]">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title ">Delete Cart Item</p>
+        <button class="delete" aria-label="close" (click)="closeDeleteModal(cartItemId)"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="">
+          Are you sure to delete {{ productName }}?
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success is-rounded is-small" (click)="deleteCartItem(cartItemId)">Yes</button>
+        <button class="button is-rounded is-small" (click)="closeDeleteModal(cartItemId)">No</button>
+      </footer>
+    </div>
   </div>
 </div>
-<div class="divider" *ngIf="!islastItem"></div>

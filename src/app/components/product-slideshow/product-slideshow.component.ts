@@ -22,7 +22,7 @@ export class ProductSlideshowComponent implements OnInit {
   @ViewChild('slickModal')
   slickModal!: SlickCarouselComponent;
   products!: Product[];
-  slideConfig = { slidesToShow: 4, slidesToScroll: 4, arrows: false };
+  slideConfig = { slidesToShow: 4, slidesToScroll: 4, autoplay: true, autoplaySpeed: 6000, infinite: true, arrows: false };
   
   constructor(private productService: ProductService) { }
 

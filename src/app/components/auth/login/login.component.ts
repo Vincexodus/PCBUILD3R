@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 import { HttpResponse } from '@angular/common/http';
-import { EventEmitter, Output } from '@angular/core';
 import { UtilService } from '../../../service/util.service';
 
 @Component({
@@ -13,7 +12,6 @@ import { UtilService } from '../../../service/util.service';
   styleUrl: './login.component.sass'
 })
 export class LoginComponent implements OnInit {
-  @Output() loginSuccess = new EventEmitter<void>();
 
   constructor(private authService: AuthService, private router: Router, private util: UtilService) { }
 

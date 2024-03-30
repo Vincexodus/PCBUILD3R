@@ -1,94 +1,7 @@
-<div class="my-5">
-  <h1>Billing Details</h1>
+<div class="body-width my-5">
   <div class="columns">
-    <div class="column">
-      <div class="card-container">
-        <div class="is-flex is-justify-content-space-between">
-          <div class="field">
-            <p class="control">
-              <input
-                class="input is-rounded"
-                type="text"
-                placeholder="First Name"
-              />
-            </p>
-          </div>
-          <div class="field">
-            <p class="control">
-              <input
-                class="input is-rounded"
-                type="text"
-                placeholder="Last Name"
-              />
-            </p>
-          </div>
-        </div>
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-rounded"
-              type="text"
-              placeholder="Country/Region"
-            />
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-rounded"
-              type="text"
-              placeholder="Street address"
-            />
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-rounded"
-              type="text"
-              placeholder="Town/City"
-            />
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-rounded"
-              type="text"
-              placeholder="Province"
-            />
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-rounded"
-              type="text"
-              placeholder="ZIP code"
-            />
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-rounded"
-              type="email"
-              placeholder="Email Address"
-            />
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <input
-              class="input is-rounded"
-              type="text"
-              placeholder="Additional Information"
-            />
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="column">
+    <div class="column is-half is-offset-one-quarter">
+      <h2 class="block has-text-centered">Checkout</h2>
       <div class="card-container">
         <div class="is-flex is-justify-content-space-between">
           <h3 class="has-text-weight-bold">Product</h3>
@@ -102,7 +15,7 @@
             </h4>
           </div>
         </div>
-        <hr>
+        <div class="divider"></div>
         <div class="my-2 is-justify-content-space-between" *ngFor="let payment of payments">
           <div class="is-flex is-justify-content-space-between py-1" *ngIf="payment.value != 0">
             <h4 class="has-text-grey">{{ payment.key }}</h4>

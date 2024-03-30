@@ -34,19 +34,15 @@ export const routes: Routes = [
   { path: 'shop', component: ShopComponent },
 
   { path: 'productDetail/:productId', component: ProductDetailComponent },
-  // { path: 'checkout', component: CheckoutComponent },
-  {
-    path: 'company',
-    component: CompanyComponent,
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'company', component: CompanyComponent,
     children: [
       { path: 'about', component: AboutComponent },
       { path: 'contact', component: ContactComponent },
       { path: '', redirectTo: 'about', pathMatch: 'full' }, // Default tab
     ],
   },
-  {
-    path: 'account',
-    component: AccountComponent,
+  { path: 'account', component: AccountComponent,
     children: [
       { path: 'orderHistory', component: OrderHistoryComponent },
       { path: 'shoppingCart', component: ShoppingCartComponent },
@@ -54,9 +50,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'orderHistory', pathMatch: 'full' },
     ],
   },
-  {
-    path: 'help',
-    component: HelpsComponent,
+  { path: 'help', component: HelpsComponent,
     children: [
       { path: 'privacyPolicy', component: PrivacyPolicyComponent },
       { path: 'termsOfUse', component: TermsOfUseComponent },
@@ -64,9 +58,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'privacyPolicy', pathMatch: 'full' },
     ],
   },
-  {
-    path: 'admin',
-    component: AdminHomeComponent,
+  { path: 'admin', component: AdminHomeComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'product', component: AdminProductComponent },

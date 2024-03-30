@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ProductCounterComponent } from '../utils/product-counter/product-counter.component';
 import { ProductRatingComponent } from '../utils/product-rating/product-rating.component';
 import { ProductReviewComponent } from '../product-review/product-review.component';
@@ -6,11 +6,13 @@ import { ProductSlideshowComponent } from '../product-slideshow/product-slidesho
 import { ProductService } from '../../service/product.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Product } from '../../interface/product.model';
-import { error } from 'console';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Review } from '../../interface/review.model';
 import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../service/util.service';
+import { OrderService } from '../../service/order.service';
+import { UserService } from '../../service/user.service';
+import { User } from '../../interface/user.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -27,12 +29,15 @@ export class ProductDetailComponent implements OnInit {
   productRating: number = 0;
   productReviewNum: number = 0;
   stockQuantity: number = 0;
+
   @ViewChild('counterComponent') counterComponent: any;
 
+  userId: string = "";
   selectedProductId: string = "";
 
   constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService, 
-              private toast: NgToastService, private util: UtilService) { }
+              private toast: NgToastService, private orderService: OrderService, private util: UtilService,
+              @Inject(DOCUMENT) private document: Document, private userService: UserService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -41,6 +46,7 @@ export class ProductDetailComponent implements OnInit {
           this.productService.getProductById((params['productId'])).subscribe((product: Product[]) => {
             this.product = product[0];
             this.getProductReviews(params['productId']);
+            this.getCurrUserId();
           }, (error) => {
             this.router.navigate(['/productNotFound']);
           })
@@ -49,6 +55,18 @@ export class ProductDetailComponent implements OnInit {
         }
       }
     )
+  }
+
+  getCurrUserId() {
+    const localStorage = this.document.defaultView?.localStorage;
+    if (localStorage) {
+      const storedUserId = localStorage.getItem('user-id');
+      if (storedUserId) {
+        this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
+          this.userId = user[0]._id;
+        });
+      }
+    }
   }
 
   getProductReviews(productId: string) {
@@ -62,18 +80,20 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  onCounterChange(value: number) {
-    console.log('Counter value:', value);
-    // You can use the counter value here as needed
-  }
-
-  addCartItem(productId: string) {
+  addItemToCart(productId: string) {
     const counterValue = this.counterComponent.counterValue;
-    console.log(productId, " ", counterValue);
-    // this.productService.createProductCategory(productCategoryName, productCategoryNameShort, categoryImage).subscribe(() => {
-    //   this.toast.success({detail:"SUCCESS",summary:'Product Category Added!', duration:2000, position:'topCenter'});
-    // }, (error) => {
-    //   console.log(error);    
-    // })
+    if (this.userId.length === 0) {
+      this.router.navigate(['/login']);
+    } else {
+      this.loading = true;
+      this.orderService.createCartItem(this.userId, productId, counterValue).subscribe(() => {
+        this.loading = false;
+        this.counterComponent.counterValue = 1;
+        this.toast.success({detail:"SUCCESS",summary:'Product Added to Cart!', duration:2000, position:'topCenter'});
+      }, (error) => {
+        this.loading = false;
+        console.log(error);
+      })
+    }
   }
 }

@@ -15,18 +15,42 @@ router.get("", authenticate, (req, res) => {
   })
 });
 
+// Get user's cart item
+router.get("/:id", authenticate, (req, res) => {
+  CartItem.find({
+    _userId: req.params.id
+  }).then((cart) => {
+    res.send(cart);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
 // Create cart item
 router.post("", authenticate, (req, res) => {
   let cartItem = req.body;
-  let newCartItem = new CartItem({
-    productId: cartItem.productId,
-    quantity: cartItem.quantity,
-    // _userId: req.user_id
-  });
-
-  newCartItem.save().then((newDoc) => {
-    res.send(newDoc);
-  });
+  CartItem.findOne({ _userId: cartItem._userId, _productId: cartItem._productId })
+    .then(existingCartItem => {
+      if (existingCartItem) {
+        // If an existing cart item is found, update its quantity
+        existingCartItem.quantity += cartItem.quantity;
+        return existingCartItem.save();
+      } else {
+        // If no existing cart item is found, create a new one
+        let newCartItem = new CartItem({
+          _userId: cartItem._userId,
+          _productId: cartItem._productId,
+          quantity: cartItem.quantity
+        });
+        return newCartItem.save();
+      }
+    })
+    .then(savedCartItem => {
+      res.send(savedCartItem);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
 });
 
 // Update cart item

@@ -7,14 +7,14 @@
           <h3 class="has-text-weight-bold">Filters</h3>
           <i class="fa-solid fa-sliders" style="color: #000000; margin-top: auto; margin-bottom: auto;"></i>
         </div>
-        <hr>
+        <div class="divider"></div>
         <div class="my-2 is-justify-content-space-between" *ngFor="let category of productCategory">
           <a href="" class="is-flex is-justify-content-space-between">
             <h4 class="p-2">{{ category }}</h4>
             <i class="fa-solid fa-caret-right my-auto" style="color: #000000;"></i>
           </a>
         </div>
-        <hr>
+        <div class="divider"></div>
         <div class="has-text-left">
           <h3 class="pb-2 has-text-weight-bold">Price</h3>
           <div class="columns">
@@ -84,25 +84,7 @@
       <div class="my-2">
         <div class="is-flex is-justify-content-space-between py-2">
           <app-product-card
-            [imageUrl]="'../../../assets/cooler/cooler (1).png'"
-            [productName]="'Cooler Master Hyper 212 EVO V2'"
-            [rating]="4"
-            [price]="140"
-          ></app-product-card>
-          <app-product-card
-            [imageUrl]="'../../../assets/cooler/cooler (4).png'"
-            [productName]="'MasterLiquid ML360L ARGB '"
-            [rating]="3.5"
-            [price]="240"
-          ></app-product-card>
-          <app-product-card
-            [imageUrl]="'../../../assets/mobo/mobo (2).png'"
-            [productName]="'Intel Z790 Gaming Motherboard '"
-            [rating]="4.5"
-            [price]="180"
-          ></app-product-card>
-          <app-product-card
-            [imageUrl]="'../../../assets/cpu/processor (2).png'"
+            [imageUrl]="'../../../../assets/images/auth-pc.png'"
             [productName]="'Intel Core i7-9700F Processor'"
             [rating]="4.5"
             [price]="130"
@@ -112,28 +94,10 @@
       <div class="my-2">
         <div class="is-flex is-justify-content-space-between py-2">
           <app-product-card
-            [imageUrl]="'../../../assets/cooler/cooler (1).png'"
+            [imageUrl]="'../../../../assets/images/auth-pc.png'"
             [productName]="'Cooler Master Hyper 212 EVO V2'"
             [rating]="4"
             [price]="140"
-          ></app-product-card>
-          <app-product-card
-            [imageUrl]="'../../../assets/cooler/cooler (4).png'"
-            [productName]="'MasterLiquid ML360L ARGB '"
-            [rating]="3.5"
-            [price]="240"
-          ></app-product-card>
-          <app-product-card
-            [imageUrl]="'../../../assets/mobo/mobo (2).png'"
-            [productName]="'Intel Z790 Gaming Motherboard '"
-            [rating]="4.5"
-            [price]="180"
-          ></app-product-card>
-          <app-product-card
-            [imageUrl]="'../../../assets/cpu/processor (2).png'"
-            [productName]="'Intel Core i7-9700F Processor'"
-            [rating]="4.5"
-            [price]="130"
           ></app-product-card>
         </div>
       </div>

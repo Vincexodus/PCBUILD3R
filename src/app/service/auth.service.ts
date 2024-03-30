@@ -12,7 +12,6 @@ export class AuthService {
   constructor(private http: HttpClient, private webService: WebRequestService, private router: Router) { }
 
   private loginSuccessSubject = new Subject<any>();
-
   loginSuccess$ = this.loginSuccessSubject.asObservable();
 
   emitLoginSuccess(value: any) {

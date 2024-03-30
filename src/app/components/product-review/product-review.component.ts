@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProductReviewCardComponent } from '../product-review-card/product-review-card.component';
+import { ProductReviewCardComponent } from '../reviews/product-review-card/product-review-card.component';
 
 @Component({
   selector: 'app-product-review',

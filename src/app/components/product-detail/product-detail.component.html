@@ -15,14 +15,14 @@
       <span *ngFor="let item of product.desc.split('\n')">
         <h4><span class="has-text-weight-bold">{{ item.split(':')[0] }}:</span>{{ item.split(':')[1] }}<br></h4>
       </span> 
-      <hr>
+      <div class="divider my-5"></div>
       <div class="columns">
         <div class="column is-one-third">
-          <app-product-counter #counterComponent (counterChange)="onCounterChange($event)"></app-product-counter>
+          <app-product-counter #counterComponent></app-product-counter>
         </div>
         <div class="column">
           <button type="submit" class="button is-black is-rounded is-fullwidth" [disabled]="loading"
-                  (click)="addCartItem(this.product._id)">
+                  (click)="addItemToCart(this.product._id)">
             <ng-container *ngIf="loading; else btnText">Adding<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
             <ng-template #btnText>Add to Cart</ng-template>
           </button>

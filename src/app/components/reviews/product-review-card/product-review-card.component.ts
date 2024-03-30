@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProductRatingComponent } from '../utils/product-rating/product-rating.component';
+import { ProductRatingComponent } from '../../utils/product-rating/product-rating.component';
 
 @Component({
   selector: 'app-product-review-card',
