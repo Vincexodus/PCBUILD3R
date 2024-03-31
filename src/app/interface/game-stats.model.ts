@@ -5,5 +5,5 @@ export interface GameStats {
   level: number;
   experience: number;
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }

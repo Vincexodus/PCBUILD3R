@@ -18,6 +18,11 @@ const ProductCategorySchema = new mongoose.Schema({
       required: false,
       default: Date.now
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  }
 })
 
 module.exports = mongoose.model('ProductCategory', ProductCategorySchema);

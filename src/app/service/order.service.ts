@@ -31,4 +31,8 @@ export class OrderService {
   deleteCartItem(_cartItemId: string) {
     return this.webReqService.delete(`cartItem/${_cartItemId}`);
   }
+
+  checkoutCart(_userId: string, _cartItemId: string, voucherKey: string, _paymentMethod: string, total: number) {
+    return this.webReqService.post(`checkout`, { _userId, _cartItemId, voucherKey, _paymentMethod, total });
+  }
 }

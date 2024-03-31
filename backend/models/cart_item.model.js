@@ -13,6 +13,15 @@ const CartItemSchema = new mongoose.Schema({
       type: Number,
       required: true
   },
+  isPaid: {
+      type: Boolean,
+      required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  }
 })
 
 module.exports = mongoose.model('CartItem', CartItemSchema);

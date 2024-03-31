@@ -12,7 +12,6 @@ import { ContactComponent } from './components/company/contact/contact.component
 import { ShopComponent } from './components/shop/shop.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AccountComponent } from './components/account/account.component';
 import { OrderHistoryComponent } from './components/account/order-history/order-history.component';
 import { EditProfileComponent } from './components/account/edit-profile/edit-profile.component';
@@ -22,10 +21,10 @@ import { AdminProductComponent } from './components/admin/admin-product/admin-pr
 import { AdminPaymentComponent } from './components/admin/admin-payment/admin-payment.component';
 import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 import { AdminCategoryComponent } from './components/admin/admin-category/admin-category.component';
-import { HelpsComponent } from './helps/helps.component';
-import { PrivacyPolicyComponent } from './helps/privacy-policy/privacy-policy.component';
-import { FaqComponent } from './helps/faq/faq.component';
-import { TermsOfUseComponent } from './helps/terms-of-use/terms-of-use.component';
+import { HelpsComponent } from './components/helps/helps.component';
+import { PrivacyPolicyComponent } from './components/helps/privacy-policy/privacy-policy.component';
+import { FaqComponent } from './components/helps/faq/faq.component';
+import { TermsOfUseComponent } from './components/helps/terms-of-use/terms-of-use.component';
 
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -34,7 +33,6 @@ export const routes: Routes = [
   { path: 'shop', component: ShopComponent },
 
   { path: 'productDetail/:productId', component: ProductDetailComponent },
-  { path: 'checkout', component: CheckoutComponent },
   { path: 'company', component: CompanyComponent,
     children: [
       { path: 'about', component: AboutComponent },

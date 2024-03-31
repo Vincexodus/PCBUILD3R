@@ -4,5 +4,5 @@ export interface Review {
   rating: number;
   desc: number;
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }

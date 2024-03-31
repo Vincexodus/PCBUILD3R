@@ -5,7 +5,7 @@
   <div class="block is-size-5">
     You visited page not found. Please return to home page.
   </div>
-  <button (click)="returnToHome()" class="button is-black is-rounded" >
+  <button [routerLink]="['/']" class="button is-black is-rounded" >
     Back to home page
   </button>
 </div>

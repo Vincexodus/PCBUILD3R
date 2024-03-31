@@ -19,6 +19,11 @@ const GameStatsSchema = new mongoose.Schema({
       required: true,
       default: 0
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  }
 })
 
 module.exports = mongoose.model('GameStats', GameStatsSchema);

@@ -2,49 +2,51 @@ const express = require("express");
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 
-const OrderItems = require('../models/order_items.model')
+const Order = require('../models/order.model')
 
-// Get all order items
+// Get all order details
 router.get("", authenticate, (req, res) => {
-  OrderItems.find({
+  Order.find({
     // _userId: req.user_id
-  }).then((orderItems) => {
-    res.send(orderItems);
+  }).then((order) => {
+    res.send(order);
   }).catch((e) => {
     res.send(e);
   })
 });
 
-// Create order items
+// Create order details
 router.post("", authenticate, (req, res) => {
-  let orderItems = req.body;
-  let newOrderItems = new OrderItems({
-    _orderId: orderItems._orderIdl,
-    _productId: orderItems._productId,
-    quantity: orderItems.quantity,
+  let order = req.body;
+  let newOrder = new Order({
+    _userId: order._userId,
+    _cartItemId: order._cartItemId,
+    _voucherId: order._voucherId,
+    paymentMethod: order.paymentMethod,
+    total: order.total,
     // _userId: req.user_id
   });
 
-  newOrderItems.save().then((newDoc) => {
+  newOrder.save().then((newDoc) => {
     res.send(newDoc);
   });
 });
 
-// Update order items
+// Update order details
 router.patch("/:id", authenticate, (req, res) => {
-  OrderItems.findOneAndUpdate(
+  Order.findOneAndUpdate(
     { _id: req.params.id },
     {
       $set: req.body,
     }
   ).then(() => {
-    res.send({ message: "Order Items updated successfully" });
+    res.send({ message: "Order Details updated successfully" });
   });
 });
 
-// Delete order items
+// Delete order details
 router.delete("/:id", authenticate, (req, res) => {
-  OrderItems.findOneAndDelete({
+  Order.findOneAndDelete({
     _id: req.params.id,
     // _userId: req.user_id
   }).then((removedDoc) => {

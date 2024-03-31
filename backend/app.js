@@ -11,14 +11,11 @@ const cartItemRoutes = require('./routes/cart_item');
 const discountRoutes = require('./routes/discount');
 const reviewRoutes = require('./routes/review');
 const gameStatsRoutes = require('./routes/game_stats');
-const orderDetailsRoutes = require('./routes/order_details');
-const orderItemsRoutes = require('./routes/order_items');
-const paymentDetailsRoutes = require('./routes/payment_details');
+const orderRoutes = require('./routes/order');
 const productCategoryRoutes = require('./routes/product_category');
 const productRoutes = require('./routes/product');
 const sessionRoutes = require('./routes/session');
-const userAddressRoutes = require('./routes/user_address');
-const userPaymentRoutes = require('./routes/user_payment');
+const userDetailRoutes = require('./routes/user_detail');
 const userRoutes = require('./routes/user');
 
 // Connect to mongo db
@@ -50,14 +47,11 @@ app.use("/cartItem", cartItemRoutes);
 app.use("/discount", discountRoutes);
 app.use("/review", reviewRoutes);
 app.use("/gameStats", gameStatsRoutes);
-app.use("/orderDetails", orderDetailsRoutes);
-app.use("/orderItems", orderItemsRoutes);
-app.use("/paymentDetails", paymentDetailsRoutes);
+app.use("/order", orderRoutes);
 app.use("/productCategory", productCategoryRoutes);
 app.use("/product", productRoutes);
 app.use("/session", sessionRoutes);
-app.use("/userAddress", userAddressRoutes);
-app.use("/userPayment", userPaymentRoutes);
+app.use("/userDetail", userDetailRoutes);
 app.use("/user", userRoutes);
 
 // send email on contact page

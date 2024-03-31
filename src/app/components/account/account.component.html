@@ -6,13 +6,13 @@
         <div class="divider my-4"></div>
         <div class="my-2 is-justify-content-space-between" *ngFor="let dir of directories">
           <a [routerLink]="['/account', dir.link]" class="is-flex">
-            <i class="{{ dir.icon }} pt-2" style="color: #000000;"></i>
+            <i class="{{ dir.icon }} pt-2 ml-6" style="color: #000000;"></i>
             <h4 class="p-2">{{ dir.name }}</h4>
           </a>
         </div>
         <div class="my-2 is-justify-content-space-between">
           <a (click)="logout()" class="is-flex">
-            <i class="fa-solid fa-right-from-bracket pt-2" style="color: #000000;"></i>
+            <i class="fa-solid fa-right-from-bracket pt-2 ml-6" style="color: #000000;"></i>
             <h4 class="p-2">Log out</h4>
           </a>
         </div>

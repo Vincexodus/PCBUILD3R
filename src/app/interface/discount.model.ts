@@ -5,5 +5,5 @@ export interface Discount {
   discount_percent: number;
   active: boolean;
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }

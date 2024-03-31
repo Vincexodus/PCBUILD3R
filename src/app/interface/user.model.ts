@@ -6,5 +6,5 @@ export interface User {
   password: string;
   telephone: string;
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }

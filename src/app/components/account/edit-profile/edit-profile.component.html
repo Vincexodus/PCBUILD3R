@@ -1,90 +1,165 @@
-<div *ngIf="show" class="card-container">
-  <div class="is-flex is-justify-content-space-between">
-    <div class="field">
-      <p class="control">
-        <input
-          class="input is-rounded"
-          type="text"
-          placeholder="First Name"
-        />
-      </p>
+<div *ngIf="show" class="">
+  <div class="columns">
+    <div class="column">
+      <div class="card-container">
+        <h2 class="block">Profile Details</h2>
+        <form [formGroup]="profileForm" (submit)="updateProfileInfo()">
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Full Name</div>
+            <p class="column control">
+              <input formControlName="name"
+                class="input is-rounded"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Email</div>
+            <p class="column control">
+              <input formControlName="email"
+                class="input is-rounded"
+                type="email"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Telephone</div>
+            <p class="column control">
+              <input formControlName="telephone"
+                class="input is-rounded"
+                type="text"
+              />
+            </p>
+          </div>
+          <div class="mt-2">
+            <button type="submit" class="button is-black is-rounded is-fullwidth" [disabled]="profileLoading">
+              <ng-container *ngIf="profileLoading; else updateText">Updating<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
+              <ng-template #updateText>Update</ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-container mt-5">
+        <h2 class="block">Password Change <span class="has-text-weight-normal">(Requires Relogin)</span></h2>
+        <form [formGroup]="passwordForm" (submit)="updatePassword()">
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Current Password</div>
+            <p class="column control">
+              <input formControlName="currPassword"
+                class="input is-rounded"
+                type="password"
+                placeholder="Current Password"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">New Password</div>
+            <p class="column control">
+              <input formControlName="newPassword"
+                class="input is-rounded"
+                type="password"
+                placeholder="New Password"
+              />
+            </p>
+          </div>
+          <div class="mt-2">
+            <button type="submit" class="button is-black is-rounded is-fullwidth" [disabled]="passwordLoading">
+              <ng-container *ngIf="profileLoading; else updateText">Updating<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
+              <ng-template #updateText>Update</ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="field">
-      <p class="control">
-        <input
-          class="input is-rounded"
-          type="text"
-          placeholder="Last Name"
-        />
-      </p>
+    <div class="column">
+      <div class="card-container">
+        <h2 class="block">Billing Details</h2>
+        <form [formGroup]="billingForm" (submit)="updateBillingInfo()">
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Address</div>
+            <p class="column control">
+              <input formControlName="address"
+                class="input is-rounded"
+                type="text"
+                placeholder="Address"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Town/City</div>
+            <p class="column control">
+              <input formControlName="city"
+                class="input is-rounded"
+                type="text"
+                placeholder="Town/City"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">ZIP Code</div>
+            <p class="column control">
+              <input formControlName="postalCode"
+                class="input is-rounded"
+                type="text"
+                placeholder="ZIP code"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Country</div>
+            <p class="column control">
+              <input formControlName="country"
+                class="input is-rounded"
+                type="text"
+                placeholder="Country/Region"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Card Number</div>
+            <p class="column control">
+              <input formControlName="cardNumber"
+                class="input is-rounded"
+                type="text"
+                placeholder="Credit/Debit Card Number"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">CVC</div>
+            <p class="column control">
+              <input formControlName="CVC"
+                class="input is-rounded"
+                type="text"
+                placeholder="CVC"
+              />
+            </p>
+          </div>
+          <div class="field columns">
+            <div class="column is-one-third m-auto">Expiry Date</div>
+            <p class="column control">
+              <input formControlName="expireMonth"
+                class="input is-rounded"
+                type="text"
+                placeholder="MM"
+              />
+            </p>
+            <p class="column control">
+              <input formControlName="expireYear"
+                class="input is-rounded"
+                type="text"
+                placeholder="YY"
+              />
+            </p>
+          </div>
+          <div class="mt-2">
+            <button type="submit" class="button is-black is-rounded is-fullwidth" [disabled]="billingLoading">
+              <ng-container *ngIf="billingLoading; else updateText">Updating<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
+              <ng-template #updateText>Update</ng-template>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-  <div class="field">
-    <p class="control">
-      <input
-        class="input is-rounded"
-        type="text"
-        placeholder="Country/Region"
-      />
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <input
-        class="input is-rounded"
-        type="text"
-        placeholder="Street address"
-      />
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <input
-        class="input is-rounded"
-        type="text"
-        placeholder="Town/City"
-      />
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <input
-        class="input is-rounded"
-        type="text"
-        placeholder="Province"
-      />
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <input
-        class="input is-rounded"
-        type="text"
-        placeholder="ZIP code"
-      />
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <input
-        class="input is-rounded"
-        type="email"
-        placeholder="Email Address"
-      />
-    </p>
-  </div>
-  <div class="field">
-    <p class="control">
-      <input
-        class="input is-rounded"
-        type="text"
-        placeholder="Additional Information"
-      />
-    </p>
-  </div>
-  <div class="">
-    <button class="button is-black is-rounded is-fullwidth">
-      Save Changes
-    </button>
   </div>
 </div>

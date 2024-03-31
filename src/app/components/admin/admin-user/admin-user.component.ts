@@ -96,9 +96,9 @@ export class AdminUserComponent {
     }
   }
 
-  editUser(id: string, isAdmin: boolean, username: string, userEmail: string, userPassword: string, userTelephone: string) {
-    if (!this.util.strValidation(username, userEmail, userPassword, userTelephone))  {
-      this.userService.updateUser(id, isAdmin, username, userEmail, userPassword, userTelephone).subscribe(() => {
+  editUser(id: string, username: string, userEmail: string, userTelephone: string) {
+    if (!this.util.strValidation(username, userEmail, userTelephone))  {
+      this.userService.updateUser(id, username, userEmail, userTelephone).subscribe(() => {
         this.toast.warning({detail:"SUCCESS",summary:'User Updated!', duration:2000, position:'topCenter'});
         this.getUsers();
         this.closeEditModal(id);

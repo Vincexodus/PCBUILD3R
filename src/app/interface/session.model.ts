@@ -4,5 +4,5 @@ export interface Session {
   _productId: string;
   completion: number;
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }

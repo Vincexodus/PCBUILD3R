@@ -1,8 +1,8 @@
-export interface OrderDetails {
+export interface Order {
   _id: string;
   _userId: string;
   _paymentd: string;
   total: number;
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }

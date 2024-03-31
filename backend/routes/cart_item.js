@@ -40,7 +40,8 @@ router.post("", authenticate, (req, res) => {
         let newCartItem = new CartItem({
           _userId: cartItem._userId,
           _productId: cartItem._productId,
-          quantity: cartItem.quantity
+          quantity: cartItem.quantity,
+          isPaid: false
         });
         return newCartItem.save();
       }

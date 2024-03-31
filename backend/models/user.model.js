@@ -38,9 +38,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
-  modifiedAt: {
-    type: Date,
-  },
   sessions: [
     {
       token: {
@@ -113,21 +110,34 @@ UserSchema.methods.createSession = function () {
     });
 };
 
-/* MODEL METHODS (static methods) */
-
 UserSchema.statics.getJWTSecret = () => {
   return jwtSecret;
 };
 
 UserSchema.statics.findByIdAndToken = function (_id, token) {
-  // finds user by id and token
-  // used in auth middleware (verifySession)
 
   const User = this;
 
   return User.findOne({
     _id,
     "sessions.token": token,
+  });
+};
+
+UserSchema.statics.verifyCredentials = function (_id, password) {
+  let User = this;
+  return User.findOne({ _id }).then((user) => {
+    if (!user) return Promise.reject();
+
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          resolve(user);
+        } else {
+          reject();
+        }
+      });
+    });
   });
 };
 

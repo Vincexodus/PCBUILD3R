@@ -17,6 +17,11 @@ const DiscountSchema = new mongoose.Schema({
       type: Boolean,
       required: true
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  }
 })
 
 module.exports = mongoose.model('Discount', DiscountSchema);

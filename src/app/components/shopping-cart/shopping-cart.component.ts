@@ -11,11 +11,14 @@ import { User } from '../../interface/user.model';
 import { CartItem } from '../../interface/cart-item.model';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { forkJoin } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { subscribe } from 'diagnostics_channel';
+import { error } from 'console';
 
 @Component({
   selector: 'app-shopping-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, ShoppingCartItemComponent, ProductCardComponent],
+  imports: [CommonModule, FormsModule, RouterLink, ShoppingCartItemComponent, ProductCardComponent],
   templateUrl: './shopping-cart.component.html',
   styleUrl: './shopping-cart.component.sass'
 })
@@ -24,11 +27,13 @@ export class ShoppingCartComponent implements OnInit {
   @Input() show: boolean = false;
   loading = false;
   userId: string = "";
+  voucherKey: string = "";
   cartItems!: CartItem[];
   cartProducts: Product[] = [];
   deliverFee: number = 15;
   subtotal: number = 0;
   total: number = 0;
+  selectedOption: string = 'BT';
 
   constructor(private router: Router, private productService: ProductService, 
     private toast: NgToastService, private orderService: OrderService,
@@ -73,7 +78,6 @@ export class ShoppingCartComponent implements OnInit {
     if (this.userId.length !== 0) {
       this.orderService.getCartItem(this.userId).subscribe((cartItems: CartItem[]) => {
         this.cartItems = cartItems;
-
         const productObservables = this.cartItems.map(item =>
           this.productService.getProductById(item._productId)
         );
@@ -91,6 +95,25 @@ export class ShoppingCartComponent implements OnInit {
       }, (error) => {
         console.log(error);
       })
+    }
+  }
+
+  // verifyBillingDetail(userId: string): boolean {
+  //   this.userService.
+  // }
+
+  checkoutCart() {
+    if (this.selectedOption === "DCC") {
+      // check for user billing details
+    } else {
+      this.loading = true;
+      this.orderService.checkoutCart(this.userId, this.userId, this.voucherKey, this.selectedOption, this.total).subscribe(() => {
+        this.loading = false;
+        this.toast.success({detail:"SUCCESS",summary:'Checkout Successfully!', duration:2000, position:'topCenter'});
+      }, (error) => {
+        this.loading = false;
+        console.log(error);
+      }) 
     }
   }
 }

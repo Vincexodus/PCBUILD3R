@@ -15,6 +15,20 @@ router.get("", authenticate, (req, res) => {
   })
 });
 
+// Update user by id
+router.post("/updatePassword/:id", authenticate, async (req, res) => {
+  let passwordBody = req.body;
+  User.verifyCredentials(req.params.id, passwordBody.currPassword)
+  .then((user) => {
+    user.password = passwordBody.newPassword;
+    user.save();
+    res.send({ message: "Password updated successfully" });
+  })
+  .catch((e) => {
+    res.status(400).send(e);
+  });
+});
+
 // Get user by id
 router.get("/:id", authenticate, (req, res) => {
   User.find({
@@ -80,6 +94,23 @@ router.post("/login", (req, res) => {
     .catch((e) => {
       res.status(400).send(e);
     });
+});
+
+// Update basic user info
+router.patch("/:id", authenticate, (req, res) => {
+  let userInfo = req.body;
+  Order.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $set: {
+        name: userInfo.name,
+        email: userInfo.email,
+        telephone: userInfo.telephone
+      },
+    }
+  ).then(() => {
+    res.send({ message: "User updated successfully" });
+  });
 });
 
 // Get user access-token with refresh-token

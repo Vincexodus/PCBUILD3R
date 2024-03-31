@@ -3,5 +3,5 @@ export interface CartItem {
   _productId: string;
   quantity: number;
   createdAt: Date;
-  version: Number;
+  __v: Number;
 }
