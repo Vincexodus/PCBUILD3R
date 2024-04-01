@@ -3,25 +3,25 @@
     <div class="tile is-parent">
       <article class="tile is-child box is-rounded">
         <p class="title is-5">Total Products</p>
-        <p class="subtitle">40,689</p>
-      </article>
-    </div>
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <p class="title is-5">Total Orders</p>
-        <p class="subtitle">40,689</p>
-      </article>
-    </div>
-    <div class="tile is-parent">
-      <article class="tile is-child box">
-        <p class="title is-5">Total Sales</p>
-        <p class="subtitle">40,689</p>
+        <p class="subtitle">{{ totalProducts }}</p>
       </article>
     </div>
     <div class="tile is-parent">
       <article class="tile is-child box">
         <p class="title is-5">Total Users</p>
-        <p class="subtitle">12</p>
+        <p class="subtitle">{{ totalUsers }}</p>
+      </article>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title is-5">Total Orders</p>
+        <p class="subtitle">{{ totalOrders }}</p>
+      </article>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title is-5">Total Sales</p>
+        <p class="subtitle">MYR {{ totalSales }}</p>
       </article>
     </div>
   </div>
@@ -44,48 +44,6 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
             </div>
           </article>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card-container">
-    <div class="columns">
-      <div class="column is-one-fifth">
-        <h4>Order Id</h4>
-      </div>
-      <div class="column is-one-fifth">
-        <h4>Date</h4>
-      </div>
-      <div class="column is-one-fifth">
-        <h4>Total</h4>
-      </div>
-      <div class="column">
-        <h4>Status</h4>
-      </div>
-      <div class="column">
-        <h4>Status</h4>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="columns mt-2" *ngFor="let i of getNumberArray(10); let index = index">
-      <div class="column">
-        <h4>#{{ i }}</h4>
-      </div>
-      <div class="column">
-        <h4>4 April, 2022</h4>
-      </div>
-      <div class="column">
-        <h4>$145 (5 Products)</h4>
-      </div>
-      <div class="column">
-        <h4>Processing</h4>
-      </div>
-      <div class="column">
-        <div class="is-flex">
-          <button class="button is-small is-success is-rounded has-text-black">
-            <i class="fa-regular fa-circle-check pr-2" style="color: #000000;"></i>
-            Completed
-          </button>
         </div>
       </div>
     </div>

@@ -85,7 +85,7 @@ export class AdminUserComponent {
   }
 
   addUser(isAdmin: boolean, username: string, userEmail: string, userPassword: string, userTelephone: string) {
-    if (!this.util.strValidation(username, userEmail, userPassword, userTelephone)) {
+    if (true) {
       this.userService.createUser(isAdmin, username, userEmail, userPassword, userTelephone).subscribe(() => {
         this.toast.success({detail:"SUCCESS",summary:'User Added!', duration:2000, position:'topCenter'});
         this.getUsers();
@@ -97,9 +97,9 @@ export class AdminUserComponent {
   }
 
   editUser(id: string, username: string, userEmail: string, userTelephone: string) {
-    if (!this.util.strValidation(username, userEmail, userTelephone))  {
+    if (true)  {
       this.userService.updateUser(id, username, userEmail, userTelephone).subscribe(() => {
-        this.toast.warning({detail:"SUCCESS",summary:'User Updated!', duration:2000, position:'topCenter'});
+        this.toast.success({detail:"SUCCESS",summary:'User Updated!', duration:2000, position:'topCenter'});
         this.getUsers();
         this.closeEditModal(id);
       }, (error) => {

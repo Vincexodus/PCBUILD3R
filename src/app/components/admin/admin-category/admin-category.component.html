@@ -13,38 +13,50 @@
     <div class="modal is-active" *ngIf="isAddModalActive">
       <div class="modal-background"></div>
       <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title ">Add Category</p>
-          <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="px-2">
-            <div class="columns">
-              <div class="column is-one-third">Category Image</div>
-              <div class="column">
-                <input type="file" accept="image/*" (input)="onFileSelected($event)"><br>
-                <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="add-img-size">
+        <form [formGroup]="addForm" (submit)="addCategory()">
+          <header class="modal-card-head">
+            <p class="modal-card-title ">Add Category</p>
+            <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="px-2">
+              <div class="columns">
+                <div class="column is-one-third">Category Image</div>
+                <div class="column">
+                  <div class="file has-name">
+                    <label class="file-label">
+                      <input class="file-input" type="file" accept="image/*" (input)="onFileSelected($event)"/>
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">Choose a image</span>
+                      </span>
+                      <span *ngIf="imageUrl" class="file-name"> {{ imageName }}</span>
+                    </label>
+                  </div>
+                  <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="add-img-size">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Category Name</div>
+                <div class="column">
+                  <input formControlName="productCategoryName" class="input is-small">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Category Name (Short Form)</div>
+                <div class="column">
+                  <input formControlName="productCategoryNameShort" class="input is-small">
+                </div>
               </div>
             </div>
-            <div class="columns">
-              <div class="column is-one-third">Category Name</div>
-              <div class="column">
-                <input #categoryName class="input is-small" type="text">
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">Category Name (Short Form)</div>
-              <div class="column">
-                <input #categoryNameShort class="input is-small" type="text">
-              </div>
-            </div>
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success is-rounded is-small" 
-                  (click)="addCategory(categoryName.value, categoryNameShort.value, this.imageUrl)">Save changes</button>
-          <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
-        </footer>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+            <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
+          </footer>
+        </form>
       </div>
     </div>
   </div>
@@ -61,12 +73,6 @@
       </div>
       <div class="column">
         <h4>Name (Short)</h4>
-      </div>
-      <div class="column">
-        <h4>Created At</h4>
-      </div>
-      <div class="column">
-        <h4>Version</h4>
       </div>
       <div class="column">
         <h4>Action</h4>
@@ -87,12 +93,6 @@
         <h4>{{ category.productCategoryNameShort }}</h4>
       </div>
       <div class="column">
-        <h4>{{ category.createdAt }}</h4>
-      </div>
-      <div class="column">
-        <h4>{{ category.__v }}</h4>
-      </div>
-      <div class="column">
         <div class="is-flex">
           <button class="button is-small is-primary is-rounded" (click)="openEditModal(category._id)">
             <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
@@ -101,43 +101,56 @@
           <div class="modal is-active" *ngIf="editModalStates[category._id]">
             <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title ">Edit Product Category</p>
-                <button class="delete" aria-label="close" (click)="closeEditModal(category._id)"></button>
-              </header>
-              <section class="modal-card-body">
-                <div class="px-2">
-                  <div class="columns">
-                    <div class="column is-one-third">Category Id</div>
-                    <div class="column">
-                      <input [(ngModel)]="category._id" class="input is-small" type="text" placeholder="" disabled="" required>
+              <form [formGroup]="editForm" (submit)="editCategory()">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">Edit Product Category</p>
+                  <button class="delete" aria-label="close" (click)="closeEditModal(category._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column is-one-third">Category Id</div>
+                      <div class="column">
+                        <input formControlName="id" class="input is-small">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Category Image</div>
+                      <div class="column">
+                        <div class="file has-name">
+                          <label class="file-label">
+                            <input class="file-input" type="file" accept="image/*" (input)="onFileSelected($event)"/>
+                            <span class="file-cta">
+                              <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                              </span>
+                              <span class="file-label">Choose a image</span>
+                            </span>
+                            <span *ngIf="this.imageUrl" class="file-name"> {{ imageName }}</span>
+                          </label>
+                        </div>
+                        <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="image is-64x64">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Category</div>
+                      <div class="column">
+                        <input formControlName="productCategoryName" class="input is-small">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Category Name (Short Form)</div>
+                      <div class="column">
+                        <input formControlName="productCategoryNameShort" class="input is-small">
+                      </div>
                     </div>
                   </div>
-                  <div class="columns">
-                    <div class="column is-one-third">Category Image</div>
-                    <div class="column">
-                      <input type="file" accept="image/*" (input)="onFileSelected($event)" required><br>
-                      <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="image is-64x64">
-                    </div>
-                  </div>
-                  <div class="columns">
-                    <div class="column is-one-third">Category</div>
-                    <div class="column">
-                      <input [(ngModel)]="editCategoryName" #categoryName class="input is-small" type="text" required>
-                    </div>
-                  </div>
-                  <div class="columns">
-                    <div class="column is-one-third">Category Name (Short Form)</div>
-                    <div class="column">
-                      <input [(ngModel)]="editCategoryNameShort" #categoryNameShort class="input is-small" type="text" required>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-success is-rounded is-small" (click)="editCategory(category._id, categoryName.value, categoryNameShort.value,  onEditImage(category.productCategoryImage))">Save changes</button>
-                <button class="button is-rounded is-small" (click)="closeEditModal(category._id)">Cancel</button>
-              </footer>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+                  <button class="button is-rounded is-small" (click)="closeEditModal(category._id)">Cancel</button>
+                </footer>
+              </form>
             </div>
           </div>
           <div class="px-5">
@@ -149,7 +162,7 @@
             <div class="modal-background"></div>
             <div class="modal-card">
               <header class="modal-card-head">
-                <p class="modal-card-title ">Delete Product Category</p>
+                <p class="modal-card-title">Delete Product Category</p>
                 <button class="delete" aria-label="close" (click)="closeDeleteModal(category._id)"></button>
               </header>
               <section class="modal-card-body">

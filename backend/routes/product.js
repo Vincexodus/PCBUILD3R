@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 var multer  = require('multer');
+
 const Product = require('../models/product.model')
+const CartItem = require('../models/cart_item.model');
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -36,14 +38,36 @@ router.get("/latest", authenticate, (req, res) => {
 });
 
 // Get 16 best selling products 
-router.get("/top", authenticate, (req, res) => {
-  Product.aggregate([{
-    $sample: { size: 16 }
-  }]).then((products) => {
-    res.send(products);
-  }).catch((e) => {
-    res.send(e);
-  })
+router.get('/top', async (req, res) => {
+  try {
+    const cartItems = await CartItem.find({ isPaid: true }).exec(); // Use .exec() to execute the query
+    const quantityMap = cartItems.reduce((acc, item) => {
+      if (acc[item._productId]) {
+        acc[item._productId] += item.quantity;
+      } else {
+        acc[item._productId] = item.quantity;
+      }
+      return acc;
+    }, {});
+    
+    const quantitiesArray = Object.entries(quantityMap).map(([productId, quantity]) => ({
+      _productId: productId,
+      quantity: quantity
+    }));
+    
+    // limit to 16 cartItems
+    quantitiesArray.sort((a, b) => b.quantity - a.quantity).slice(0, 16);
+    
+    // Fetch product details for the top products
+    const productsWithMostQuantity = await Promise.all(quantitiesArray.map(async ({ _productId }) => {
+      const product = await Product.findById(_productId); // Assuming you have a Product model
+      return { ...product.toObject() }; // Convert product to plain object
+    }));
+    
+    res.json(productsWithMostQuantity);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Get 16 best relevant products 
@@ -91,8 +115,6 @@ router.post("", authenticate, upload.single('image'), (req, res) => {
   let product = req.body;
   let newProduct = new Product({
     _productCategoryId: product._productCategoryId,
-    _inventoryId: product._inventoryId,
-    _discountId: product._discountId,
     productName: product.productName,
     productImage: product.productImage,
     desc: product.desc,

@@ -5,35 +5,49 @@ import { Product } from '../../../interface/product.model';
 import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
 import { ProductService } from '../../../service/product.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductCategory } from '../../../interface/product-category.model';
 @Component({
   selector: 'app-admin-product',
   standalone: true,
-  imports: [CommonModule, PaginationComponent, FormsModule],
+  imports: [CommonModule, PaginationComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './admin-product.component.html',
   styleUrl: './admin-product.component.sass'
 })
 export class AdminProductComponent implements OnInit {
   @Input() show: boolean = false;
   products!: Product[];
-  productQuantity: number | "" = "";
   productCategory!: ProductCategory[];
-  isAddModalActive: boolean = false;
   selectedCategoryId: string = "";
-  editProductName: string = "";
-  editProductCategory: string = "";
-  editProductDesc: string = "";
-  editProductPrice: number | "" = "";
-  editProductQuantity: Number | "" = "";
-  editProductImage: string | ArrayBuffer | null = null;
+  isAddModalActive: boolean = false;
   deleteModalStates: { [productId: string]: boolean } = {};
   editModalStates: { [productId: string]: boolean } = {};
   imageName: string = "";
   imageUrl: string | ArrayBuffer | null = null;
   isDropdownActive = false;
+  addForm: FormGroup;
+  editForm: FormGroup;
 
-  constructor(private productService: ProductService, private toast: NgToastService, private util: UtilService) { }
+  constructor(
+    private productService: ProductService, 
+    private toast: NgToastService, 
+    private util: UtilService,
+    private formBuilder: FormBuilder) {
+      this.addForm = this.formBuilder.group({
+        productName: ['', [Validators.required, Validators.minLength(3)]],
+        productDesc: ['', [Validators.required, Validators.minLength(3)]],
+        productPrice: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(10000)]],
+        stockQuantity: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(10000)]],
+      });
+
+      this.editForm = this.formBuilder.group({
+        id: [{value: '', disabled: true}],
+        productName: ['', [Validators.required, Validators.minLength(3)]],
+        productDesc: ['', [Validators.required, Validators.minLength(3)]],
+        productPrice: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(10000)]],
+        stockQuantity: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(10000)]],
+      });
+    }
 
   ngOnInit() {
     this.getProductCategories();
@@ -123,12 +137,13 @@ export class AdminProductComponent implements OnInit {
     this.imageUrl = "";
     this.editModalStates[productId] = true;
     const product = this.products.find(product => product._id === productId);
-    this.editProductName = product ? product.productName : '';
-    this.editProductCategory = product? this.categoryNameById(product?._productCategoryId): '';
-    this.editProductDesc = product ? product.desc : '';
-    this.editProductPrice = product ? product.price.$numberDecimal : '';
-    this.editProductImage= product ? product.productImage : '';
-    this.editProductQuantity= product ? product.quantity : '';
+    this.editForm.patchValue({
+      id: product?._id,
+      productName: product?.productName,
+      productDesc: product?.desc,
+      productPrice: product?.price.$numberDecimal,
+      stockQuantity: product?.quantity,
+    })
   }
 
   closeEditModal(productId: string) {
@@ -149,27 +164,45 @@ export class AdminProductComponent implements OnInit {
     });
   }
 
-  addProduct(productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, productDesc: string, productPrice: string, productQuantity: string) {
-    if (!this.util.strValidation(productCategoryId, productName, productDesc, productQuantity) && !this.util.numValidation(productPrice, productQuantity)) {
-      this.productService.createProduct(productCategoryId, productName, productImage, productDesc, parseFloat(productPrice), parseFloat(productQuantity)).subscribe(() => {
+  addProduct() {
+    if (this.addForm.valid) {
+      const productName = this.addForm.get('productName')?.value;
+      const productDesc = this.addForm.get('productDesc')?.value;
+      const productPrice = this.addForm.get('productPrice')?.value;
+      const stockQuantity = this.addForm.get('stockQuantity')?.value;
+      this.productService.createProduct(this.selectedCategoryId, productName, this.imageUrl, productDesc, parseFloat(productPrice), parseFloat(stockQuantity)).subscribe(() => {
         this.toast.success({detail:"SUCCESS",summary:'Product Added!', duration:2000, position:'topCenter'});
         this.getProducts();
         this.closeAddModal();
+        this.addForm.reset();
       }, (error) => {
         console.log(error);
       })
+    } else {
+      this.toast.error({detail:"FAILED",summary:'Please fill in all required field critera!', duration:2000, position:'topCenter'});
     }
   }
 
-  editProduct(id: string, productCategoryId: string, productName: string, productImage: string | ArrayBuffer | null, productDesc: string, productPrice: string, productQuantity: string) {
-    if (!this.util.strValidation(productCategoryId, productName, productDesc, productPrice, productQuantity) && !this.util.numValidation(productPrice, productQuantity)) {
-      this.productService.updateProduct(id, productCategoryId, productName, productImage, productDesc, parseFloat(productPrice), parseFloat(productQuantity)).subscribe(() => {
-        this.toast.warning({detail:"SUCCESS",summary:'Product Updated!', duration:2000, position:'topCenter'});
-        this.getProducts();
-        this.closeEditModal(id);
-      }, (error) => {
-        console.log(error);
-      })
+  editProduct() {
+    if (this.editForm.valid) {
+      const id = this.editForm.get('id')?.value;
+      const productName = this.editForm.get('productName')?.value;
+      const productDesc = this.editForm.get('productDesc')?.value;
+      const productPrice = this.editForm.get('productPrice')?.value;
+      const stockQuantity = this.editForm.get('stockQuantity')?.value;
+      const product = this.products.find(cat => cat._id === id);
+      if (product) {
+        this.productService.updateProduct(id, product._productCategoryId, productName, this.onEditImage(product.productImage), productDesc, parseFloat(productPrice), parseFloat(stockQuantity)).subscribe(() => {
+          this.toast.success({detail:"SUCCESS",summary:'Product Updated!', duration:2000, position:'topCenter'});
+          this.getProducts();
+          this.closeEditModal(id);
+          this.editForm.reset();
+        }, (error) => {
+          console.log(error);
+        })
+      }
+    } else {
+      this.toast.error({detail:"FAILED",summary:'Please fill in all required field critera!', duration:2000, position:'topCenter'});
     }
   }
 

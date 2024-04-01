@@ -1,15 +1,11 @@
 const mongoose = require('mongoose');
 
-const DiscountSchema = new mongoose.Schema({
-  name: {
+const VoucherSchema = new mongoose.Schema({
+  key: {
       type: String,
       required: true
   },
-  desc: {
-      type: String,
-      required: true
-  },
-  discount_percent: {
+  percent: {
       type: mongoose.Types.Decimal128,
       required: true
   },
@@ -24,4 +20,4 @@ const DiscountSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Discount', DiscountSchema);
+module.exports = mongoose.model('Voucher', VoucherSchema);

@@ -53,7 +53,7 @@ export class EditProfileComponent implements OnInit {
         country: ['', [Validators.required, Validators.required]],
         cardNumber: ['', [Validators.pattern('[0-9]{16}')]],
         CVC: ['', [Validators.pattern('[0-9]{3}')]],
-        expireMonth: ['', [Validators.min(1), Validators.max(12)]],
+        expireMonth: ['', [Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(12)]],
         expireYear: ['', [Validators.pattern('[0-9]*'), Validators.min(2024)]],
       });
     }
@@ -101,12 +101,9 @@ export class EditProfileComponent implements OnInit {
 
   updateProfileInfo() {
     if (this.profileForm.valid) {
-      const nameControl = this.profileForm.get('name');
-      const name = nameControl? nameControl.value : '';  
-      const emailControl = this.profileForm.get('email');
-      const email = emailControl? emailControl.value : '';  
-      const telephoneControl = this.profileForm.get('telephone');
-      const telephone = telephoneControl? telephoneControl.value : '';
+      const name = this.profileForm.get('name')?.value;
+      const email = this.profileForm.get('email')?.value;
+      const telephone = this.profileForm.get('telephone')?.value;
 
       this.profileLoading = true;
       this.userService.updateUser(this.userId, name, email, telephone).subscribe(() => {
@@ -123,10 +120,8 @@ export class EditProfileComponent implements OnInit {
 
   updatePassword() {
     if (this.passwordForm.valid) {
-      const currPasswordControl = this.passwordForm.get('currPassword');
-      const currPassword = currPasswordControl? currPasswordControl.value : '';  
-      const newPasswordControl = this.passwordForm.get('newPassword');
-      const newPassword = newPasswordControl? newPasswordControl.value : '';
+      const currPassword = this.passwordForm.get('currPassword')?.value;
+      const newPassword = this.passwordForm.get('newPassword')?.value;
 
       if (currPassword === newPassword) {
         this.toast.error({detail:"FAILED",summary:'New password must be different from the old password.', duration:2000, position:'topCenter'});
@@ -151,22 +146,14 @@ export class EditProfileComponent implements OnInit {
 
   updateBillingInfo() {
     if (this.billingForm.valid) {
-      const addressControl = this.billingForm.get('address');
-      const address = addressControl? addressControl.value : '';  
-      const cityControl = this.billingForm.get('city');
-      const city = cityControl? cityControl.value : '';  
-      const postalCodeControl = this.billingForm.get('postalCode');
-      const postalCode = postalCodeControl? postalCodeControl.value : '';  
-      const countryControl = this.billingForm.get('country');
-      const country = countryControl? countryControl.value : '';
-      const cardNumberControl = this.billingForm.get('cardNumber');
-      const cardNumber = cardNumberControl? cardNumberControl.value : '';  
-      const CVCControl = this.billingForm.get('CVC');
-      const CVC = CVCControl? CVCControl.value : '';
-      const expireMonthControl = this.billingForm.get('expireMonth');
-      const expireMonth = expireMonthControl? expireMonthControl.value : '';  
-      const expireYearControl = this.billingForm.get('expireYear');
-      const expireYear = expireYearControl? expireYearControl.value : '';  
+      const address = this.billingForm.get('address')?.value;
+      const city = this.billingForm.get('city')?.value;
+      const postalCode = this.billingForm.get('postalCode')?.value;
+      const country = this.billingForm.get('country')?.value;
+      const cardNumber = this.billingForm.get('cardNumber')?.value;
+      const CVC = this.billingForm.get('CVC')?.value;
+      const expireMonth = this.billingForm.get('expireMonth')?.value;
+      const expireYear = this.billingForm.get('expireYear')?.value;
 
       this.billingLoading = true;
       this.userService.updateUserDetail(this.userId, address, city, postalCode, country, cardNumber, CVC, expireMonth, expireYear).subscribe(() => {

@@ -1,31 +1,9 @@
 import { Injectable } from '@angular/core';
-import { NgToastService } from 'ng-angular-popup';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
-
-  constructor(private toast: NgToastService) { }
-
-  strValidation(...strings: string[]): boolean {
-    if(strings.some(str => !str)) {
-      this.toast.error({detail:"FAILED",summary:'Invalid Inputs!', duration:2000, position:'topCenter'});
-      return true;
-    }
-    return false;
-  }
-
-  numValidation(...numbers: string[]): boolean {
-    const numericRegex = /^[0-9]*\.?[0-9]*$/;
-    
-    if (numbers.every(number => numericRegex.test(number) && parseFloat(number) >= 0)) {
-        return false;
-    } else {
-        this.toast.error({detail: "FAILED", summary: 'Invalid Inputs!', duration: 2000, position: 'topCenter'});
-        return true;
-    }
-}
 
   maskString(input: string): string {
     const maskedIdLength = 8; // Length of the masked ID

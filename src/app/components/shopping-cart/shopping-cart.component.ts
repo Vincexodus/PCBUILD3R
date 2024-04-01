@@ -12,8 +12,7 @@ import { CartItem } from '../../interface/cart-item.model';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { forkJoin } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { subscribe } from 'diagnostics_channel';
-import { error } from 'console';
+import { UserDetail } from '../../interface/user-detail.model';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -98,18 +97,28 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
-  // verifyBillingDetail(userId: string): boolean {
-  //   this.userService.
-  // }
-
   checkoutCart() {
+    // check for payment type
     if (this.selectedOption === "DCC") {
-      // check for user billing details
+      this.userService.getUserDetailById(this.userId).subscribe((userDetail: UserDetail[]) => {
+        if (userDetail.length === 0 || 
+          ((userDetail.length === 1 && (userDetail[0].cardNumber.length === 0 || userDetail[0].CVC.length === 0 
+            || userDetail[0].expireMonth.length === 0 || userDetail[0].expireYear.length === 0)))) {
+          this.toast.error({detail:"FAILED",summary:'Billing Information Required!', duration:2000, position:'topCenter'});
+          setTimeout(() => {
+            this.router.navigate(['/account', 'editProfile']);
+          }, 2000);
+        }
+      })
     } else {
       this.loading = true;
-      this.orderService.checkoutCart(this.userId, this.userId, this.voucherKey, this.selectedOption, this.total).subscribe(() => {
+      const cartItemIds: string[] = this.cartItems.map(item => item._id);
+      this.orderService.checkoutCart(this.userId, cartItemIds, this.voucherKey, this.selectedOption, this.total).subscribe(() => {
         this.loading = false;
         this.toast.success({detail:"SUCCESS",summary:'Checkout Successfully!', duration:2000, position:'topCenter'});
+        setTimeout(() => {
+          this.router.navigate(['/account', 'orderHistory']);
+        }, 2000);
       }, (error) => {
         this.loading = false;
         console.log(error);

@@ -27,9 +27,10 @@
       </div>
 
       <app-dashboard [show]="isActiveTab('dashboard')"></app-dashboard>
-      <app-admin-product [show]="isActiveTab('product')"></app-admin-product>
       <app-admin-category [show]="isActiveTab('category')"></app-admin-category>
-      <app-admin-payment [show]="isActiveTab('payment')"></app-admin-payment>
+      <app-admin-product [show]="isActiveTab('product')"></app-admin-product>
+      <app-admin-voucher [show]="isActiveTab('voucher')"></app-admin-voucher>
+      <app-admin-order [show]="isActiveTab('order')"></app-admin-order>
       <app-admin-user [show]="isActiveTab('user')"></app-admin-user>
     </div>
   </div>

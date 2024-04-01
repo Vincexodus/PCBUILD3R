@@ -88,19 +88,19 @@
           <div class="control is-flex is-flex-direction-column">
             <div class="">
               <label class="radio">
-                <input type="radio" [(ngModel)]="selectedOption" value="BT">
+                <input type="radio" [(ngModel)]="selectedOption" name="payment" value="BT" checked>
                 <span class="is-size-7 ml-2">Bank Transfer</span>
               </label>
             </div>
             <div class="">
               <label class="radio">
-                <input type="radio" [(ngModel)]="selectedOption" value="DCC">
+                <input type="radio" [(ngModel)]="selectedOption" name="payment" value="DCC">
                 <span class="is-size-7 ml-2">Debit/Credit Card</span>
               </label>
             </div>
             <div class="">
               <label class="radio">
-                <input type="radio" [(ngModel)]="selectedOption" value="COD">
+                <input type="radio" [(ngModel)]="selectedOption" name="payment" value="COD">
                 <span class="is-size-7 ml-2">Cash on Delivery</span>
               </label>
             </div>
@@ -108,8 +108,8 @@
         </div>
         
         <div class="">
-          <button type="submit" class="button is-black is-rounded is-fullwidth" [disabled]="loading"
-            (click)="checkoutCart()">
+          <button type="submit" class="button is-black is-rounded is-fullwidth" (click)="checkoutCart()" 
+            [disabled]="loading">
             <ng-container *ngIf="loading; else btnText">Checking Out<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
             <ng-template #btnText>
               <h4 class="has-text-white">Proceed To Checkout</h4>

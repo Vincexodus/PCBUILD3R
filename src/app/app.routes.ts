@@ -18,13 +18,14 @@ import { EditProfileComponent } from './components/account/edit-profile/edit-pro
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AdminProductComponent } from './components/admin/admin-product/admin-product.component';
-import { AdminPaymentComponent } from './components/admin/admin-payment/admin-payment.component';
 import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 import { AdminCategoryComponent } from './components/admin/admin-category/admin-category.component';
 import { HelpsComponent } from './components/helps/helps.component';
 import { PrivacyPolicyComponent } from './components/helps/privacy-policy/privacy-policy.component';
 import { FaqComponent } from './components/helps/faq/faq.component';
 import { TermsOfUseComponent } from './components/helps/terms-of-use/terms-of-use.component';
+import { AdminOrderComponent } from './components/admin/admin-order/admin-order.component';
+import { AdminVoucherComponent } from './components/admin/admin-voucher/admin-voucher.component';
 
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -59,9 +60,10 @@ export const routes: Routes = [
   { path: 'admin', component: AdminHomeComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'product', component: AdminProductComponent },
       { path: 'category', component: AdminCategoryComponent },
-      { path: 'payment', component: AdminPaymentComponent },
+      { path: 'product', component: AdminProductComponent },
+      { path: 'voucher', component: AdminVoucherComponent },
+      { path: 'order', component: AdminOrderComponent },
       { path: 'user', component: AdminUserComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

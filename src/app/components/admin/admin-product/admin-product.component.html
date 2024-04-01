@@ -13,72 +13,73 @@
     <div class="modal is-active" *ngIf="isAddModalActive">
       <div class="modal-background"></div>
       <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title ">Add Product</p>
-          <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="px-2">
-            <div class="columns">
-              <div class="column is-one-third">Product Image</div>
-              <div class="column">
-                <div class="file has-name">
-                  <label class="file-label">
-                    <input class="file-input" type="file" accept="image/*" (input)="onFileSelected($event)"/>
-                    <span class="file-cta">
-                      <span class="file-icon">
-                        <i class="fas fa-upload"></i>
+        <form [formGroup]="addForm" (submit)="addProduct()">
+          <header class="modal-card-head">
+            <p class="modal-card-title ">Add Product</p>
+            <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="px-2">
+              <div class="columns">
+                <div class="column is-one-third">Product Image</div>
+                <div class="column">
+                  <div class="file has-name">
+                    <label class="file-label">
+                      <input class="file-input" type="file" accept="image/*" (input)="onFileSelected($event)"/>
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">Choose a image</span>
                       </span>
-                      <span class="file-label">Choose a image</span>
-                    </span>
-                    <span *ngIf="imageUrl" class="file-name"> {{ imageName }}</span>
-                  </label>
-                </div>
-                <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="add-img-size">
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">Product Name</div>
-              <div class="column">
-                <input #productName class="input is-small" type="text">
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">Product Category</div>
-              <div class="column">
-                <div class="select is-normal">
-                  <select #category (change)="onCategorySelect(category.value)">
-                    <option *ngFor="let category of productCategory">{{ category.productCategoryName }}</option>
-                  </select>
+                      <span *ngIf="imageUrl" class="file-name"> {{ imageName }}</span>
+                    </label>
+                  </div>
+                  <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" class="add-img-size">
                 </div>
               </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">Product Description</div>
-              <div class="column">
-                <textarea #productDes class="textarea is-small"></textarea>
+              <div class="columns">
+                <div class="column is-one-third">Product Name</div>
+                <div class="column">
+                  <input formControlName="productName" class="input is-small">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Product Category</div>
+                <div class="column">
+                  <div class="select is-normal">
+                    <select #category (change)="onCategorySelect(category.value)">
+                      <option *ngFor="let category of productCategory">{{ category.productCategoryName }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Product Description</div>
+                <div class="column">
+                  <textarea formControlName="productDesc" class="textarea is-small"></textarea>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Product Price (MYR)</div>
+                <div class="column">
+                  <input formControlName="productPrice" class="input is-small">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Stock Quantity</div>
+                <div class="column">
+                  <input formControlName="stockQuantity" class="input is-small">
+                </div>
               </div>
             </div>
-            <div class="columns">
-              <div class="column is-one-third">Product Price (MYR)</div>
-              <div class="column">
-                <input #productPrice class="input is-small" type="text">
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">Stock Quantity</div>
-              <div class="column">
-                <input #productQuantity class="input is-small" type="text">
-              </div>
-            </div>
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success is-rounded is-small" 
-                  (click)="addProduct(this.selectedCategoryId, productName.value, this.imageUrl, productDes.value, productPrice.value, productQuantity.value)">
-                  Save changes</button>
-          <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
-        </footer>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success is-rounded is-small" type="submit">
+                    Save changes</button>
+            <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
+          </footer>
+        </form>
       </div>
     </div>
   </div>
@@ -141,78 +142,76 @@
           <div class="modal is-active" *ngIf="editModalStates[product._id]">
             <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title ">Edit Product Category</p>
-                <button class="delete" aria-label="close" (click)="closeEditModal(product._id)"></button>
-              </header>
-              <section class="modal-card-body">
-                <div class="px-2">
+              <form [formGroup]="editForm" (submit)="editProduct()">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">Edit Product Category</p>
+                  <button class="delete" aria-label="close" (click)="closeEditModal(product._id)"></button>
+                </header>
+                <section class="modal-card-body">
                   <div class="columns">
                     <div class="column is-one-third">Product Id</div>
                     <div class="column">
-                      <input [(ngModel)]="product._id" class="input is-small" type="text" placeholder="" disabled="" required>
+                      <input formControlName="id" class="input is-small">
                     </div>
                   </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">Product Image</div>
-                  <div class="column">
-                    <div class="file has-name">
-                      <label class="file-label">
-                        <input class="file-input" type="file" accept="image/*" (input)="onFileSelected($event)"/>
-                        <span class="file-cta">
-                          <span class="file-icon">
-                            <i class="fas fa-upload"></i>
+                  <div class="columns">
+                    <div class="column is-one-third">Product Image</div>
+                    <div class="column">
+                      <div class="file has-name">
+                        <label class="file-label">
+                          <input class="file-input" type="file" accept="image/*" (input)="onFileSelected($event)"/>
+                          <span class="file-cta">
+                            <span class="file-icon">
+                              <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">Choose a image</span>
                           </span>
-                          <span class="file-label">Choose a image</span>
-                        </span>
-                        <span *ngIf="this.imageUrl" class="file-name"> {{ imageName }}</span>
-                      </label>
-                    </div>
-                    <img *ngIf="this.imageUrl" [src]="this.imageUrl" alt="Selected Image" class="image is-64x64">
-                  </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">Product Name</div>
-                  <div class="column">
-                    <input [(ngModel)]="editProductName" #productName class="input is-small" type="text" required>
-                  </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">Product Category</div>
-                  <div class="column">
-                    <div class="select is-normal">
-                      <select disabled>
-                        <option selected>{{ categoryNameById(product._productCategoryId) }}</option>
-                      </select>
+                          <span *ngIf="this.imageUrl" class="file-name"> {{ imageName }}</span>
+                        </label>
+                      </div>
+                      <img *ngIf="this.imageUrl" [src]="this.imageUrl" alt="Selected Image" class="image is-64x64">
                     </div>
                   </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">Product Description</div>
-                  <div class="column">
-                    <textarea [(ngModel)]="editProductDesc" #productDes class="textarea is-small"></textarea>
+                  <div class="columns">
+                    <div class="column is-one-third">Product Name</div>
+                    <div class="column">
+                      <input formControlName="productName" class="input is-small">
+                    </div>
                   </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">Product Price (MYR)</div>
-                  <div class="column">
-                    <input [(ngModel)]="editProductPrice" #productPrice class="input is-small" type="text" required>
+                  <div class="columns">
+                    <div class="column is-one-third">Product Category</div>
+                    <div class="column">
+                      <div class="select is-normal">
+                        <select disabled>
+                          <option selected>{{ categoryNameById(product._productCategoryId) }}</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">Stock Quantity</div>
-                  <div class="column">
-                    <input [(ngModel)]="editProductQuantity" #productQuantity class="input is-small" type="text" required>
+                  <div class="columns">
+                    <div class="column is-one-third">Product Description</div>
+                    <div class="column">
+                      <textarea formControlName="productDesc" class="textarea is-small"></textarea>
+                    </div>
                   </div>
-                </div>
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-success is-rounded is-small" 
-                      (click)="editProduct(product._id, product._productCategoryId, productName.value, onEditImage(product.productImage), 
-                      productDes.value, productPrice.value, productQuantity.value)">Save changes</button>
-                <button class="button is-rounded is-small" (click)="closeEditModal(product._id)">Cancel</button>
-              </footer>
+                  <div class="columns">
+                    <div class="column is-one-third">Product Price (MYR)</div>
+                    <div class="column">
+                      <input formControlName="productPrice" class="input is-small">
+                    </div>
+                  </div>
+                  <div class="columns">
+                    <div class="column is-one-third">Stock Quantity</div>
+                    <div class="column">
+                      <input formControlName="stockQuantity" class="input is-small">
+                    </div>
+                  </div>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+                  <button class="button is-rounded is-small" (click)="closeEditModal(product._id)">Cancel</button>
+                </footer>
+              </form>
             </div>
           </div>
           <div class="pl-4">

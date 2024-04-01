@@ -5,14 +5,6 @@ const ProductSchema = new mongoose.Schema({
       type: mongoose.Types.ObjectId,
       required: true
   },
-  _inventoryId: {
-      type: mongoose.Types.ObjectId,
-      required: false
-  },
-  _discountId: {
-      type: mongoose.Types.ObjectId,
-      required: false
-  },
   productName: {
       type: String,
       required: true

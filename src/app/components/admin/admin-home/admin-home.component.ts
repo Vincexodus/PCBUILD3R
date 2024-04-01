@@ -4,33 +4,37 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { AdminProductComponent } from '../admin-product/admin-product.component';
-import { AdminPaymentComponent } from '../admin-payment/admin-payment.component';
 import { AdminUserComponent } from '../admin-user/admin-user.component';
 import { AdminCategoryComponent } from '../admin-category/admin-category.component';
 import { AuthService } from '../../../service/auth.service';
 import { Inject } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { User } from '../../../interface/user.model';
+import { AdminOrderComponent } from '../admin-order/admin-order.component';
+import { AdminVoucherComponent } from '../admin-voucher/admin-voucher.component';
 
 @Component({
   selector: 'app-admin-home',
   standalone: true,
   imports: [CommonModule, RouterLink, DashboardComponent, AdminProductComponent, AdminCategoryComponent,
-            AdminPaymentComponent, AdminUserComponent],
+            AdminOrderComponent, AdminUserComponent, AdminVoucherComponent],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.sass'
 })
+
 export class AdminHomeComponent implements OnInit {
   userEmail: string = "";
   directories: Directory[] = [
     { name: "Dashboard", icon: "fa-solid fa-chart-line", link: 'dashboard' },
+    { name: "Categories", icon: "fa-solid fa-list", link: 'category' },
     { name: "Products", icon: "fa-solid fa-box-archive", link: 'product' },
-    { name: "Category", icon: "fa-solid fa-list", link: 'category' },
-    { name: "Payments", icon: "fa-solid fa-credit-card", link: 'payment' },
-    { name: "User", icon: "fa-solid fa-circle-user", link: 'user' },
+    { name: "Voucher", icon: "fa-solid fa-ticket", link: 'voucher' },
+    { name: "Orders", icon: "fa-solid fa-clipboard", link: 'order' },
+    { name: "Users", icon: "fa-solid fa-circle-user", link: 'user' },
   ]
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, @Inject(DOCUMENT) private document: Document, private userService: UserService) {}
+  constructor(private route: ActivatedRoute, private authService: AuthService, @Inject(DOCUMENT) private document: Document,
+              private userService: UserService) {}
 
   ngOnInit(): void {
     const localStorage = this.document.defaultView?.localStorage;

@@ -14,11 +14,6 @@ const ProductCategorySchema = new mongoose.Schema({
       type: String,
   },
   createdAt: {
-      type: Date,
-      required: false,
-      default: Date.now
-  },
-  createdAt: {
     type: Date,
     default: Date.now,
     required: true,

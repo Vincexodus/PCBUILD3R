@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
 const cartItemRoutes = require('./routes/cart_item');
-const discountRoutes = require('./routes/discount');
+const voucherRoutes = require('./routes/voucher');
 const reviewRoutes = require('./routes/review');
 const gameStatsRoutes = require('./routes/game_stats');
 const orderRoutes = require('./routes/order');
@@ -44,7 +44,7 @@ app.use(function (req, res, next) {
 });
 
 app.use("/cartItem", cartItemRoutes);
-app.use("/discount", discountRoutes);
+app.use("/voucher", voucherRoutes);
 app.use("/review", reviewRoutes);
 app.use("/gameStats", gameStatsRoutes);
 app.use("/order", orderRoutes);

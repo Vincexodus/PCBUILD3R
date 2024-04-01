@@ -1,0 +1,168 @@
+<div *ngIf="show" class="">
+  <div class="is-flex mt-2">
+    <div class="is-flex pr-2">
+      <input #searchKeyword class="input is-small is-rounded" type="text" placeholder="Search for voucher" (input)="voucherSearch(searchKeyword.value)">
+      <div class="is-small is-rounded is-white">
+        <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
+      </div>
+    </div>
+    <button class="button is-small is-primary is-rounded" (click)="openAddModal()">
+      <i class="fa-solid fa-plus pr-2" style="color: #000000;"></i>
+      Add Voucher
+    </button>
+    <div class="modal is-active" *ngIf="isAddModalActive">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <form [formGroup]="addForm" (submit)="addVoucher()">
+          <header class="modal-card-head">
+            <p class="modal-card-title ">Add Voucher</p>
+            <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="px-2">
+              <div class="columns">
+                <div class="column is-one-third">Percent (5-95%)</div>
+                <div class="column">
+                  <input formControlName="percent" class="input is-small" type="text">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Status</div>
+                <div class="control mt-2">
+                  <label class="radio">
+                    <input type="radio" formControlName="active" value="true">
+                    Active
+                  </label>
+                  <label class="radio">
+                    <input type="radio" formControlName="active" value="false">
+                    Inactive
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success is-rounded is-small" 
+                    type="submit">Save changes</button>
+            <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card-container my-5">
+    <div class="columns">
+      <div class="column">
+        <h4>Id</h4>
+      </div>
+      <div class="column">
+        <h4>Key</h4>
+      </div>
+      <div class="column">
+        <h4>Percent</h4>
+      </div>
+      <div class="column">
+        <h4>Status</h4>
+      </div>
+      <div class="column">
+        <h4>Action</h4>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns mt-2" *ngFor="let voucher of vouchers">
+      <div class="column">
+        <h4>{{ maskString(voucher._id) }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ voucher.key }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ voucher.percent.$numberDecimal }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ voucher.active? "Active": "Inactive" }}</h4>
+      </div>
+      <div class="column">
+        <div class="is-flex">
+          <button class="button is-small is-primary is-rounded" (click)="openEditModal(voucher._id)">
+            <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
+            Edit
+          </button>
+          <div class="modal is-active" *ngIf="editModalStates[voucher._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <form [formGroup]="editForm" (submit)="editVoucher(voucher._id)">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">Edit Product voucher</p>
+                  <button class="delete" aria-label="close" (click)="closeEditModal(voucher._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column is-one-third">Voucher Id</div>
+                      <div class="column">
+                        <input formControlName="id" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Voucher Key</div>
+                      <div class="column">
+                        <input formControlName="key" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Percent (5-95%)</div>
+                      <div class="column">
+                        <input formControlName="percent" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Status</div>
+                      <div class="control mt-2">
+                        <label class="radio">
+                          <input type="radio" formControlName="active" value="true">
+                          Active
+                        </label>
+                        <label class="radio">
+                          <input type="radio" formControlName="active" value="false">
+                          Inactive
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+                  <button class="button is-rounded is-small" (click)="closeEditModal(voucher._id)">Cancel</button>
+                </footer>
+              </form>
+            </div>
+          </div>
+          <div class="px-5">
+            <a (click)="openDeleteModal(voucher._id)">
+              <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+            </a>
+          </div>
+          <div class="modal is-active" *ngIf="deleteModalStates[voucher._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title ">Delete Product voucher</p>
+                <button class="delete" aria-label="close" (click)="closeDeleteModal(voucher._id)"></button>
+              </header>
+              <section class="modal-card-body">
+                <div class="">
+                  Are you sure to delete voucher key: {{ voucher.key }}?
+                </div>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success is-rounded is-small" (click)="deleteVoucher(voucher._id)">Yes</button>
+                <button class="button is-rounded is-small" (click)="closeDeleteModal(voucher._id)">No</button>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

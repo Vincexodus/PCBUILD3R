@@ -5,31 +5,34 @@
   <div class="auth-width">
     <h1 class="block">Sign In</h1>
     <h3 class="block">Enter your details below</h3>
-    <div class="field">
-      <p class="control">
-        <input #email
-          class="input is-rounded"
-          type="email"
-          placeholder="Email"
-        />
-      </p>
-    </div>
-    <div class="field">
-      <p class="control">
-        <input #password
-          class="input is-rounded"
-          type="password"
-          placeholder="Password"
-        />
-      </p>
-    </div>
-    <div class="my-5">
-      <button class="button is-black is-rounded is-fullwidth" (click)="onLoginBtnClick(email.value, password.value)">
-        Log In
-      </button>
-      <h4 class="has-text-centered has-text-grey py-5">
-        Don't have account? <a [routerLink]="['/signup']"><u class="has-text-grey">Sign Up</u></a>
-      </h4>
-    </div>
+    <form [formGroup]="loginForm" (submit)="onLoginBtnClick()">
+      <div class="field">
+        <p class="control">
+          <input formControlName="email"
+            class="input is-rounded"
+            type="email"
+            placeholder="Email"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input formControlName="password"
+            class="input is-rounded"
+            type="password"
+            placeholder="Password"
+          />
+        </p>
+      </div>
+      <div class="my-5">
+        <button type="submit" class="button is-black is-rounded is-fullwidth" [disabled]="loginLoading">
+          <ng-container *ngIf="loginLoading; else loginText">Loging in<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
+          <ng-template #loginText>Log in</ng-template>
+        </button>
+        <h4 class="has-text-centered has-text-grey py-5">
+          Don't have account? <a [routerLink]="['/signup']"><u class="has-text-grey">Sign Up</u></a>
+        </h4>
+      </div>
+    </form>
   </div>
 </div>

@@ -16,6 +16,7 @@ export class OrderService {
     this.cartChangeSubject.next(value);
   }
 
+  // Cart item route
   getCartItem(userId: string) {
     return this.webReqService.get(`cartItem/${userId}`);
   }
@@ -32,7 +33,47 @@ export class OrderService {
     return this.webReqService.delete(`cartItem/${_cartItemId}`);
   }
 
-  checkoutCart(_userId: string, _cartItemId: string, voucherKey: string, _paymentMethod: string, total: number) {
-    return this.webReqService.post(`checkout`, { _userId, _cartItemId, voucherKey, _paymentMethod, total });
+  // Order route
+  getOrder() {
+    return this.webReqService.get(`order`);
   }
+
+  getOrderByUserId(userId: string) {
+    return this.webReqService.get(`order/${userId}`);
+  }
+
+  checkoutCart(_userId: string, _cartItemId: string[], voucherKey: string, _paymentMethod: string, total: number) {
+    return this.webReqService.post(`order`, { _userId, _cartItemId, voucherKey, _paymentMethod, total });
+  }
+
+  updateOrder(_userId: string, _cartItemId: string, _productId: string, quantity: Number) {
+    return this.webReqService.patch(`order/${_cartItemId}`, { _userId, _productId, quantity });
+  }
+
+  deleteOrder(_cartItemId: string) {
+    return this.webReqService.delete(`order/${_cartItemId}`);
+  }
+
+  // Voucher route
+  getVoucher() {
+    return this.webReqService.get(`voucher`);
+  }
+
+  getVoucherById(id: string) {
+    return this.webReqService.get(`voucher/${id}`);
+  }
+
+  createVoucher(percent: number, active: boolean) {
+    console.log(percent, " ", active);
+    return this.webReqService.post(`voucher`, { percent, active });
+  }
+
+  updateVoucher(id: string, percent: number, active: boolean) {
+    return this.webReqService.patch(`voucher/${id}`, { percent, active });
+  }
+
+  deleteVoucher(id: string) {
+    return this.webReqService.delete(`voucher/${id}`);
+  }
+  
 }

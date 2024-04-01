@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-admin-payment',
+  selector: 'app-admin-order',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './admin-payment.component.html',
-  styleUrl: './admin-payment.component.sass'
+  templateUrl: './admin-order.component.html',
+  styleUrl: './admin-order.component.sass'
 })
-export class AdminPaymentComponent {
+export class AdminOrderComponent {
   @Input() show: boolean = false;
 
 }

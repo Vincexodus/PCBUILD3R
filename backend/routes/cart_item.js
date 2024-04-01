@@ -15,10 +15,11 @@ router.get("", authenticate, (req, res) => {
   })
 });
 
-// Get user's cart item
+// Get user's unpaid cart item 
 router.get("/:id", authenticate, (req, res) => {
   CartItem.find({
-    _userId: req.params.id
+    _userId: req.params.id,
+    isPaid: false
   }).then((cart) => {
     res.send(cart);
   }).catch((e) => {

@@ -7,61 +7,59 @@
   <div class="auth-width">
     <h1 class="block">Create Account</h1>
     <h3 class="block">Enter your details below</h3>
-    <div class="field">
-      <p class="control">
-        <input #name
-          class="input is-rounded"
-          type="text"
-          placeholder="Name"
-        />
-      </p>
-    </div>
-    <div class="field">
-      <p class="control">
-        <input #email
-          class="input is-rounded"
-          type="email"
-          placeholder="Email"
-        />
-      </p>
-    </div>
-    <div class="field">
-      <p class="control">
-        <input #telephone
-          class="input is-rounded"
-          type="text"
-          placeholder="Telephone"
-        />
-      </p>
-    </div>
-    <div class="field">
-      <p class="control">
-        <input #password
-          class="input is-rounded"
-          type="password"
-          placeholder="Password"
-        />
-      </p>
-    </div>
-    <div class="field">
-      <p class="control">
-        <input #confirmPassword
-          class="input is-rounded"
-          type="password"
-          placeholder="Confirm Password"
-        />
-      </p>
-    </div>
-    <div class="block" *ngIf="!passwordTally">
-      <p>Password must be same!</p>
-    </div>
-    <div class="my-5">
-      <button class="button is-black is-rounded is-fullwidth" (click)="onSignUpBtnClick(name.value, email.value, telephone.value, password.value, confirmPassword.value)">
-        Create Account
-      </button>
-      <h4 class="has-text-centered has-text-grey py-5">
-        Already have account? <a [routerLink]="['/login']"><u class="has-text-grey">Sign In</u></a>
-      </h4>
-    </div>
+    <form [formGroup]="signupForm" (submit)="onSignUpBtnClick()">
+      <div class="field">
+        <p class="control">
+          <input formControlName="name"
+            class="input is-rounded"
+            placeholder="Name"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input formControlName="email"
+            class="input is-rounded"
+            placeholder="Email"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input formControlName="telephone"
+            class="input is-rounded"
+            placeholder="Telephone"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input formControlName="password"
+            class="input is-rounded"
+            placeholder="Password"
+          />
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input formControlName="confirmPassword"
+            class="input is-rounded"
+            placeholder="Confirm Password"
+          />
+        </p>
+      </div>
+      <div class="block" *ngIf="!passwordTally">
+        <p>Password must be same!</p>
+      </div>
+      <div class="my-5">
+        <button type="submit" class="button is-black is-rounded is-fullwidth" [disabled]="signupLoading">
+          <ng-container *ngIf="signupLoading; else signupText">Signing up<i class="fa-solid fa-ellipsis pl-2" style="color: white;"></i></ng-container>
+          <ng-template #signupText>Sign up</ng-template>
+        </button>
+        <h4 class="has-text-centered has-text-grey py-5">
+          Already have account? <a [routerLink]="['/login']"><u class="has-text-grey">Sign In</u></a>
+        </h4>
+      </div>
+    </form>
   </div>
 </div>
