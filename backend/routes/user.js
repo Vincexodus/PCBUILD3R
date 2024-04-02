@@ -99,7 +99,7 @@ router.post("/login", (req, res) => {
 // Update basic user info
 router.patch("/:id", authenticate, (req, res) => {
   let userInfo = req.body;
-  Order.findOneAndUpdate(
+  User.findOneAndUpdate(
     { _id: req.params.id },
     {
       $set: {
@@ -110,6 +110,16 @@ router.patch("/:id", authenticate, (req, res) => {
     }
   ).then(() => {
     res.send({ message: "User updated successfully" });
+  });
+});
+
+// Delete user 
+router.delete("/:id", authenticate, (req, res) => {
+  User.findOneAndDelete({
+    _id: req.params.id,
+    // _userId: req.user_id
+  }).then((removedDoc) => {
+    res.send(removedDoc);
   });
 });
 

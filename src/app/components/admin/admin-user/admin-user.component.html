@@ -1,7 +1,7 @@
 <div *ngIf="show" class="">
   <div class="is-flex mt-2">
     <div class="is-flex pr-2">
-      <input #searchKeyword class="input is-small is-rounded" type="text" placeholder="Search for user" (input)="userSearch(searchKeyword.value)">
+      <input #searchKeyword class="input is-small is-rounded" type="text" placeholder="Search for User" (input)="userSearch(searchKeyword.value)">
       <div class="is-small is-rounded is-white">
         <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
       </div>
@@ -13,53 +13,33 @@
     <div class="modal is-active" *ngIf="isAddModalActive">
       <div class="modal-background"></div>
       <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title ">Add User</p>
-          <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="px-2">
-            <div class="columns">
-              <div class="column is-one-third">User Type</div>
-              <div class="column">
-                <div class="select is-normal">
-                  <select #category (change)="this.closeAddModal()">
-                    <!-- <option *ngFor="let category of productCategory">{{ category.productCategoryName }}</option> -->
-                  </select>
+        <form [formGroup]="addForm" (submit)="addUser()">
+          <header class="modal-card-head">
+            <p class="modal-card-title ">Add User</p>
+            <button class="delete" aria-label="close" (click)="closeAddModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="px-2">
+              <div class="columns">
+                <div class="column is-one-third">Full Name</div>
+                <div class="column">
+                  <input formControlName="name" class="input is-small" type="text">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Email</div>
+                <div class="column">
+                  <input formControlName="email" class="input is-small" type="text">
                 </div>
               </div>
             </div>
-            <div class="columns">
-              <div class="column is-one-third">User name</div>
-              <div class="column">
-                <input #username class="input is-small" type="text">
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">User email</div>
-              <div class="column">
-                <input #userEmail class="input is-small" type="email">
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">User password</div>
-              <div class="column">
-                <input #userPassword class="input is-small" type="text">
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column is-one-third">User Telephone</div>
-              <div class="column">
-                <input #userTel class="input is-small" type="text">
-              </div>
-            </div>
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success is-rounded is-small" 
-                  (click)="addUser(true, username.value, userEmail.value, userPassword.value, userTel.value)">Save changes</button>
-          <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
-        </footer>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success is-rounded is-small" 
+                    type="submit">Save changes</button>
+            <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
+          </footer>
+        </form>
       </div>
     </div>
   </div>
@@ -69,7 +49,7 @@
         <h4>Id</h4>
       </div>
       <div class="column">
-        <h4>User Type</h4>
+        <h4>Type</h4>
       </div>
       <div class="column">
         <h4>Name</h4>
@@ -78,10 +58,10 @@
         <h4>Email</h4>
       </div>
       <div class="column">
-        <h4>Password</h4>
+        <h4>Telephone</h4>
       </div>
       <div class="column">
-        <h4>Telephone</h4>
+        <h4>Action</h4>
       </div>
     </div>
     <div class="divider"></div>
@@ -90,16 +70,13 @@
         <h4>{{ maskString(user._id) }}</h4>
       </div>
       <div class="column">
-        <h4>{{ user.isAdmin }}</h4>
+        <h4>{{ user.isAdmin? "Admin":"Customer" }}</h4>
       </div>
       <div class="column">
         <h4>{{ user.name }}</h4>
       </div>
       <div class="column">
         <h4>{{ user.email }}</h4>
-      </div>
-      <div class="column">
-        <h4>{{ user.password }}</h4>
       </div>
       <div class="column">
         <h4>{{ user.telephone }}</h4>
@@ -113,58 +90,53 @@
           <div class="modal is-active" *ngIf="editModalStates[user._id]">
             <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title ">Edit User name</p>
-                <button class="delete" aria-label="close" (click)="closeEditModal(user._id)"></button>
-              </header>
-              <section class="modal-card-body">
-                <div class="px-2">
-                  <div class="columns">
-                    <div class="column is-one-third"></div>
-                    <div class="column">
-                      <input [(ngModel)]="user._id" class="input is-small" type="text" placeholder="" disabled="" required>
+              <form [formGroup]="editForm" (submit)="editUser()">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">Edit User</p>
+                  <button class="delete" aria-label="close" (click)="closeEditModal(user._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column is-one-third">User Id</div>
+                      <div class="column">
+                        <input formControlName="id" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">User Type</div>
+                      <div class="column">
+                        <input formControlName="id" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">User name</div>
+                      <div class="column">
+                        <input formControlName="name" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">User email</div>
+                      <div class="column">
+                        <input formControlName="email" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">User telephone</div>
+                      <div class="column">
+                        <input formControlName="telephone" class="input is-small" type="text">
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">User Type</div>
-                  <div class="column">
-                    <input [(ngModel)]="user.isAdmin" class="input is-small" type="text" placeholder="" disabled="" required>
-                  </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">User Name</div>
-                  <div class="column">
-                    <input [(ngModel)]="editUserName" #username class="input is-small" type="text" required>
-                  </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">User Email</div>
-                  <div class="column">
-                    <input [(ngModel)]="editUserEmail" #userEmail class="input is-small" type="text" required>
-                  </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">User Password</div>
-                  <div class="column">
-                    <input [(ngModel)]="editUserPassword" #userPasssword class="input is-small" type="text" required>
-                  </div>
-                </div>
-                <div class="columns">
-                  <div class="column is-one-third">User Telephone</div>
-                  <div class="column">
-                    <input [(ngModel)]="editUserTel" #userTelephone class="input is-small" type="text" required>
-                  </div>
-                </div>
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-success is-rounded is-small" 
-                      (click)="editUser(user._id, user.name, user.email, user.telephone)">Save changes</button>
-                <button class="button is-rounded is-small" (click)="closeEditModal(user._id)">Cancel</button>
-              </footer>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+                  <button class="button is-rounded is-small" (click)="closeEditModal(user._id)">Cancel</button>
+                </footer>
+              </form>
             </div>
           </div>
-          <div class="pl-4">
+          <div class="px-5">
             <a (click)="openDeleteModal(user._id)">
               <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
             </a>
@@ -173,12 +145,12 @@
             <div class="modal-background"></div>
             <div class="modal-card">
               <header class="modal-card-head">
-                <p class="modal-card-title ">Delete Product Category</p>
+                <p class="modal-card-title ">Delete Product User</p>
                 <button class="delete" aria-label="close" (click)="closeDeleteModal(user._id)"></button>
               </header>
               <section class="modal-card-body">
                 <div class="">
-                  Are you sure to delete {{ user.name }}?
+                  Are you sure to delete User: {{ user.name }}?
                 </div>
               </section>
               <footer class="modal-card-foot">

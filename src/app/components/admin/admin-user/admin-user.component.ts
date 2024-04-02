@@ -1,35 +1,46 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../../../interface/product.model';
 import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
-import { ProductService } from '../../../service/product.service';
-import { FormsModule } from '@angular/forms';
-import { ProductCategory } from '../../../interface/product-category.model';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../interface/user.model';
 import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-admin-user',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './admin-user.component.html',
   styleUrl: './admin-user.component.sass'
 })
+
 export class AdminUserComponent {
   @Input() show: boolean = false;
   users!: User[];
   isAddModalActive: boolean = false;
-  selectedUserId: string = "";
-  editUserType: boolean = false;
-  editUserName: string = "";
-  editUserEmail: string = "";
-  editUserPassword: string = "";
-  editUserTel: string | "" = "";
   deleteModalStates: { [userId: string]: boolean } = {};
   editModalStates: { [userId: string]: boolean } = {};
+  addForm: FormGroup;
+  editForm: FormGroup;
 
-  constructor(private userService: UserService, private toast: NgToastService, private util: UtilService) { }
+  constructor(
+    private userService: UserService, 
+    private toast: NgToastService, 
+    private util: UtilService,
+    private formBuilder: FormBuilder) {
+      this.addForm = this.formBuilder.group({
+        name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
+        email: ['', [Validators.required, Validators.email]],
+        telephone: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(9), Validators.maxLength(10)]],
+      });
+
+      this.editForm = this.formBuilder.group({
+        id: [{value: '', disabled: true}],
+        name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
+        email: ['', [Validators.required, Validators.email]],
+        telephone: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(9), Validators.maxLength(10)]],
+      });
+    }
 
   ngOnInit() {
     this.getUsers();
@@ -68,10 +79,12 @@ export class AdminUserComponent {
   openEditModal(userId: string) {
     this.editModalStates[userId] = true;
     const user = this.users.find(user => user._id === userId);
-    this.editUserName = user ? user.name : '';
-    this.editUserEmail = user ? user.email : '';
-    this.editUserPassword = user ? user.password : '';
-    this.editUserTel = user ? user.telephone : '';
+    this.editForm.patchValue({
+      id: user?._id,
+      name: user?.name,
+      email: user?.email,
+      telephone: user?.telephone,
+    })
   }
 
   closeEditModal(userId: string) {
@@ -84,35 +97,48 @@ export class AdminUserComponent {
     });
   }
 
-  addUser(isAdmin: boolean, username: string, userEmail: string, userPassword: string, userTelephone: string) {
-    if (true) {
-      this.userService.createUser(isAdmin, username, userEmail, userPassword, userTelephone).subscribe(() => {
+  addUser() {
+    if (this.addForm.valid) {
+      const name = this.addForm.get('name')?.value;
+      const email = this.addForm.get('email')?.value;
+      const telephone = this.addForm.get('telephone')?.value;
+      this.userService.createUser(true, name, email, "test", telephone).subscribe(() => {
         this.toast.success({detail:"SUCCESS",summary:'User Added!', duration:2000, position:'topCenter'});
         this.getUsers();
         this.closeAddModal();
       }, (error) => {
         console.log(error);
       })
+    } else {
+      this.toast.error({detail:"FAILED",summary:'Please fill in all required field critera!', duration:2000, position:'topCenter'});
     }
   }
 
-  editUser(id: string, username: string, userEmail: string, userTelephone: string) {
-    if (true)  {
-      this.userService.updateUser(id, username, userEmail, userTelephone).subscribe(() => {
+  editUser() {
+    if (this.editForm.valid)  {
+      const id = this.editForm.get('id')?.value;
+      const name = this.editForm.get('name')?.value;
+      const email = this.editForm.get('email')?.value;
+      const telephone = this.editForm.get('telephone')?.value;
+      this.userService.updateUser(id, name, email, telephone).subscribe(() => {
         this.toast.success({detail:"SUCCESS",summary:'User Updated!', duration:2000, position:'topCenter'});
         this.getUsers();
         this.closeEditModal(id);
+        this.addForm.reset();
       }, (error) => {
         console.log(error);
       })
+    } else {
+      this.toast.error({detail:"FAILED",summary:'Please fill in all required field critera!', duration:2000, position:'topCenter'});
     }
   }
 
   deleteUser(id: string) {
     this.userService.deleteUser(id).subscribe(() => {
-      this.toast.error({detail:"SUCCESS",summary:'User Deleted!', duration:2000, position:'topCenter'});
+      this.toast.success({detail:"SUCCESS",summary:'User Deleted!', duration:2000, position:'topCenter'});
       this.getUsers();
       this.closeDeleteModal(id);
+      this.editForm.reset();
     }, (error) => {
       console.log(error);
     })
