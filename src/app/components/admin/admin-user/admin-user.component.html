@@ -21,6 +21,19 @@
           <section class="modal-card-body">
             <div class="px-2">
               <div class="columns">
+                <div class="column is-one-third">User Type</div>
+                <div class="control mt-3 ml-3">
+                  <label class="radio">
+                    <input type="radio" formControlName="isAdmin" value="false" checked>
+                    Customer
+                  </label>
+                  <label class="radio">
+                    <input type="radio" formControlName="isAdmin" value="true">
+                    Admin
+                  </label>
+                </div>
+              </div>
+              <div class="columns">
                 <div class="column is-one-third">Full Name</div>
                 <div class="column">
                   <input formControlName="name" class="input is-small" type="text">
@@ -30,6 +43,18 @@
                 <div class="column is-one-third">Email</div>
                 <div class="column">
                   <input formControlName="email" class="input is-small" type="text">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Password</div>
+                <div class="column">
+                  <input formControlName="password" class="input is-small" type="password">
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">Telephone</div>
+                <div class="column">
+                  <input formControlName="telephone" class="input is-small" type="text">
                 </div>
               </div>
             </div>
@@ -106,7 +131,7 @@
                     <div class="columns">
                       <div class="column is-one-third">User Type</div>
                       <div class="column">
-                        <input formControlName="id" class="input is-small" type="text">
+                        <input formControlName="isAdmin" class="input is-small" type="text">
                       </div>
                     </div>
                     <div class="columns">
@@ -132,6 +157,74 @@
                 <footer class="modal-card-foot">
                   <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
                   <button class="button is-rounded is-small" (click)="closeEditModal(user._id)">Cancel</button>
+                </footer>
+              </form>
+            </div>
+          </div>
+          <button class="button is-small is-primary is-rounded ml-2" (click)="openEditBillingModal(user._id)" [disabled]="user.isAdmin">
+            <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
+            Billing Info
+          </button>
+          <div class="modal is-active" *ngIf="editBillingModalStates[user._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <form [formGroup]="editBillingForm" (submit)="editUserDetail()">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">Edit User Billing Details: {{ user.name }}</p>
+                  <button class="delete" aria-label="close" (click)="closeEditBillingModal(user._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column is-one-third">Address</div>
+                      <div class="column">
+                        <input formControlName="address" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Town/City</div>
+                      <div class="column">
+                        <input formControlName="city" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">ZIP Code</div>
+                      <div class="column">
+                        <input formControlName="postalCode" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Country</div>
+                      <div class="column">
+                        <input formControlName="country" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Card Number</div>
+                      <div class="column">
+                        <input formControlName="cardNumber" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">CVC</div>
+                      <div class="column">
+                        <input formControlName="CVC" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third m-auto">Expiry Date</div>
+                      <p class="column control">
+                        <input formControlName="expireMonth" class="input is-small" type="text" placeholder="MM"/>
+                      </p>
+                      <p class="column control">
+                        <input formControlName="expireYear" class="input is-small" type="text" placeholder="YY"/>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+                  <button class="button is-rounded is-small" (click)="closeEditBillingModal(user._id)">Cancel</button>
                 </footer>
               </form>
             </div>

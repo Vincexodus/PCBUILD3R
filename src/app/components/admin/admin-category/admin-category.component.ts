@@ -83,6 +83,7 @@ export class AdminCategoryComponent implements OnInit {
   openAddModal(): void {
     this.isAddModalActive = true;
     this.imageUrl = "";
+    this.addForm.reset();
   }
 
   closeAddModal(): void {
@@ -128,7 +129,6 @@ export class AdminCategoryComponent implements OnInit {
         this.toast.success({detail:"SUCCESS",summary:'Product Category Added!', duration:2000, position:'topCenter'});
         this.getCategory();
         this.closeAddModal();
-        this.addForm.reset();
       }, (error) => {
         console.log(error);
       })
@@ -148,7 +148,6 @@ export class AdminCategoryComponent implements OnInit {
           this.toast.success({detail:"SUCCESS",summary:'Product Category Updated!', duration:2000, position:'topCenter'});
           this.getCategory();
           this.closeEditModal(id);
-          this.editForm.reset();
         }, (error) => {
           console.log(error);
         })

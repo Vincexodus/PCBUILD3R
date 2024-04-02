@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ReviewSchema = new mongoose.Schema({
-  _productId: {
+  _cartItemId: {
     type: mongoose.Types.ObjectId,
       required: true
   },

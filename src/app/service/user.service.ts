@@ -16,10 +16,6 @@ export class UserService {
   getUserById(id: string) {
     return this.webReqService.get(`user/${id}`);
   }
-
-  createUser(isAdmin: boolean, username: string, userEmail: string, userPassword: string, userTelephone: string) {
-    return this.webReqService.post('user', { isAdmin, username, userEmail, userPassword, userTelephone });
-  }
   
   updateUser(id: string, username: string, userEmail: string, userTelephone: string) {
     return this.webReqService.patch(`user/${id}`, { username, userEmail, userTelephone  });

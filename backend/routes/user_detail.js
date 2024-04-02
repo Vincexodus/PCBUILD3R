@@ -67,11 +67,11 @@ router.patch("/:id", authenticate, (req, res) => {
 // Delete user detail
 router.delete("/:id", authenticate, (req, res) => {
   UserDetail.findOneAndDelete({
-    _id: req.params.id,
+    _userId: req.params.id,
     // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
-  });
+  })
 });
 
 module.exports = router;

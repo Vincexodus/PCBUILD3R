@@ -16,10 +16,21 @@ router.get("", authenticate, (req, res) => {
 });
 
 // Get user's unpaid cart item 
-router.get("/:id", authenticate, (req, res) => {
+router.get("/user/:id", authenticate, (req, res) => {
   CartItem.find({
     _userId: req.params.id,
     isPaid: false
+  }).then((cart) => {
+    res.send(cart);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
+// Get user's unpaid cart item 
+router.get("/:id", authenticate, (req, res) => {
+  CartItem.find({
+    _id: req.params.id,
   }).then((cart) => {
     res.send(cart);
   }).catch((e) => {

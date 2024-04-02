@@ -1,1 +1,147 @@
-<p *ngIf="show">admin-order works!</p>
+<div *ngIf="show" class="">
+  <div class="is-flex mt-2">
+    <div class="is-flex pr-2">
+      <input #searchKeyword class="input is-small is-rounded" type="text" placeholder="Search for order" (input)="orderSearch(searchKeyword.value)">
+      <div class="is-small is-rounded is-white">
+        <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
+      </div>
+    </div>
+  </div>
+  <div class="card-container my-5">
+    <div class="columns">
+      <div class="column">
+        <h4>Id</h4>
+      </div>
+      <div class="column">
+        <h4>User Email</h4>
+      </div>
+      <div class="column">
+        <h4>Cart Items</h4>
+      </div>
+      <div class="column">
+        <h4>Payment Method</h4>
+      </div>
+      <div class="column">
+        <h4>Voucher Id</h4>
+      </div>
+      <div class="column">
+        <h4>Total</h4>
+      </div>
+      <div class="column">
+        <h4>Action</h4>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns mt-2" *ngFor="let order of orders">
+      <div class="column">
+        <h4>{{ maskString(order._id) }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ getUserEmailById(order._userId) }}</h4>
+      </div>
+      <div class="column has-text-centered">
+        <h4>{{ order._cartItemIds.length }}</h4>
+      </div>
+      <div class="column has-text-centered">
+        <h4>{{ getPaymentNameByType(order.paymentMethod) }}</h4>
+      </div>
+      <div class="column has-text-centered">
+        <h4>{{ getVoucherKeyById(order._voucherId) }}</h4>
+      </div>  
+      <div class="column has-text-centered">
+        <h4>MYR {{ order.total.$numberDecimal }}</h4>
+      </div>
+      <div class="column">
+        <div class="is-flex">
+          <button class="button is-small is-primary is-rounded" (click)="openViewModal(order._id)">
+            <i class="fa-solid fa-eye pr-2" style="color: #000000;"></i>
+            View
+          </button>
+          <div class="modal is-active" *ngIf="viewModalStates[order._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <form [formGroup]="viewForm">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">View Order</p>
+                  <button class="delete" aria-label="close" (click)="closeViewModal(order._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column is-one-third">Order Id</div>
+                      <div class="column">
+                        <input formControlName="id" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">User Email</div>
+                      <div class="column">
+                        <input formControlName="userId" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Cart Items</div>
+                      <div class="column">
+                        <input formControlName="cartItems" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Payment Method</div>
+                      <div class="column">
+                        <input formControlName="paymentMethod" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Voucher Key</div>
+                      <div class="column">
+                        <input formControlName="voucherKey" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Total (MYR)</div>
+                      <div class="column">
+                        <input formControlName="total" class="input is-small" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-rounded is-small" (click)="closeViewModal(order._id)">Close</button>
+                </footer>
+              </form>
+            </div>
+          </div>
+          <button class="button is-small is-primary is-rounded ml-2" (click)="openEditReviewModal(order._id)">
+            <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
+            Edit Review
+          </button>
+          <div class="modal is-active" *ngIf="editReviewModalStates[order._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <form [formGroup]="editReviewForm" (submit)="editOrderReviews(order._id)">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">Edit Product Reviews</p>
+                  <button class="delete" aria-label="close" (click)="closeEditReviewModal(order._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column is-one-third">Address</div>
+                      <div class="column">
+                        <input formControlName="address" class="input is-small" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+                  <button class="button is-rounded is-small" (click)="closeEditReviewModal(order._id)">Cancel</button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

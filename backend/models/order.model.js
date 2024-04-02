@@ -5,7 +5,7 @@ const OrderSchema = new mongoose.Schema({
       type: mongoose.Types.ObjectId,
       required: true
   },
-  _cartItemId: [{
+  _cartItemIds: [{
       type: mongoose.Types.ObjectId,
       required: true
   }],
@@ -13,7 +13,7 @@ const OrderSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: false
   },
-  _paymentMethod: {
+  paymentMethod: {
     type: String,
     required: true,
   },

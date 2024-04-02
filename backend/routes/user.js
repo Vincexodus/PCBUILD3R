@@ -44,7 +44,6 @@ router.get("/:id", authenticate, (req, res) => {
 router.post("", (req, res) => {
   let body = req.body;
   let newUser = new User(body);
-
   newUser.save().then(() => {
       return newUser.createSession();
     })

@@ -16,6 +16,17 @@ router.get("", authenticate, (req, res) => {
   })
 });
 
+// Get all order details
+router.get("/:id", authenticate, (req, res) => {
+  Order.find({
+    _userId: req.params.id
+  }).then((order) => {
+    res.send(order);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
 // Create order details
 router.post("", authenticate, async (req, res) => {
   try {
@@ -24,9 +35,9 @@ router.post("", authenticate, async (req, res) => {
     // Create a new order
     let newOrder = new Order({
       _userId: order._userId,
-      _cartItemId: order._cartItemId,
+      _cartItemIds: order._cartItemIds,
       _voucherId: order._voucherId,
-      _paymentMethod: order._paymentMethod,
+      paymentMethod: order.paymentMethod,
       total: order.total,
     });
 
@@ -34,7 +45,7 @@ router.post("", authenticate, async (req, res) => {
 
     // Update cart items based on their IDs to mark them as paid
     await CartItem.updateMany(
-      { _id: { $in: order._cartItemId } }, 
+      { _id: { $in: order._cartItemIds } }, 
       { $set: { isPaid: true } } 
     );
 

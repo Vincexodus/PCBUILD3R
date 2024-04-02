@@ -23,24 +23,24 @@ const UserDetailSchema = new mongoose.Schema({
   },
   cardNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   CVC: {
     type: String,
-    required: true,
+    required: false,
   },
   expireMonth: {
     type: String,
-    required: true,
+    required: false,
   },
   expireYear: {
     type: String,
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,
     default: Date.now,
-    required: true,
+    required: false,
   }
 })
 

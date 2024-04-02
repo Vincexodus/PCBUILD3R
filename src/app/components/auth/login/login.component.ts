@@ -43,14 +43,14 @@ export class LoginComponent implements OnInit {
             setTimeout(() => {
               this.router.navigate(['/admin']);
               this.loginForm.reset();
-            }, 2000);
+            }, 1000);
           } else {
             this.toast.success({detail:"SUCCESS",summary:'Login Successful!', duration:2000, position:'topCenter'});
             setTimeout(() => {
               this.authService.emitLoginSuccess(true);
               this.router.navigate(['/home']);
               this.loginForm.reset();
-            }, 2000);  
+            }, 1000);  
           }
         }
       });

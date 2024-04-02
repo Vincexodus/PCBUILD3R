@@ -17,8 +17,12 @@ export class OrderService {
   }
 
   // Cart item route
-  getCartItem(userId: string) {
-    return this.webReqService.get(`cartItem/${userId}`);
+  getCartItem(id: string) {
+    return this.webReqService.get(`cartItem/${id}`);
+  }
+
+  getUnpaidCartItem(userId: string) {
+    return this.webReqService.get(`cartItem/user/${userId}`);
   }
 
   createCartItem(_userId: string, _productId: string, quantity: Number) {
@@ -42,8 +46,8 @@ export class OrderService {
     return this.webReqService.get(`order/${userId}`);
   }
 
-  checkoutCart(_userId: string, _cartItemId: string[], voucherKey: string, _paymentMethod: string, total: number) {
-    return this.webReqService.post(`order`, { _userId, _cartItemId, voucherKey, _paymentMethod, total });
+  checkoutCart(_userId: string, _cartItemIds: string[], voucherKey: string, paymentMethod: string, total: number) {
+    return this.webReqService.post(`order`, { _userId, _cartItemIds, voucherKey, paymentMethod, total });
   }
 
   updateOrder(_userId: string, _cartItemId: string, _productId: string, quantity: Number) {

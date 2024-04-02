@@ -30,7 +30,7 @@ router.get("/:id", authenticate, (req, res) => {
 router.post("", authenticate, (req, res) => {
   let review = req.body;
   let newReview = new Review({
-    subject: review.subject,
+    _cartItemId: review._cartItemId,
     rating: review.rating,
     desc: review.desc,
     // _userId: req.user_id

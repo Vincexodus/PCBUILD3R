@@ -1,6 +1,6 @@
 export interface Review {
   _id: string;
-  subject: string;
+  _cartItemId: string;
   rating: number;
   desc: number;
   createdAt: Date;

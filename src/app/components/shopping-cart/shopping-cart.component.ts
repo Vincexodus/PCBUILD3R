@@ -75,7 +75,7 @@ export class ShoppingCartComponent implements OnInit {
 
   getCartItem() {
     if (this.userId.length !== 0) {
-      this.orderService.getCartItem(this.userId).subscribe((cartItems: CartItem[]) => {
+      this.orderService.getUnpaidCartItem(this.userId).subscribe((cartItems: CartItem[]) => {
         this.cartItems = cartItems;
         const productObservables = this.cartItems.map(item =>
           this.productService.getProductById(item._productId)
@@ -114,9 +114,9 @@ export class ShoppingCartComponent implements OnInit {
       this.loading = true;
       const cartItemIds: string[] = this.cartItems.map(item => item._id);
       this.orderService.checkoutCart(this.userId, cartItemIds, this.voucherKey, this.selectedOption, this.total).subscribe(() => {
-        this.loading = false;
         this.toast.success({detail:"SUCCESS",summary:'Checkout Successfully!', duration:2000, position:'topCenter'});
         setTimeout(() => {
+          this.loading = false;
           this.router.navigate(['/account', 'orderHistory']);
         }, 2000);
       }, (error) => {
