@@ -26,12 +26,14 @@ import { FaqComponent } from './components/helps/faq/faq.component';
 import { TermsOfUseComponent } from './components/helps/terms-of-use/terms-of-use.component';
 import { AdminOrderComponent } from './components/admin/admin-order/admin-order.component';
 import { AdminVoucherComponent } from './components/admin/admin-voucher/admin-voucher.component';
+import { PcCanvasComponent } from './components/pc-canvas/pc-canvas.component';
 
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
+  { path: 'canvas', component: PcCanvasComponent },
 
   { path: 'productDetail/:productId', component: ProductDetailComponent },
   { path: 'company', component: CompanyComponent,
