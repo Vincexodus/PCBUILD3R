@@ -9,28 +9,34 @@ import { OrderService } from '../../service/order.service';
 import { UserService } from '../../service/user.service';
 import { User } from '../../interface/user.model';
 import { CartItem } from '../../interface/cart-item.model';
-import { ProductCardComponent } from '../product-card/product-card.component';
 import { forkJoin } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { UserDetail } from '../../interface/user-detail.model';
+import { Voucher } from '../../interface/voucher.model';
 
 @Component({
   selector: 'app-shopping-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, ShoppingCartItemComponent, ProductCardComponent],
+  imports: [CommonModule, FormsModule, RouterLink, ShoppingCartItemComponent],
   templateUrl: './shopping-cart.component.html',
   styleUrl: './shopping-cart.component.sass'
 })
 
 export class ShoppingCartComponent implements OnInit {
   @Input() show: boolean = false;
+  isCheckoutModalActive: boolean = false;
   loading = false;
+  voucherBtnDisplay = false;
   userId: string = "";
-  voucherKey: string = "";
+  voucherInputValue: string = "";
+  voucherId: string = "";
   cartItems!: CartItem[];
+  vouchers!: Voucher[];
+  appliedVoucher: Voucher | null = null;
   cartProducts: Product[] = [];
   deliverFee: number = 15;
   subtotal: number = 0;
+  discount: number = 0;
   total: number = 0;
   selectedOption: string = 'BT';
 
@@ -40,9 +46,17 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrUserId();
-    this.orderService.cartChange$.subscribe(() => {
-      this.getCurrUserId();
-    });
+    // this.orderService.cartChange$.subscribe(() => {
+    //   this.getCurrUserId();
+    // });
+  }
+
+  openCheckoutModal(): void {
+    this.isCheckoutModalActive = true;
+  }
+
+  closeCheckoutModal(): void {
+    this.isCheckoutModalActive = false;
   }
 
   getCurrUserId() {
@@ -70,7 +84,12 @@ export class ShoppingCartComponent implements OnInit {
       this.subtotal += this.cartProducts[i].price.$numberDecimal * this.cartItems[i].quantity;
     }
     this.subtotal = parseFloat((this.subtotal).toFixed(2));
-    this.total = parseFloat((this.subtotal - this.deliverFee).toFixed(2));
+
+    if (this.appliedVoucher && this.appliedVoucher.percent.$numberDecimal > 0) {
+      this.discount = parseFloat((this.subtotal * this.appliedVoucher.percent.$numberDecimal / 100).toFixed(2));
+    }
+
+    this.total = parseFloat((this.subtotal + this.deliverFee - this.discount).toFixed(2));
   }
 
   getCartItem() {
@@ -97,7 +116,38 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
+  removeVoucher() {
+    this.toast.success({detail:"SUCCESSFUL",summary:'Voucher Key Removed!', duration:2000, position:'topCenter'});
+    this.voucherBtnDisplay = false;
+    this.appliedVoucher  = null;
+    this.discount = 0;
+    this.vouchers = [];
+    this.voucherInputValue = '';
+    this.getCartSummary(this.cartProducts);
+  }
+
+  applyVoucher(voucherKey: string) {
+    if (voucherKey.length > 0) {
+      this.loading = true;
+      this.orderService.getVoucherByKey(voucherKey).subscribe((vouchers: Voucher[]) => {
+        this.loading = false;
+        this.vouchers = vouchers;
+        if (this.vouchers.length > 0) {
+          this.appliedVoucher = this.vouchers[0];
+          this.voucherBtnDisplay = true;
+          this.getCartSummary(this.cartProducts);
+          this.toast.success({detail:"SUCCESSFUL",summary:'Voucher Key Applied!', duration:2000, position:'topCenter'});
+        } else {
+          this.toast.error({detail:"FAILED",summary:'Invalid Voucher Key!', duration:2000, position:'topCenter'});
+        }
+      });
+    } else {
+      this.toast.error({detail:"FAILED",summary:'Empty Voucher Key!', duration:2000, position:'topCenter'});
+    }
+  } 
+
   checkoutCart() {
+    this.isCheckoutModalActive = false;
     // check for payment type
     if (this.selectedOption === "DCC") {
       this.userService.getUserDetailById(this.userId).subscribe((userDetail: UserDetail[]) => {
@@ -111,18 +161,20 @@ export class ShoppingCartComponent implements OnInit {
         }
       })
     } else {
-      this.loading = true;
       const cartItemIds: string[] = this.cartItems.map(item => item._id);
-      this.orderService.checkoutCart(this.userId, cartItemIds, this.voucherKey, this.selectedOption, this.total).subscribe(() => {
+      this.loading = true;
+      if (this.appliedVoucher) this.voucherId = this.appliedVoucher._id;
+      this.orderService.checkoutCart(this.userId, cartItemIds, this.voucherId, this.selectedOption, this.total).subscribe(() => {
+        this.loading = false;
+        this.orderService.emitCartCheckout(true);
         this.toast.success({detail:"SUCCESS",summary:'Checkout Successfully!', duration:2000, position:'topCenter'});
-        setTimeout(() => {
-          this.loading = false;
+        setTimeout(() => { 
           this.router.navigate(['/account', 'orderHistory']);
         }, 2000);
       }, (error) => {
         this.loading = false;
         console.log(error);
-      }) 
+      });
     }
   }
 }

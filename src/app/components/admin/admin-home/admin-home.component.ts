@@ -29,7 +29,7 @@ export class AdminHomeComponent implements OnInit {
     { name: "Categories", icon: "fa-solid fa-list", link: 'category' },
     { name: "Products", icon: "fa-solid fa-box-archive", link: 'product' },
     { name: "Voucher", icon: "fa-solid fa-ticket", link: 'voucher' },
-    { name: "Orders", icon: "fa-solid fa-clipboard", link: 'order' },
+    { name: "Orders & Reviews", icon: "fa-solid fa-clipboard", link: 'order' },
     { name: "Users", icon: "fa-solid fa-circle-user", link: 'user' },
   ]
 

@@ -1,7 +1,6 @@
 <div *ngIf="show && orders.length > 0">
   <div class="columns">
     <div class="column">
-
       <div class="card-container">
         <div class="columns">
           <div class="column">
@@ -11,13 +10,13 @@
             <h4>User Email</h4>
           </div>
           <div class="column">
-            <h4>Cart Items</h4>
+            <h4>Product Type</h4>
           </div>
           <div class="column">
             <h4>Payment Method</h4>
           </div>
           <div class="column">
-            <h4>Voucher Id</h4>
+            <h4>Voucher Key</h4>
           </div>
           <div class="column">
             <h4>Total</h4>
@@ -35,7 +34,7 @@
             <h4>{{ maskString(order._id) }}</h4>
           </div>
           <div class="column">
-            <h4>{{ userEmail }}</h4>
+            <h4>{{ maskString(userEmail) }}</h4>
           </div>
           <div class="column">
             <h4>{{ order._cartItemIds.length }}</h4>
@@ -77,7 +76,7 @@
                         </div>
                       </div>
                       <div class="columns">
-                        <div class="column is-one-third">Cart Items</div>
+                        <div class="column is-one-third">Product Type</div>
                         <div class="column">
                           <input formControlName="cartItems" class="input is-small" type="text">
                         </div>
@@ -92,6 +91,9 @@
                         <div class="column is-one-third">Voucher Key</div>
                         <div class="column">
                           <input formControlName="voucherKey" class="input is-small" type="text">
+                        </div>
+                        <div class="column">
+                          <input formControlName="voucherPercent" class="input is-small" type="text">
                         </div>
                       </div>
                       <div class="columns">
@@ -110,33 +112,102 @@
             </div>
           </div>
           <div class="column">
-            <button class="button is-small is-primary is-rounded ml-2" (click)="openEditReviewModal(order._id)">
+            <button class="button is-small is-primary is-rounded ml-2" (click)="openEditModal(order._id)">
               <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
-              Add/Edit
+              Add / Edit
             </button>
-            <div class="modal is-active" *ngIf="editReviewModalStates[order._id]">
+            <div class="modal is-active" *ngIf="editModalStates[order._id]">
               <div class="modal-background"></div>
               <div class="modal-card">
-                <form [formGroup]="editReviewForm">
-                  <header class="modal-card-head">
-                    <p class="modal-card-title ">Edit Product Reviews</p>
-                    <button class="delete" aria-label="close" (click)="closeEditReviewModal(order._id)"></button>
-                  </header>
-                  <section class="modal-card-body">
-                    <div class="px-2">
-                      <div class="columns">
-                        <div class="column is-one-third">Address</div>
-                        <div class="column">
-                          <input formControlName="address" class="input is-small" type="text">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">Add/Edit Reviews</p>
+                  <button class="delete" aria-label="close" (click)="closeEditModal(order._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column">Product</div>
+                      <div class="column">Image</div>
+                      <div class="column">Price</div>
+                      <div class="column">Quantity</div>
+                      <div class="column">Subtotal</div>
+                      <div class="column">Review</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="columns my-1" *ngFor="let cartItem of order.cartItems">
+                      <h4 class="column">{{ maskProductName(getProductById(cartItem._productId)?.productName) }}</h4>
+                      <h4 class="column"><img [src]="getProductById(cartItem._productId)?.productImage" class="image is-64x64"></h4>
+                      <h4 class="column">MYR {{ getProductById(cartItem._productId)?.price?.$numberDecimal }}</h4>
+                      <h4 class="column">{{ cartItem.quantity }}</h4>
+                      <h4 class="column">MYR {{ subtotalById(cartItem._productId, cartItem.quantity)}}</h4>
+                      <div class="column">
+                        <button class="button is-small is-primary is-rounded" (click)="openEditReviewModal(cartItem._id)">
+                          <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
+                          Add / Edit
+                        </button>
+                        <div class="modal is-active" *ngIf="editReviewModalStates[cartItem._id]">
+                          <div class="modal-background"></div>
+                          <div class="modal-card">
+                            <form [formGroup]="editReviewForm" (submit)="editCartItemReviews(cartItem._id)">
+                              <header class="modal-card-head">
+                                <p class="modal-card-title ">Product Review: {{ getProductById(cartItem._productId)?.productName }}</p>
+                                <button class="delete" aria-label="close" (click)="closeEditReviewModal(cartItem._id)"></button>
+                              </header>
+                              <section class="modal-card-body">
+                                <div class="px-2">
+                                  <div class="columns">
+                                    <div class="column is-one-third">Cart Item Id</div>
+                                    <div class="column">
+                                      <input formControlName="cartItemId" class="input is-small" type="text">
+                                    </div>
+                                  </div>
+                                  <div class="columns">
+                                    <div class="column is-one-third">Rating</div>
+                                    <div class="control mt-3 ml-3">
+                                      <label class="radio">
+                                        <input type="radio" formControlName="rating" value="1">
+                                        1
+                                      </label>
+                                      <label class="radio">
+                                        <input type="radio" formControlName="rating" value="2">
+                                        2
+                                      </label>
+                                      <label class="radio">
+                                        <input type="radio" formControlName="rating" value="3">
+                                        3
+                                      </label>
+                                      <label class="radio">
+                                        <input type="radio" formControlName="rating" value="4">
+                                        4
+                                      </label>
+                                      <label class="radio">
+                                        <input type="radio" formControlName="rating" value="5">
+                                        5
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="columns">
+                                    <div class="column is-one-third">Review Description</div>
+                                    <div class="column">
+                                      <textarea formControlName="desc" class="textarea is-small"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                              </section>
+                              <footer class="modal-card-foot">
+                                <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
+                                <button class="button is-rounded is-small" (click)="closeEditReviewModal(cartItem._id)">Cancel</button>
+                              </footer>
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </section>
-                  <footer class="modal-card-foot">
-                    <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
-                    <button class="button is-rounded is-small" (click)="closeEditReviewModal(order._id)">Cancel</button>
-                  </footer>
-                </form>
+                  </div>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-rounded is-small" (click)="closeEditModal(order._id)">Close</button>
+                </footer>
               </div>
             </div>
           </div>

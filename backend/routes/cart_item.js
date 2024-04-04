@@ -41,7 +41,8 @@ router.get("/:id", authenticate, (req, res) => {
 // Create cart item
 router.post("", authenticate, (req, res) => {
   let cartItem = req.body;
-  CartItem.findOne({ _userId: cartItem._userId, _productId: cartItem._productId })
+  // add on to unpaid item, as paid one is immutable
+  CartItem.findOne({ _userId: cartItem._userId, _productId: cartItem._productId, isPaid: false })
     .then(existingCartItem => {
       if (existingCartItem) {
         // If an existing cart item is found, update its quantity

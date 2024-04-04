@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gaming PC
+* source:	https://sketchfab.com/3d-models/gaming-pc-a85decd4bcdf4ec5838f7260b4ea0ba0
+* author:	AbhinavRaj50 (https://sketchfab.com/AbhinavRaj50)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gaming PC" (https://sketchfab.com/3d-models/gaming-pc-a85decd4bcdf4ec5838f7260b4ea0ba0) by AbhinavRaj50 (https://sketchfab.com/AbhinavRaj50) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -5,9 +5,8 @@
       <a class="rounded-icon-bg my-auto" (click)="prev()">
         <i class="fa-solid fa-arrow-left pt-3" style="color: #000000;"></i>
       </a>
-      <ngx-slick-carousel #slickModal="slick-carousel" 
-      [config]="slideConfig">
-        <div ngxSlickItem *ngFor="let product of products">
+      <ngx-slick-carousel #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let product of products" class="mx-5">
             <app-product-card
             [productId]="product._id"
             [imageUrl]="product.productImage"

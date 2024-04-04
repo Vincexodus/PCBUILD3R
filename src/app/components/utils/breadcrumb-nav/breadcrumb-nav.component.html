@@ -1,9 +1,9 @@
 <div class="body-width">
-  <nav class="breadcrumb is-small has-succeeds-separator pl-2 pt-2" aria-label="breadcrumbs">
+  <nav class="breadcrumb is-small has-succeeds-separator pt-2" aria-label="breadcrumbs">
     <ul>
       <li><a href="#">Home</a></li>
-      <li><a href="#">Product Category</a></li>
-      <li class="is-active"><a href="#" aria-current="page">Product Name</a></li>
+      <li [ngClass]="{'is-active': !isInProductDetail }"><a [routerLink]="['/shop']">Shop</a></li>
+      <li *ngIf="isInProductDetail" class="is-active"><a href="#" aria-current="page">{{ productName }}</a></li>
     </ul>
   </nav>
 </div>

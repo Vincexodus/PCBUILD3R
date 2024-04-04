@@ -14,4 +14,18 @@ export class UtilService {
       return input.substring(0, maskedIdLength) + ellipsis; // Return the masked ID
     }
   }
+
+  maskProductName(input: string | undefined): string {
+    const maskedIdLength = 15; // Length of the masked ID
+    const ellipsis = '...';
+    if (input) {
+      if (input.length <= maskedIdLength) {
+        return input; // Return the original ID if it's shorter than or equal to the masked length
+      } else {
+        return input.substring(0, maskedIdLength) + ellipsis; // Return the masked ID
+      }
+    } else {
+      return "";
+    }
+  }
 }

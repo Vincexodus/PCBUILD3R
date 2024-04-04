@@ -4,6 +4,7 @@ const authenticate = require('../middleware/authenticate');
 
 const Order = require('../models/order.model')
 const CartItem = require('../models/cart_item.model');
+const Voucher = require('../models/voucher.model');
 
 // Get all order details
 router.get("", authenticate, (req, res) => {
@@ -32,14 +33,27 @@ router.post("", authenticate, async (req, res) => {
   try {
     let order = req.body;
 
+    let voucherId = order._voucherId;
+    if (voucherId === '') {
+      voucherId = null;
+    }
     // Create a new order
     let newOrder = new Order({
       _userId: order._userId,
       _cartItemIds: order._cartItemIds,
-      _voucherId: order._voucherId,
+      _voucherId: voucherId,
       paymentMethod: order.paymentMethod,
       total: order.total,
     });
+
+    // Check if voucher ID is not empty
+    if (order._voucherId !== '') {
+      // Update voucher to inactive
+      await Voucher.findOneAndUpdate(
+        { _id: order._voucherId },
+        { $set: { active: false } }
+      );
+    }
 
     const savedOrder = await newOrder.save();
 
@@ -51,7 +65,6 @@ router.post("", authenticate, async (req, res) => {
 
     res.send(savedOrder);
   } catch (error) {
-    console.error("Error creating order:", error);
     res.status(500).send("Error creating order");
   }
 });

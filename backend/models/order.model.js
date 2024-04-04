@@ -11,7 +11,7 @@ const OrderSchema = new mongoose.Schema({
   }],
   _voucherId: {
     type: mongoose.Types.ObjectId,
-    required: false
+    required: false,
   },
   paymentMethod: {
     type: String,

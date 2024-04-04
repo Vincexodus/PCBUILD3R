@@ -37,6 +37,13 @@ export class OrderService {
     return this.webReqService.delete(`cartItem/${_cartItemId}`);
   }
 
+  private cartCheckoutSubject = new Subject<any>();
+  cartCheckout$ = this.cartCheckoutSubject.asObservable();
+
+  emitCartCheckout(value: any) {
+    this.cartCheckoutSubject.next(value);
+  }
+
   // Order route
   getOrder() {
     return this.webReqService.get(`order`);
@@ -46,8 +53,8 @@ export class OrderService {
     return this.webReqService.get(`order/${userId}`);
   }
 
-  checkoutCart(_userId: string, _cartItemIds: string[], voucherKey: string, paymentMethod: string, total: number) {
-    return this.webReqService.post(`order`, { _userId, _cartItemIds, voucherKey, paymentMethod, total });
+  checkoutCart(_userId: string, _cartItemIds: string[], _voucherId: string, paymentMethod: string, total: number) {
+    return this.webReqService.post(`order`, { _userId, _cartItemIds, _voucherId, paymentMethod, total });
   }
 
   updateOrder(_userId: string, _cartItemId: string, _productId: string, quantity: Number) {
@@ -63,12 +70,11 @@ export class OrderService {
     return this.webReqService.get(`voucher`);
   }
 
-  getVoucherById(id: string) {
-    return this.webReqService.get(`voucher/${id}`);
+  getVoucherByKey(key: string) {
+    return this.webReqService.get(`voucher/${key}`);
   }
 
   createVoucher(percent: number, active: boolean) {
-    console.log(percent, " ", active);
     return this.webReqService.post(`voucher`, { percent, active });
   }
 
@@ -80,4 +86,20 @@ export class OrderService {
     return this.webReqService.delete(`voucher/${id}`);
   }
   
+  claimVoucher(key: string) {
+    return this.webReqService.patch(`voucher/claim`, {key});
+  }
+
+  // Product Review Routes
+  getReview() {
+    return this.webReqService.get(`review`);
+  }
+
+  updateReview(_cartItemId: string, rating: string, desc: string) {
+    return this.webReqService.patch(`review/${_cartItemId}`, { _cartItemId, rating, desc });
+  }
+
+  deleteReview(id: string) {
+    return this.webReqService.delete(`review/${id}`);
+  }
 }

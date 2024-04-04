@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ProductCounterComponent } from '../utils/product-counter/product-counter.component';
 import { ProductRatingComponent } from '../utils/product-rating/product-rating.component';
 import { ProductReviewComponent } from '../product-review/product-review.component';
@@ -13,11 +13,13 @@ import { UtilService } from '../../service/util.service';
 import { OrderService } from '../../service/order.service';
 import { UserService } from '../../service/user.service';
 import { User } from '../../interface/user.model';
+import { BreadcrumbNavComponent } from '../utils/breadcrumb-nav/breadcrumb-nav.component';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, ProductRatingComponent, ProductCounterComponent, ProductReviewComponent, ProductSlideshowComponent],
+  imports: [CommonModule, ProductRatingComponent, ProductCounterComponent, ProductReviewComponent, ProductSlideshowComponent,
+            BreadcrumbNavComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.sass'
 })
@@ -87,9 +89,9 @@ export class ProductDetailComponent implements OnInit {
     } else {
       this.loading = true;
       this.orderService.createCartItem(this.userId, productId, counterValue).subscribe(() => {
+        this.toast.success({detail:"SUCCESS",summary:'Product Added to Cart!', duration:2000, position:'topCenter'});
         this.loading = false;
         this.counterComponent.counterValue = 1;
-        this.toast.success({detail:"SUCCESS",summary:'Product Added to Cart!', duration:2000, position:'topCenter'});
       }, (error) => {
         this.loading = false;
         console.log(error);

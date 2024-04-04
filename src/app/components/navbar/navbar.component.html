@@ -1,7 +1,7 @@
 <div class="body-width">
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
+      <a class="navbar-item pl-0" href="/">
         <h1 class="has-text-black pr-5 has-text-weight-bold">PCBUILD3R</h1>
       </a>
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -13,6 +13,9 @@
   
     <div class="navbar-menu">
       <div class="navbar-start">
+        <a [routerLink]="['/canvas']" class="navbar-item has-text-black">
+          <h3>3D Simulation</h3>
+        </a>
         <a [routerLink]="['/shop']" class="navbar-item has-text-black">
           <h3>Shop</h3>
         </a>

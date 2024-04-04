@@ -13,6 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CartItem } from '../../../interface/cart-item.model';
 import { forkJoin } from 'rxjs';
 import { Product } from '../../../interface/product.model';
+import { ProductService } from '../../../service/product.service';
 
 @Component({
   selector: 'app-order-history',
@@ -21,6 +22,7 @@ import { Product } from '../../../interface/product.model';
   templateUrl: './order-history.component.html',
   styleUrl: './order-history.component.sass'
 })
+
 export class OrderHistoryComponent {
   @Input() show: boolean = false;
   userId: string = "";
@@ -32,7 +34,8 @@ export class OrderHistoryComponent {
   vouchers!: Voucher[];
   reviews!: Review[];
   viewModalStates: { [orderId: string]: boolean } = {};
-  editReviewModalStates: { [orderId: string]: boolean } = {};
+  editModalStates: { [orderId: string]: boolean } = {};
+  editReviewModalStates: { [cartItemId: string]: boolean } = {};
   viewForm: FormGroup;
   editReviewForm: FormGroup;
   
@@ -41,6 +44,7 @@ export class OrderHistoryComponent {
     private router: Router,
     private userService: UserService, 
     private orderService: OrderService, 
+    private productService: ProductService, 
     private toast: NgToastService, 
     private util: UtilService,
     private formBuilder: FormBuilder) {
@@ -50,19 +54,26 @@ export class OrderHistoryComponent {
       userId: [{value: '', disabled: true}],
       cartItems: [{value: '', disabled: true}],
       voucherKey: [{value: '', disabled: true}],
+      voucherPercent: [{value: '', disabled: true}],
       paymentMethod: [{value: '', disabled: true}],
       total: [{value: '', disabled: true}],
     });
 
     this.editReviewForm = this.formBuilder.group({
-      productId: [{value: '', disabled: true}],
-      rating: ['', [Validators.required, Validators.pattern('[1-5]{1}')]],
+      cartItemId: [{value: '', disabled: true}],
+      rating: ['1', [Validators.required, Validators.pattern('[1-5]{1}')]],
       desc: ['', [Validators.maxLength(100)]],
     });
   }
 
   ngOnInit() {
+    this.orderService.cartCheckout$.subscribe(() => {
+      this.ngOnInit();
+    });
     this.getCurrUserId();
+    this.getVouchers();
+    this.getProducts();
+    this.getReviews();
   }
 
   getCurrUserId() {
@@ -87,12 +98,41 @@ export class OrderHistoryComponent {
     return this.util.maskString(input);
   }
 
+  maskProductName(input: string | undefined): string {
+    return this.util.maskProductName(input);
+  }
+
   getVoucherKeyById(voucherId: string | undefined): string | undefined {
     if (this.vouchers) {
       const voucher = this.vouchers.find(v => v._id === voucherId);
       return voucher?.key? voucher?.key: '-';
     }
     return '-'
+  }
+
+  getVoucherPercentById(voucherId: string | undefined): number | undefined {
+    if (this.vouchers) {
+      const voucher = this.vouchers.find(v => v._id === voucherId);
+      return voucher?.percent.$numberDecimal? voucher?.percent.$numberDecimal: 0;
+    }
+    return 0
+  }
+
+  getProductById(id: string): Product | undefined | null {
+    if (this.products) {
+      const product = this.products.find(p => p._id === id);
+      return product;
+    }
+    return null;
+  }
+
+  subtotalById(id: string, quantity: number): number {
+    if (this.products) {
+      const product = this.products.find(p => p._id === id);
+      if (product)
+      return parseFloat((product?.price.$numberDecimal * quantity).toFixed(2));
+    }
+    return 0;
   }
 
   getPaymentNameByType(paymentType: string | undefined): string {
@@ -107,7 +147,7 @@ export class OrderHistoryComponent {
         return '-';
     }
   }
-  
+
   openViewModal(orderId: string) {
     this.viewModalStates[orderId] = true;
     const order = this.orders.find(order => order._id === orderId);
@@ -117,6 +157,7 @@ export class OrderHistoryComponent {
       cartItems: order?._cartItemIds.length,
       paymentMethod: this.getPaymentNameByType(order?.paymentMethod),
       voucherKey: this.getVoucherKeyById(order?._voucherId),
+      voucherPercent: this.getVoucherPercentById(order?._voucherId) + '%',
       total: order?.total.$numberDecimal,
     })
   }
@@ -125,23 +166,43 @@ export class OrderHistoryComponent {
     this.viewModalStates[orderId] = false;
   }
 
-  openEditReviewModal(reviewId: string) {
-    this.editReviewModalStates[reviewId] = true;
-    const review = this.reviews.find(r => r._id === reviewId);
+  openEditModal(orderId: string) {
+    this.editModalStates[orderId] = true;
+  }
+
+  closeEditModal(orderId: string) {
+    this.editModalStates[orderId] = false;
+  }
+
+  openEditReviewModal(cartItemId: string) {
+    this.editReviewModalStates[cartItemId] = true;
+    const review = this.reviews.find(r => r._cartItemId === cartItemId);
     this.editReviewForm.patchValue({
-      // product: review?._productId,
-      rating: review?.rating,
+      cartItemId: cartItemId,
+      rating: review?.rating.toString(),
       desc: review?.desc,
     })
   }
 
-  closeEditReviewModal(orderId: string) {
-    this.editReviewModalStates[orderId] = false;
+  closeEditReviewModal(cartItemId: string) {
+    this.editReviewModalStates[cartItemId] = false;
   }
 
-  getUsers() {
-    this.userService.getUser().subscribe((users: User[]) => {
-      this.users = users;
+  getVouchers() {
+    this.orderService.getVoucher().subscribe((vouchers: Voucher[]) => {
+      this.vouchers = vouchers;
+    });
+  }
+
+  getProducts() {
+    this.productService.getProduct().subscribe((products: Product[]) => {
+      this.products = products;
+    });
+  }
+
+  getReviews() {
+    this.orderService.getReview().subscribe((reviews: Review[]) => {
+      this.reviews = reviews;
     });
   }
 
@@ -159,7 +220,7 @@ export class OrderHistoryComponent {
         forkJoin(cartItemObservables).subscribe((cartItems: CartItem[][]) => {
           // Assign the fetched cart items to the current order object
           order.cartItems = cartItems.flat(); // Flatten the array of arrays
-          console.log(order.cartItems);
+          // console.log(order.cartItems);
         }, (error) => {
           console.log(error);
         });
@@ -169,22 +230,14 @@ export class OrderHistoryComponent {
     });
   }
 
-  getVouchers() {
-    this.orderService.getVoucher().subscribe((vouchers: Voucher[]) => {
-      this.vouchers = vouchers;
-    });
-  }
-
-  editOrderReviews(id: string) {
+  editCartItemReviews(id: string) {
     if (this.editReviewForm.valid)  {
-      const id = this.editReviewForm.get('id')?.value;
-      const name = this.editReviewForm.get('name')?.value;
-      const email = this.editReviewForm.get('email')?.value;
-      const telephone = this.editReviewForm.get('telephone')?.value;
-      this.userService.updateUser(id, name, email, telephone).subscribe(() => {
-        this.toast.success({detail:"SUCCESS",summary:'User Updated!', duration:2000, position:'topCenter'});
-        // this.getOrders();
+      const rating = this.editReviewForm.get('rating')?.value;
+      const desc = this.editReviewForm.get('desc')?.value;
+      this.orderService.updateReview(id, rating, desc).subscribe(() => {
+        this.toast.success({detail:"SUCCESS",summary:'Review Updated!', duration:2000, position:'topCenter'});
         this.closeEditReviewModal(id);
+        this.getReviews();
       }, (error) => {
         console.log(error);
       })

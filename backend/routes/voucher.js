@@ -9,7 +9,17 @@ const Voucher = require('../models/voucher.model')
 // Get all Voucher
 router.get("", authenticate, (req, res) => {
   Voucher.find({
-    _userId: req.user_id
+  }).then((voucher) => {
+    res.send(voucher);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
+// Get voucher by key
+router.get("/:key", authenticate, (req, res) => {
+  Voucher.find({
+    key: req.params.key
   }).then((voucher) => {
     res.send(voucher);
   }).catch((e) => {
@@ -42,7 +52,6 @@ router.post("", authenticate, async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 // Update Voucher
 router.patch("/:id", authenticate, (req, res) => {

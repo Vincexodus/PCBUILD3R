@@ -164,7 +164,6 @@ export class AdminUserComponent {
   }
 
   editUser() {
-    console.log(this.editForm.value);
     if (this.editForm.valid)  {
       const id = this.editForm.get('id')?.value;
       const name = this.editForm.get('name')?.value;

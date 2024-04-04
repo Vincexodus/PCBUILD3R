@@ -1,5 +1,5 @@
 <app-breadcrumb-nav></app-breadcrumb-nav>
-<div class="body-width has-text-centered section-vspacing">
+<div class="body-width has-text-centered my-5">
   <div class="columns">
     <div class="column is-one-fifth">
       <div class="card-container box is-sticky">
@@ -9,8 +9,8 @@
         </div>
         <div class="divider"></div>
         <div class="my-2 is-justify-content-space-between" *ngFor="let category of productCategory">
-          <a href="" class="is-flex is-justify-content-space-between">
-            <h4 class="p-2">{{ category }}</h4>
+          <a class="is-flex is-justify-content-space-between">
+            <h4 class="p-2">{{ category.productCategoryName }}</h4>
             <i class="fa-solid fa-caret-right my-auto" style="color: #000000;"></i>
           </a>
         </div>
@@ -52,7 +52,7 @@
     </div>
     <div class="column">
       <div class="is-flex is-justify-content-space-between">
-        <h1>{{ filteredCategory }}</h1>
+        <h1> {{this.filteredCategory}} <span>({{ this.products? this.products.length: 0 }})</span></h1>
         <div class="is-flex">
           <p class="px-2 m-auto">Showing 1-10 of 100 Products</p>
           <h4 class="px-2 m-auto">Sort by: </h4>
@@ -71,6 +71,12 @@
                   <h4>Best Match</h4>
                 </a>
                 <a href="#" class="dropdown-item">
+                  <h4>Best Sales</h4>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <h4>Newest</h4>
+                </a>
+                <a href="#" class="dropdown-item">
                   <h4>Price High to Low</h4>
                 </a>
                 <a href="#" class="dropdown-item">
@@ -81,25 +87,13 @@
           </div>
         </div>
       </div>
-      <div class="my-2">
-        <div class="is-flex is-justify-content-space-between py-2">
-          <app-product-card
-            [imageUrl]="'../../../../assets/images/auth-pc.png'"
-            [productName]="'Intel Core i7-9700F Processor'"
-            [rating]="4.5"
-            [price]="130"
-          ></app-product-card>
-        </div>
-      </div>
-      <div class="my-2">
-        <div class="is-flex is-justify-content-space-between py-2">
-          <app-product-card
-            [imageUrl]="'../../../../assets/images/auth-pc.png'"
-            [productName]="'Cooler Master Hyper 212 EVO V2'"
-            [rating]="4"
-            [price]="140"
-          ></app-product-card>
-        </div>
+      <div *ngFor="let row of productsChunks" class="columns mt-2">
+        <app-product-card *ngFor="let product of row" class="column"
+          [imageUrl]="product.productImage"
+          [productName]="product.productName"
+          [rating]="product.rating"
+          [price]="product.price.$numberDecimal"
+        ></app-product-card>
       </div>
     </div>
   </div>
