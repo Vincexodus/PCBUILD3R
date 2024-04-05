@@ -1,11 +1,11 @@
 <div class="section-vspacing">
-  <div class="has-text-centered">
-    <div class="is-flex is-justify-content-space-between">
-      <h3 class="block">All Reviews ({{ totalReviews }})</h3>
+  <div class="has-text-centered" *ngIf="reviews.length > 0">
+    <div class="is-flex is-justify-content-space-between mb-5">
+      <h3 class="">All Reviews ({{ totalReviews }})</h3>
       <div class="dropdown is-right" [class.is-active]="isDropdownActive">
         <div class="dropdown-trigger">
           <button class="button is-rounded" (click)="toggleDropdown()" aria-haspopup="true" aria-controls="dropdown-menu3">
-            <span><h4>Relevance</h4></span>
+            <span><h4>Relevance</h4> </span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
@@ -26,24 +26,28 @@
         </div>
       </div>
     </div>
-    <div class="columns">
-      <div class="column">
-        <app-product-review-card></app-product-review-card>
-      </div>
-      <div class="column">
-        <app-product-review-card></app-product-review-card>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column">
-        <app-product-review-card></app-product-review-card>
-      </div>
-      <div class="column">
-        <app-product-review-card></app-product-review-card>
+    <div *ngFor="let row of reviewChunks" class="columns">
+      <div *ngFor="let review of row" class="column is-half">
+        <div class="card-container has-text-left">
+          <div class="p-3">
+            <div class="is-flex is-justify-content-space-between">
+              <app-product-rating [rating]="review.rating"></app-product-rating>
+            </div>
+            <div class="">
+              <h3>{{ maskReview(review.username) }}</h3>
+              <h4 class="block has-text-grey ">{{ review.desc }}</h4>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <button class="button is-rounded">
       Load More Reviews
     </button>
+  </div>
+  <div class="has-text-centered py-6" *ngIf="reviews.length === 0">
+    <div class="block is-size-2">
+      This Product has no reviews yet!
+    </div>
   </div>
 </div>

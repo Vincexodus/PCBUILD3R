@@ -58,9 +58,4 @@ export class ProductService {
   deleteProduct(productId: string) {
     return this.webReqService.delete(`product/${productId}`);
   }
-
-  // Product Review Routes
-  getProductReview(productId: string) {
-    return this.webReqService.get(`review/${productId}`);
-  }
 }

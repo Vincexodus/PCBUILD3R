@@ -26,12 +26,17 @@
         </div>
       </div>
 
-      <app-dashboard [show]="isActiveTab('dashboard')"></app-dashboard>
+      <app-admin-dashboard [show]="isActiveTab('dashboard')"></app-admin-dashboard>
       <app-admin-category [show]="isActiveTab('category')"></app-admin-category>
       <app-admin-product [show]="isActiveTab('product')"></app-admin-product>
       <app-admin-voucher [show]="isActiveTab('voucher')"></app-admin-voucher>
       <app-admin-order [show]="isActiveTab('order')"></app-admin-order>
       <app-admin-user [show]="isActiveTab('user')"></app-admin-user>
     </div>
+  </div>
+</div>
+<div class="columns">
+  <div class="column is-one-fifth has-background-primary">
+    <div class="has-text-centered has-text-grey is-size-7">PCBUILD3R ©{{ currYear }}. All Rights Reserved</div>
   </div>
 </div>

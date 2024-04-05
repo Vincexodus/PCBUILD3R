@@ -10,7 +10,6 @@ const app = express();
 const cartItemRoutes = require('./routes/cart_item');
 const voucherRoutes = require('./routes/voucher');
 const reviewRoutes = require('./routes/review');
-const gameStatsRoutes = require('./routes/game_stats');
 const orderRoutes = require('./routes/order');
 const productCategoryRoutes = require('./routes/product_category');
 const productRoutes = require('./routes/product');
@@ -46,7 +45,6 @@ app.use(function (req, res, next) {
 app.use("/cartItem", cartItemRoutes);
 app.use("/voucher", voucherRoutes);
 app.use("/review", reviewRoutes);
-app.use("/gameStats", gameStatsRoutes);
 app.use("/order", orderRoutes);
 app.use("/productCategory", productCategoryRoutes);
 app.use("/product", productRoutes);

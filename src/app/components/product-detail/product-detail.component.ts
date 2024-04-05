@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ProductCounterComponent } from '../utils/product-counter/product-counter.component';
 import { ProductRatingComponent } from '../utils/product-rating/product-rating.component';
 import { ProductReviewComponent } from '../product-review/product-review.component';
-import { ProductSlideshowComponent } from '../product-slideshow/product-slideshow.component';
+import { ProductSlideshowComponent } from '../slideshows/product-slideshow/product-slideshow.component';
 import { ProductService } from '../../service/product.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Product } from '../../interface/product.model';
@@ -72,7 +72,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getProductReviews(productId: string) {
-    this.productService.getProductReview(productId).subscribe((reviews: Review[]) => {
+    this.orderService.getReviewByProductId(productId).subscribe((reviews: Review[]) => {
       this.reviews = reviews;
       this.productReviewNum = reviews.length;
       if (this.productReviewNum > 0) {

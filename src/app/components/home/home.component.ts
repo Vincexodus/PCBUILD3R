@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ProductSlideshowComponent } from '../product-slideshow/product-slideshow.component';
+import { ProductSlideshowComponent } from '../slideshows/product-slideshow/product-slideshow.component';
 import { IntroCardComponent } from './intro-card/intro-card.component';
-import { CategorySlideshowComponent } from '../category-slideshow/category-slideshow.component';
+import { CategorySlideshowComponent } from '../slideshows/category-slideshow/category-slideshow.component';
 import { BenefitsComponent } from './benefits/benefits.component';
 
 @Component({

@@ -95,6 +95,11 @@ export class OrderService {
     return this.webReqService.get(`review`);
   }
 
+  // Product Review Routes
+  getReviewByProductId(productId: string) {
+    return this.webReqService.get(`review/${productId}`);
+  }
+
   updateReview(_cartItemId: string, rating: string, desc: string) {
     return this.webReqService.patch(`review/${_cartItemId}`, { _cartItemId, rating, desc });
   }

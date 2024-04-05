@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Directory } from '../../../interface/directory';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { AdminProductComponent } from '../admin-product/admin-product.component';
 import { AdminUserComponent } from '../admin-user/admin-user.component';
 import { AdminCategoryComponent } from '../admin-category/admin-category.component';
@@ -12,11 +10,12 @@ import { UserService } from '../../../service/user.service';
 import { User } from '../../../interface/user.model';
 import { AdminOrderComponent } from '../admin-order/admin-order.component';
 import { AdminVoucherComponent } from '../admin-voucher/admin-voucher.component';
+import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
 
 @Component({
   selector: 'app-admin-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, DashboardComponent, AdminProductComponent, AdminCategoryComponent,
+  imports: [CommonModule, RouterLink, AdminDashboardComponent, AdminProductComponent, AdminCategoryComponent,
             AdminOrderComponent, AdminUserComponent, AdminVoucherComponent],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.sass'
@@ -24,7 +23,8 @@ import { AdminVoucherComponent } from '../admin-voucher/admin-voucher.component'
 
 export class AdminHomeComponent implements OnInit {
   userEmail: string = "";
-  directories: Directory[] = [
+  currYear: number = new Date().getFullYear();
+  directories = [
     { name: "Dashboard", icon: "fa-solid fa-chart-line", link: 'dashboard' },
     { name: "Categories", icon: "fa-solid fa-list", link: 'category' },
     { name: "Products", icon: "fa-solid fa-box-archive", link: 'product' },

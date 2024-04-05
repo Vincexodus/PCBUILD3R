@@ -94,12 +94,16 @@ export class OrderHistoryComponent {
     }
   }
 
+  formatDate(input: Date): string {
+    return this.util.dateFormat(input);
+  }
+
   maskString(input: string): string {
     return this.util.maskString(input);
   }
 
   maskProductName(input: string | undefined): string {
-    return this.util.maskProductName(input);
+    return this.util.maskStringLong(input);
   }
 
   getVoucherKeyById(voucherId: string | undefined): string | undefined {
@@ -209,7 +213,13 @@ export class OrderHistoryComponent {
   getOrders(userId: string) {
     this.orderService.getOrderByUserId(userId).subscribe((orders: Order[]) => {
       this.orders = orders;
-      // Iterate through each order
+      
+      this.orders.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB.getTime() - dateA.getTime(); // Sort in descending order
+      });
+
       this.orders.forEach(order => {
         const orderCartItemIds = order._cartItemIds;
         // Create an array of observables for fetching cart items

@@ -1,8 +1,8 @@
 export interface Session {
   _id: string;
-  _feedbackId: string;
-  _productId: string;
-  completion: number;
+  _userId: string;
+  _reviewId: string;
+  level: number;
   createdAt: Date;
   __v: Number;
 }

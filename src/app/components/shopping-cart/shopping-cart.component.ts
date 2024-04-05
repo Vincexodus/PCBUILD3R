@@ -165,9 +165,9 @@ export class ShoppingCartComponent implements OnInit {
       this.loading = true;
       if (this.appliedVoucher) this.voucherId = this.appliedVoucher._id;
       this.orderService.checkoutCart(this.userId, cartItemIds, this.voucherId, this.selectedOption, this.total).subscribe(() => {
-        this.loading = false;
         this.orderService.emitCartCheckout(true);
         this.toast.success({detail:"SUCCESS",summary:'Checkout Successfully!', duration:2000, position:'topCenter'});
+        this.loading = false;
         setTimeout(() => { 
           this.router.navigate(['/account', 'orderHistory']);
         }, 2000);

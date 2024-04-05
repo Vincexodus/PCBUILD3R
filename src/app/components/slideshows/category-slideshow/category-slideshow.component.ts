@@ -1,15 +1,14 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ProductCardComponent } from '../product-card/product-card.component';
-import { DividerComponent } from '../utils/divider/divider.component';
+import { ProductCardComponent } from '../../product-card/product-card.component';
 import { CommonModule } from '@angular/common';
-import { ProductCategory } from '../../interface/product-category.model';
-import { ProductService } from '../../service/product.service';
+import { ProductCategory } from '../../../interface/product-category.model';
+import { ProductService } from '../../../service/product.service';
 import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-category-slideshow',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent, DividerComponent, SlickCarouselModule],
+  imports: [CommonModule, ProductCardComponent, SlickCarouselModule],
   templateUrl: './category-slideshow.component.html',
   styleUrl: './category-slideshow.component.sass'
 })

@@ -7,7 +7,7 @@
             <h4>Id</h4>
           </div>
           <div class="column">
-            <h4>User Email</h4>
+            <h4>Checkout Date</h4>
           </div>
           <div class="column">
             <h4>Product Type</h4>
@@ -34,7 +34,7 @@
             <h4>{{ maskString(order._id) }}</h4>
           </div>
           <div class="column">
-            <h4>{{ maskString(userEmail) }}</h4>
+            <h4>{{ formatDate(order.createdAt) }}</h4>
           </div>
           <div class="column">
             <h4>{{ order._cartItemIds.length }}</h4>

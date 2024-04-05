@@ -19,9 +19,9 @@ router.get("", authenticate, (req, res) => {
 router.post("", authenticate, (req, res) => {
   let session = req.body;
   let newSession = new Session({
-    _feedbackId: session._feedbackId,
-    _productId: session._productId,
-    completion: session.completion,
+    _userId: session._userId,
+    _reviewId: session._reviewId,
+    level: session.level,
     // _userId: req.user_id
   });
 

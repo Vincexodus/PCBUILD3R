@@ -84,7 +84,7 @@ export class AdminOrderComponent {
   }
 
   maskProductName(input: string | undefined): string {
-    return this.util.maskProductName(input);
+    return this.util.maskStringLong(input);
   }
 
   getVoucherKeyById(voucherId: string | undefined): string | undefined {

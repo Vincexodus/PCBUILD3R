@@ -51,4 +51,22 @@ export class UserService {
   deleteUserDetail(id: string) {
     return this.webReqService.delete(`userDetail/${id}`);
   }
+
+  // Game Session Routes
+  getSession() {
+    return this.webReqService.get(`session`);
+  }
+
+  getSessionById(id: string) {
+    return this.webReqService.get(`session/${id}`);
+  }
+
+  updateSession(_userId: string, address: string, city: string, postalCode: string, country: string, cardNumber: string,
+    CVC: string, expireMonth: string, expireYear: string) {
+    return this.webReqService.patch(`session/${_userId}`, { _userId, address, city, postalCode, country, cardNumber, CVC, expireMonth, expireYear  });
+  }
+
+  deleteSession(id: string) {
+    return this.webReqService.delete(`session/${id}`);
+  }
 }

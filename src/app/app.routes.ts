@@ -16,7 +16,7 @@ import { AccountComponent } from './components/account/account.component';
 import { OrderHistoryComponent } from './components/account/order-history/order-history.component';
 import { EditProfileComponent } from './components/account/edit-profile/edit-profile.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
-import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AdminProductComponent } from './components/admin/admin-product/admin-product.component';
 import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 import { AdminCategoryComponent } from './components/admin/admin-category/admin-category.component';
@@ -61,7 +61,7 @@ export const routes: Routes = [
   },
   { path: 'admin', component: AdminHomeComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'category', component: AdminCategoryComponent },
       { path: 'product', component: AdminProductComponent },
       { path: 'voucher', component: AdminVoucherComponent },

@@ -11,8 +11,8 @@
             [productId]="product._id"
             [imageUrl]="product.productImage"
             [productName]="product.productName"
-            [rating]="0"
             [price]="product.price.$numberDecimal"
+            [quantity]="product.quantity"
             ></app-product-card>
         </div>
       </ngx-slick-carousel>
@@ -25,4 +25,4 @@
     View All
   </button>
 </div>
-<app-divider *ngIf="showDivider"></app-divider>
+<div class="divider" *ngIf="showDivider"></div>

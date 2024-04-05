@@ -1,0 +1,60 @@
+<div *ngIf="show" class="my-5">
+  <div class="tile is-ancestor">
+    <div *ngFor="let stat of coreStats" class="tile is-parent">
+      <article class="tile is-child box is-rounded">
+        <p class="title is-5">{{ stat.title }}</p>
+        <p class="subtitle">{{ stat.number }}</p>
+      </article>
+    </div>
+  </div>
+  <div class="tile is-ancestor">
+    <div *ngFor="let stat of additionalStats" class="tile is-parent">
+      <article class="tile is-child box is-rounded">
+        <p class="title is-5">{{ stat.title }}</p>
+        <p class="subtitle">{{ stat.number }}</p>
+      </article>
+    </div>
+  </div>
+  
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical is-9">
+      <div class="tile">
+        <div class="tile is-8 is-parent">
+          <article class="tile is-child box">
+            <p class="title is-5">Admin Permissions</p>
+            <div class="content">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>View</th>
+                    <th>Create</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let permission of adminPermissions">
+                    <td>{{ permission.title }}</td>
+                    <td><i *ngIf="permission.view" class="fa-solid fa-check"></i><i *ngIf="!permission.view" class="fa-solid fa-xmark"></i></td>
+                    <td><i *ngIf="permission.create" class="fa-solid fa-check"></i><i *ngIf="!permission.create" class="fa-solid fa-xmark"></i></td>
+                    <td><i *ngIf="permission.edit" class="fa-solid fa-check"></i><i *ngIf="!permission.edit" class="fa-solid fa-xmark"></i></td>
+                    <td><i *ngIf="permission.delete" class="fa-solid fa-check"></i><i *ngIf="!permission.delete" class="fa-solid fa-xmark"></i></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+        <!-- <div class="tile is-8 is-parent">
+          <article class="tile is-child box">
+            <p class="title is-5">Sales Details</p>
+            <div class="content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+            </div>
+          </article>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

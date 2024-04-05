@@ -13,4 +13,5 @@ export class ProductCardComponent {
   @Input() productName: string = "";
   @Input() rating: number = 0;
   @Input() price: number = 0;
+  @Input() quantity: Number = 0;
 }

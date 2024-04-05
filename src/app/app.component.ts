@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AdminFooterComponent } from './components/admin/admin-footer/admin-footer.component';
-import { NgToastModule, NgToastService } from 'ng-angular-popup';
+import { NgToastModule } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, AdminFooterComponent, NgToastModule],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, NgToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
 })
