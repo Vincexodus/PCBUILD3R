@@ -16,7 +16,7 @@
         <h4>User Email</h4>
       </div>
       <div class="column">
-        <h4>Product Type</h4>
+        <h4>Checkout Date</h4>
       </div>
       <div class="column">
         <h4>Payment Method</h4>
@@ -40,10 +40,10 @@
         <h4>{{ maskString(order._id) }}</h4>
       </div>
       <div class="column">
-        <h4>test</h4>
+        <h4>{{ maskString(getUserEmailById(order._userId)) }}</h4>
       </div>
       <div class="column">
-        <h4>{{ order._cartItemIds.length }}</h4>
+        <h4>{{ formatDate(order.createdAt) }}</h4>
       </div>
       <div class="column">
         <h4>{{ getPaymentNameByType(order.paymentMethod) }}</h4>

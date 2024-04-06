@@ -6,7 +6,6 @@ import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel'
 import { Product } from '../../../interface/product.model';
 import { RouterLink } from '@angular/router';
 import { Review } from '../../../interface/review.model';
-import { OrderService } from '../../../service/order.service';
 
 @Component({
   selector: 'app-product-slideshow',
@@ -26,7 +25,7 @@ export class ProductSlideshowComponent implements OnInit {
   reviews!: Review[];
   slideConfig = { slidesToShow: 4, slidesToScroll: 4, autoplay: true, autoplaySpeed: 6000, infinite: true, arrows: false };
   
-  constructor(private productService: ProductService, private orderService: OrderService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.getTitleProduct();
@@ -54,23 +53,6 @@ export class ProductSlideshowComponent implements OnInit {
         });
       });
     } 
-  }
-
-  getProductReviews(productId: string): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this.orderService.getReviewByProductId(productId).subscribe((reviews: Review[]) => {
-        if (reviews && reviews.length > 0) {
-          const productReviewNum = reviews.length;
-          const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-          const productRating = Math.round((totalRating / productReviewNum) * 10) / 10;
-          resolve(productRating);
-        } else {
-          resolve(0);
-        }
-      }, (error) => {
-        reject(error);
-      });
-    });
   }
   
   next() {

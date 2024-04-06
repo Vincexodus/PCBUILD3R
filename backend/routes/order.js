@@ -70,26 +70,4 @@ router.post("", authenticate, async (req, res) => {
 });
 
 
-// Update order details
-router.patch("/:id", authenticate, (req, res) => {
-  Order.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      $set: req.body,
-    }
-  ).then(() => {
-    res.send({ message: "Order Details updated successfully" });
-  });
-});
-
-// Delete order details
-router.delete("/:id", authenticate, (req, res) => {
-  Order.findOneAndDelete({
-    _id: req.params.id,
-    // _userId: req.user_id
-  }).then((removedDoc) => {
-    res.send(removedDoc);
-  });
-});
-
 module.exports = router;

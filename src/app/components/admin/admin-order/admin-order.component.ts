@@ -12,6 +12,7 @@ import { CartItem } from '../../../interface/cart-item.model';
 import { Product } from '../../../interface/product.model';
 import { ProductService } from '../../../service/product.service';
 import { forkJoin } from 'rxjs';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-admin-order',
@@ -39,6 +40,7 @@ export class AdminOrderComponent {
   editReviewForm: FormGroup;
   
   constructor(
+    private userService: UserService, 
     private orderService: OrderService, 
     private productService: ProductService, 
     private toast: NgToastService, 
@@ -63,6 +65,7 @@ export class AdminOrderComponent {
   }
 
   ngOnInit() {
+    this.getUsers();
     this.getOrders();
     this.getVouchers();
     this.getProducts();
@@ -79,12 +82,24 @@ export class AdminOrderComponent {
     }
   }
   
-  maskString(input: string): string {
-    return this.util.maskString(input);
+  maskString(input: string | undefined): string {
+    return this.util.maskStringLong(input);
   }
 
   maskProductName(input: string | undefined): string {
     return this.util.maskStringLong(input);
+  }
+
+  formatDate(input: Date): string {
+    return this.util.dateFormat(input);
+  }
+
+  getUserEmailById(userId: string | undefined): string | undefined {
+    if (this.users) {
+      const user = this.users.find(v => v._id === userId);
+      return user?.email? user?.email: '-';
+    }
+    return '-'
   }
 
   getVoucherKeyById(voucherId: string | undefined): string | undefined {
@@ -185,16 +200,22 @@ export class AdminOrderComponent {
   closeEditReviewModal(cartItemId: string) {
     this.editReviewModalStates[cartItemId] = false;
   }
-
-  getVouchers() {
-    this.orderService.getVoucher().subscribe((vouchers: Voucher[]) => {
-      this.vouchers = vouchers;
+  
+  getUsers() {
+    this.userService.getUser().subscribe((users: User[]) => {
+      this.users = users;
     });
   }
 
   getProducts() {
     this.productService.getProduct().subscribe((products: Product[]) => {
       this.products = products;
+    });
+  }
+  
+  getVouchers() {
+    this.orderService.getVoucher().subscribe((vouchers: Voucher[]) => {
+      this.vouchers = vouchers;
     });
   }
 

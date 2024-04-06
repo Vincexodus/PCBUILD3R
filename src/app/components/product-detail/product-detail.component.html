@@ -9,12 +9,12 @@
     <div class="column">
       <h2 class="block">{{ this.product.productName }}</h2>
       <div class="is-flex">
-        <app-product-rating [rating]="productRating"></app-product-rating>
-        <h3 class="block">{{ this.product.quantity }} in stock</h3>
+        <app-product-rating [rating]="this.product.rating.$numberDecimal"></app-product-rating>
+        <h3 class="block ml-5">{{ this.product.quantity }} in stock</h3>
       </div>
       <h3 class="block">MYR {{ this.product.price.$numberDecimal }}</h3>
       <span *ngFor="let item of product.desc.split('\n')">
-        <h4><span class="has-text-weight-bold">{{ item.split(':')[0] }}:</span>{{ item.split(':')[1] }}<br></h4>
+        <h4 class="is-size-6"><span class="has-text-weight-bold is-size-6">{{ item.split(':')[0] }}:</span>{{ item.split(':')[1] }}<br></h4>
       </span> 
       <div class="divider my-5"></div>
       <div class="columns">

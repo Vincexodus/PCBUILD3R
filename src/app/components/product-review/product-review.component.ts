@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProductService } from '../../service/product.service';
 import { Review } from '../../interface/review.model';
 import { forkJoin, Observable } from 'rxjs';
 import { CartItem } from '../../interface/cart-item.model';
@@ -25,7 +24,7 @@ export class ProductReviewComponent implements OnInit {
   reviewChunks: any[][] = [];
   isDropdownActive = false;
 
-  constructor(private productService: ProductService, private orderService: OrderService, private userService: UserService,
+  constructor(private orderService: OrderService, private userService: UserService,
               private util: UtilService) { }
   
   ngOnInit() {

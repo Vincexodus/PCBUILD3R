@@ -11,6 +11,7 @@
             [productId]="product._id"
             [imageUrl]="product.productImage"
             [productName]="product.productName"
+            [rating]="product.rating.$numberDecimal"
             [price]="product.price.$numberDecimal"
             [quantity]="product.quantity"
             ></app-product-card>

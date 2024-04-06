@@ -1,11 +1,11 @@
-<div class="is-flex pr-5" *ngIf="rating >= 0">
+<div class="is-flex is-justify-content-center" *ngIf="rating >= 0">
   <div class="pb-3">
     <ng-container *ngFor="let i of getStarsArray(rating)">
       <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
     </ng-container>
     <ng-container *ngFor="let i of getRemainingStarsArray(rating)">
-      <i class="fa-solid fa-star" style="color: #F0EEED;"></i>
+      <i class="fa-solid fa-star" style="color: #c8c8c8;"></i>
     </ng-container>
   </div>
-  <h3 class="px-2">{{ rating }} / 5 </h3>
+  <h4 class="is-size-6 px-2">{{ rating }}/5</h4>
 </div>

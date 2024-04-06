@@ -35,7 +35,7 @@ export class AdminDashboardComponent implements OnInit{
     { title: 'Total Product Category', number: this.totalProductCategory },
     { title: 'Total Products', number: this.totalProducts },
     { title: 'Total Orders', number: this.totalOrders },
-    { title: 'Total Sales', number:  'MYR' + this.totalSales },
+    { title: 'Total Sales', number:  'MYR ' + this.totalSales },
     { title: 'Total Reviews', number: this.totalReviews },
   ];
   
@@ -66,17 +66,14 @@ export class AdminDashboardComponent implements OnInit{
   fetchData() {
     this.productService.getProductCategory().subscribe((productCategory: ProductCategory[]) => {
       this.totalProductCategory = productCategory.length;
-      this.updateStats();
     });
 
     this.productService.getProduct().subscribe((product: Product[]) => {
       this.totalProducts = product.length;
-      this.updateStats();
     });
 
     this.userService.getUser().subscribe((user: User[]) => {
       this.totalUsers = user.length;
-      this.updateStats();
     });
 
     this.orderService.getOrder().subscribe((order: Order[]) => {
@@ -88,23 +85,21 @@ export class AdminDashboardComponent implements OnInit{
         }
         this.totalSales = parseFloat((this.totalSales).toFixed(2));
       }
-      this.updateStats();
     });
 
     this.orderService.getVoucher().subscribe((voucher: Voucher[]) => {
       this.totalVouchers = voucher.length;
-      this.updateStats();
     });
 
     this.orderService.getReview().subscribe((review: Review[]) => {
       this.totalReviews = review.length;
-      this.updateStats();
     });
 
     this.userService.getSession().subscribe((session: Session[]) => {
       this.totalSessions = session.length;
-      this.updateStats();
     });
+
+    this.updateStats();
   }
 
   updateStats() {
@@ -112,7 +107,7 @@ export class AdminDashboardComponent implements OnInit{
       { title: 'Total Product Category', number: this.totalProductCategory },
       { title: 'Total Products', number: this.totalProducts },
       { title: 'Total Orders', number: this.totalOrders },
-      { title: 'Total Sales', number:  'MYR' + this.totalSales },
+      { title: 'Total Sales', number:  'MYR ' + this.totalSales },
       { title: 'Total Reviews', number: this.totalReviews },
     ];
     this.additionalStats = [

@@ -57,14 +57,6 @@ export class OrderService {
     return this.webReqService.post(`order`, { _userId, _cartItemIds, _voucherId, paymentMethod, total });
   }
 
-  updateOrder(_userId: string, _cartItemId: string, _productId: string, quantity: Number) {
-    return this.webReqService.patch(`order/${_cartItemId}`, { _userId, _productId, quantity });
-  }
-
-  deleteOrder(_cartItemId: string) {
-    return this.webReqService.delete(`order/${_cartItemId}`);
-  }
-
   // Voucher route
   getVoucher() {
     return this.webReqService.get(`voucher`);
@@ -95,7 +87,6 @@ export class OrderService {
     return this.webReqService.get(`review`);
   }
 
-  // Product Review Routes
   getReviewByProductId(productId: string) {
     return this.webReqService.get(`review/${productId}`);
   }

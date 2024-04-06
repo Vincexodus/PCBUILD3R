@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './product-rating.component.html',
   styleUrl: './product-rating.component.sass'
 })
+
 export class ProductRatingComponent {
   @Input() rating: number = 0;
 
@@ -24,13 +25,10 @@ export class ProductRatingComponent {
 
   getRemainingStarsArray(rating: number): number[] {
     const starsArray = [];
-    const fullStars = Math.floor(rating);
-    const remainingStars = 5 - rating;
-    
-    for (let i = 0; i < remainingStars; i++) {
+
+    for (let i = 0; i < (5 - rating); i++) {
       starsArray.push(i);
     }
-
     return starsArray;
-}
+  }
 }

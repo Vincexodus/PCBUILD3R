@@ -4,17 +4,13 @@
       <img [src]="imageUrl" class="p-2">
     </div>
     <div class="card-content has-background-primary rounded-bottom">
-      <div class="media">
-        <div class="media-content">
-          <div class="title-height">
-            <p class="title is-6">{{ productName }}</p>
-          </div>
-          <p class="subtitle is-6">{{ rating }}</p>
-        </div>
-      </div>
       <div class="content">
-        <p>MYR {{ price }}</p>
-        <p>{{ quantity }} in stock</p>
+        <div class="title-height">
+          <p class="title is-6">{{ productName }}</p>
+        </div>
+        <app-product-rating [rating]="rating"></app-product-rating>
+        <p class="is-size-6">MYR {{ price }}</p>
+        <p class="is-size-6">{{ quantity }} in stock</p>
       </div>
     </div>
   </a>

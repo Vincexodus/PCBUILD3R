@@ -5,6 +5,7 @@ export interface Product {
   _discountId: string;
   productName: string;
   productImage: string | ArrayBuffer | null;
+  rating: { "$numberDecimal" : number };
   desc: string;
   price: { "$numberDecimal" : number };
   quantity: Number;

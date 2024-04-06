@@ -13,6 +13,11 @@ const ProductSchema = new mongoose.Schema({
     data: Buffer,
     type: String,
   },
+  rating: {
+      type: mongoose.Types.Decimal128,
+      required: true,
+      default: 0
+  },
   desc: {
       type: String,
       required: true,

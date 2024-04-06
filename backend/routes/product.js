@@ -117,6 +117,7 @@ router.post("", authenticate, upload.single('image'), (req, res) => {
     _productCategoryId: product._productCategoryId,
     productName: product.productName,
     productImage: product.productImage,
+    rating: product.rating,
     desc: product.desc,
     price: product.price,
     quantity: product.quantity,

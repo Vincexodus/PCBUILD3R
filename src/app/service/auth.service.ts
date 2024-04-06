@@ -1,15 +1,21 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { WebRequestService } from './web-request.service';
 import { Router } from '@angular/router';
 import { Subject, shareReplay, tap } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  localStorage: Storage | undefined  = this.document.defaultView?.localStorage;
 
-  constructor(private http: HttpClient, private webService: WebRequestService, private router: Router) { }
+  constructor(
+    private http: HttpClient, 
+    private webService: WebRequestService, 
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document) { }
 
   private loginSuccessSubject = new Subject<any>();
   loginSuccess$ = this.loginSuccessSubject.asObservable();
@@ -44,31 +50,49 @@ export class AuthService {
   }
 
   getAccessToken() {
-    return localStorage.getItem('x-access-token');
+    var accessToken;
+    if (this.localStorage) {
+      accessToken = this.localStorage.getItem('x-access-token');
+    }
+    return accessToken;
   }
 
   getRefreshToken() {
-    return localStorage.getItem('x-refresh-token');
+    var refreshToken;
+    if (this.localStorage) {
+      refreshToken = this.localStorage.getItem('x-refresh-token');
+    }
+    return refreshToken;
   }
 
   getUserId() {
-    return localStorage.getItem('user-id');
+    var userId;
+    if (this.localStorage) {
+      userId = this.localStorage.getItem('user-id');
+    }
+    return userId;
   }
 
   setAccessToken(accessToken: string | null) {
-    localStorage.setItem('x-access-token', accessToken || '');
+    if (this.localStorage) {
+      this.localStorage.setItem('x-access-token', accessToken || '');
+    }
   }
   
   private setSession(userId: string, accessToken: string | null, refreshToken: string | null) {
-    localStorage.setItem('user-id', userId);
-    localStorage.setItem('x-access-token', accessToken || '');
-    localStorage.setItem('x-refresh-token', refreshToken || '');
+    if (this.localStorage) {
+      this.localStorage.setItem('user-id', userId);
+      this.localStorage.setItem('x-access-token', accessToken || '');
+      this.localStorage.setItem('x-refresh-token', refreshToken || '');
+    }
   }
 
   private removeSession() {
-    localStorage.removeItem('user-id');
-    localStorage.removeItem('x-access-token');
-    localStorage.removeItem('x-refresh-token');
+    if (this.localStorage) {
+      this.localStorage.removeItem('user-id');
+      this.localStorage.removeItem('x-access-token');
+      this.localStorage.removeItem('x-refresh-token');
+    }
   }
 
   getNewAccessToken() {

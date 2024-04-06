@@ -9,7 +9,6 @@ import { Product } from '../../interface/product.model';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Review } from '../../interface/review.model';
 import { NgToastService } from 'ng-angular-popup';
-import { UtilService } from '../../service/util.service';
 import { OrderService } from '../../service/order.service';
 import { UserService } from '../../service/user.service';
 import { User } from '../../interface/user.model';
@@ -28,8 +27,6 @@ export class ProductDetailComponent implements OnInit {
   loading = false;
   product!: Product;
   reviews!: Review[];
-  productRating: number = 0;
-  productReviewNum: number = 0;
   stockQuantity: number = 0;
 
   @ViewChild('counterComponent') counterComponent: any;
@@ -38,7 +35,7 @@ export class ProductDetailComponent implements OnInit {
   selectedProductId: string = "";
 
   constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService, 
-              private toast: NgToastService, private orderService: OrderService, private util: UtilService,
+              private toast: NgToastService, private orderService: OrderService,
               @Inject(DOCUMENT) private document: Document, private userService: UserService) { }
 
   ngOnInit() {
@@ -47,7 +44,6 @@ export class ProductDetailComponent implements OnInit {
           this.selectedProductId = (params['productId']);
           this.productService.getProductById((params['productId'])).subscribe((product: Product[]) => {
             this.product = product[0];
-            this.getProductReviews(params['productId']);
             this.getCurrUserId();
           }, (error) => {
             this.router.navigate(['/productNotFound']);
@@ -69,17 +65,6 @@ export class ProductDetailComponent implements OnInit {
         });
       }
     }
-  }
-
-  getProductReviews(productId: string) {
-    this.orderService.getReviewByProductId(productId).subscribe((reviews: Review[]) => {
-      this.reviews = reviews;
-      this.productReviewNum = reviews.length;
-      if (this.productReviewNum > 0) {
-        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-        this.productRating = Math.round(totalRating / this.productReviewNum * 10) / 10;
-      }
-    })
   }
 
   addItemToCart(productId: string) {
