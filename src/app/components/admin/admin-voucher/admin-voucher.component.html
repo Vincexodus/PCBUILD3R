@@ -69,7 +69,7 @@
       </div>
     </div>
     <div class="divider"></div>
-    <div class="columns mt-2" *ngFor="let voucher of vouchers">
+    <div class="columns mt-2" *ngFor="let voucher of vouchers | paginate: { itemsPerPage: 15, currentPage: page }">
       <div class="column">
         <h4>{{ maskString(voucher._id) }}</h4>
       </div>
@@ -163,6 +163,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="has-text-centered" *ngIf="vouchers && vouchers.length > 15">
+      <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>

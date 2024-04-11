@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 // Get all product
-router.get("", authenticate, (req, res) => {
+router.get("", (req, res) => {
   Product.find({
   }).then((products) => {
     res.send(products);
@@ -26,7 +26,7 @@ router.get("", authenticate, (req, res) => {
 });
 
 // Get 16 latest products
-router.get("/latest", authenticate, (req, res) => {
+router.get("/latest", (req, res) => {
   Product.find()
   .sort({ createdAt: -1 })
   .limit(16)
@@ -35,6 +35,36 @@ router.get("/latest", authenticate, (req, res) => {
   }).catch((e) => {
     res.send(e);
   })
+});
+
+// Get all best selling products 
+router.get('/sales', async (req, res) => {
+  try {
+    const cartItems = await CartItem.find({ isPaid: true }).exec(); // Use .exec() to execute the query
+    const quantityMap = cartItems.reduce((acc, item) => {
+      if (acc[item._productId]) {
+        acc[item._productId] += item.quantity;
+      } else {
+        acc[item._productId] = item.quantity;
+      }
+      return acc;
+    }, {});
+    
+    const quantitiesArray = Object.entries(quantityMap).map(([productId, quantity]) => ({
+      _productId: productId,
+      quantity: quantity
+    }));
+    
+    // Fetch product details for the top products
+    const productsWithMostQuantity = await Promise.all(quantitiesArray.map(async ({ _productId }) => {
+      const product = await Product.findById(_productId); // Assuming you have a Product model
+      return { ...product.toObject() }; // Convert product to plain object
+    }));
+    
+    res.json(productsWithMostQuantity);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Get 16 best selling products 
@@ -71,7 +101,7 @@ router.get('/top', async (req, res) => {
 });
 
 // Get 16 best relevant products 
-router.get("/common/:id", authenticate, (req, res) => {
+router.get("/common/:id", (req, res) => {
   const productId = req.params.id;
 
   Product.findOne({ _id: productId }).then((product) => {
@@ -93,7 +123,7 @@ router.get("/common/:id", authenticate, (req, res) => {
 });
 
 // Get product
-router.get("/:id", authenticate, (req, res) => {
+router.get("/:id", (req, res) => {
   Product.find({
     _id: req.params.id
   }).then((products) => {

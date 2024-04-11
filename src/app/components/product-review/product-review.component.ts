@@ -9,11 +9,12 @@ import { UserService } from '../../service/user.service';
 import { User } from '../../interface/user.model';
 import { ProductRatingComponent } from '../utils/product-rating/product-rating.component';
 import { UtilService } from '../../service/util.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-product-review',
   standalone: true,
-  imports: [CommonModule, RouterLink, ProductRatingComponent],
+  imports: [CommonModule, RouterLink, ProductRatingComponent, NgxPaginationModule],
   templateUrl: './product-review.component.html',
   styleUrl: './product-review.component.sass'
 })
@@ -23,6 +24,7 @@ export class ProductReviewComponent implements OnInit {
   reviews: Review[] = [];
   reviewChunks: any[][] = [];
   isDropdownActive = false;
+  page: number = 1;
 
   constructor(private orderService: OrderService, private userService: UserService,
               private util: UtilService) { }

@@ -1,7 +1,8 @@
 import {ElementRef, Injectable, NgZone, OnDestroy} from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 @Injectable({providedIn: 'root'})
 export class EngineService implements OnDestroy {
   private canvas!: HTMLCanvasElement;

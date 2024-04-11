@@ -1,5 +1,5 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, Input } from '@angular/core';
+import { CommonModule} from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,6 +14,7 @@ import { CartItem } from '../../../interface/cart-item.model';
 import { forkJoin } from 'rxjs';
 import { Product } from '../../../interface/product.model';
 import { ProductService } from '../../../service/product.service';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-order-history',
@@ -40,8 +41,8 @@ export class OrderHistoryComponent {
   editReviewForm: FormGroup;
   
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private router: Router,
+    private authService: AuthService,
     private userService: UserService, 
     private orderService: OrderService, 
     private productService: ProductService, 
@@ -77,20 +78,17 @@ export class OrderHistoryComponent {
   }
 
   getCurrUserId() {
-    const localStorage = this.document.defaultView?.localStorage;
-    if (localStorage) {
-      const storedUserId = localStorage.getItem('user-id');
-      if (storedUserId) {
-        this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
-          this.userId = user[0]._id;
-          this.userEmail = user[0].email;
-          if (this.userId.length !== 0) {
-            this.getOrders(this.userId);
-          } else {
-            this.router.navigate(['/login']);
-          }
-        });
-      }
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
+        this.userId = user[0]._id;
+        this.userEmail = user[0].email;
+        if (this.userId.length !== 0) {
+          this.getOrders(this.userId);
+        } else {
+          this.router.navigate(['/login']);
+        }
+      });
     }
   }
 

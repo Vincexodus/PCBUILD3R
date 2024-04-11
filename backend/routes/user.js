@@ -71,10 +71,8 @@ router.post("", (req, res) => {
 router.post("/login", (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
-
-  User.findByCredentials(email, password)
-    .then((user) => {
-      return user.createSession().then((refreshToken) => {
+  User.findByCredentials(email, password).then((user) => {
+    return user.createSession().then((refreshToken) => {
           // Session created successfully - refreshToken returned.
 
           return user.generateAccessAuthToken().then((accessToken) => {

@@ -41,6 +41,10 @@ export class ProductService {
     return this.webReqService.get(`product/top`);
   }
   
+  getTopSalesProduct() {
+    return this.webReqService.get(`product/sales`);
+  }
+  
   getCommonProduct(productId: string) {
     return this.webReqService.get(`product/common/${productId}`);
   }

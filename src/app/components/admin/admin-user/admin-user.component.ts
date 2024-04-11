@@ -7,11 +7,12 @@ import { User } from '../../../interface/user.model';
 import { UserService } from '../../../service/user.service';
 import { WebRequestService } from '../../../service/web-request.service';
 import { UserDetail } from '../../../interface/user-detail.model';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-admin-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './admin-user.component.html',
   styleUrl: './admin-user.component.sass'
 })
@@ -27,6 +28,7 @@ export class AdminUserComponent {
   addForm: FormGroup;
   editForm: FormGroup;
   editBillingForm: FormGroup;
+  page: number = 1;
 
   constructor(
     private webService: WebRequestService, 

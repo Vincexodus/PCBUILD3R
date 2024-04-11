@@ -13,11 +13,12 @@ import { Product } from '../../../interface/product.model';
 import { ProductService } from '../../../service/product.service';
 import { forkJoin } from 'rxjs';
 import { UserService } from '../../../service/user.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-admin-order',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './admin-order.component.html',
   styleUrl: './admin-order.component.sass'
 })
@@ -38,7 +39,8 @@ export class AdminOrderComponent {
   deleteModalStates: { [orderId: string]: boolean } = {};
   viewForm: FormGroup;
   editReviewForm: FormGroup;
-  
+  page: number = 1;
+
   constructor(
     private userService: UserService, 
     private orderService: OrderService, 

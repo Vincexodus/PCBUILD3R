@@ -1,5 +1,5 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router'
 import { UserService } from '../../../service/user.service';
@@ -7,7 +7,6 @@ import { User } from '../../../interface/user.model';
 import { NgToastService } from 'ng-angular-popup';
 import { AuthService } from '../../../service/auth.service';
 import { UserDetail } from '../../../interface/user-detail.model';
-import { count } from 'console';
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,9 +26,7 @@ export class EditProfileComponent implements OnInit {
   userId: string = "";
 
   constructor(
-    private router: Router, 
-    @Inject(DOCUMENT) 
-    private document: Document, 
+    private router: Router,
     private userService: UserService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -63,22 +60,19 @@ export class EditProfileComponent implements OnInit {
   }
 
   getCurrUserInfo() {
-    const localStorage = this.document.defaultView?.localStorage;
-    if (localStorage) {
-      const storedUserId = localStorage.getItem('user-id');
-      if (storedUserId) {
-        this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
-          this.userId = user[0]._id;
-          this.profileForm.patchValue({
-            name: user[0].name,
-            email: user[0].email,
-            telephone: user[0].telephone,
-          })
-          this.getBillingInfo(this.userId);
-        });
-      } else {
-        this.router.navigate(['/login']);
-      }
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
+        this.userId = user[0]._id;
+        this.profileForm.patchValue({
+          name: user[0].name,
+          email: user[0].email,
+          telephone: user[0].telephone,
+        })
+        this.getBillingInfo(this.userId);
+      });
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 

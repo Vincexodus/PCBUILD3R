@@ -7,7 +7,7 @@ const CartItem = require('../models/cart_item.model')
 const Review = require('../models/review.model')
 
 // Get all Review
-router.get("", authenticate, (req, res) => {
+router.get("", (req, res) => {
   Review.find({
   }).then((review) => {
     res.send(review);
@@ -17,7 +17,7 @@ router.get("", authenticate, (req, res) => {
 });
 
 // Get product reviews by product id
-router.get("/:id", authenticate, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const cartItems = await CartItem.find({ _productId: req.params.id });
 

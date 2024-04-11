@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { PaginationComponent } from '../../utils/pagination/pagination.component';
 import { Product } from '../../../interface/product.model';
 import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
 import { ProductService } from '../../../service/product.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductCategory } from '../../../interface/product-category.model';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @Component({
   selector: 'app-admin-product',
   standalone: true,
-  imports: [CommonModule, PaginationComponent, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './admin-product.component.html',
   styleUrl: './admin-product.component.sass'
 })
+
 export class AdminProductComponent implements OnInit {
   @Input() show: boolean = false;
   products!: Product[];
@@ -27,7 +29,8 @@ export class AdminProductComponent implements OnInit {
   isDropdownActive = false;
   addForm: FormGroup;
   editForm: FormGroup;
-
+  page: number = 1;
+  
   constructor(
     private productService: ProductService, 
     private toast: NgToastService, 

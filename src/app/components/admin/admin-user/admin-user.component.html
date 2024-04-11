@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="divider"></div>
-    <div class="columns mt-2" *ngFor="let user of users">
+    <div class="columns mt-2" *ngFor="let user of users | paginate: { itemsPerPage: 15, currentPage: page }">
       <div class="column">
         <h4>{{ maskString(user._id) }}</h4>
       </div>
@@ -254,6 +254,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="has-text-centered" *ngIf="users && users.length > 15">
+      <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>

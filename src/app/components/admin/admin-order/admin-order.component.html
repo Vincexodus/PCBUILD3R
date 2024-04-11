@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="divider"></div>
-    <div class="columns mt-2" *ngFor="let order of orders">
+    <div class="columns mt-2" *ngFor="let order of orders | paginate: { itemsPerPage: 15, currentPage: page }">
       <div class="column">
         <h4>{{ maskString(order._id) }}</h4>
       </div>
@@ -241,6 +241,9 @@
             </footer>
           </div>
         </div>
+      </div>
+      <div class="has-text-centered" *ngIf="orders && orders.length > 15">
+        <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
       </div>
     </div>
   </div>

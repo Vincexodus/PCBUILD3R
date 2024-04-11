@@ -79,7 +79,7 @@
       </div>
     </div>
     <div class="divider"></div>
-    <div class="columns mt-2" *ngFor="let category of productCategory">
+    <div class="columns mt-2" *ngFor="let category of productCategory | paginate: { itemsPerPage: 15, currentPage: page }">
       <div class="column">
         <h4>{{ maskString(category._id) }}</h4>
       </div>
@@ -178,6 +178,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="has-text-centered" *ngIf="productCategory && productCategory.length > 15">
+      <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
     </div>
   </div>
 </div>

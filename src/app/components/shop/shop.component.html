@@ -9,57 +9,65 @@
         </div>
         <div class="divider"></div>
         <div class="my-2 is-justify-content-space-between" *ngFor="let category of productCategory">
-          <a class="is-flex is-justify-content-space-between">
-            <h4 class="p-2">{{ category.productCategoryName }}</h4>
+          <a class="is-flex is-justify-content-space-between" (click)="getProductByCategory(category._id)">
+            <h4 class="py-2 pr-2">{{ category.productCategoryName }}</h4>
             <i class="fa-solid fa-caret-right my-auto" style="color: #000000;"></i>
           </a>
         </div>
         <div class="divider"></div>
         <div class="has-text-left">
-          <h3 class="pb-2 has-text-weight-bold">Price</h3>
-          <div class="columns">
-            <div class="column field">
-              <p class="control">
-                <input
-                  class="input is-rounded is-small "
-                  type="text"
-                  placeholder="Min"
-                />
-              </p>
-            </div>
-            <div class="column field">
-              <p class="control">
-                <input
-                  class="input is-rounded is-small "
-                  type="text"
-                  placeholder="Max"
-                />
-              </p>
-            </div>
-            <div class="column is-one-quarter">
-              <button class="button is-black is-small is-rounded is-fullwidth">
-                <i class="fa-solid fa-play" style="color: #ffffff;"></i>
+          <div class="mt-3">
+            <form [formGroup]="priceForm" (submit)="filterByPrice()">
+              <div class="columns">
+                <div class="column is-half"><h4 class="pt-2">Min Price (MYR)</h4></div>
+                <div class="column">
+                  <input
+                    formControlName="minPrice"
+                    class="input is-rounded is-small"
+                    type="text"
+                    placeholder="Min Price"
+                  />
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-half"><h4 class="pt-2">Max Price (MYR)</h4></div>
+                <div class="column">
+                  <input
+                    formControlName="maxPrice"
+                    class="input is-rounded is-small"
+                    type="text"
+                    placeholder="Max Price"
+                  />
+                </div>
+              </div>
+              <button class="button is-black is-small is-rounded is-fullwidth" type="submit">
+                Apply
               </button>
-            </div>
+            </form>
           </div>
         </div>
-        <div class="">
-          <button class="button is-small is-black is-rounded is-fullwidth">
-            Apply Filter
-          </button>
+        <div class="my-3">
+        <button class="button is-small is-black is-rounded is-fullwidth" (click)="resetFilter()">
+            Reset
+          </button>  
         </div>
       </div>
     </div>
     <div class="column">
       <div class="is-flex is-justify-content-space-between">
-        <h1>{{ this.filteredCategory }}<span>({{ this.products? this.products.length: 0 }})</span></h1>
+        <h1>{{ this.filteredCategory + ' ' }}<span>({{ this.products? this.products.length: 0 }})</span></h1>
         <div class="is-flex">
-          <p class="px-2 m-auto">Showing 1-10 of 100 Products</p>
+          <div class="is-flex px-2">
+            <input #searchKeyword class="input is-rounded" type="text" placeholder="Search for products">
+            <button class="button is-rounded has-background-primary ml-2" (click)="productSearch(searchKeyword.value)">
+              <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
+            </button>
+          </div>
           <h4 class="px-2 m-auto">Sort by: </h4>
           <div class="dropdown is-right" [class.is-active]="isDropdownActive">
             <div class="dropdown-trigger">
               <button class="button is-rounded" (click)="toggleDropdown()" aria-haspopup="true" aria-controls="dropdown-menu3">
-                <span><h4>Most Popular</h4></span>
+                <span><h4>{{ filterOption }}</h4></span>
                 <span class="icon is-small">
                   <i class="fas fa-angle-down" aria-hidden="true"></i>
                 </span>
@@ -67,19 +75,16 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu3" role="menu">
               <div class="dropdown-content">
-                <a href="#" class="dropdown-item">
-                  <h4>Best Match</h4>
-                </a>
-                <a href="#" class="dropdown-item">
+                <a (click)="getProduct('Best Sales')" class="dropdown-item">
                   <h4>Best Sales</h4>
                 </a>
-                <a href="#" class="dropdown-item">
+                <a (click)="getProduct('Newest')" class="dropdown-item">
                   <h4>Newest</h4>
                 </a>
-                <a href="#" class="dropdown-item">
+                <a (click)="getProduct('Price High to Low')" class="dropdown-item">
                   <h4>Price High to Low</h4>
                 </a>
-                <a href="#" class="dropdown-item">
+                <a (click)="getProduct('Price Low to High')" class="dropdown-item">
                   <h4>Price Low to High</h4>
                 </a>
               </div>
@@ -87,15 +92,28 @@
           </div>
         </div>
       </div>
-      <div *ngFor="let row of productsChunks" class="columns mt-2">
+      <div *ngFor="let row of productsChunks | paginate: { itemsPerPage: 6, currentPage: page }" class="columns mt-2">
         <app-product-card *ngFor="let product of row" class="column"
+          [productId]="product._id"
           [imageUrl]="product.productImage"
           [productName]="product.productName"
-          [rating]="product.rating"
+          [rating]="product.rating.$numberDecimal"
           [price]="product.price.$numberDecimal"
+          [quantity]="product.quantity"
         ></app-product-card>
+        <div class="column" *ngFor="let space of getEmptyCard(row)"></div>
+      </div>
+      <div class="has-text-centered" *ngIf="productsChunks && productsChunks.length > 6">
+        <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
+      </div>
+      <div *ngIf="productsChunks.length === 0" class="mt-6 has-text-centered">
+        <div class="block is-size-1">
+          Search Results are Empty!
+        </div>
+        <button (click)="resetFilter()" class="button is-black is-rounded" >
+          Reset Search
+        </button>
       </div>
     </div>
   </div>
-  <app-pagination></app-pagination>
 </div>

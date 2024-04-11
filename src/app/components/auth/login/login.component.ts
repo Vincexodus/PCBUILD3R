@@ -5,6 +5,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { CommonModule } from '@angular/common';
+import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -53,6 +54,8 @@ export class LoginComponent implements OnInit {
             }, 1000);  
           }
         }
+      }, (error) => {
+        this.toast.error({detail:"FAILED",summary:'Invalid Email and Password!', duration:2000, position:'topCenter'});
       });
     } else {
       this.toast.error({detail:"FAILED",summary:'Please fill in all required field critera!', duration:2000, position:'topCenter'});

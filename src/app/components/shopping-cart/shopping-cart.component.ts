@@ -1,5 +1,5 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
 import { ProductService } from '../../service/product.service';
 import { Router, RouterLink } from '@angular/router';
@@ -13,6 +13,7 @@ import { forkJoin } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { UserDetail } from '../../interface/user-detail.model';
 import { Voucher } from '../../interface/voucher.model';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -40,9 +41,8 @@ export class ShoppingCartComponent implements OnInit {
   total: number = 0;
   selectedOption: string = 'BT';
 
-  constructor(private router: Router, private productService: ProductService, 
-    private toast: NgToastService, private orderService: OrderService,
-    @Inject(DOCUMENT) private document: Document, private userService: UserService) { }
+  constructor(private router: Router, private productService: ProductService, private authService: AuthService, 
+    private toast: NgToastService, private orderService: OrderService, private userService: UserService) { }
 
   ngOnInit() {
     this.getCurrUserId();
@@ -60,21 +60,18 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getCurrUserId() {
-    const localStorage = this.document.defaultView?.localStorage;
-    if (localStorage) {
-      const storedUserId = localStorage.getItem('user-id');
-      if (storedUserId) {
-        this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
-          this.userId = user[0]._id;
-          if (this.userId.length !== 0) {
-            this.getCartItem();
-          } else {
-            this.router.navigate(['/login']);
-          }
-        });
-      } else {
-        this.router.navigate(['/login']);
-      }
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
+        this.userId = user[0]._id;
+        if (this.userId.length !== 0) {
+          this.getCartItem();
+        } else {
+          this.router.navigate(['/login']);
+        }
+      });
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 

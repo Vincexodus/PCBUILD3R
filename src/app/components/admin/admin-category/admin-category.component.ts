@@ -5,11 +5,12 @@ import { ProductCategory } from '../../../interface/product-category.model';
 import { NgToastService } from 'ng-angular-popup';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UtilService } from '../../../service/util.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-admin-category',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './admin-category.component.html',
   styleUrl: './admin-category.component.sass'
 })
@@ -24,7 +25,8 @@ export class AdminCategoryComponent implements OnInit {
   imageUrl: string | ArrayBuffer | null = null;
   addForm: FormGroup;
   editForm: FormGroup;
-  
+  page: number = 1;
+
   constructor(
     private productService: ProductService, 
     private toast: NgToastService,

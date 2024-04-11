@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div *ngFor="let row of reviewChunks" class="columns">
+    <div *ngFor="let row of reviewChunks | paginate: { itemsPerPage: 6, currentPage: page }" class="columns">
       <div *ngFor="let review of row" class="column is-half">
         <div class="card-container has-text-left">
           <div class="p-3">
@@ -41,9 +41,9 @@
         </div>
       </div>
     </div>
-    <button class="button is-rounded">
-      Load More Reviews
-    </button>
+    <div class="has-text-centered" *ngIf="reviewChunks && reviewChunks.length > 3">
+      <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
+    </div>
   </div>
   <div class="has-text-centered py-6" *ngIf="reviews.length === 0">
     <div class="block is-size-2">

@@ -19,7 +19,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 // Get all product category
-router.get("", authenticate, (req, res) => {
+router.get("", (req, res) => {
   ProductCategory.find({
   }).then((category) => {
     res.send(category);

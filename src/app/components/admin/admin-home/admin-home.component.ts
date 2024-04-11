@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AdminProductComponent } from '../admin-product/admin-product.component';
 import { AdminUserComponent } from '../admin-user/admin-user.component';
 import { AdminCategoryComponent } from '../admin-category/admin-category.component';
 import { AuthService } from '../../../service/auth.service';
-import { Inject } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { User } from '../../../interface/user.model';
 import { AdminOrderComponent } from '../admin-order/admin-order.component';
@@ -33,18 +32,14 @@ export class AdminHomeComponent implements OnInit {
     { name: "Users", icon: "fa-solid fa-circle-user", link: 'user' },
   ]
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, @Inject(DOCUMENT) private document: Document,
-              private userService: UserService) {}
+  constructor(private route: ActivatedRoute, private authService: AuthService, private userService: UserService) {}
 
   ngOnInit(): void {
-    const localStorage = this.document.defaultView?.localStorage;
-    if (localStorage) {
-      const storedUserId = localStorage.getItem('user-id');
-      if (storedUserId) {
-        this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
-          this.userEmail = user[0].email;
-        });
-      }
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
+        this.userEmail = user[0].email;
+      });
     }
   }
 

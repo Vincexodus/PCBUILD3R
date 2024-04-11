@@ -5,11 +5,12 @@ import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
 import { Voucher } from '../../../interface/voucher.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-admin-voucher',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
   templateUrl: './admin-voucher.component.html',
   styleUrl: './admin-voucher.component.sass'
 })
@@ -22,6 +23,7 @@ export class AdminVoucherComponent {
   editModalStates: { [voucherId: string]: boolean } = {};
   addForm: FormGroup;
   editForm: FormGroup;
+  page: number = 1;
 
   constructor(
     private orderService: OrderService, 
