@@ -1,0 +1,129 @@
+<div *ngIf="show" class="">
+  <div class="is-flex mt-2">
+    <div class="is-flex pr-2">
+      <input #searchKeyword class="input is-small is-rounded" type="text" placeholder="Search for session" (input)="sessionSearch(searchKeyword.value)">
+      <div class="is-small is-rounded is-white">
+        <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
+      </div>
+    </div>
+  </div>
+  <div class="card-container my-5">
+    <div class="columns">
+      <div class="column">
+        <h4>Id</h4>
+      </div>
+      <div class="column">
+        <h4>Key</h4>
+      </div>
+      <div class="column">
+        <h4>Percent</h4>
+      </div>
+      <div class="column">
+        <h4>Status</h4>
+      </div>
+      <div class="column">
+        <h4>Action</h4>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns mt-2" *ngFor="let session of sessions | paginate: { itemsPerPage: 15, currentPage: page }">
+      <div class="column">
+        <h4>{{ maskString(session._id) }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ session._userId }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ session._reviewId }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ session.level }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ formatDate(session.createdAt) }}</h4>
+      </div>
+      <div class="column">
+        <div class="is-flex">
+          <button class="button is-small is-primary is-rounded" (click)="openViewModal(session._id)">
+            <i class="fa-solid fa-eye pr-2" style="color: #000000;"></i>
+            View
+          </button>
+          <div class="modal is-active" *ngIf="viewModalStates[session._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <form [formGroup]="viewForm">
+                <header class="modal-card-head">
+                  <p class="modal-card-title ">View Session</p>
+                  <button class="delete" aria-label="close" (click)="closeViewModal(session._id)"></button>
+                </header>
+                <section class="modal-card-body">
+                  <div class="px-2">
+                    <div class="columns">
+                      <div class="column is-one-third">Session Id</div>
+                      <div class="column">
+                        <input formControlName="id" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">User Id</div>
+                      <div class="column">
+                        <input formControlName="userId" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Review Id</div>
+                      <div class="column">
+                        <input formControlName="reviewId" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Level</div>
+                      <div class="column">
+                        <input formControlName="level" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Created At</div>
+                      <div class="column">
+                        <input formControlName="createdAT" class="input is-small" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <footer class="modal-card-foot">
+                  <button class="button is-rounded is-small" (click)="closeViewModal(session._id)">Close</button>
+                </footer>
+              </form>
+            </div>
+          </div>
+          <div class="px-5">
+            <a (click)="openDeleteModal(session._id)">
+              <i class="fa-solid fa-trash" style="color: #FF3333;"></i>
+            </a>
+          </div>
+          <div class="modal is-active" *ngIf="deleteModalStates[session._id]">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title ">Delete User session</p>
+                <button class="delete" aria-label="close" (click)="closeDeleteModal(session._id)"></button>
+              </header>
+              <section class="modal-card-body">
+                <div class="">
+                  Are you sure to delete session id: {{ session._id }}?
+                </div>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success is-rounded is-small" (click)="deletesession(session._id)">Yes</button>
+                <button class="button is-rounded is-small" (click)="closeDeleteModal(session._id)">No</button>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="has-text-centered" *ngIf="sessions && sessions.length > 15">
+      <pagination-controls class="custom-pagination" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

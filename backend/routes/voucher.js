@@ -1,30 +1,38 @@
 const express = require("express");
 const router = express.Router();
-const { v4: uuidv4 } = require('uuid');
 
 const authenticate = require('../middleware/authenticate');
 
 const Voucher = require('../models/voucher.model')
 
 // Get all Voucher
-router.get("", authenticate, (req, res) => {
+router.get("", (req, res) => {
   Voucher.find({
   }).then((voucher) => {
     res.send(voucher);
-  }).catch((e) => {
-    res.send(e);
-  })
+  });
 });
 
 // Get voucher by key
 router.get("/:key", authenticate, (req, res) => {
   Voucher.find({
-    key: req.params.key
-  }).then((voucher) => {
-    res.send(voucher);
-  }).catch((e) => {
-    res.send(e);
+    key: req.params.key,
   })
+  .then((voucher) => {
+    res.send(voucher);
+  });
+});
+
+// Get voucher by percent
+router.get("/:key", authenticate, (req, res) => {
+  Voucher.find({
+    percent: req.params.key,
+    active: true
+  })
+  .limit(1)
+  .then((voucher) => {
+    res.send(voucher);
+  });
 });
 
 // Create Voucher
@@ -43,7 +51,6 @@ router.post("", authenticate, async (req, res) => {
       key: newKey,
       percent: voucher.percent,
       active: voucher.active,
-      // _userId: req.user_id
     });
 
     const savedVoucher = await newVoucher.save();
@@ -69,7 +76,6 @@ router.patch("/:id", authenticate, (req, res) => {
 router.delete("/:id", authenticate, (req, res) => {
   Voucher.findOneAndDelete({
     _id: req.params.id,
-    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   });

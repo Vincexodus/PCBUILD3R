@@ -114,7 +114,6 @@ router.patch("/:id", authenticate, (req, res) => {
 router.delete("/:id", authenticate, (req, res) => {
   User.findOneAndDelete({
     _id: req.params.id,
-    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   });

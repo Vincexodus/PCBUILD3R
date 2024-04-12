@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ProductCategory } from '../../../interface/product-category.model';
 import { ProductService } from '../../../service/product.service';
 import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-category-slideshow',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent, SlickCarouselModule],
+  imports: [CommonModule, RouterLink, ProductCardComponent, SlickCarouselModule],
   templateUrl: './category-slideshow.component.html',
   styleUrl: './category-slideshow.component.sass'
 })

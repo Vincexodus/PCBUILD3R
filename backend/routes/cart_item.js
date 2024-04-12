@@ -7,7 +7,6 @@ const CartItem = require('../models/cart_item.model');
 // Get all cart item
 router.get("", authenticate, (req, res) => {
   CartItem.find({
-    // _userId: req.user_id
   }).then((cart) => {
     res.send(cart);
   }).catch((e) => {
@@ -83,7 +82,6 @@ router.patch("/:id", authenticate, (req, res) => {
 router.delete("/:id", authenticate, (req, res) => {
   CartItem.findOneAndDelete({
     _id: req.params.id,
-    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   });

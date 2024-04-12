@@ -1,31 +1,56 @@
-<div class="body-width is-flex is-flex-direction-row has-background-primary">
-  <div class="has-text-black my-auto p-6">
-    <div class="block has-text-weight-bold">
-      <h1 class="is-size-2">FIND HARDWARE THAT MATCHES YOUR TASTE</h1>
+<div class="body-width has-background-primary card-outline">
+  <div class="is-flex is-flex-direction-row">
+    <div class="m-2 my-auto">
+      <canvas #rendererCanvas id="renderCanvas" class="card-outline"></canvas>
+    </div>
+
+    <div class="has-text-black my-auto p-6">
+      <div class="content">
+        <h1 class="is-size-2">EXPERIENCE PC BUILDING IN 3D</h1>
+        <h4 class="is-size-6">Explore our revolutionary 3D simulation feature that lets you build your dream PC in a virtual environment.</h4>
+        <ul>
+          <li *ngFor="let f of feature">
+            <i class="{{ f.icon }} mr-2" style="color: #000000;"></i>
+            <span class="is-size-7">{{ f.name }}</span>
+          </li>
+        </ul>
+        <div class="has-text-centered">
+          <button class="button is-black is-rounded" [routerLink]="['/canvas']">
+            Start Building Now
+          </button>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
+<div class="mt-5 body-width is-flex is-flex-direction-row has-background-black card-outline">
+  <div class="my-auto p-6">
+    <div class="block">
+      <h1 class="is-size-2 has-text-white">FIND HARDWARE THAT MATCHES YOUR TASTE</h1>
     </div>
     <div class="block">
-      <h3 class="is-size-4 has-text-weight-bold">Up to 10% off Voucher</h3>
+      <h3 class="is-size-4 has-text-weight-bold has-text-white">Up to 20% off Voucher</h3>
     </div>
     <div class="block">
-      <h4 class="is-size-6">
-        Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
+      <h4 class="is-size-6 has-text-white">
+        Browse through our diverse range of powerful hardwares, designed to bring out your individuality and cater to your sense of style.
       </h4>
     </div>
-    <button class="button is-black is-rounded" [routerLink]="['/shop']">
+    <button class="button is-white is-rounded has-text-weight-bold" [routerLink]="['/shop']">
       Shop Now
     </button>
-    <div class="columns py-6" >
+    <div class="columns pt-6">
       <div class="column">
-        <h1>10+</h1>
-        <p class="is-size-6">International Brands</p>
+        <h1 class="has-text-white">10+</h1>
+        <p class="is-size-6 has-text-white">International Brands</p>
       </div>
       <div class="column">
-        <h1>100+</h1>
-        <p class="is-size-6">High-Quality Products</p>
+        <h1 class="has-text-white">100+</h1>
+        <p class="is-size-6 has-text-white">High-Quality Products</p>
       </div>
       <div class="column">
-        <h1>10+</h1>
-        <p class="is-size-6">Exclusive Rewards</p>
+        <h1 class="has-text-white">10+</h1>
+        <p class="is-size-6 has-text-white">Exclusive Rewards</p>
       </div>
     </div>
   </div>

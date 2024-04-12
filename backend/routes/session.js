@@ -7,7 +7,6 @@ const Session = require('../models/session.model')
 // Get all sessions
 router.get("", authenticate, (req, res) => {
   Session.find({
-    // _userId: req.user_id
   }).then((session) => {
     res.send(session);
   }).catch((e) => {
@@ -22,7 +21,6 @@ router.post("", authenticate, (req, res) => {
     _userId: session._userId,
     _reviewId: session._reviewId,
     level: session.level,
-    // _userId: req.user_id
   });
 
   newSession.save().then((newDoc) => {
@@ -46,7 +44,6 @@ router.patch("/:id", authenticate, (req, res) => {
 router.delete("/:id", authenticate, (req, res) => {
   Session.findOneAndDelete({
     _id: req.params.id,
-    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   });

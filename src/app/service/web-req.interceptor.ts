@@ -16,27 +16,29 @@ export class WebReqInterceptor {
   accessTokenRefreshed: Subject<void> = new Subject();
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    if (!this.authService.getUserId()) {
-      console.log('No user logged in');
-      return next.handle(request);
-    }
-
+    // if (!this.authService.getUserId()) {
+    //   console.log('No user logged in');
+    //   return next.handle(request);
+    // } else {
+    //   console.log('User is logged in');
+    // }
+    
     // Handle the request
     request = this.addAuthHeader(request);
-
+    
     // call next() and handle the response
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log(error);
-
+        
         if (error.status === 401) {
           // 401 error so we are unauthorized
           // refresh the access token
           return this.refreshAccessToken()
-            .pipe(
-              switchMap(() => {
-                request = this.addAuthHeader(request);
-                return next.handle(request);
+          .pipe(
+            switchMap(() => {
+              request = this.addAuthHeader(request);
+              return next.handle(request);
               }),
               catchError((err: any) => {
                 console.log(err);

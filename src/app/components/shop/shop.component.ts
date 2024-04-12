@@ -8,6 +8,7 @@ import { ProductCategory } from '../../interface/product-category.model';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shop',
@@ -27,7 +28,11 @@ export class ShopComponent implements OnInit {
   priceForm: FormGroup;
   page: number = 1;
 
-  constructor(private productService: ProductService, private toast: NgToastService, private formBuilder: FormBuilder) {
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService, 
+    private toast: NgToastService, 
+    private formBuilder: FormBuilder) {
     this.priceForm = this.formBuilder.group({
       minPrice: ['', [Validators.pattern('[0-9]*'), Validators.min(0), Validators.max(10000)]],
       maxPrice: ['', [Validators.pattern('[0-9]*'), Validators.min(0), Validators.max(10000)]],
@@ -35,8 +40,14 @@ export class ShopComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.getProduct(this.filterOption);
     this.getCategory();
+    const categoryId = this.route.snapshot.paramMap.get('id');
+    if (categoryId) {
+      // click from category slideshow
+      this.getProduct(this.filterOption, categoryId);
+    } else {
+      this.getProduct(this.filterOption);
+    }
   }
 
   productSearch(keyword: string): void {
@@ -69,43 +80,55 @@ export class ShopComponent implements OnInit {
     return new Array(Math.max(0, difference));
   }
 
-  getProduct(condition: string) {
-  this.filterOption = condition;
-    if (condition !== 'Best Sales') {
+  getProduct(condition: string, categoryRedirect?: string) {
+    this.filterOption = condition;
+    // navigation to shop
+    if (!categoryRedirect) {
+      if (condition !== 'Best Sales') {
+        this.productService.getProduct().subscribe((products: Product[]) => {
+          this.allProducts = products;
+          switch (condition) {
+            case 'Alphabetical':
+              this.products = products.sort((a, b) => {
+                return a.productName.localeCompare(b.productName);
+              });
+              break;
+            case 'Newest':
+              this.products = products.sort((a, b) => {
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+              });
+              break;
+            case 'Price High to Low':
+              this.products = products.sort((a, b) => {
+                return b.price.$numberDecimal - a.price.$numberDecimal;
+              });
+              break;
+            case 'Price Low to High':
+              this.products = products.sort((a, b) => {
+                return a.price.$numberDecimal - b.price.$numberDecimal;
+              });
+              break;
+          }
+          this.productsChunks = this.chunkArray(this.products, 4);
+          this.isDropdownActive = false;
+        });
+      } else {
+        this.productService.getTopSalesProduct().subscribe((products: Product[]) => {
+          this.products = products.sort((a, b) => {
+            return a.productName.localeCompare(b.productName);
+          });
+          this.productsChunks = this.chunkArray(this.products, 4);
+          this.isDropdownActive = false;
+        });
+      }
+    // navigation from homepage
+    } else {
       this.productService.getProduct().subscribe((products: Product[]) => {
         this.allProducts = products;
-        switch (condition) {
-          case 'Alphabetical':
-            this.products = products.sort((a, b) => {
-              return a.productName.localeCompare(b.productName);
-            });
-            break;
-          case 'Newest':
-            this.products = products.sort((a, b) => {
-              return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-            });
-            break;
-          case 'Price High to Low':
-            this.products = products.sort((a, b) => {
-              return b.price.$numberDecimal - a.price.$numberDecimal;
-            });
-            break;
-          case 'Price Low to High':
-            this.products = products.sort((a, b) => {
-              return a.price.$numberDecimal - b.price.$numberDecimal;
-            });
-            break;
-        }
+        this.products = products.filter(product =>
+          product._productCategoryId.includes(categoryRedirect)
+        );
         this.productsChunks = this.chunkArray(this.products, 4);
-        this.isDropdownActive = false;
-      });
-    } else {
-      this.productService.getTopSalesProduct().subscribe((products: Product[]) => {
-        this.products = products.sort((a, b) => {
-          return a.productName.localeCompare(b.productName);
-        });
-        this.productsChunks = this.chunkArray(this.products, 4);
-        this.isDropdownActive = false;
       });
     }
   }
@@ -119,10 +142,12 @@ export class ShopComponent implements OnInit {
   }
 
   getProductByCategory(productCategoryId: string) {
-    this.products = this.allProducts.filter(product =>
-      product._productCategoryId.includes(productCategoryId)
-    );
-    this.productsChunks = this.chunkArray(this.products, 4);
+    if (this.allProducts) {
+      this.products = this.allProducts.filter(product =>
+        product._productCategoryId.includes(productCategoryId)
+      );
+      this.productsChunks = this.chunkArray(this.products, 4);
+    }
   }
 
   resetFilter() {

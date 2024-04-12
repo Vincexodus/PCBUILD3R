@@ -7,7 +7,6 @@ const UserDetail = require('../models/user_detail.model')
 // Get all user detail
 router.get("", authenticate, (req, res) => {
   UserDetail.find({
-    // _userId: req.user_id
   }).then((userDetail) => {
     res.send(userDetail);
   }).catch((e) => {
@@ -19,7 +18,6 @@ router.get("", authenticate, (req, res) => {
 router.get("/:id", authenticate, (req, res) => {
   UserDetail.find({
     _userId: req.params.id
-    // _userId: req.user_id
   }).then((userDetail) => {
     res.send(userDetail);
   }).catch((e) => {
@@ -68,7 +66,6 @@ router.patch("/:id", authenticate, (req, res) => {
 router.delete("/:id", authenticate, (req, res) => {
   UserDetail.findOneAndDelete({
     _userId: req.params.id,
-    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   })

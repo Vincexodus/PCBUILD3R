@@ -1,29 +1,30 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../interface/user.model';
+import { UserService } from '../../../service/user.service';
 import { Order } from '../../../interface/order.model';
 import { Review } from '../../../interface/review.model';
 import { OrderService } from '../../../service/order.service';
 import { Voucher } from '../../../interface/voucher.model';
+import { Router, RouterLink } from '@angular/router';
 import { CartItem } from '../../../interface/cart-item.model';
+import { forkJoin } from 'rxjs';
 import { Product } from '../../../interface/product.model';
 import { ProductService } from '../../../service/product.service';
-import { forkJoin } from 'rxjs';
-import { UserService } from '../../../service/user.service';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
-  selector: 'app-admin-order',
+  selector: 'app-simulation-session',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
-  templateUrl: './admin-order.component.html',
-  styleUrl: './admin-order.component.sass'
+  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  templateUrl: './simulation-session.component.html',
+  styleUrl: './simulation-session.component.sass'
 })
 
-export class AdminOrderComponent {
+export class SimulationSessionComponent {
   @Input() show: boolean = false;
   userId: string = "";
   userEmail: string = "";
@@ -36,12 +37,12 @@ export class AdminOrderComponent {
   viewModalStates: { [orderId: string]: boolean } = {};
   editModalStates: { [orderId: string]: boolean } = {};
   editReviewModalStates: { [cartItemId: string]: boolean } = {};
-  deleteModalStates: { [orderId: string]: boolean } = {};
   viewForm: FormGroup;
   editReviewForm: FormGroup;
-  page: number = 1;
-
+  
   constructor(
+    private router: Router,
+    private authService: AuthService,
     private userService: UserService, 
     private orderService: OrderService, 
     private productService: ProductService, 
@@ -67,41 +68,40 @@ export class AdminOrderComponent {
   }
 
   ngOnInit() {
-    this.getUsers();
-    this.getOrders();
+    this.orderService.cartCheckout$.subscribe(() => {
+      this.ngOnInit();
+    });
+    this.getCurrUserId();
     this.getVouchers();
     this.getProducts();
     this.getReviews();
   }
 
-  orderSearch(keyword: string): void {
-    if (keyword.length != 0) {
-      this.orders = this.orders.filter(order =>
-        order._id.toLowerCase().includes(keyword.toLowerCase())
-      );
-    } else {
-      this.getOrders();
+  getCurrUserId() {
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
+        this.userId = user[0]._id;
+        this.userEmail = user[0].email;
+        if (this.userId.length !== 0) {
+          this.getOrders(this.userId);
+        } else {
+          this.router.navigate(['/login']);
+        }
+      });
     }
-  }
-  
-  maskString(input: string | undefined): string {
-    return this.util.maskStringLong(input);
-  }
-
-  maskProductName(input: string | undefined): string {
-    return this.util.maskStringLong(input);
   }
 
   formatDate(input: Date): string {
     return this.util.dateFormat(input);
   }
 
-  getUserEmailById(userId: string | undefined): string | undefined {
-    if (this.users) {
-      const user = this.users.find(v => v._id === userId);
-      return user?.email? user?.email: '-';
-    }
-    return '-'
+  maskString(input: string): string {
+    return this.util.maskString(input);
+  }
+
+  maskProductName(input: string | undefined): string {
+    return this.util.maskStringLong(input);
   }
 
   getVoucherKeyById(voucherId: string | undefined): string | undefined {
@@ -150,11 +150,6 @@ export class AdminOrderComponent {
     }
   }
 
-  isReviewExist(cartItemId: string): boolean {
-    const review = this.reviews.find(r => r._cartItemId === cartItemId);
-    return review? true : false;
-  }
-  
   openViewModal(orderId: string) {
     this.viewModalStates[orderId] = true;
     const order = this.orders.find(order => order._id === orderId);
@@ -191,33 +186,19 @@ export class AdminOrderComponent {
     })
   }
 
-  openDeleteModal(cartItemId: string) {
-    this.deleteModalStates[cartItemId] = true;
-  }
-
-  closeDeleteModal(cartItemId: string) {
-    this.deleteModalStates[cartItemId] = false;
-  }
-
   closeEditReviewModal(cartItemId: string) {
     this.editReviewModalStates[cartItemId] = false;
   }
-  
-  getUsers() {
-    this.userService.getUser().subscribe((users: User[]) => {
-      this.users = users;
+
+  getVouchers() {
+    this.orderService.getVoucher().subscribe((vouchers: Voucher[]) => {
+      this.vouchers = vouchers;
     });
   }
 
   getProducts() {
     this.productService.getProduct().subscribe((products: Product[]) => {
       this.products = products;
-    });
-  }
-  
-  getVouchers() {
-    this.orderService.getVoucher().subscribe((vouchers: Voucher[]) => {
-      this.vouchers = vouchers;
     });
   }
 
@@ -227,10 +208,16 @@ export class AdminOrderComponent {
     });
   }
 
-  getOrders() {
-    this.orderService.getOrder().subscribe((orders: Order[]) => {
+  getOrders(userId: string) {
+    this.orderService.getOrderByUserId(userId).subscribe((orders: Order[]) => {
       this.orders = orders;
-      // Iterate through each order
+      
+      this.orders.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB.getTime() - dateA.getTime(); // Sort in descending order
+      });
+
       this.orders.forEach(order => {
         const orderCartItemIds = order._cartItemIds;
         // Create an array of observables for fetching cart items
@@ -241,6 +228,7 @@ export class AdminOrderComponent {
         forkJoin(cartItemObservables).subscribe((cartItems: CartItem[][]) => {
           // Assign the fetched cart items to the current order object
           order.cartItems = cartItems.flat(); // Flatten the array of arrays
+          // console.log(order.cartItems);
         }, (error) => {
           console.log(error);
         });
@@ -264,15 +252,5 @@ export class AdminOrderComponent {
     } else {
       this.toast.error({detail:"FAILED",summary:'Please fill in all required field critera!', duration:2000, position:'topCenter'});
     }
-  }
-
-  deleteCartItemReview(id: string) {
-    this.orderService.deleteReview(id).subscribe(() => {
-      this.toast.success({detail:"SUCCESS",summary:'Cart Item Review Deleted!', duration:2000, position:'topCenter'});
-      this.getReviews();
-      this.closeDeleteModal(id);
-    }, (error) => {
-      console.log(error);
-    })
   }
 }

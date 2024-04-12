@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   constructor(private userService: UserService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.onDisplayChange();
     this.authService.loginSuccess$.subscribe(() => {
       this.onDisplayChange();
     });

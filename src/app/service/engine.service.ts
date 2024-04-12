@@ -30,8 +30,6 @@ export class EngineService implements OnDestroy {
     }
     if (this.renderer != null) {
       this.renderer.dispose();
-      // this.renderer = null;
-      // this.canvas = null;
     }
   }
 
@@ -41,16 +39,10 @@ export class EngineService implements OnDestroy {
     }
   }
 
-  public loadGLTFModel(modelPath: string, texturePath: string): void {
+  public loadGLTFModel(modelPath: string): void {
     const modelLoader = new GLTFLoader();
     modelLoader.load('../assets/models/' + modelPath, (gltf) => {
         const model = gltf.scene;
-        const texture = new THREE.TextureLoader().load('../assets/models' + texturePath);
-        model.traverse((child) => {
-          // if (child.isObject3D) {
-          //   child.material.map = texture;
-          // }
-        })
         this.model = model.children[0];
         this.scene.add(model);
       },
@@ -63,6 +55,46 @@ export class EngineService implements OnDestroy {
     );
   }
 
+  // intro card
+  public createIntroScene(canvas: ElementRef<HTMLCanvasElement>): void {
+    // Get the reference of the canvas element
+    this.canvas = canvas.nativeElement;
+
+    // config webgl renderer
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      alpha: true,    // transparent background
+      antialias: true // smooth edges
+    });
+    this.renderer.setSize(640, 360);
+
+    // create the scene
+    this.scene = new THREE.Scene();
+    
+    // create camera
+    this.camera = new THREE.PerspectiveCamera(
+      75, window.innerWidth / window.innerHeight, 0.1, 1000
+    );
+
+    this.camera.position.z = 2;
+    this.scene.add(this.camera);
+    
+    this.controls = new OrbitControls(this.camera, this.canvas);
+    this.controls.enableDamping = true;
+
+    this.loadGLTFModel('gpu/scene.gltf');
+
+    this.light = new THREE.AmbientLight(0x404040, 50);
+    this.light.position.z = 10;
+    this.scene.add(this.light);
+    
+    this.directionalLight = new THREE.DirectionalLight(0xffdf04, 0.4);
+    this.directionalLight.position.set(0, 0, 5);
+    this.directionalLight.castShadow = true;
+    this.scene.add(this.directionalLight);
+  }
+
+  // simulation
   public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
     // Get the reference of the canvas element
     this.canvas = canvas.nativeElement;
@@ -89,7 +121,7 @@ export class EngineService implements OnDestroy {
     this.controls = new OrbitControls(this.camera, this.canvas);
     this.controls.enableDamping = true;
 
-    this.loadGLTFModel('gpu/scene.gltf', 'model/');
+    this.loadGLTFModel('gpu/scene.gltf');
 
     this.light = new THREE.AmbientLight(0x404040, 50);
     this.light.position.z = 10;

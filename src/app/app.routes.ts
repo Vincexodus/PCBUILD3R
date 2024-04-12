@@ -27,12 +27,15 @@ import { TermsOfUseComponent } from './components/helps/terms-of-use/terms-of-us
 import { AdminOrderComponent } from './components/admin/admin-order/admin-order.component';
 import { AdminVoucherComponent } from './components/admin/admin-voucher/admin-voucher.component';
 import { CanvasComponent } from './components/canvas/canvas.component';
+import { AdminSessionComponent } from './components/admin/admin-session/admin-session.component';
+import { SimulationSessionComponent } from './components/account/simulation-session/simulation-session.component';
 
 export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'shop', component: ShopComponent },
+  { path: 'shop/:id', component: ShopComponent },
   { path: 'canvas', component: CanvasComponent },
 
   { path: 'productDetail/:productId', component: ProductDetailComponent },
@@ -47,6 +50,7 @@ export const routes: Routes = [
     children: [
       { path: 'orderHistory', component: OrderHistoryComponent },
       { path: 'shoppingCart', component: ShoppingCartComponent },
+      { path: 'session', component: SimulationSessionComponent },
       { path: 'editProfile', component: EditProfileComponent },
       { path: '', redirectTo: 'orderHistory', pathMatch: 'full' },
     ],
@@ -66,6 +70,7 @@ export const routes: Routes = [
       { path: 'product', component: AdminProductComponent },
       { path: 'voucher', component: AdminVoucherComponent },
       { path: 'order', component: AdminOrderComponent },
+      { path: 'session', component: AdminSessionComponent },
       { path: 'user', component: AdminUserComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

@@ -10,6 +10,7 @@ import { ProductCategory } from '../../../interface/product-category.model';
 import { Review } from '../../../interface/review.model';
 import { Session } from 'inspector';
 import { Voucher } from '../../../interface/voucher.model';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -51,6 +52,7 @@ export class AdminDashboardComponent implements OnInit{
     { title: 'Voucher', view: true, create: true, edit: true, delete: true },
     { title: 'Orders', view: true, create: false, edit: false, delete: false },
     { title: 'Reviews', view: true, create: true, edit: true, delete: true },
+    { title: 'Session', view: true, create: false, edit: false, delete: true },
     { title: 'Users', view: true, create: true, edit: true, delete: true },
   ];
 
@@ -59,8 +61,10 @@ export class AdminDashboardComponent implements OnInit{
     private userService: UserService, 
     private orderService: OrderService) { }
 
-    ngOnInit() {
-    this.fetchData();
+  ngOnInit() {
+    setTimeout(() => {
+      this.fetchData();
+    }, 2500)
   }
 
   fetchData() {

@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 var multer  = require('multer');
-var fs = require('fs');
-var path = require('path');
 const authenticate = require('../middleware/authenticate');
 
 const ProductCategory = require('../models/product_category.model')
@@ -35,7 +33,6 @@ router.post("", authenticate, upload.single('image'), (req, res) => {
     productCategoryName: productCategory.productCategoryName,
     productCategoryNameShort: productCategory.productCategoryNameShort,
     productCategoryImage: productCategory.productCategoryImage,
-    // _userId: req.user_id
   });
 
   newProductCategory.save().then((newDoc) => {
@@ -59,7 +56,6 @@ router.patch("/:id", authenticate, (req, res) => {
 router.delete("/:id", authenticate, (req, res) => {
   ProductCategory.findOneAndDelete({
     _id: req.params.id,
-    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   });

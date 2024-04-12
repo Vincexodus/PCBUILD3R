@@ -10,7 +10,7 @@
     <ngx-slick-carousel #slickModal="slick-carousel" 
       [config]="slideConfig">
       <div ngxSlickItem *ngFor="let category of productCategory">
-        <a href="" class="image rounded-div">
+        <a [routerLink]="['/shop', category._id]" class="image rounded-div">
           <img [src]="category.productCategoryImage" class="image is-128x128 m-auto">
           <h4 class="py-2">{{ category.productCategoryNameShort }}</h4>
         </a>

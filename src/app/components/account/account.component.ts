@@ -5,12 +5,13 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthService } from '../../service/auth.service';
+import { SimulationSessionComponent } from './simulation-session/simulation-session.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, RouterLink, OrderHistoryComponent, ShoppingCartComponent,
-            EditProfileComponent],
+  imports: [CommonModule, RouterLink, OrderHistoryComponent, ShoppingCartComponent, 
+            SimulationSessionComponent, EditProfileComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.sass'
 })
@@ -19,6 +20,7 @@ export class AccountComponent {
   directories = [
     { name: "Order History", icon: "fa-regular fa-clipboard", link: 'orderHistory' },
     { name: "Shopping Cart", icon: "fa-solid fa-cart-shopping", link: 'shoppingCart' },
+    { name: "Session", icon: "fa-solid fa-cube", link: 'session' },
     { name: "Edit Profile", icon: "fa-solid fa-pen-to-square", link: 'editProfile' },
   ]
   

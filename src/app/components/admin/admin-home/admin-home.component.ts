@@ -10,12 +10,13 @@ import { User } from '../../../interface/user.model';
 import { AdminOrderComponent } from '../admin-order/admin-order.component';
 import { AdminVoucherComponent } from '../admin-voucher/admin-voucher.component';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
+import { AdminSessionComponent } from '../admin-session/admin-session.component';
 
 @Component({
   selector: 'app-admin-home',
   standalone: true,
   imports: [CommonModule, RouterLink, AdminDashboardComponent, AdminProductComponent, AdminCategoryComponent,
-            AdminOrderComponent, AdminUserComponent, AdminVoucherComponent],
+            AdminOrderComponent, AdminUserComponent, AdminVoucherComponent, AdminSessionComponent],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.sass'
 })
@@ -29,6 +30,7 @@ export class AdminHomeComponent implements OnInit {
     { name: "Products", icon: "fa-solid fa-box-archive", link: 'product' },
     { name: "Voucher", icon: "fa-solid fa-ticket", link: 'voucher' },
     { name: "Orders & Reviews", icon: "fa-solid fa-clipboard", link: 'order' },
+    { name: "Simulation Session", icon: "fa-solid fa-cube", link: 'session' },
     { name: "Users", icon: "fa-solid fa-circle-user", link: 'user' },
   ]
 

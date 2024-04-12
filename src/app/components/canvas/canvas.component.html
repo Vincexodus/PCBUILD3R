@@ -1,3 +1,141 @@
-<div class="">
-  <canvas #rendererCanvas id="renderCanvas"></canvas>
+<div class="body-width mb-2" *ngIf="isSessionOngoing">
+  <div class="is-flex is-justify-content-space-between">
+    <button class="button is-black is-rounded" (click)="openStepModal()">
+      Step Explanation
+      <i class="fa-solid fa-shoe-prints pl-2" style="color: #ffffff;"></i>
+    </button>
+    <div class="modal is-active" *ngIf="isStepModalActive">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Step {{ step + 1 }}: {{ assemblySteps[step].stepTitle }}</p>
+          <button class="delete" aria-label="close" (click)="closeStepModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="px-2 has-text-justified">
+            <h4 class="" *ngFor="let desc of assemblySteps[step].desc">{{ desc }}</h4>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-rounded is-success" (click)="closeStepModal()">Noted</button>
+        </footer>
+      </div>
+    </div>
+    <div class="">
+      <button class="button is-black is-rounded mr-2" (click)="openHelpModal()">
+        About
+        <i class="fa-solid fa-info pl-2" style="color: #ffffff;"></i>
+      </button>
+      <div class="modal is-active" *ngIf="isAboutModalActive">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title ">Help</p>
+            <button class="delete" aria-label="close" (click)="closeHelpModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="px-2 has-text-justified">
+              <h1 class="block">Welcome to the our virtual PC building experience!</h1>
+              <h4 class="block is-size is-size-6">We offer 3 types of virtual PC builds: budget, gaming, and workstation.</h4>
+    
+              <h4 class="block is-size is-size-6">During the virtual session, you'll be guided through a step-by-step process ({{ this.assemblySteps.length }} steps in total) to
+                assemble your chosen PC type. Our interactive interface allows you to interact with
+                the components and connect them together just like in real life. You'll receive simple
+                explanations at each step to help you understand the process better and ensure a smooth 
+                assembly experience.
+              </h4>
+              <h4 class="block is-size is-size-6">
+                As a reward for completing each session, you'll receive vouchers that you can use towards
+                your next purchase or as discounts on our products and services. These vouchers are our 
+                way of thanking you for participating in our virtual PC building experience and are a 
+                token of appreciation for your engagement and dedication.
+              </h4>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-rounded is-success" (click)="closeHelpModal()">Noted</button>
+          </footer>
+        </div>
+      </div>
+      <button class="button is-black is-rounded" *ngIf="step !== assemblySteps.length" (click)="openNextStepModal()">
+        Next Step
+      </button>
+      <button class="button is-black is-rounded" (click)="terminateSession()">
+        Exit Session
+        <i class="fa-solid fa-ban pl-2" style="color: #ffffff;"></i>
+      </button>
+    </div>
+  </div>
 </div>
+<div class="">
+  <canvas #rendererCanvas id="renderCanvas">
+  </canvas>
+  <div class="modal is-active" *ngIf="isIntroModalActive">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title ">Introduction of Virtual PC Building</p>
+      </header>
+      <section class="modal-card-body">
+        <div class="px-2">
+          <h1 class="block">Virtual PC Building</h1>
+          <h4 class="block is-size-6">We offer 3 types of virtual PC builds. Please select one:</h4>
+          <div class="block">
+            <div class="control is-flex is-flex-direction-column">
+              <div class="">
+                <label class="radio">
+                  <input type="radio" [(ngModel)]="buildOption" value="Budget PC" checked>
+                  <span class="is-size-6 ml-2">Budget PC</span>
+                </label>
+              </div>
+              <div class="">
+                <label class="radio">
+                  <input type="radio" [(ngModel)]="buildOption" value="Workstation PC">
+                  <span class="is-size-6 ml-2">Workstation PC</span>
+                </label>
+              </div>
+              <div class="">
+                <label class="radio">
+                  <input type="radio" [(ngModel)]="buildOption" value="Gaming PC">
+                  <span class="is-size-6 ml-2">Gaming PC</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <h4 class="block is-size-6">
+            Would you wish to start virtual PC building session?
+          </h4>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-rounded is-success" (click)="startSession()">Yes</button>
+        <button class="button is-rounded is-danger" (click)="terminateSession()">No</button>
+      </footer>
+    </div>
+  </div>
+  <div class="modal is-active" *ngIf="isPostSessionModalActive">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title ">Completion of Virtual PC Building</p>
+      </header>
+      <section class="modal-card-body">
+        <div class="px-2">
+          <h1 class="block">Congratulations!</h1>
+          <h4 class="block is-size-6">You have completed {{ this.buildOption }} build!</h4>
+          <h4 class="block is-size-6">You've earned a voucher that you can use in our shop! Head over to make 
+            the most of your rewards.
+          </h4>
+          <h4 class="block is-size-6">
+            Voucher Key: <span class="has-text-weight-bold">{{ this.earnedVoucherKey }}</span>
+          </h4>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-rounded is-success" (click)="redirectToShop()">Shop now</button>
+        <button class="button is-rounded is-danger" (click)="terminateSession()">Return to homepage</button>
+      </footer>
+    </div>
+  </div>
+</div>
+

@@ -20,6 +20,7 @@ var upload = multer({ storage: storage });
 // Get all product
 router.get("", (req, res) => {
   Product.find({
+    quantity: { $gt: 0 }
   }).then((products) => {
     res.send(products);
   });
@@ -27,7 +28,7 @@ router.get("", (req, res) => {
 
 // Get 16 latest products
 router.get("/latest", (req, res) => {
-  Product.find()
+  Product.find({ quantity: { $gt: 0 } })
   .sort({ createdAt: -1 })
   .limit(16)
   .then((products) => {
@@ -57,7 +58,7 @@ router.get('/sales', async (req, res) => {
     
     // Fetch product details for the top products
     const productsWithMostQuantity = await Promise.all(quantitiesArray.map(async ({ _productId }) => {
-      const product = await Product.findById(_productId); // Assuming you have a Product model
+      const product = await Product.findById({ _id: _productId, quantity: { $gt: 0 } }); // Assuming you have a Product model
       return { ...product.toObject() }; // Convert product to plain object
     }));
     
@@ -70,7 +71,7 @@ router.get('/sales', async (req, res) => {
 // Get 16 best selling products 
 router.get('/top', async (req, res) => {
   try {
-    const cartItems = await CartItem.find({ isPaid: true }).exec(); // Use .exec() to execute the query
+    const cartItems = await CartItem.find({ isPaid: true }).exec();
     const quantityMap = cartItems.reduce((acc, item) => {
       if (acc[item._productId]) {
         acc[item._productId] += item.quantity;
@@ -90,7 +91,7 @@ router.get('/top', async (req, res) => {
     
     // Fetch product details for the top products
     const productsWithMostQuantity = await Promise.all(quantitiesArray.map(async ({ _productId }) => {
-      const product = await Product.findById(_productId); // Assuming you have a Product model
+      const product = await Product.findById({ _id: _productId, quantity: { $gt: 0 } }); // Assuming you have a Product model
       return { ...product.toObject() }; // Convert product to plain object
     }));
     
@@ -104,7 +105,7 @@ router.get('/top', async (req, res) => {
 router.get("/common/:id", (req, res) => {
   const productId = req.params.id;
 
-  Product.findOne({ _id: productId }).then((product) => {
+  Product.findOne({ _id: productId, quantity: { $gt: 0 }}).then((product) => {
     if (!product) {
       return res.status(404).send("Product not found");
     }
@@ -125,7 +126,8 @@ router.get("/common/:id", (req, res) => {
 // Get product
 router.get("/:id", (req, res) => {
   Product.find({
-    _id: req.params.id
+    _id: req.params.id,
+    quantity: { $gt: 0 }
   }).then((products) => {
     if (products.length === 0) {
       return res.status(400).send("Product ID not found");
@@ -173,7 +175,6 @@ router.patch("/:id", authenticate, (req, res) => {
 router.delete("/:id", authenticate, (req, res) => {
   Product.findOneAndDelete({
     _id: req.params.id,
-    // _userId: req.user_id
   }).then((removedDoc) => {
     res.send(removedDoc);
   });
