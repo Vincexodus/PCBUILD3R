@@ -18,7 +18,7 @@ export class ProductSlideshowComponent implements OnInit {
   @Input() title: string = "";
   @Input() selectedProductId: string = "";
   @Input() cutWidth: boolean = true;
-  @Input() showDivider: boolean = true;
+  @Input() showDivider: boolean = false;
   @ViewChild('slickModal')
   slickModal!: SlickCarouselComponent;
   products!: Product[];
@@ -33,20 +33,19 @@ export class ProductSlideshowComponent implements OnInit {
 
   getTitleProduct() {
     if (this.title === "NEW ARRIVALS") {
+      this.showDivider = true;
       this.productService.getLatestProduct().subscribe((products: Product[]) => {
         this.products = products.sort((a, b) => {
           return a.productName.localeCompare(b.productName);
         });
       });
     } else if (this.title === "TOP SELLING") {
-      this.showDivider = false;
       this.productService.getTopProduct().subscribe((products: Product[]) => {
         this.products = products.sort((a, b) => {
           return a.productName.localeCompare(b.productName);
         });
       });
     } else if (this.title === "YOU MAY ALSO LIKE") {
-      this.showDivider = false;
       this.productService.getCommonProduct(this.selectedProductId).subscribe((products: Product[]) => {
         this.products = products.sort((a, b) => {
           return a.productName.localeCompare(b.productName);

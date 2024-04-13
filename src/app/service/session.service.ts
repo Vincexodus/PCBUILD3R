@@ -4,7 +4,7 @@ import { WebRequestService } from './web-request.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SimulationService {
+export class SessionService {
 
   constructor(private webReqService: WebRequestService) { }
   
@@ -17,12 +17,12 @@ export class SimulationService {
       return this.webReqService.get(`session/${id}`);
     }
   
-    createSession(_userId: string, _productId: string, quantity: Number) {
-      return this.webReqService.post(`session`, { _userId, _productId, quantity });
+    createSession(_userId: string, voucherKey: string, level: number, rating: number, desc: number) {
+      return this.webReqService.post(`session`, { _userId, voucherKey, level, rating, desc });
     }
   
-    updateSession(_userId: string, _sessionId: string, _productId: string, quantity: Number) {
-      return this.webReqService.patch(`session/${_sessionId}`, { _userId, _productId, quantity });
+    updateSession(_userId: string, voucherKey: string, level: number, rating: number, desc: number) {
+      return this.webReqService.patch(`session/${_userId}`, { _userId, voucherKey, level, rating, desc });
     }
   
     deleteSession(_sessionId: string) {

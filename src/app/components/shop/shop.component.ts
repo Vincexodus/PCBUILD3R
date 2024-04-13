@@ -82,6 +82,7 @@ export class ShopComponent implements OnInit {
 
   getProduct(condition: string, categoryRedirect?: string) {
     this.filterOption = condition;
+    this.page = 1; // reset pagination
     // navigation to shop
     if (!categoryRedirect) {
       if (condition !== 'Best Sales') {

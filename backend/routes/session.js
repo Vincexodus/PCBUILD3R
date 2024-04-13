@@ -14,13 +14,26 @@ router.get("", authenticate, (req, res) => {
   })
 });
 
+// Get session by userId
+router.get("/:id", authenticate, (req, res) => {
+  Session.find({
+    _userId: req.params.id
+  }).then((session) => {
+    res.send(session);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
 // Create session
 router.post("", authenticate, (req, res) => {
   let session = req.body;
   let newSession = new Session({
     _userId: session._userId,
-    _reviewId: session._reviewId,
+    voucherKey: session.voucherKey,
     level: session.level,
+    rating: session.rating,
+    desc: session.desc
   });
 
   newSession.save().then((newDoc) => {

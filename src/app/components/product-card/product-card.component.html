@@ -8,7 +8,12 @@
         <div class="title-height">
           <p class="title is-6">{{ productName }}</p>
         </div>
-        <app-product-rating [rating]="rating"></app-product-rating>
+        <ng-container *ngIf="rating !== undefined">
+          <app-product-rating [rating]="rating"></app-product-rating>
+        </ng-container>
+        <ng-container *ngIf="rating === undefined">
+          <app-product-rating [rating]="0"></app-product-rating>
+        </ng-container>
         <p class="is-size-6">MYR {{ price }}</p>
         <p class="is-size-6">{{ quantity }} in stock</p>
       </div>

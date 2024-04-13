@@ -5,14 +5,23 @@ const SessionSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true
   },
-  _reviewId: {
-      type: mongoose.Types.ObjectId,
-      required: true
+  voucherKey: {
+    type: String,
+    required: true,
   },
   level: {
-      type: Number,
-      required: true,
-      default: 1
+    type: Number,
+    required: true,
+    default: 1
+  },
+  rating: {
+    type: Number,
+    required: true,
+    default: 1
+  },
+  desc: {
+    type: String,
+    required: true,
   },
   createdAt: {
     type: Date,

@@ -13,13 +13,22 @@
         <h4>Id</h4>
       </div>
       <div class="column">
-        <h4>Key</h4>
+        <h4>User Id</h4>
       </div>
       <div class="column">
-        <h4>Percent</h4>
+        <h4>Voucher Key</h4>
       </div>
       <div class="column">
-        <h4>Status</h4>
+        <h4>Level</h4>
+      </div>
+      <div class="column">
+        <h4>Rating</h4>
+      </div>
+      <div class="column">
+        <h4>Description</h4>
+      </div>
+      <div class="column">
+        <h4>Created At</h4>
       </div>
       <div class="column">
         <h4>Action</h4>
@@ -31,13 +40,19 @@
         <h4>{{ maskString(session._id) }}</h4>
       </div>
       <div class="column">
-        <h4>{{ session._userId }}</h4>
+        <h4>{{ maskString(session._userId) }}</h4>
       </div>
       <div class="column">
-        <h4>{{ session._reviewId }}</h4>
+        <h4>{{ session.voucherKey }}</h4>
       </div>
       <div class="column">
         <h4>{{ session.level }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ session.rating }}</h4>
+      </div>
+      <div class="column">
+        <h4>{{ maskString(session.desc)}}</h4>
       </div>
       <div class="column">
         <h4>{{ formatDate(session.createdAt) }}</h4>
@@ -71,9 +86,9 @@
                       </div>
                     </div>
                     <div class="columns">
-                      <div class="column is-one-third">Review Id</div>
+                      <div class="column is-one-third">Voucher Key</div>
                       <div class="column">
-                        <input formControlName="reviewId" class="input is-small" type="text">
+                        <input formControlName="voucherKey" class="input is-small" type="text">
                       </div>
                     </div>
                     <div class="columns">
@@ -83,9 +98,21 @@
                       </div>
                     </div>
                     <div class="columns">
+                      <div class="column is-one-third">Rating</div>
+                      <div class="column">
+                        <input formControlName="rating" class="input is-small" type="text">
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-third">Description</div>
+                      <div class="column">
+                        <textarea formControlName="desc" class="textarea is-small"></textarea>
+                      </div>
+                    </div>
+                    <div class="columns">
                       <div class="column is-one-third">Created At</div>
                       <div class="column">
-                        <input formControlName="createdAT" class="input is-small" type="text">
+                        <input formControlName="createdAt" class="input is-small" type="text">
                       </div>
                     </div>
                   </div>

@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ProductRatingComponent } from '../utils/product-rating/product-rating.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [ProductRatingComponent],
+  imports: [CommonModule, ProductRatingComponent],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.sass'
 })

@@ -19,6 +19,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrl: './product-review.component.sass'
 })
 export class ProductReviewComponent implements OnInit {
+  filterOption: string = "Recent";
   @Input() productId: string = "";
   @Input() totalReviews: number = 0;
   reviews: Review[] = [];
@@ -30,7 +31,7 @@ export class ProductReviewComponent implements OnInit {
               private util: UtilService) { }
   
   ngOnInit() {
-    this.getProductReviews(this.productId);
+    this.getProductReviews(this.productId, this.filterOption);
   }
 
   toggleDropdown() {
@@ -51,7 +52,9 @@ export class ProductReviewComponent implements OnInit {
     return chunks;
   }
 
-  getProductReviews(productId: string) {
+  getProductReviews(productId: string, filterOption: string) {
+    this.filterOption = filterOption;
+    this.page = 1;
     this.orderService.getReviewByProductId(productId).subscribe((reviews: Review[]) => {
       // Array to store observables for fetching cartItems and users
       const cartItemObservables: Observable<any>[] = [];
@@ -80,13 +83,30 @@ export class ProductReviewComponent implements OnInit {
           this.reviews = reviews.sort((a, b) => {
             const dateA = new Date(a.createdAt);
             const dateB = new Date(b.createdAt);
-            return dateA.getTime() - dateB.getTime();
+            return dateB.getTime() - dateA.getTime();
           });
         });
       });
       
     });
-    
+
+    switch (filterOption) {
+      case 'Recent':
+        // recent by default
+        break;
+      case 'Rating: High to Low':
+        this.reviews = this.reviews.sort((a, b) => {
+        return b.rating - a.rating;
+      });
+      break;
+      case 'Rating: Low to High':
+      this.reviews = this.reviews.sort((a, b) => {
+        return a.rating - b.rating;
+      });
+      break;
+    }
+      
+    this.isDropdownActive = false;
     this.totalReviews = this.reviews.length;
     this.reviewChunks = this.chunkArray(this.reviews, 2);
   }

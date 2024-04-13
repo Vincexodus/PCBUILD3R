@@ -21,6 +21,13 @@ export class EngineService implements OnDestroy {
   private model: any;
   private frameId: number = 0;
 
+  modelPath = [
+    // budget PC
+    { case: "b", caseFan: "b", 
+      motherboard: "b", cpu: "b", cpuFan: "b", 
+      memory: "b", storage: "b", gpu: "b", psu: "b" },
+  ]
+
   public constructor(private ngZone: NgZone) {
   }
 
@@ -70,6 +77,7 @@ export class EngineService implements OnDestroy {
 
     // create the scene
     this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(255, 255, 255);
     
     // create camera
     this.camera = new THREE.PerspectiveCamera(
@@ -95,10 +103,11 @@ export class EngineService implements OnDestroy {
   }
 
   // simulation
-  public createScene(canvas: ElementRef<HTMLCanvasElement>): void {
+  public createScene(canvas: ElementRef<HTMLCanvasElement>, level: number): void {
     // Get the reference of the canvas element
     this.canvas = canvas.nativeElement;
 
+    const pathItem = this.modelPath[level-1];
     // config webgl renderer
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,

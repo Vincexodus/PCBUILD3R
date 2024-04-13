@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
-import { Voucher } from '../../../interface/voucher.model';
 import { Session } from '../../../interface/session.model';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { SimulationService } from '../../../service/simulation.service';
+import { SessionService } from '../../../service/session.service';
 
 @Component({
   selector: 'app-admin-session',
@@ -25,15 +24,17 @@ export class AdminSessionComponent {
   page: number = 1;
 
   constructor(
-    private simulationService: SimulationService,
+    private sessionService: SessionService,
     private toast: NgToastService, 
     private util: UtilService,
     private formBuilder: FormBuilder) {
       this.viewForm = this.formBuilder.group({
         id: [{value: '', disabled: true}],
         userId: [{value: '', disabled: true}],
-        reviewId: [{value: '', disabled: true}],
+        voucherKey: [{value: '', disabled: true}],
         level: [{value: '', disabled: true}],
+        rating: [{value: '', disabled: true}],
+        desc: [{value: '', disabled: true}],
         createdAt: [{value: '', disabled: true}],
       });
     }
@@ -74,8 +75,10 @@ export class AdminSessionComponent {
     this.viewForm.patchValue({
       id: session?._id,
       userId: session?._userId,
-      reviewId: session?._reviewId,
+      voucherKey: session?.voucherKey,
       level: session?.level,
+      rating: session?.rating,
+      desc: session?.desc,
       createdAt: session?.createdAt,
     })
   }
@@ -85,7 +88,7 @@ export class AdminSessionComponent {
   }
 
   getSession() {
-    this.simulationService.getSession().subscribe((session: Session[]) => {
+    this.sessionService.getSession().subscribe((session: Session[]) => {
       this.sessions = session.sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
@@ -95,7 +98,7 @@ export class AdminSessionComponent {
   }
 
   deletesession(id: string) {
-    this.simulationService.deleteSession(id).subscribe(() => {
+    this.sessionService.deleteSession(id).subscribe(() => {
       this.toast.error({detail:"SUCCESS",summary:'session Deleted!', duration:2000, position:'topCenter'});
       this.getSession();
       this.closeDeleteModal(id);

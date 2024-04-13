@@ -30,7 +30,7 @@ export class UtilService {
   }
 
   maskReviewUser(input: string | undefined): string {
-    const maskedIdLength = 10;
+    const maskedIdLength = 7;
     const ellipsis = '***';
     if (input) {
       if (input.length <= maskedIdLength) {
