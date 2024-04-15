@@ -6,6 +6,7 @@ import { Session } from '../../../interface/session.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SessionService } from '../../../service/session.service';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-admin-session',
@@ -24,6 +25,7 @@ export class AdminSessionComponent {
   page: number = 1;
 
   constructor(
+    private authService: AuthService,
     private sessionService: SessionService,
     private toast: NgToastService, 
     private util: UtilService,
@@ -40,7 +42,10 @@ export class AdminSessionComponent {
     }
   
   ngOnInit() {
-    this.getSession();
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.getSession();
+    }
   }
 
   sessionSearch(keyword: string): void {

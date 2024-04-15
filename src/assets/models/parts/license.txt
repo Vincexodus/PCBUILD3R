@@ -1,0 +1,11 @@
+Model Information:
+* title:	Computer Components
+* source:	https://sketchfab.com/3d-models/computer-components-4daeb72925d140809bdfd51634a1908e
+* author:	crimsonfalcon (https://sketchfab.com/crimsonfalcon)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Computer Components" (https://sketchfab.com/3d-models/computer-components-4daeb72925d140809bdfd51634a1908e) by crimsonfalcon (https://sketchfab.com/crimsonfalcon) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

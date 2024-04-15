@@ -1,0 +1,11 @@
+Model Information:
+* title:	PC motherboard ASUS Prime H510M-K
+* source:	https://sketchfab.com/3d-models/pc-motherboard-asus-prime-h510m-k-f9a6af88120f4a0f81cd4107ce533e3e
+* author:	zhigulinsky (https://sketchfab.com/vladikzhil)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "PC motherboard ASUS Prime H510M-K" (https://sketchfab.com/3d-models/pc-motherboard-asus-prime-h510m-k-f9a6af88120f4a0f81cd4107ce533e3e) by zhigulinsky (https://sketchfab.com/vladikzhil) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

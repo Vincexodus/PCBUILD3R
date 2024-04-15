@@ -28,6 +28,6 @@ export class IntroCardComponent{
 
   ngOnInit(): void {
     this.engServ.createIntroScene(this.rendererCanvas);
-    this.engServ.animate();
+    // this.engServ.animate();
   }
 }

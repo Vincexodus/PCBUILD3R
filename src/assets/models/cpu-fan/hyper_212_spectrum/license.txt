@@ -1,0 +1,11 @@
+Model Information:
+* title:	HYPER 212 SPECTRUM
+* source:	https://sketchfab.com/3d-models/hyper-212-spectrum-83ee9f97dd5646bfbbba60fd68563f96
+* author:	wanderer (https://sketchfab.com/wanderer2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "HYPER 212 SPECTRUM" (https://sketchfab.com/3d-models/hyper-212-spectrum-83ee9f97dd5646bfbbba60fd68563f96) by wanderer (https://sketchfab.com/wanderer2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

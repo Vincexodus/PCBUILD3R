@@ -1,0 +1,11 @@
+Model Information:
+* title:	AMD Ryzen 7 PRO 4750G
+* source:	https://sketchfab.com/3d-models/amd-ryzen-7-pro-4750g-a7f300bdddb34cda8f6945efcc877268
+* author:	SRT Performance™ (https://sketchfab.com/SRTPerformance)
+
+Model License:
+* license type:	CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions can not be distributed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "AMD Ryzen 7 PRO 4750G" (https://sketchfab.com/3d-models/amd-ryzen-7-pro-4750g-a7f300bdddb34cda8f6945efcc877268) by SRT Performance™ (https://sketchfab.com/SRTPerformance) licensed under CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)

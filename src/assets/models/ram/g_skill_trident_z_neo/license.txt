@@ -1,0 +1,11 @@
+Model Information:
+* title:	g_skill trident z neo
+* source:	https://sketchfab.com/3d-models/g-skill-trident-z-neo-59a8b153475444da99dcd86e7d878e63
+* author:	wanderer (https://sketchfab.com/wanderer2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "g_skill trident z neo" (https://sketchfab.com/3d-models/g-skill-trident-z-neo-59a8b153475444da99dcd86e7d878e63) by wanderer (https://sketchfab.com/wanderer2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

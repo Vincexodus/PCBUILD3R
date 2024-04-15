@@ -1,0 +1,11 @@
+Model Information:
+* title:	ARDOR GAMING B550M-HDVAR
+* source:	https://sketchfab.com/3d-models/ardor-gaming-b550m-hdvar-4c0a2a3008d9402ab9bfd05b2f0cd093
+* author:	wanderer (https://sketchfab.com/wanderer2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "ARDOR GAMING B550M-HDVAR" (https://sketchfab.com/3d-models/ardor-gaming-b550m-hdvar-4c0a2a3008d9402ab9bfd05b2f0cd093) by wanderer (https://sketchfab.com/wanderer2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

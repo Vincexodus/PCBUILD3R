@@ -6,6 +6,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UtilService } from '../../../service/util.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-admin-category',
@@ -28,6 +29,7 @@ export class AdminCategoryComponent implements OnInit {
   page: number = 1;
 
   constructor(
+    private authService: AuthService, 
     private productService: ProductService, 
     private toast: NgToastService,
     private util: UtilService, 
@@ -45,7 +47,10 @@ export class AdminCategoryComponent implements OnInit {
     }
   
   ngOnInit() {
-    this.getCategory();
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.getCategory();
+    }
   }
 
   categorySearch(keyword: string): void {

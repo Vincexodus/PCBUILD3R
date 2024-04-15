@@ -6,7 +6,7 @@ const authenticate = require('../middleware/authenticate');
 const Voucher = require('../models/voucher.model')
 
 // Get all Voucher
-router.get("", (req, res) => {
+router.get("", authenticate, (req, res) => {
   Voucher.find({
   }).then((voucher) => {
     res.send(voucher);

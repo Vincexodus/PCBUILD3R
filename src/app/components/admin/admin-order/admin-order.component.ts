@@ -14,6 +14,7 @@ import { ProductService } from '../../../service/product.service';
 import { forkJoin } from 'rxjs';
 import { UserService } from '../../../service/user.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-admin-order',
@@ -42,6 +43,7 @@ export class AdminOrderComponent {
   page: number = 1;
 
   constructor(
+    private authService: AuthService, 
     private userService: UserService, 
     private orderService: OrderService, 
     private productService: ProductService, 
@@ -67,11 +69,14 @@ export class AdminOrderComponent {
   }
 
   ngOnInit() {
-    this.getUsers();
-    this.getOrders();
-    this.getVouchers();
-    this.getProducts();
-    this.getReviews();
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.getUsers();
+      this.getOrders();
+      this.getVouchers();
+      this.getProducts();
+      this.getReviews();
+    }
   }
 
   orderSearch(keyword: string): void {

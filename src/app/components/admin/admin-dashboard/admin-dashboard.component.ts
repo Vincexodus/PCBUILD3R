@@ -11,6 +11,7 @@ import { Review } from '../../../interface/review.model';
 import { Session } from 'inspector';
 import { Voucher } from '../../../interface/voucher.model';
 import { AuthService } from '../../../service/auth.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -57,53 +58,54 @@ export class AdminDashboardComponent implements OnInit{
   ];
 
   constructor(
+    private authService: AuthService, 
     private productService: ProductService, 
-    private userService: UserService, 
+    private userService: UserService,
     private orderService: OrderService) { }
 
   ngOnInit() {
-    setTimeout(() => {
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
       this.fetchData();
-    }, 2500)
+    }
   }
 
   fetchData() {
-    this.productService.getProductCategory().subscribe((productCategory: ProductCategory[]) => {
-      this.totalProductCategory = productCategory.length;
-    });
-
-    this.productService.getProduct().subscribe((product: Product[]) => {
-      this.totalProducts = product.length;
-    });
-
-    this.userService.getUser().subscribe((user: User[]) => {
-      this.totalUsers = user.length;
-    });
-
-    this.orderService.getOrder().subscribe((order: Order[]) => {
-      this.totalOrders = order.length;
-      if (this.totalOrders !== 0) {
-        this.orders = order;
-        for (let i = 0; i < this.orders.length; i++) {
-          this.totalSales += this.orders[i].total.$numberDecimal * 1;
+    const productCategory$ = this.productService.getProductCategory();
+    const product$ = this.productService.getProduct();
+    const user$ = this.userService.getUser();
+    const order$ = this.orderService.getOrder();
+    const voucher$ = this.orderService.getVoucher();
+    const review$ = this.orderService.getReview();
+    const session$ = this.userService.getSession();
+  
+    forkJoin([productCategory$, product$, user$, order$, voucher$, review$, session$]).subscribe(
+      ([productCategory, product, user, order, voucher, review, session]) => {
+        this.totalProductCategory = productCategory.length;
+        this.totalProducts = product.length;
+        this.totalUsers = user.length;
+        this.totalOrders = order.length;
+        this.totalVouchers = voucher.length;
+        this.totalReviews = review.length;
+        this.totalSessions = session.length;
+  
+        // Calculate total sales
+        if (order.length !== 0) {
+          this.orders = order;
+          for (let i = 0; i < this.orders.length; i++) {
+            this.totalSales += parseFloat(this.orders[i].total.$numberDecimal.toString());
+          }
+          this.totalSales = parseFloat((this.totalSales).toFixed(2));
         }
-        this.totalSales = parseFloat((this.totalSales).toFixed(2));
+  
+        // Update statistics
+        this.updateStats();
+      },
+      error => {
+        // Handle error
+        console.error('Error fetching data:', error);
       }
-    });
-
-    this.orderService.getVoucher().subscribe((voucher: Voucher[]) => {
-      this.totalVouchers = voucher.length;
-    });
-
-    this.orderService.getReview().subscribe((review: Review[]) => {
-      this.totalReviews = review.length;
-    });
-
-    this.userService.getSession().subscribe((session: Session[]) => {
-      this.totalSessions = session.length;
-    });
-
-    this.updateStats();
+    );
   }
 
   updateStats() {

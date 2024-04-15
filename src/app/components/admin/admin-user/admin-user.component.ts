@@ -8,6 +8,7 @@ import { UserService } from '../../../service/user.service';
 import { WebRequestService } from '../../../service/web-request.service';
 import { UserDetail } from '../../../interface/user-detail.model';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-admin-user',
@@ -31,6 +32,7 @@ export class AdminUserComponent {
   page: number = 1;
 
   constructor(
+    private authService: AuthService, 
     private webService: WebRequestService, 
     private userService: UserService, 
     private toast: NgToastService, 
@@ -67,8 +69,11 @@ export class AdminUserComponent {
     }
 
   ngOnInit() {
-    this.getUsers();
-    this.getUserDetails();
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.getUsers();
+      this.getUserDetails();
+    }
   }
 
   userSearch(keyword: string): void {

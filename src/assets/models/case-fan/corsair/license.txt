@@ -1,0 +1,11 @@
+Model Information:
+* title:	Corsair Fan
+* source:	https://sketchfab.com/3d-models/corsair-fan-27f023b65e814d1c946460fcc0cb8250
+* author:	umkhero (https://sketchfab.com/umkhero)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Corsair Fan" (https://sketchfab.com/3d-models/corsair-fan-27f023b65e814d1c946460fcc0cb8250) by umkhero (https://sketchfab.com/umkhero) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

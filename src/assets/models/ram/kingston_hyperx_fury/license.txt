@@ -1,0 +1,11 @@
+Model Information:
+* title:	Kingston HyperX Fury Black RAM Module
+* source:	https://sketchfab.com/3d-models/kingston-hyperx-fury-black-ram-module-3d9499b5337f475d8bbb1eccdb20e73d
+* author:	Astrien (https://sketchfab.com/Astrien)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Kingston HyperX Fury Black RAM Module" (https://sketchfab.com/3d-models/kingston-hyperx-fury-black-ram-module-3d9499b5337f475d8bbb1eccdb20e73d) by Astrien (https://sketchfab.com/Astrien) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

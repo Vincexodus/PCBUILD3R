@@ -1,0 +1,11 @@
+Model Information:
+* title:	Computer Case (Based off of NZXT 510B)
+* source:	https://sketchfab.com/3d-models/computer-case-based-off-of-nzxt-510b-d2279335aac944da90d05b33c606e178
+* author:	Up1x (https://sketchfab.com/alexlh2003)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Computer Case (Based off of NZXT 510B)" (https://sketchfab.com/3d-models/computer-case-based-off-of-nzxt-510b-d2279335aac944da90d05b33c606e178) by Up1x (https://sketchfab.com/alexlh2003) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

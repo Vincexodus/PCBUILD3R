@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cooler Master CPU Cooler
+* source:	https://sketchfab.com/3d-models/cooler-master-cpu-cooler-e54651982f524644a2144b52a6b36e89
+* author:	wanderer (https://sketchfab.com/wanderer2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cooler Master CPU Cooler" (https://sketchfab.com/3d-models/cooler-master-cpu-cooler-e54651982f524644a2144b52a6b36e89) by wanderer (https://sketchfab.com/wanderer2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

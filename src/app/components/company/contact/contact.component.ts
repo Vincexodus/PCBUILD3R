@@ -20,7 +20,6 @@ export class ContactComponent {
   loading = false;
 
   constructor(
-    private http: HttpClient,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
     private userService: UserService

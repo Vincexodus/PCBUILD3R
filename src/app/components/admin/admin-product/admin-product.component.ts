@@ -7,6 +7,7 @@ import { ProductService } from '../../../service/product.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductCategory } from '../../../interface/product-category.model';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-admin-product',
@@ -32,6 +33,7 @@ export class AdminProductComponent implements OnInit {
   page: number = 1;
   
   constructor(
+    private authService: AuthService, 
     private productService: ProductService, 
     private toast: NgToastService, 
     private util: UtilService,
@@ -53,9 +55,12 @@ export class AdminProductComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.getProductCategories();
-    this.onCategoryReset();
-    this.getProducts();
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.getProductCategories();
+      this.onCategoryReset();
+      this.getProducts();
+    }
   }
 
   productSearch(keyword: string): void {

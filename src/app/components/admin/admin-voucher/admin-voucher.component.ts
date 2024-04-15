@@ -6,6 +6,7 @@ import { UtilService } from '../../../service/util.service';
 import { Voucher } from '../../../interface/voucher.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-admin-voucher',
@@ -26,6 +27,7 @@ export class AdminVoucherComponent {
   page: number = 1;
 
   constructor(
+    private authService: AuthService, 
     private orderService: OrderService, 
     private toast: NgToastService, 
     private util: UtilService,
@@ -44,7 +46,10 @@ export class AdminVoucherComponent {
     }
   
   ngOnInit() {
-    this.getVoucher();
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) {
+      this.getVoucher();
+    }
   }
 
   voucherSearch(keyword: string): void {

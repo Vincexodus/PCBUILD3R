@@ -1,0 +1,11 @@
+Model Information:
+* title:	SPECTRUM ARGB FAN
+* source:	https://sketchfab.com/3d-models/spectrum-argb-fan-195f51665e004e8697055d806df157f9
+* author:	wanderer (https://sketchfab.com/wanderer2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "SPECTRUM ARGB FAN" (https://sketchfab.com/3d-models/spectrum-argb-fan-195f51665e004e8697055d806df157f9) by wanderer (https://sketchfab.com/wanderer2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

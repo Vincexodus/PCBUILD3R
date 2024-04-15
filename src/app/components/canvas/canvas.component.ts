@@ -25,8 +25,8 @@ export class CanvasComponent {
   sessions!: Session[];
   buildOption: string = "Budget PC";
   earnedVoucherKey: string = "";
-  isIntroModalActive: boolean = true;
-  isStepModalActive: boolean = false;
+  isIntroModalActive: boolean = false; //temp
+  isStepModalActive: boolean = false; 
   isAboutModalActive: boolean = false;
   isPostSessionModalActive: boolean = false;
   isVoucherModalActive: boolean = false;
@@ -127,15 +127,45 @@ export class CanvasComponent {
   ]
 
   buildTypes = [
-    { Type: "Budget PC", case: "b", caseFan: "b", 
-      motherboard: "b", cpu: "b", cpuFan: "b", 
-      memory: "b", storage: "b", gpu: "b", psu: "b", level: 1, rewardPercent: 5 },
-    { Type: "Workstation PC", case: "b", caseFan: "b", 
-      motherboard: "b", cpu: "b", cpuFan: "b", 
-      memory: "b", storage: "b", gpu: "b", psu: "b", level: 2, rewardPercent: 10 },
-    { Type: "Gaming PC", case: "b", caseFan: "b", 
-      motherboard: "b", cpu: "b", cpuFan: "b", 
-      memory: "b", storage: "b", gpu: "b", psu: "b", level: 3, rewardPercent: 15 },
+    { 
+      Type: "Budget PC",
+      case: "Aerocool Cylon RGB", casePrice: 238.80,
+      caseFan: "White Noname", caseFanPrice: 20,
+      motherboard: "ASUS PRIME H510M", motherboardPrice: 365.65,
+      cpu: "Intel Core i3-13100F", cpuPrice: 504,
+      cpuFan: "Stock Fan", cpuFanPrice: 25,
+      memory: "Kingston HyperX Fury 2*8GB 2666MHz", memoryPrice: 199.99,
+      storage: "HP NVMe M.2 SSD PCle 256GB", storagePrice: 225,
+      gpu: "None", gpuPrice: 0, 
+      psu: "", psuPrice: 0, 
+      level: 1, rewardPercent: 5 
+    },
+    { 
+      Type: "Workstation PC", 
+      case: "NZXT White H510 Compact ATX", casePrice: 429.88,
+      caseFan: "Corsair AF120", caseFanPrice: 573.19,
+      motherboard: "ARDOR GAMING B550M", motherboardPrice: 398.53,
+      cpu: "AMD Ryzen 5 5600X", cpuPrice: 769,
+      cpuFan: "COOLER MASTER Hyper H412R Universal Socket", cpuFanPrice: 188.02,
+      memory: "Corsair Dominator Platinum RGB White 2*8GB 3200Mhz", memoryPrice: 402.04,
+      storage: "HP NVMe M.2 SSD PCle 256GB", storagePrice: 225,
+      gpu: "GeForce RTX 3060 Ti Eagle OC 8GB", gpuPrice: 2400, 
+      psu: "b", psuPrice: 0, 
+      level: 2, rewardPercent: 10 
+    },
+    {
+      Type: "Gaming PC", 
+      case: "NZXT White H510 Compact ATX", casePrice: 429.88,
+      caseFan: "Tecware Arc Spectrum", caseFanPrice: 123,
+      motherboard: "rog mobo", motherboardPrice: "",
+      cpu: "AMD Ryzen™ 7 7800X3D", cpuPrice: 1909,
+      cpuFan: "COOLER MASTER Hyper 212 Spectrum V2", cpuFanPrice: 126.30,
+      memory: "G Skill Trident Z Neo DDR4 2*16GB 3600Mhz", memoryPrice: 1198,
+      storage: "HP NVMe M.2 SSD PCle 256GB", storagePrice: 225,
+      gpu: "GeForce RTX3080 Founders Edition", gpuPrice: 3100,
+      psu: "b", psuPrice: 0, 
+      level: 3, rewardPercent: 15 
+    }
   ]
 
   constructor(
@@ -160,6 +190,7 @@ export class CanvasComponent {
         this.sessions = session;
         if (this.sessions) {
           this.arrangeSession(this.sessions);
+          this.startSession(); // temp
         }
       });
     } else {
@@ -209,11 +240,10 @@ export class CanvasComponent {
                                   "Power Supply   :" + selectedBuild?.psu];
     
     // Render scene level
-    if (selectedBuild) {
-      this.engServ.createScene(this.rendererCanvas, selectedBuild?.level);
-      this.engServ.animate();
+    if (true) {
+      this.engServ.createScene(this.rendererCanvas, 1);
     }
-    this.isStepModalActive = true;
+    this.isStepModalActive = false; // temp
   }
 
   openStepModal(): void {

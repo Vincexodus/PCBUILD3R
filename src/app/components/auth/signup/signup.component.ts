@@ -45,12 +45,14 @@ export class SignupComponent {
       } else {
         this.authService.signup(name, email, telephone, password).subscribe((res: HttpResponse<any>) => {
           if (res.status === 200) {
-            this.toast.success({detail:"SUCCESS",summary:'Account Created Successfully, Please relogin!', duration:2000, position:'topCenter'});
+            this.toast.success({detail:"SUCCESS",summary:'Account Created Successfully, Please proceed to login!', duration:2000, position:'topCenter'});
             setTimeout(() => {
               this.router.navigate(['/login']);
               this.signupForm.reset();
             }, 2000);
           }
+        }, (error) => {
+          this.toast.error({detail:"FAILED",summary:'Email or telephone no have been used!', duration:2000, position:'topCenter'});
         });
       }
     } else {

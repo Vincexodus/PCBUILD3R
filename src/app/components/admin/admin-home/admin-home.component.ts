@@ -28,9 +28,9 @@ export class AdminHomeComponent implements OnInit {
     { name: "Dashboard", icon: "fa-solid fa-chart-line", link: 'dashboard' },
     { name: "Categories", icon: "fa-solid fa-list", link: 'category' },
     { name: "Products", icon: "fa-solid fa-box-archive", link: 'product' },
-    { name: "Voucher", icon: "fa-solid fa-ticket", link: 'voucher' },
+    { name: "Vouchers", icon: "fa-solid fa-ticket", link: 'voucher' },
     { name: "Orders & Reviews", icon: "fa-solid fa-clipboard", link: 'order' },
-    { name: "Simulation Session", icon: "fa-solid fa-cube", link: 'session' },
+    { name: "Simulation Sessions", icon: "fa-solid fa-cube", link: 'session' },
     { name: "Users", icon: "fa-solid fa-circle-user", link: 'user' },
   ]
 

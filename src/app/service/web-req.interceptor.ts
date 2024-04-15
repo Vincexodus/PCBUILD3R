@@ -16,13 +16,6 @@ export class WebReqInterceptor {
   accessTokenRefreshed: Subject<void> = new Subject();
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    // if (!this.authService.getUserId()) {
-    //   console.log('No user logged in');
-    //   return next.handle(request);
-    // } else {
-    //   console.log('User is logged in');
-    // }
-    
     // Handle the request
     request = this.addAuthHeader(request);
     

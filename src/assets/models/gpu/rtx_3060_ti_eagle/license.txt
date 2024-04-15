@@ -1,0 +1,11 @@
+Model Information:
+* title:	RTX 3060 TI EAGLE
+* source:	https://sketchfab.com/3d-models/rtx-3060-ti-eagle-1586908000f24cf1b65454f8d3999504
+* author:	wanderer (https://sketchfab.com/wanderer2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "RTX 3060 TI EAGLE" (https://sketchfab.com/3d-models/rtx-3060-ti-eagle-1586908000f24cf1b65454f8d3999504) by wanderer (https://sketchfab.com/wanderer2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
