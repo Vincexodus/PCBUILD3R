@@ -25,7 +25,7 @@ export class CanvasComponent {
   sessions!: Session[];
   buildOption: string = "Budget PC";
   earnedVoucherKey: string = "";
-  isIntroModalActive: boolean = false; //temp
+  isIntroModalActive: boolean = true;;
   isStepModalActive: boolean = false; 
   isAboutModalActive: boolean = false;
   isPostSessionModalActive: boolean = false;
@@ -36,6 +36,11 @@ export class CanvasComponent {
   isGamingAvailable: boolean = true;
   step: number = 0;
   addReviewForm: FormGroup;
+
+  partType = ["Computer Case", "Case Fan", "Motherboard", "Processor (CPU)", "CPU Fan", "Memory (RAM)", 
+              "Storage Drive", "Graphics Card", "Power Supply"];
+
+  partPrice = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   assemblySteps = [
     { stepTitle: "", 
@@ -129,20 +134,20 @@ export class CanvasComponent {
   buildTypes = [
     { 
       Type: "Budget PC",
-      case: "Aerocool Cylon RGB", casePrice: 238.80,
+      case: "NZXT White H510 Compact ATX", casePrice: 238.80,
       caseFan: "White Noname", caseFanPrice: 20,
       motherboard: "ASUS PRIME H510M", motherboardPrice: 365.65,
-      cpu: "Intel Core i3-13100F", cpuPrice: 504,
-      cpuFan: "Stock Fan", cpuFanPrice: 25,
+      cpu: "Intel Core i3-12100 Quad-core", cpuPrice: 584.28,
+      cpuFan: "CPU Cooler Noname", cpuFanPrice: 25,
       memory: "Kingston HyperX Fury 2*8GB 2666MHz", memoryPrice: 199.99,
       storage: "HP NVMe M.2 SSD PCle 256GB", storagePrice: 225,
       gpu: "None", gpuPrice: 0, 
-      psu: "", psuPrice: 0, 
+      psu: "Cooler Master Elite NEX PN500 (500W)", psuPrice: 149,
       level: 1, rewardPercent: 5 
     },
     { 
       Type: "Workstation PC", 
-      case: "NZXT White H510 Compact ATX", casePrice: 429.88,
+      case: "Fractal Design Meshify C", casePrice: 659.88,
       caseFan: "Corsair AF120", caseFanPrice: 573.19,
       motherboard: "ARDOR GAMING B550M", motherboardPrice: 398.53,
       cpu: "AMD Ryzen 5 5600X", cpuPrice: 769,
@@ -150,20 +155,20 @@ export class CanvasComponent {
       memory: "Corsair Dominator Platinum RGB White 2*8GB 3200Mhz", memoryPrice: 402.04,
       storage: "HP NVMe M.2 SSD PCle 256GB", storagePrice: 225,
       gpu: "GeForce RTX 3060 Ti Eagle OC 8GB", gpuPrice: 2400, 
-      psu: "b", psuPrice: 0, 
+      psu: "Cooler Master Elite NEX PN500 (600W)", psuPrice: 165, 
       level: 2, rewardPercent: 10 
     },
     {
       Type: "Gaming PC", 
-      case: "NZXT White H510 Compact ATX", casePrice: 429.88,
+      case: "DEEPCOOL MATTREXX 55 V3", casePrice: 286.83,
       caseFan: "Tecware Arc Spectrum", caseFanPrice: 123,
-      motherboard: "rog mobo", motherboardPrice: "",
+      motherboard: "ROG Strix B550-F Gaming", motherboardPrice: 1059,
       cpu: "AMD Ryzen™ 7 7800X3D", cpuPrice: 1909,
       cpuFan: "COOLER MASTER Hyper 212 Spectrum V2", cpuFanPrice: 126.30,
       memory: "G Skill Trident Z Neo DDR4 2*16GB 3600Mhz", memoryPrice: 1198,
       storage: "HP NVMe M.2 SSD PCle 256GB", storagePrice: 225,
-      gpu: "GeForce RTX3080 Founders Edition", gpuPrice: 3100,
-      psu: "b", psuPrice: 0, 
+      gpu: "AMD Radeon RX 6700XT", gpuPrice: 2757.79,
+      psu: "Cooler Master MWE BRONZE V2 Series (750W)", psuPrice: 309, 
       level: 3, rewardPercent: 15 
     }
   ]
@@ -228,22 +233,25 @@ export class CanvasComponent {
     
     const selectedBuild = this.buildTypes.find(build => build.Type === this.buildOption);
 
-    this.assemblySteps[0].stepTitle = "Hardware Parts of " + selectedBuild?.Type;
-    this.assemblySteps[0].desc = ["Computer Case: :" + selectedBuild?.case,
-                                  "Case Fan       :" + selectedBuild?.caseFan,
-                                  "Motherboard    :" + selectedBuild?.motherboard,
-                                  "Processor(CPU) :" + selectedBuild?.cpu,
-                                  "CPU Fan        :" + selectedBuild?.cpuFan,
-                                  "Memory(RAM)    :" + selectedBuild?.memory,
-                                  "Storage Drive  :" + selectedBuild?.storage,
-                                  "Graphics Card  :" + selectedBuild?.gpu,
-                                  "Power Supply   :" + selectedBuild?.psu];
-    
-    // Render scene level
-    if (true) {
-      this.engServ.createScene(this.rendererCanvas, 1);
+    let totalPrice = 0;
+    if (selectedBuild) {
+      this.assemblySteps[0].stepTitle = "Hardware Parts of " + selectedBuild?.Type;
+      this.assemblySteps[0].desc = [selectedBuild?.case, selectedBuild?.caseFan, selectedBuild?.motherboard, selectedBuild?.cpu, 
+                                    selectedBuild?.cpuFan, selectedBuild?.memory, selectedBuild?.storage, selectedBuild?.gpu, selectedBuild?.psu ];
+      this.partPrice = [selectedBuild?.casePrice, selectedBuild?.caseFanPrice, selectedBuild?.motherboardPrice, selectedBuild?.cpuPrice, 
+                        selectedBuild?.cpuFanPrice, selectedBuild?.memoryPrice, selectedBuild?.storagePrice, selectedBuild?.gpuPrice, 
+                        selectedBuild?.psuPrice ];
+      for (let i = 0; i < this.partPrice.length; i++) {
+        totalPrice += this.partPrice[i];
+      }
     }
-    this.isStepModalActive = false; // temp
+    this.assemblySteps[0].note =  "Total Price - MYR " + totalPrice;
+
+    // render canvas scene based on level
+    if (selectedBuild) {
+      this.engServ.createScene(this.rendererCanvas, selectedBuild?.level);
+      this.isStepModalActive = false; // temp
+    }
   }
 
   openStepModal(): void {

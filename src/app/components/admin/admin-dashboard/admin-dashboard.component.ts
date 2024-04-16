@@ -1,15 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../../../interface/user.model';
 import { UserService } from '../../../service/user.service';
 import { ProductService } from '../../../service/product.service';
 import { OrderService } from '../../../service/order.service';
-import { Product } from '../../../interface/product.model';
 import { Order } from '../../../interface/order.model';
-import { ProductCategory } from '../../../interface/product-category.model';
-import { Review } from '../../../interface/review.model';
-import { Session } from 'inspector';
-import { Voucher } from '../../../interface/voucher.model';
 import { AuthService } from '../../../service/auth.service';
 import { forkJoin } from 'rxjs';
 

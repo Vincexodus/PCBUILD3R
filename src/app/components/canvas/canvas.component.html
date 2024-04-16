@@ -12,7 +12,26 @@
           <button class="delete" aria-label="close" (click)="closeStepModal()"></button>
         </header>
         <section class="modal-card-body">
-          <div class="block has-text-justified px-2">
+          <div class="" *ngIf="step === 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Part Type</th>
+                  <th>Part Name</th>
+                  <th>Part Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let desc of assemblySteps[step].desc; let i = index">
+                  <td>{{ partType[i] }}</td>
+                  <td>{{ desc }}</td>
+                  <td>MYR {{ partPrice[i] }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step].note">Note: {{ assemblySteps[step].note }}</h4>
+          </div>
+          <div class="block has-text-justified px-2" *ngIf="step > 0">
             <h4 class="is-size-6" *ngFor="let desc of assemblySteps[step].desc">{{ desc }}</h4>
             <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step].note">Note: {{ assemblySteps[step].note }}</h4>
             <h4 class="is-size-6 has-text-danger mt-2" *ngIf="assemblySteps[step].caution">Caution: {{ assemblySteps[step].caution }}</h4>

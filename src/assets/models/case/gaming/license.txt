@@ -1,0 +1,11 @@
+Model Information:
+* title:	cabinet
+* source:	https://sketchfab.com/3d-models/cabinet-836290a5491b4d67b3e2594813f44f3f
+* author:	Harit (https://sketchfab.com/hrtchavda)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "cabinet" (https://sketchfab.com/3d-models/cabinet-836290a5491b4d67b3e2594813f44f3f) by Harit (https://sketchfab.com/hrtchavda) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
