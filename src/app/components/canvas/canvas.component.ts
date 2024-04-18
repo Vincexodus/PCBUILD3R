@@ -9,6 +9,7 @@ import { OrderService } from '../../service/order.service';
 import { Voucher } from '../../interface/voucher.model';
 import { SessionService } from '../../service/session.service';
 import { Session } from '../../interface/session.model';
+import { ProductService } from '../../service/product.service';
 
 @Component({
   selector: 'app-canvas',
@@ -65,6 +66,8 @@ export class CanvasComponent {
       caution: "Chosen parts must be compatible (they are chosen in this case)."
     },
     { stepTitle: "Open and Prepare the Case.", 
+      stepImageCategory: "Case",
+      stepImage: "",
       desc: ["Open the computer case by removing side panels. Find the screws that hold the\
                 side panels in place.",
               "To prepare the case, remove any packaging materials that may have been shipped.\
@@ -73,11 +76,15 @@ export class CanvasComponent {
                 strap when assembling."
     },
     { stepTitle: "Install Case Fan", 
+      stepImageCategory: "Case Fan",
+      stepImage: "",
       desc: ["Align the mounting holes by holding the fan to mounting pad on the inside of the case.",
             "Insert the screws from the outside of the case and tighten."],
       note: "Ensure that installed case fans are poitning in the correct direction.",
     },
-    { stepTitle: "Install Motherboard", 
+    { stepTitle: "Install Motherboard",
+      stepImageCategory: "Motherboard",
+      stepImage: "",
       desc: ["Install the I/O shield in the opening in the back of the case by pushing in from the inside.",
             "Install standoffs in the cases into mount the motherboard. Note: Each motherboard has different screw \
               hole locations.",
@@ -85,32 +92,45 @@ export class CanvasComponent {
       note: "To prevent damage to the motherboard, it must only contact the standoffs and screws.",
     },
     { stepTitle: "Install Processor (CPU)", 
+      stepImageCategory: "CPU",
+      stepImage: "",
       desc: ["For Intel processor, find corner mark on the processor. For AMD processor, the corner is marked with an arrow.",
             "Lift the small metal rod next to the socket, make sure the markings are aligned correctly.",
             "Push the rod down to lock the procesor in place."],
     },
-    { stepTitle: "Install CPU Fan", 
+    { stepTitle: "Install Memory (RAM)",
+      stepImageCategory: "RAM",
+      stepImage: "",
+      desc: ["Check to see the notch in board is in correct location. Turn around 180 degrees otherwise.",
+            "Press firmly on both ends of the memory stick into the socket. A click sound is made when tabs\
+              are locked into place."],
+      caution: "Make sure tabs aligned to prevent causing serious damage to the motherboard."
+    },
+    { stepTitle: "Install Storage",
+      stepImageCategory: "Storage", 
+      stepImage: "",
+      desc: ["Install M.2 solid state drive into M.2 slot of the motherboard (usally above PCLE slot). \
+            Once SSD is fitted in, press down and secure the drive with small M.2 screw."],
+    },
+    { stepTitle: "Install CPU Fan",
+      stepImageCategory: "CPU Cooler",
+      stepImage: "",
       desc: ["Place thermal compound to the CPU following the instructions provided.",
             "Set the fan assembly on the processor with mounting tabs aligned.",
             "Apply balanced screw pressure into each side of the motherboard.",
             "Connect the fan assembly's power connetor ot the motherboard.",
             "Some CPU fan contact area comes with protective layer, make sure to remove it before installing."],
     },
-    { stepTitle: "Install Memory (RAM)",
-      desc: ["Check to see the notch in board is in correct location. Turn around 180 degrees otherwise.",
-            "Press firmly on both ends of the memory stick into the socket. A click sound is made when tabs\
-              are locked into place."],
-      caution: "Make sure tabs aligned to prevent causing serious damage to the motherboard."
-    },
-    { stepTitle: "Install Storage", 
-      desc: ["Install M.2 solid state drive into M.2 slot of the motherboard (usally above PCLE slot). \
-            Once SSD is fitted in, press down and secure the drive with small M.2 screw."],
-    },
-    { stepTitle: "Install Graphics Card", 
+    { stepTitle: "Install Graphics Card",
+      stepImageCategory: "GPU",
+      stepImage: "",
       desc: ["Gently remove expansion slot cover of both graphics card and case. Line the graphics card up with\
-            PCI expansion slot and firmly seat the card in place until a click sound is produced."],
+      PCI expansion slot and firmly seat the card in place until a click sound is produced."],
+      caution: "Budget Build has no GPU, given the processor chosen must have built-in graphics."
     },
     { stepTitle: "Install Power Supply", 
+    stepImageCategory: "PSU",
+      stepImage: "",
       desc: ["Align the mounting holes in the case with the power supply.",
             "Insert screws and tighten."],
     },
@@ -118,11 +138,13 @@ export class CanvasComponent {
       desc: ["Motherboard has two power conections, with two connectors specifically for SATA devices. The other\
             connectors are used for funs and other non-SATA devices.\
             Data cables connects drives and front panel devices to the motherboard."],
+      caution: "Conneciton of cables is excluded in this simulation.",
     },
     { stepTitle: "Wrap Up", 
-      desc: ["When all the components are installed, reinstall the side panels of on the case.",
+      desc: ["When all the components are installed, reinstall the side panel of the case.",
             "The computer is now ready to be turned on to configure the bios and operating system.",
             "This steps are excluded within this simulation as it only covers assembling."],
+      caution: "Reinstallation of side panel is exluded in this simulation.",
     },
     { stepTitle: "Maintainence", 
       desc: ["As time goes by, there will be dust occupying the PC. Use an air blower or a vacuum to remove excessive\
@@ -167,7 +189,7 @@ export class CanvasComponent {
       cpuFan: "COOLER MASTER Hyper 212 Spectrum V2", cpuFanPrice: 126.30,
       memory: "G Skill Trident Z Neo DDR4 2*16GB 3600Mhz", memoryPrice: 1198,
       storage: "HP NVMe M.2 SSD PCle 256GB", storagePrice: 225,
-      gpu: "AMD Radeon RX 6700XT", gpuPrice: 2757.79,
+      gpu: "GeForce RTX 3080 Founders Edition", gpuPrice: 3057.79,
       psu: "Cooler Master MWE BRONZE V2 Series (750W)", psuPrice: 309, 
       level: 3, rewardPercent: 15 
     }
@@ -310,6 +332,15 @@ export class CanvasComponent {
     }
   }
 
+  inspectModel(): void {
+    this.engServ.inspectModel();
+  }
+  
+
+  restartSession(): void {
+    this.startSession();
+  }
+  
   terminateSession(dir: string): void {
     this.isPostSessionModalActive = false;
     this.isVoucherModalActive = false;

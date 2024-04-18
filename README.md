@@ -154,6 +154,7 @@ I've included a few materials that have helped me complete this project
 * [Build a Task Manager Application From Scratch](https://www.youtube.com/watch?v=V-CeWkz1MNQ&list=PLIjdNHWULhPSZFDzQU6AnbVQNNo1NTRpd)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 * [Choose an Open Source License](https://choosealicense.com)
+* [Click and Drag 3d models in ThreeJS](https://dev.to/calebmcolin/how-to-interactively-drag-3d-models-in-threejs-5a7h#:~:text=A%29%20Moving%20individual%20objects%20%28Object3D%29%201%201%29%20Create,Create%20a%20function%20to%20drag%20the%20object%20)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

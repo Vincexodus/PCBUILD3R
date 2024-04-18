@@ -3,24 +3,24 @@
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 2444,
+      "count": 2739,
       "max": [
-        4.770701885223389,
-        2.9295029640197754,
-        0.7811099886894226
+        2.0892999172210693,
+        0.515828013420105,
+        0.024632999673485756
       ],
       "min": [
-        -4.798973083496094,
-        0.30759599804878235,
-        0.5498579740524292
+        -2.021199941635132,
+        -0.6144859790802002,
+        -0.017976999282836914
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 2,
-      "byteOffset": 29328,
+      "byteOffset": 32868,
       "componentType": 5126,
-      "count": 2444,
+      "count": 2739,
       "max": [
         1.0,
         1.0,
@@ -36,165 +36,109 @@
     {
       "bufferView": 1,
       "componentType": 5126,
-      "count": 2444,
+      "count": 2739,
       "max": [
-        0.8563209772109985,
-        0.9350659847259521
+        0.9501379728317261,
+        0.9953209757804871
       ],
       "min": [
-        0.11167799681425095,
-        0.11370699852705002
+        0.0046790000051259995,
+        0.0046790000051259995
       ],
       "type": "VEC2"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 5202,
+      "count": 5622,
       "type": "SCALAR"
     },
     {
       "bufferView": 2,
-      "byteOffset": 58656,
+      "byteOffset": 65736,
       "componentType": 5126,
-      "count": 9693,
+      "count": 4,
       "max": [
-        4.36759614944458,
-        2.8326311111450195,
-        0.7394109964370728
+        1.595829963684082,
+        0.3069640100002289,
+        0.02510399930179119
       ],
       "min": [
-        -4.748178958892822,
-        0.37443500757217407,
-        0.5422639846801758
+        -1.7429900169372559,
+        -0.4564889967441559,
+        0.02510399930179119
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 2,
-      "byteOffset": 174972,
+      "byteOffset": 65784,
       "componentType": 5126,
-      "count": 9693,
+      "count": 4,
       "max": [
-        1.0,
-        1.0,
+        0.0,
+        -0.0,
         1.0
-      ],
-      "min": [
-        -1.0,
-        -1.0,
-        -1.0
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 1,
-      "byteOffset": 19552,
-      "componentType": 5126,
-      "count": 9693,
-      "max": [
-        0.9350659847259521,
-        0.9438139796257019
       ],
       "min": [
         0.0,
-        0.0
-      ],
-      "type": "VEC2"
-    },
-    {
-      "bufferView": 0,
-      "byteOffset": 20808,
-      "componentType": 5125,
-      "count": 15123,
-      "type": "SCALAR"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 291288,
-      "componentType": 5126,
-      "count": 2166,
-      "max": [
-        3.2186899185180664,
-        2.8326311111450195,
-        0.6907430291175842
-      ],
-      "min": [
-        -2.8159608840942383,
-        1.4393550157546997,
-        0.6016970276832581
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 317280,
-      "componentType": 5126,
-      "count": 2166,
-      "max": [
-        1.0,
-        1.0,
+        -0.0,
         1.0
-      ],
-      "min": [
-        -1.0,
-        -1.0,
-        -1.0
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 1,
-      "byteOffset": 97096,
+      "byteOffset": 21912,
       "componentType": 5126,
-      "count": 2166,
+      "count": 4,
       "max": [
-        0.8110430240631104,
-        0.9350659847259521
+        0.9780290126800537,
+        0.9780290126800537
       ],
       "min": [
-        0.37007099390029907,
-        0.37203899025917053
+        0.021971000358462334,
+        0.021971000358462334
       ],
       "type": "VEC2"
     },
     {
       "bufferView": 0,
-      "byteOffset": 81300,
+      "byteOffset": 22488,
       "componentType": 5125,
-      "count": 3261,
+      "count": 6,
       "type": "SCALAR"
     }
   ],
   "asset": {
     "extras": {
-      "author": "Хлюпич (https://sketchfab.com/foxplay382)",
+      "author": "cityon360 (https://sketchfab.com/cityon360)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/ssd-noname-m2-256gb-ac3e66d1e3bf46dc8684a3e4abae584b",
-      "title": "SSD NoName m.2 256gb"
+      "source": "https://sketchfab.com/3d-models/ssd-samsung-980-pro-1tb-208b846d5a5948368b4ad0676bf4ab97",
+      "title": "SSD Samsung 980 PRO 1TB"
     },
-    "generator": "Sketchfab-12.66.0",
+    "generator": "Sketchfab-14.64.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 94344,
+      "byteLength": 22512,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 114424,
-      "byteOffset": 94344,
+      "byteLength": 21944,
+      "byteOffset": 22512,
       "byteStride": 8,
       "name": "floatBufferViews",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 343272,
-      "byteOffset": 208768,
+      "byteLength": 65832,
+      "byteOffset": 44456,
       "byteStride": 12,
       "name": "floatBufferViews",
       "target": 34962
@@ -202,25 +146,37 @@
   ],
   "buffers": [
     {
-      "byteLength": 552040,
+      "byteLength": 110288,
       "uri": "scene.bin"
     }
   ],
   "images": [
     {
-      "uri": "textures/None_ne.png.074_baseColor.png"
+      "uri": "textures/Material_baseColor.png"
+    },
+    {
+      "uri": "textures/None_baseColor.png"
     }
   ],
   "materials": [
     {
       "doubleSided": true,
-      "name": "None_ne.png.074",
+      "name": "Material",
       "pbrMetallicRoughness": {
         "baseColorTexture": {
           "index": 0
         },
-        "metallicFactor": 0.0,
-        "roughnessFactor": 0.6
+        "metallicFactor": 0.0
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "None",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0.0
       }
     }
   ],
@@ -250,22 +206,7 @@
             "TEXCOORD_0": 6
           },
           "indices": 7,
-          "material": 0,
-          "mode": 4
-        }
-      ]
-    },
-    {
-      "name": "Object_2",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 9,
-            "POSITION": 8,
-            "TEXCOORD_0": 10
-          },
-          "indices": 11,
-          "material": 0,
+          "material": 1,
           "mode": 4
         }
       ]
@@ -299,10 +240,9 @@
     {
       "children": [
         2,
-        3,
-        4
+        3
       ],
-      "name": "9b0347bd55e344579ae16fd740eb1153.obj.cleaner.materialmerger.gles"
+      "name": "SSD_Samsung_980_PRO_Texture.obj.cleaner.materialmerger.gles"
     },
     {
       "mesh": 0,
@@ -311,10 +251,6 @@
     {
       "mesh": 1,
       "name": "Object_3"
-    },
-    {
-      "mesh": 2,
-      "name": "Object_4"
     }
   ],
   "samplers": [
@@ -338,6 +274,10 @@
     {
       "sampler": 0,
       "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
     }
   ]
 }
