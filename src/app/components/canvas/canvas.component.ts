@@ -35,7 +35,7 @@ export class CanvasComponent {
   isBudgetAvailable: boolean = true;
   isWorkStationAvailable: boolean = true;
   isGamingAvailable: boolean = true;
-  step: number = 0;
+  step: number = 1;
   addReviewForm: FormGroup;
 
   partType = ["Computer Case", "Case Fan", "Motherboard", "Processor (CPU)", "CPU Fan", "Memory (RAM)", 
@@ -45,7 +45,10 @@ export class CanvasComponent {
 
   assemblySteps = [
     { stepTitle: "", 
-      desc: []
+      desc: [],
+      note: "",
+      caution: "",
+      wait: false,
     },
     { stepTitle: "Picking Parts", 
       desc: ["First you will need to buy the parts necessary to build a computer.",
@@ -63,93 +66,113 @@ export class CanvasComponent {
               "11. Screwdriver",
               "12. Ground Strap (optional)"],
       note: "In this simulation, we will be excluding the assembling of wires.",
-      caution: "Chosen parts must be compatible (they are chosen in this case)."
+      caution: "Chosen parts must be compatible (they are chosen in this case).",
+      wait: false,
     },
     { stepTitle: "Open and Prepare the Case.", 
-      stepImageCategory: "Case",
-      stepImage: "",
       desc: ["Open the computer case by removing side panels. Find the screws that hold the\
                 side panels in place.",
               "To prepare the case, remove any packaging materials that may have been shipped.\
                 Double check the front panel connections like power switch, audio jacks and usb ports."],
+      note: "",
       caution: "Case may have sharp edges. Handle with care to avoid injury. Always wear a grounding\
-                strap when assembling."
-    },
-    { stepTitle: "Install Case Fan", 
-      stepImageCategory: "Case Fan",
-      stepImage: "",
-      desc: ["Align the mounting holes by holding the fan to mounting pad on the inside of the case.",
-            "Insert the screws from the outside of the case and tighten."],
-      note: "Ensure that installed case fans are poitning in the correct direction.",
+                strap when assembling.",
+      wait: false,
     },
     { stepTitle: "Install Motherboard",
-      stepImageCategory: "Motherboard",
-      stepImage: "",
       desc: ["Install the I/O shield in the opening in the back of the case by pushing in from the inside.",
             "Install standoffs in the cases into mount the motherboard. Note: Each motherboard has different screw \
               hole locations.",
             "Lower motherboard into the case and align with the I/O sheild before securing it with screws."],
       note: "To prevent damage to the motherboard, it must only contact the standoffs and screws.",
+      caution: "",
+      wait: true,
+    },
+    { stepTitle: "Install Case Fan", 
+      desc: ["Align the mounting holes by holding the fan to mounting pad on the inside of the case.",
+            "Insert the screws from the outside of the case and tighten."],
+      note: "Ensure that installed case fans are poitning in the correct direction.",
+      caution: "",
+      wait: true,
     },
     { stepTitle: "Install Processor (CPU)", 
-      stepImageCategory: "CPU",
-      stepImage: "",
       desc: ["For Intel processor, find corner mark on the processor. For AMD processor, the corner is marked with an arrow.",
             "Lift the small metal rod next to the socket, make sure the markings are aligned correctly.",
             "Push the rod down to lock the procesor in place."],
+      note: "",
+      caution: "",
+      wait: true,
     },
-    { stepTitle: "Install Memory (RAM)",
-      stepImageCategory: "RAM",
-      stepImage: "",
+    { stepTitle: "Install First Memory (RAM)",
       desc: ["Check to see the notch in board is in correct location. Turn around 180 degrees otherwise.",
             "Press firmly on both ends of the memory stick into the socket. A click sound is made when tabs\
               are locked into place."],
-      caution: "Make sure tabs aligned to prevent causing serious damage to the motherboard."
+      note: "",
+      caution: "Make sure tabs aligned to prevent causing serious damage to the motherboard.",
+      wait: true,
+    },
+    { stepTitle: "Install Second Memory (RAM)",
+      desc: ["Check to see the notch in board is in correct location. Turn around 180 degrees otherwise.",
+            "Press firmly on both ends of the memory stick into the socket. A click sound is made when tabs\
+              are locked into place."],
+      note: "",
+      caution: "Make sure tabs aligned to prevent causing serious damage to the motherboard.",
+      wait: true,
     },
     { stepTitle: "Install Storage",
-      stepImageCategory: "Storage", 
-      stepImage: "",
       desc: ["Install M.2 solid state drive into M.2 slot of the motherboard (usally above PCLE slot). \
             Once SSD is fitted in, press down and secure the drive with small M.2 screw."],
+      note: "",
+      caution: "",
+      wait: true,
     },
     { stepTitle: "Install CPU Fan",
-      stepImageCategory: "CPU Cooler",
-      stepImage: "",
       desc: ["Place thermal compound to the CPU following the instructions provided.",
             "Set the fan assembly on the processor with mounting tabs aligned.",
             "Apply balanced screw pressure into each side of the motherboard.",
             "Connect the fan assembly's power connetor ot the motherboard.",
             "Some CPU fan contact area comes with protective layer, make sure to remove it before installing."],
+      note: "",
+      caution: "",
+      wait: true,
     },
     { stepTitle: "Install Graphics Card",
-      stepImageCategory: "GPU",
-      stepImage: "",
       desc: ["Gently remove expansion slot cover of both graphics card and case. Line the graphics card up with\
       PCI expansion slot and firmly seat the card in place until a click sound is produced."],
-      caution: "Budget Build has no GPU, given the processor chosen must have built-in graphics."
+      note: "",
+      caution: "Budget Build has no GPU, given the processor chosen must have built-in graphics.",
+      wait: true,
     },
     { stepTitle: "Install Power Supply", 
-    stepImageCategory: "PSU",
-      stepImage: "",
       desc: ["Align the mounting holes in the case with the power supply.",
             "Insert screws and tighten."],
+      note: "",
+      caution: "",
+      wait: true,
     },
     { stepTitle: "Connect Cables", 
       desc: ["Motherboard has two power conections, with two connectors specifically for SATA devices. The other\
             connectors are used for funs and other non-SATA devices.\
             Data cables connects drives and front panel devices to the motherboard."],
+      note: "",
       caution: "Conneciton of cables is excluded in this simulation.",
+      wait: false,
     },
     { stepTitle: "Wrap Up", 
       desc: ["When all the components are installed, reinstall the side panel of the case.",
             "The computer is now ready to be turned on to configure the bios and operating system.",
             "This steps are excluded within this simulation as it only covers assembling."],
+      note: "",
       caution: "Reinstallation of side panel is exluded in this simulation.",
+      wait: false,
     },
     { stepTitle: "Maintainence", 
       desc: ["As time goes by, there will be dust occupying the PC. Use an air blower or a vacuum to remove excessive\
             dusts once every year, depending on the usage of the PC. For perform deep cleaning, disassemble the CPU cooler\
             and Graphic Card for thermal paste replacement."],
+      note: "",
+      caution: "",
+      wait: false,
     },
   ]
 
@@ -271,19 +294,11 @@ export class CanvasComponent {
 
     // render canvas scene based on level
     if (selectedBuild) {
-      this.engServ.createScene(this.rendererCanvas, selectedBuild?.level);
-      this.isStepModalActive = false; // temp
+      this.engServ.createScene(this.rendererCanvas, 2); // temp
+      this.isStepModalActive = true; // temp
     }
   }
 
-  openStepModal(): void {
-    this.isStepModalActive = true;
-  }
-
-  closeStepModal(): void {
-    this.isStepModalActive = false;
-  }
-  
   openHelpModal(): void {
     this.isAboutModalActive = true;
   }
@@ -291,15 +306,44 @@ export class CanvasComponent {
   closeHelpModal(): void {
     this.isAboutModalActive = false;
   }
-
-  openNextStepModal(): void {
-    if (this.step < this.assemblySteps.length) {
-      this.toast.success({detail:"SUCCESS",summary:'You have completed the step!', duration:2000, position:'topCenter'});
-      this.step += 1;
-      this.isStepModalActive = true;
-    }
+  
+  openStepModal(): void {
+    this.isStepModalActive = true;
   }
   
+  openNextStepModal(): void {
+    const selectedBuild = this.buildTypes.find(build => build.Type === this.buildOption);
+    if (this.step < this.assemblySteps.length) {
+      if (selectedBuild) // budget build skips gpu assembly
+        if (selectedBuild.level === 1) this.assemblySteps[10].wait = false; 
+
+      // if step require engine service to trigger
+      if (this.assemblySteps[this.step].wait) {
+        this.step += 1;
+        this.isStepModalActive = false;
+        // load model for assembling
+        if (selectedBuild) this.engServ.loadNextModel(selectedBuild?.level, this.step);
+      } else {
+        // proceed to show next step
+        this.step += 1;
+        this.isStepModalActive = true;
+      }
+    }
+  }
+
+  closeStepModal(): void {
+    this.isStepModalActive = false;
+  }
+
+  // trigger from engine only
+  onAssemblyStepComplete(): void {
+    this.toast.success({detail:"SUCCESS",summary:'You have completed step ' + this.step + '!', duration:2000, position:'topCenter'});
+    setTimeout(() => {
+      // show step modal to proceed
+      this.isStepModalActive = true;
+    }, 0); // temp
+  }
+
   openPostSessionModal(): void {
     this.isPostSessionModalActive = true;
     this.isStepModalActive = false
@@ -334,11 +378,6 @@ export class CanvasComponent {
 
   inspectModel(): void {
     this.engServ.inspectModel();
-  }
-  
-
-  restartSession(): void {
-    this.startSession();
   }
   
   terminateSession(dir: string): void {

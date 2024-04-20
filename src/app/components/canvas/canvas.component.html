@@ -8,10 +8,9 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Step {{ step + 1 }}: {{ assemblySteps[step].stepTitle }}</p>
+          <p class="modal-card-title">Step {{ step }}: {{ assemblySteps[step].stepTitle }}</p>
           <button class="delete" aria-label="close" (click)="closeStepModal()"></button>
         </header>
-        <!-- <img *ngIf="assemblySteps[step].stepImageCategory" [src]="assemblySteps[step].stepImageCategory" alt="Selected Image" class="image is-64x64"> -->
         <section class="modal-card-body">
           <div class="" *ngIf="step === 0">
             <table class="table">
@@ -39,7 +38,7 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-rounded is-success" *ngIf="step+1 < assemblySteps.length" (click)="closeStepModal()">Noted</button>
+          <button class="button is-rounded is-success" *ngIf="step+1 < assemblySteps.length" (click)="openNextStepModal()">Proceed</button>
           <button class="button is-rounded is-success" *ngIf="step+1 === assemblySteps.length" (click)="openPostSessionModal()">Complete</button>
         </footer>
       </div>
@@ -80,16 +79,12 @@
           </footer>
         </div>
       </div>
-      <button class="button is-black is-rounded" *ngIf="step < assemblySteps.length" (click)="openNextStepModal()">
-        Next Step
+      <button class="button is-black is-rounded" *ngIf="step < assemblySteps.length" (click)="onAssemblyStepComplete()">
+        Complete Step
       </button>
       <button class="button is-black is-rounded" (click)="inspectModel()">
         Inspect
         <i class="fa-solid fa-eye pl-2" style="color: #ffffff;"></i>
-      </button>
-      <button class="button is-black is-rounded" (click)="restartSession()">
-        Restart
-        <i class="fa-solid fa-repeat pl-2" style="color: #ffffff;"></i>
       </button>
       <button class="button is-black is-rounded" (click)="terminateSession('/home')">
         Exit Session
