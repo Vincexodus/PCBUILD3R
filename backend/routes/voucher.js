@@ -1,9 +1,22 @@
 const express = require("express");
 const router = express.Router();
-
 const authenticate = require('../middleware/authenticate');
 
 const Voucher = require('../models/voucher.model')
+
+// helper function to generate random voucher key
+const generateUniqueKey = () => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let key = 'PCB';
+  const keyLength = 7;
+
+  for (let i = 0; i < keyLength; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      key += characters.charAt(randomIndex);
+  }
+
+  return key;
+};
 
 // Get all Voucher
 router.get("", authenticate, (req, res) => {
@@ -18,18 +31,6 @@ router.get("/:key", authenticate, (req, res) => {
   Voucher.find({
     key: req.params.key,
   })
-  .then((voucher) => {
-    res.send(voucher);
-  });
-});
-
-// Get voucher by percent
-router.get("/:key", authenticate, (req, res) => {
-  Voucher.find({
-    percent: req.params.key,
-    active: true
-  })
-  .limit(1)
   .then((voucher) => {
     res.send(voucher);
   });
@@ -80,18 +81,5 @@ router.delete("/:id", authenticate, (req, res) => {
     res.send(removedDoc);
   });
 });
-
-const generateUniqueKey = () => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let key = 'PCB';
-  const keyLength = 7;
-
-  for (let i = 0; i < keyLength; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      key += characters.charAt(randomIndex);
-  }
-
-  return key;
-};
 
 module.exports = router;

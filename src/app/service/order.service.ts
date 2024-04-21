@@ -10,10 +10,16 @@ export class OrderService {
   constructor(private webReqService: WebRequestService) { }
 
   private cartChangeSubject = new Subject<any>();
+  private cartCheckoutSubject = new Subject<any>();
   cartChange$ = this.cartChangeSubject.asObservable();
-
+  cartCheckout$ = this.cartCheckoutSubject.asObservable();
+  
   emitCartChange(value: any) {
     this.cartChangeSubject.next(value);
+  }
+  
+  emitCartCheckout(value: any) {
+    this.cartCheckoutSubject.next(value);
   }
 
   // Cart item route
@@ -35,13 +41,6 @@ export class OrderService {
 
   deleteCartItem(_cartItemId: string) {
     return this.webReqService.delete(`cartItem/${_cartItemId}`);
-  }
-
-  private cartCheckoutSubject = new Subject<any>();
-  cartCheckout$ = this.cartCheckoutSubject.asObservable();
-
-  emitCartCheckout(value: any) {
-    this.cartCheckoutSubject.next(value);
   }
 
   // Order route
@@ -82,10 +81,6 @@ export class OrderService {
     return this.webReqService.delete(`voucher/${id}`);
   }
   
-  claimVoucher(key: string) {
-    return this.webReqService.patch(`voucher/claim`, {key});
-  }
-
   // Product Review Routes
   getReview() {
     return this.webReqService.get(`review`);

@@ -41,18 +41,6 @@ router.post("", authenticate, (req, res) => {
   });
 });
 
-// Update session
-router.patch("/:id", authenticate, (req, res) => {
-  Session.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      $set: req.body,
-    }
-  ).then(() => {
-    res.send({ message: "Session updated successfully" });
-  });
-});
-
 // Delete session
 router.delete("/:id", authenticate, (req, res) => {
   Session.findOneAndDelete({

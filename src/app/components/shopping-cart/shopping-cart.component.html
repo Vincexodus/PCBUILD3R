@@ -20,16 +20,16 @@
             <h4>Action</h4>
           </div>
         </div>
-        <ng-container *ngFor="let product of cartProducts; let i = index">
+        <ng-container *ngFor="let cartItem of cartItems; let i = index">
           <app-shopping-cart-item 
-            [userId] = "this.userId"
-            [cartItemId] = "cartItems[i]._id"
+            [userId] = "cartItem._userId"
+            [cartItemId] = "cartItem._id"
             [productId] = "cartProducts[i]._id"
             [imageUrl] = "cartProducts[i].productImage"
             [productName] = "cartProducts[i].productName"
             [productDesc] = "cartProducts[i].desc"
             [price] = "cartProducts[i].price.$numberDecimal"
-            [quantity] = "cartItems[i].quantity"
+            [quantity] = "cartItem.quantity"
           ></app-shopping-cart-item>
         </ng-container>
       </div>

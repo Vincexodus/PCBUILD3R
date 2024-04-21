@@ -15,7 +15,29 @@ router.get("", authenticate, (req, res) => {
   })
 });
 
-// Update user by id
+// Get user by id
+router.get("/:id", (req, res) => {
+  User.find({
+    _id: req.params.id
+  }).then((user) => {
+    res.send(user);
+  }).catch((e) => {
+    res.send(e);
+  })
+});
+
+// Get user access-token with refresh-token
+router.get("/me/access-token", verifySession, (req, res) => {
+  // we know that the user/caller is authenticated and we have the user_id and user object available to us
+  req.userObject.generateAccessAuthToken().then((accessToken) => {
+      res.header("x-access-token", accessToken).send({ accessToken });
+    })
+    .catch((e) => {
+      res.status(400).send(e);
+    });
+});
+
+// Update user password by id
 router.post("/updatePassword/:id", authenticate, async (req, res) => {
   let passwordBody = req.body;
   User.verifyCredentials(req.params.id, passwordBody.currPassword)
@@ -27,17 +49,6 @@ router.post("/updatePassword/:id", authenticate, async (req, res) => {
   .catch((e) => {
     res.status(400).send(e);
   });
-});
-
-// Get user by id
-router.get("/:id", authenticate, (req, res) => {
-  User.find({
-    _id: req.params.id
-  }).then((user) => {
-    res.send(user);
-  }).catch((e) => {
-    res.send(e);
-  })
 });
 
 // User sign up
@@ -117,17 +128,6 @@ router.delete("/:id", authenticate, (req, res) => {
   }).then((removedDoc) => {
     res.send(removedDoc);
   });
-});
-
-// Get user access-token with refresh-token
-router.get("/me/access-token", verifySession, (req, res) => {
-  // we know that the user/caller is authenticated and we have the user_id and user object available to us
-  req.userObject.generateAccessAuthToken().then((accessToken) => {
-      res.header("x-access-token", accessToken).send({ accessToken });
-    })
-    .catch((e) => {
-      res.status(400).send(e);
-    });
 });
 
 module.exports = router;

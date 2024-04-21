@@ -4,16 +4,6 @@ const authenticate = require('../middleware/authenticate');
 
 const CartItem = require('../models/cart_item.model');
 
-// Get all cart item
-router.get("", authenticate, (req, res) => {
-  CartItem.find({
-  }).then((cart) => {
-    res.send(cart);
-  }).catch((e) => {
-    res.send(e);
-  })
-});
-
 // Get user's unpaid cart item 
 router.get("/user/:id", authenticate, (req, res) => {
   CartItem.find({
@@ -26,8 +16,8 @@ router.get("/user/:id", authenticate, (req, res) => {
   })
 });
 
-// Get user's unpaid cart item 
-router.get("/:id", authenticate, (req, res) => {
+// calculate product review
+router.get("/:id", (req, res) => {
   CartItem.find({
     _id: req.params.id,
   }).then((cart) => {

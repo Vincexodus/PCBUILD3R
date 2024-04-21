@@ -71,25 +71,25 @@ export class OrderHistoryComponent {
     this.orderService.cartCheckout$.subscribe(() => {
       this.ngOnInit();
     });
-    this.getCurrUserId();
-    this.getVouchers();
-    this.getProducts();
-    this.getReviews();
-  }
-
-  getCurrUserId() {
     const storedUserId = this.authService.getUserId();
     if (storedUserId) {
-      this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
-        this.userId = user[0]._id;
-        this.userEmail = user[0].email;
-        if (this.userId.length !== 0) {
-          this.getOrders(this.userId);
-        } else {
-          this.router.navigate(['/login']);
-        }
-      });
+      this.getCurrUserId(storedUserId);
+      this.getVouchers();
+      this.getProducts();
+      this.getReviews();
     }
+  }
+
+  getCurrUserId(userId: string) {
+    this.userService.getUserById(userId).subscribe((user: User[]) => {
+      this.userId = user[0]._id;
+      this.userEmail = user[0].email;
+      if (this.userId.length !== 0) {
+        this.getOrders(this.userId);
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   formatDate(input: Date): string {
@@ -228,7 +228,6 @@ export class OrderHistoryComponent {
         forkJoin(cartItemObservables).subscribe((cartItems: CartItem[][]) => {
           // Assign the fetched cart items to the current order object
           order.cartItems = cartItems.flat(); // Flatten the array of arrays
-          // console.log(order.cartItems);
         }, (error) => {
           console.log(error);
         });

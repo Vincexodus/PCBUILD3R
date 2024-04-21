@@ -23,15 +23,14 @@ export class ShoppingCartItemComponent implements OnInit {
   subtotal: number = 0;
   deleteModalStates: { [cartItemId: string]: boolean } = {};
 
-  
   constructor(private orderService: OrderService, private toast: NgToastService) { }
   
   ngOnInit(): void {
     this.subtotal = parseFloat((this.price * this.quantity).toFixed(2));
   }
 
-  openDeleteModal(categoryId: string) {
-    this.deleteModalStates[categoryId] = true;
+  openDeleteModal(cartItemId: string) {
+    this.deleteModalStates[cartItemId] = true;
   }
 
   closeDeleteModal(categoryId: string) {
@@ -55,6 +54,7 @@ export class ShoppingCartItemComponent implements OnInit {
   deleteCartItem(cartItemId: string) {
     this.orderService.deleteCartItem(cartItemId).subscribe(() => {
       this.toast.success({detail:"SUCCESS",summary:'Cart Item Deleted!', duration:2000, position:'topCenter'});
+      this.closeDeleteModal(cartItemId);
       this.orderService.emitCartChange(true);
     }, (error) => {
       console.log(error);

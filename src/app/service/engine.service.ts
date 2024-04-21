@@ -35,85 +35,80 @@ export class EngineService implements OnDestroy {
   private raycaster: any
   private draggableModel: any;
 
+  private snapPos: any;
+  private initialPos: any;
+
   modelAssets = [
     // budget PC
     {
       case: {
         path: 'nzxt',
         position: { x: 0, y: -1, z: 0 },
-        snapPosition: { x: 0, y: 0 },
         scale: { x: 1, y: 1, z: 1 },
         rotation: { x: this.degToRad(270), y: 0, z: this.degToRad(270) },
+      },
+      motherboard: {
+        path: 'asus_prime_h510m',
+        position: { x: -8, y: 1, z: -0.3 },
+        snapPosition: { x: -0.8, y: 0.75 },
+        scale: { x: 0.6, y: 0.6, z: 0.6 },
+        rotation: { x: 0, y: 0, z: 0 },
       },
       caseFan: {
         path: 'white',
         position: { x: -4, y: 2, z: 1 },
-        snapPosition: { x: 0, y: 0 },
+        snapPosition: { x: -1.86, y: 1.34 },
         scale: { x: 0.3, y: 0.3, z: 0.3 },
         rotation: { x: 0, y: 0, z: this.degToRad(90) },
       },
       cpu: {
         path: 'intel-i5',
-        position: { x: 5, y: -2, z: 0 },
-        snapPosition: { x: 0, y: 0 },
+        position: { x: 5, y: -2, z: -0.3 },
+        snapPosition: { x: -0.54, y: 1.1 },
         scale: { x: 0.0027, y: 0.0027, z: 0.0027 },
         rotation: { x: 0, y: 0, z: this.degToRad(180) },
       },
-      cpuFan: {
-        path: 'noname',
-        position: { x: 5, y: 2, z: 1.6 },
-        snapPosition: { x: 0, y: 0 },
-        scale: { x: 0.2, y: 0.2, z: 0.2 },
-        rotation: { x: 0, y: 0, z: 0 },
-      },
-      motherboard: {
-        path: 'asus_prime_h510m',
-        position: { x: -8, y: 1, z: 0 },
-        snapPosition: { x: 0, y: 0 },
-        scale: { x: 0.6, y: 0.6, z: 0.6 },
-        rotation: { x: 0, y: 0, z: 0 },
-      },
-      gpu: {
-        path: '',
-        position: { x: -5, y: -2, z: 0 },
-        snapPosition: { x: 0, y: 0 },
-        scale: { x: 0.6, y: 0.6, z: 0.6 },
-        rotation: { x: 0, y: 0, z: 0 },
-      },
-      psu: {
-        path: 'low-poly',
-        position: { x: -5, y: -2, z: 1.25 },
-        snapPosition: { x: 0, y: 0 },
-        scale: { x: 0.5, y: 0.5, z: 0.5 },
-        rotation: { x: this.degToRad(90), y: 0, z: this.degToRad(270) },
-      },
-      memory: {
-        path: 'kingston_hyperx_fury',
-        position: { x: 4, y: 0, z: 0 },
-        snapPosition: { x: 0, y: 0 },
-        scale: { x: 0.5, y: 0.5, z: 0.5 },
-        rotation: { x: 0, y: 0, z: 0 },
-      },
       memory1: {
         path: 'kingston_hyperx_fury',
-        position: { x: 4, y: 0, z: 0.25 },
-        snapPosition: { x: 0, y: 0 },
+        position: { x: 4.5, y: 0, z: 0 },
+        snapPosition: { x: 0.09, y: 1.12 },
         scale: { x: 0.45, y: 0.45, z: 0.45 },
         rotation: { x: 0, y: 0, z: 0 },
       },
       memory2: {
         path: 'kingston_hyperx_fury',
-        position: { x: 4.5, y: 0, z: 0.25 },
-        snapPosition: { x: 0, y: 0 },
+        position: { x: 4.5, y: 0, z: 0 },
+        snapPosition: { x: 0.214, y: 1.12 },
         scale: { x: 0.45, y: 0.45, z: 0.45 },
         rotation: { x: 0, y: 0, z: 0 },
       },
       storage: {
         path: 'ssd_samsung_980_pro_1tb',
-        position: { x: 7, y: -2, z: 0.1 },
-        snapPosition: { x: 0, y: 0 },
+        position: { x: 7, y: -2, z: -0.25 },
+        snapPosition: { x: -1.062, y: 0.343 },
         scale: { x: 0.25, y: 0.25, z: 0.25 },
         rotation: { x: 0, y: 0, z: 0 },
+      },
+      cpuFan: {
+        path: 'noname',
+        position: { x: 5, y: 2, z: 1.35 },
+        snapPosition: { x: 0.2, y: 1 },
+        scale: { x: 0.2, y: 0.2, z: 0.2 },
+        rotation: { x: 0, y: 0, z: 0 },
+      },
+      gpu: {
+        path: '',
+        position: { x: 0, y: 0, z: 0 },
+        snapPosition: { x: 0, y: 0 },
+        scale: { x: 0, y: 0, z: 0 },
+        rotation: { x: 0, y: 0, z: 0 },
+      },
+      psu: {
+        path: 'low-poly',
+        position: { x: -5, y: -2, z: 1.25 },
+        snapPosition: { x: -1.59, y: -1.88 },
+        scale: { x: 0.5, y: 0.5, z: 0.5 },
+        rotation: { x: this.degToRad(90), y: 0, z: this.degToRad(270) },
       },
     },
     // workstation PC
@@ -121,72 +116,71 @@ export class EngineService implements OnDestroy {
       case: {
         path: 'fractal',
         position: { x: 0, y: 0, z: -7 },
-        snapPosition: { x: 0, y: 0 },
         scale: { x: 0.1, y: 0.1, z: 0.1 },
         rotation: { x: this.degToRad(270), y: 0, z: 0 },
       },
+      motherboard: {
+        path: 'ardor_gaming_b550m',
+        position: { x: -12, y: 1, z: -9 },
+        snapPosition: { x: -1.672, y: 1.973 },
+        scale: { x: 0.8, y: 0.8, z: 0.8 },
+        rotation: { x: 0, y: 0, z: 0},
+      },
       caseFan: {
         path: 'corsair',
-        position: { x: -9, y: 4, z: -6.7 },
-        snapPosition: { x: 0, y: 0 },
+        position: { x: -9, y: 4, z: -6.5 },
+        snapPosition: { x: -4.75, y: 1.2 },
         scale: { x: 15, y: 15, z: 15 },
         rotation: { x: 0, y: 0, z: this.degToRad(90) },
       },
       cpu: {
         path: 'ryzen7',
         position: { x: 12, y: 1, z: -8.8 },
-        snapPosition: { x: 0, y: 0 },
+        snapPosition: { x: -1.576, y: 2.59 },
         scale: { x: 0.1, y: 0.1, z: 0.1 },
         rotation: { x: 0, y: 0, z: this.degToRad(180) },
-      },
-      cpuFan: {
-        path: 'cooler_master',
-        position: { x: 9, y: 6, z: -4.5 },
-        snapPosition: { x: 0, y: 0},
-        scale: { x: 1, y: 1, z: 1 },
-        rotation: { x: 0, y: 0, z: this.degToRad(90) },
-      },
-      motherboard: {
-        path: 'ardor_gaming_b550m',
-        position: { x: -12, y: 1, z: -9 },
-        snapPosition: { x: 0, y: 0 },
-        scale: { x: 0.8, y: 0.8, z: 0.8 },
-        rotation: { x: 0, y: 0, z: 0},
-      },
-      gpu: {
-        path: 'rtx_3060_ti_eagle',
-        position: { x: 8, y: -4, z: -8.25 },
-        snapPosition: { x: 0, y: 0 },
-        scale: { x: 1.25, y: 1.25, z: 1.25 },
-        rotation: { x: 0, y: 0, z: this.degToRad(270) },
-      },
-      psu: {
-        path: 'psu',
-        position: { x: -10, y: -6, z: -8 },
-        snapPosition: { x: 0, y: 0},
-        scale: { x: 0.04, y: 0.04, z: 0.04 },
-        rotation: { x: this.degToRad(270), y: 0, z: this.degToRad(90) },
       },
       memory1: {
         path: 'corsair_dominator_rgb',
         position: { x: 7, y: 1, z: -7.75 },
-        snapPosition: { x: 0, y: 0 },
+        snapPosition: { x: 0.193, y: 2.773 },
         scale: { x: 0.75, y: 0.75, z: 0.75 },
         rotation: { x: 0, y: 0, z: 0 },
       },
       memory2: {
         path: 'corsair_dominator_rgb',
         position: { x: 8, y: 1, z: -7.75 },
-        snapPosition: { x: 0, y: 0 },
+        snapPosition: { x: 0.506, y: 2.773 },
         scale: { x: 0.75, y: 0.75, z: 0.75 },
         rotation: { x: 0, y: 0, z: 0 },
       },
       storage: {
         path: 'ssd_samsung_980_pro_1tb',
         position: { x: 12, y: -3, z: -9 },
-        snapPosition: { x: 0, y: 0 },
+        snapPosition: { x: -2.025, y: 0.191 },
         scale: { x: 0.5, y: 0.5, z: 0.5 },
         rotation: { x: 0, y: 0, z: 0 },
+      },
+      cpuFan: {
+        path: 'cooler_master',
+        position: { x: 9, y: 6, z: -4.8 },
+        snapPosition: { x: -0.864, y: 3.116 },
+        scale: { x: 1, y: 1, z: 1 },
+        rotation: { x: 0, y: 0, z: this.degToRad(270) },
+      },
+      gpu: {
+        path: 'rtx_3060_ti_eagle',
+        position: { x: 8, y: -4, z: -8.8 },
+        snapPosition: { x: -2.764, y: 0 },
+        scale: { x: 1.25, y: 1.25, z: 1.25 },
+        rotation: { x: 0, y: 0, z: this.degToRad(270) },
+      },
+      psu: {
+        path: 'psu',
+        position: { x: -10, y: -6, z: -7 },
+        snapPosition: { x: -2.9, y: -4 },
+        scale: { x: 0.035, y: 0.035, z: 0.035 },
+        rotation: { x: this.degToRad(270), y: 0, z: this.degToRad(90) },
       },
     },
     // gaming PC
@@ -197,59 +191,68 @@ export class EngineService implements OnDestroy {
         scale: { x: 1.2, y: 1.2, z: 1.2 },
         rotation: { x: this.degToRad(270), y: 0, z: this.degToRad(90) },
       },
+      motherboard: {
+        path: 'asus-rog',
+          position: { x: -9, y: 2, z: -3 },
+          snapPosition: { x: -1.3, y: 0.522 },
+          scale: { x: 0.9, y: 0.9, z: 0.9 },
+          rotation: { x: this.degToRad(90), y: 0, z: 0 },
+      },
       caseFan: {
         path: 'spectrum_argb',
-        position: { x: -5, y: 4, z: -2 },
-        scale: { x: 1, y: 1, z: 1 },
+        position: { x: -5, y: 4, z: -1.75 },
+        snapPosition: { x: -2.34, y: 2.733 },
+        scale: { x: 0.8, y: 0.8, z: 0.8 },
         rotation: { x: 0, y: 0, z: 0 },
       },
       cpu: {
         path: 'ryzen9',
         position: { x: 7, y: 1, z: -3 },
+        snapPosition: { x: -0.28, y: 2.48 },
         scale: { x: 0.1, y: 0.1, z: 0.1 },
         rotation: { x: 0, y: 0, z: 0 },
-      },
-      cpuFan: {
-        path: 'hyper_212_spectrum',
-        position: { x: 5, y: 4, z: -2 },
-        scale: { x: 1, y: 1, z: 1 },
-        rotation: { x: 0, y: 0, z: 0 },
-      },
-      motherboard: {
-      path: 'asus-rog',
-        position: { x: -9, y: 2, z: -3 },
-        scale: { x: 0.8, y: 0.8, z: 0.8 },
-        rotation: { x: this.degToRad(90), y: 0, z: 0 },
-      },
-      gpu: {
-        path: 'rtx_3080',
-        position: { x: -7, y: 0, z: -2 },
-        scale: { x: 1.2, y: 1.2, z: 1.2 },
-        rotation: { x: this.degToRad(180), y: 0, z: this.degToRad(270) },
-      },
-      psu: {
-        path: 'psu',
-        position: { x: -4, y: -2, z: -2 },
-        scale: { x: 0.02, y: 0.02, z: 0.02 },
-        rotation: { x: this.degToRad(270), y: 0, z: this.degToRad(90) },
       },
       memory1: {
         path: 'g_skill_trident_z_neo',
         position: { x: 5, y: 1, z: -2.8 },
-        scale: { x: 0.3, y: 0.3, z: 0.3 },
+        snapPosition: { x: 0.546, y: 2.5 },
+        scale: { x: 0.4, y: 0.4, z: 0.4 },
         rotation: { x: this.degToRad(270), y: this.degToRad(90), z: this.degToRad(180) },
       },
       memory2: {
         path: 'g_skill_trident_z_neo',
         position: { x: 5.5, y: 1, z: -2.8 },
-        scale: { x: 0.3, y: 0.3, z: 0.3 },
+        snapPosition: { x: 0.746, y: 2.5 },
+        scale: { x: 0.4, y: 0.4, z: 0.4 },
         rotation: { x: this.degToRad(270), y: this.degToRad(90), z: this.degToRad(180) },
       },
       storage: {
         path: 'ssd_samsung_980_pro_1tb',
         position: { x: 7, y: -2, z: -2.9 },
-        scale: { x: 0.2, y: 0.2, z: 0.2},
+        snapPosition: { x: -0.811, y: 1 },
+        scale: { x: 0.25, y: 0.25, z: 0.25 },
         rotation: { x: 0, y: 0, z: 0 },
+      },
+      cpuFan: {
+        path: 'hyper_212_spectrum',
+        position: { x: 5, y: 4, z: -2 },
+        snapPosition: { x: -0.054, y: 2.45 },
+        scale: { x: 0.8, y: 0.8, z: 0.8 },
+        rotation: { x: 0, y: 0, z: 0 },
+      },
+      gpu: {
+        path: 'rtx_3080',
+        position: { x: -7, y: 0, z: -2.2 },
+        snapPosition: { x: -0.45, y: 1.4 },
+        scale: { x: 1.5, y: 1.5, z: 1.5 },
+        rotation: { x: this.degToRad(180), y: 0, z: this.degToRad(270) },
+      },
+      psu: {
+        path: 'psu',
+        position: { x: -4, y: -2, z: -2 },
+        snapPosition: { x: -1.15, y: -1.136 },
+        scale: { x: 0.02, y: 0.02, z: 0.02 },
+        rotation: { x: this.degToRad(270), y: 0, z: this.degToRad(90) },
       },
     },
   ];
@@ -262,8 +265,7 @@ export class EngineService implements OnDestroy {
   emitSnapSuccess(value: any) {
     this.SnapSuccessSubject.next(value);
   }
-  
-  
+
   public ngOnDestroy(): void {
     if (this.frameId != 0) {
       cancelAnimationFrame(this.frameId);
@@ -278,7 +280,6 @@ export class EngineService implements OnDestroy {
   }
 
   public loadNextModel(level: number, step: number) {
-    console.log('Step: ', step);
     const pathItem = this.modelAssets[level - 1];
     if (pathItem) {
       switch (step) {
@@ -290,6 +291,9 @@ export class EngineService implements OnDestroy {
             pathItem.motherboard.scale,
             pathItem.motherboard.rotation
           );
+
+          this.initialPos = pathItem.motherboard.position;
+          this.snapPos = pathItem.motherboard.snapPosition;
           break;
         case 5:
           this.loadGLTFModel(
@@ -299,6 +303,9 @@ export class EngineService implements OnDestroy {
             pathItem.caseFan.scale,
             pathItem.caseFan.rotation
           );
+          
+          this.initialPos = pathItem.caseFan.position;
+          this.snapPos = pathItem.caseFan.snapPosition;
           break;
         case 6:
           this.loadGLTFModel(
@@ -308,6 +315,9 @@ export class EngineService implements OnDestroy {
             pathItem.cpu.scale,
             pathItem.cpu.rotation
           );
+          
+          this.initialPos = pathItem.cpu.position;
+          this.snapPos = pathItem.cpu.snapPosition;
           break;
         case 7:
           this.loadGLTFModel(
@@ -317,6 +327,9 @@ export class EngineService implements OnDestroy {
             pathItem.memory1.scale,
             pathItem.memory1.rotation
           );
+          
+          this.initialPos = pathItem.memory1.position;
+          this.snapPos = pathItem.memory1.snapPosition;
           break;
         case 8:
           this.loadGLTFModel(
@@ -326,6 +339,9 @@ export class EngineService implements OnDestroy {
             pathItem.memory2.scale,
             pathItem.memory2.rotation
           );
+          
+          this.initialPos = pathItem.memory2.position;
+          this.snapPos = pathItem.memory2.snapPosition;
           break;
         case 9:
           this.loadGLTFModel(
@@ -335,6 +351,9 @@ export class EngineService implements OnDestroy {
             pathItem.storage.scale,
             pathItem.storage.rotation
           );
+          
+          this.initialPos = pathItem.storage.position;
+          this.snapPos = pathItem.storage.snapPosition;
           break;
         case 10:
           this.loadGLTFModel(
@@ -344,15 +363,23 @@ export class EngineService implements OnDestroy {
             pathItem.cpuFan.scale,
             pathItem.cpuFan.rotation
           );
+          
+          this.initialPos = pathItem.cpuFan.position;
+          this.snapPos = pathItem.cpuFan.snapPosition;
           break;
         case 11:
-          this.loadGLTFModel(
-            this.gpuModel,
-            'gpu/' + pathItem.gpu.path,
-            pathItem.gpu.position,
-            pathItem.gpu.scale,
-            pathItem.gpu.rotation
-          );
+          if (level !== 1) {
+            this.loadGLTFModel(
+              this.gpuModel,
+              'gpu/' + pathItem.gpu.path,
+              pathItem.gpu.position,
+              pathItem.gpu.scale,
+              pathItem.gpu.rotation
+            );
+            
+            this.initialPos = pathItem.gpu.position;
+            this.snapPos = pathItem.gpu.snapPosition;
+          }
           break;
         case 12:
           this.loadGLTFModel(
@@ -362,6 +389,9 @@ export class EngineService implements OnDestroy {
             pathItem.psu.scale,
             pathItem.psu.rotation
           );
+          
+          this.initialPos = pathItem.psu.position;
+          this.snapPos = pathItem.psu.snapPosition;
           break;
         default:
           break;
@@ -384,7 +414,7 @@ export class EngineService implements OnDestroy {
           assignedModel.position.set(modelPosition.x, modelPosition.y, modelPosition.z);
           assignedModel.scale.set(modelScale.x, modelScale.y, modelScale.z);
           assignedModel.rotation.set(modelRotation.x, modelRotation.y, modelRotation.z);
-  
+          
           // case remain static
           if (!modelPath.startsWith('case/')) assignedModel.isDraggable = true;
   
@@ -456,7 +486,7 @@ export class EngineService implements OnDestroy {
     this.directionalLight.castShadow = true;
     this.scene.add(this.directionalLight);
 
-    this.render(true);
+    this.render();
   }
 
   // simulation
@@ -517,19 +547,15 @@ export class EngineService implements OnDestroy {
     window.addEventListener('click', (event) => this.onMouseClick(event));
     window.addEventListener('mousemove', (event) => this.onMouseMove(event));
 
-    this.render(false);
+    this.render();
   }
 
-  private render(animate: boolean): void {
-
+  private render(): void {
     this.frameId = requestAnimationFrame(() => {
-      this.render(animate);
+      this.render();
       
+      if (this.isInspectMode) this.controls.update();
       if (this.introModel) this.introModel.rotation.z += 0.001;
-      // if (this.introModel && animate) {
-      // } else if (this.introModel && !animate) {
-      //   this.introModel.rotation.z = 0;
-      // }
     });
 
     this.renderer.render(this.scene, this.camera);
@@ -540,6 +566,16 @@ export class EngineService implements OnDestroy {
     this.controls = new OrbitControls(this.camera, this.canvas);
     this.controls.enableDamping = true;
     this.controls.update();
+  }
+
+  private snapThreshold(currentXPos: number, currentYPos: number, snapPos: any): boolean {
+    const bufferX = 0.25;
+    const minX = snapPos.x - bufferX;
+    const maxX = snapPos.x + bufferX;
+    const maxY = snapPos.y + bufferX;
+    const minY = snapPos.y - bufferX;
+    // Check if the current position is within vertical & horizontal range
+    return currentXPos >= minX && currentXPos <= maxX && currentYPos >= minY && currentYPos <= maxY;
   }
 
   private dragModel(): void {
@@ -554,16 +590,18 @@ export class EngineService implements OnDestroy {
             this.draggableModel.position.y = obj3d.point.y;
 
             // snapping logic
-            if (true) {
-              // snap success
-              // this.emitSnapSuccess(true);
-            } else {
-              // snap failed
-              this.toast.error({detail:"FAILED",summary:'Hardware placed incorrectly. Please try again!', duration:2000, position:'topCenter'});
+            if (this.snapThreshold(this.draggableModel.position.x, this.draggableModel.position.y, this.snapPos)) {
+              // snap success, set model pos to snap pos
+              this.draggableModel.position.x = this.snapPos.x;
+              this.draggableModel.position.y = this.snapPos.y;
+              
+              // disable drag once snapped
+              this.draggableModel.isDraggable = false;
+
+              this.emitSnapSuccess(true); // emit to canvas to proceed to next step
+              // drop the model
+              this.draggableModel = undefined;
             }
-
-            console.log('Dragging:', this.draggableModel.uuid, this.draggableModel.position.x, this.draggableModel.position.y);
-
             break;
           }
         }
@@ -571,15 +609,17 @@ export class EngineService implements OnDestroy {
     }
   }
 
-  private snapThreshold(currentPos: any, ): boolean {
-
-    return false;
-  }
-
   private onMouseClick(event: MouseEvent): void {
     if (!this.isInspectMode) {
       // If 'holding' model on-click, set container to <undefined> to 'drop' the model.
       if (this.draggableModel) {
+        // model not snapped, reset model back to initial pos
+        this.toast.error({detail:"FAILED",summary:'Hardware placed incorrectly. Please try again!', duration:2000, position:'topCenter'});
+
+        this.draggableModel.position.x = this.initialPos.x;
+        this.draggableModel.position.y = this.initialPos.y;
+
+        // drop model from mouse
         this.draggableModel = undefined;
         return;
       }

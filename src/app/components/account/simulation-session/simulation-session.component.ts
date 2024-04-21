@@ -1,12 +1,12 @@
 import { CommonModule} from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { NgToastService } from 'ng-angular-popup';
 import { UtilService } from '../../../service/util.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Session } from '../../../interface/session.model';
 import { SessionService } from '../../../service/session.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-simulation-session',
@@ -18,12 +18,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 export class SimulationSessionComponent {
   @Input() show: boolean = false;
-  sessions!: Session[];
+  sessions: Session[] = []
   viewModalStates: { [sessionId: string]: boolean } = {};
   viewForm: FormGroup;
   page: number = 1;
 
   constructor(
+    private authService: AuthService,
     private sessionService: SessionService,
     private util: UtilService,
     private formBuilder: FormBuilder) {
@@ -39,17 +40,8 @@ export class SimulationSessionComponent {
     }
   
   ngOnInit() {
-    this.getSession();
-  }
-
-  sessionSearch(keyword: string): void {
-    if (keyword.length != 0) {
-      this.sessions = this.sessions.filter(s =>
-        s._userId.includes(keyword.toLowerCase())
-      );
-    } else {
-      this.getSession();
-    }
+    const storedUserId = this.authService.getUserId();
+    if (storedUserId) this.getSession(storedUserId);
   }
 
   formatDate(input: Date): string {
@@ -78,8 +70,8 @@ export class SimulationSessionComponent {
     this.viewModalStates[sessionId] = false;
   }
 
-  getSession() {
-    this.sessionService.getSession().subscribe((session: Session[]) => {
+  getSession(userId: string) {
+    this.sessionService.getSessionByUserId(userId).subscribe((session: Session[]) => {
       this.sessions = session.sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);

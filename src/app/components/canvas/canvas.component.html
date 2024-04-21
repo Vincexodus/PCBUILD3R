@@ -8,11 +8,11 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Step {{ step }}: {{ assemblySteps[step].stepTitle }}</p>
+          <p class="modal-card-title">Step {{ step }}: {{ assemblySteps[step-1].stepTitle }}</p>
           <button class="delete" aria-label="close" (click)="closeStepModal()"></button>
         </header>
         <section class="modal-card-body">
-          <div class="" *ngIf="step === 0">
+          <div class="" *ngIf="step === 1">
             <table class="table">
               <thead>
                 <tr>
@@ -22,27 +22,35 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let desc of assemblySteps[step].desc; let i = index">
+                <tr *ngFor="let desc of assemblySteps[step-1].desc; let i = index">
                   <td>{{ partType[i] }}</td>
                   <td>{{ desc }}</td>
                   <td>MYR {{ partPrice[i] }}</td>
                 </tr>
               </tbody>
             </table>
-            <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step].note">Note: {{ assemblySteps[step].note }}</h4>
+            <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step-1].note">Note: {{ assemblySteps[step-1].note }}</h4>
           </div>
-          <div class="block has-text-justified px-2" *ngIf="step > 0">
-            <h4 class="is-size-6" *ngFor="let desc of assemblySteps[step].desc">{{ desc }}</h4>
-            <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step].note">Note: {{ assemblySteps[step].note }}</h4>
-            <h4 class="is-size-6 has-text-danger mt-2" *ngIf="assemblySteps[step].caution">Caution: {{ assemblySteps[step].caution }}</h4>
+          <div class="block has-text-justified px-2" *ngIf="step > 1">
+            <h4 class="is-size-6" *ngFor="let desc of assemblySteps[step-1].desc">{{ desc }}</h4>
+            <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step-1].note">Note: {{ assemblySteps[step-1].note }}</h4>
+            <h4 class="is-size-6 has-text-danger mt-2" *ngIf="assemblySteps[step-1].caution">Caution: {{ assemblySteps[step-1].caution }}</h4>
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-rounded is-success" *ngIf="step+1 < assemblySteps.length" (click)="openNextStepModal()">Proceed</button>
-          <button class="button is-rounded is-success" *ngIf="step+1 === assemblySteps.length" (click)="openPostSessionModal()">Complete</button>
+          <button class="button is-rounded is-success" *ngIf="assemblySteps[step-1].wait" (click)="closeStepModal()">Noted</button>
+          <button class="button is-rounded is-success" *ngIf="!assemblySteps[step-1].wait && step !== assemblySteps.length" (click)="openNextStepModal()">Proceed</button>
+          <button class="button is-rounded is-success" *ngIf="step === assemblySteps.length" (click)="openPostSessionModal()">Complete</button>
+          <button class="button is-rounded is-warning" *ngIf="step === assemblySteps.length" (click)="inspectModel()">Inspect
+            <i class="fa-solid fa-eye pl-2" style="color: #000000;"></i>
+          </button>
         </footer>
       </div>
     </div>
+    <button class="button is-success is-rounded mr-2" *ngIf="step === assemblySteps.length" (click)="openPostSessionModal()">
+      Claim Reward
+      <i class="fa-solid fa-gift pl-2" style="color: #ffffff;"></i>
+    </button>
     <div class="">
       <button class="button is-black is-rounded mr-2" (click)="openHelpModal()">
         About
@@ -79,13 +87,6 @@
           </footer>
         </div>
       </div>
-      <button class="button is-black is-rounded" *ngIf="step < assemblySteps.length" (click)="onAssemblyStepComplete()">
-        Complete Step
-      </button>
-      <button class="button is-black is-rounded" (click)="inspectModel()">
-        Inspect
-        <i class="fa-solid fa-eye pl-2" style="color: #ffffff;"></i>
-      </button>
       <button class="button is-black is-rounded" (click)="terminateSession('/home')">
         Exit Session
         <i class="fa-solid fa-ban pl-2" style="color: #ffffff;"></i>

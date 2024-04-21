@@ -17,7 +17,7 @@ router.get("", authenticate, (req, res) => {
   })
 });
 
-// Get all order details
+// Get orders by user id
 router.get("/:id", authenticate, (req, res) => {
   Order.find({
     _userId: req.params.id

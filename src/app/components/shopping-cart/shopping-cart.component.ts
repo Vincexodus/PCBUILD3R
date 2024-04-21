@@ -46,9 +46,9 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrUserId();
-    // this.orderService.cartChange$.subscribe(() => {
-    //   this.getCurrUserId();
-    // });
+    this.orderService.cartChange$.subscribe(() => {
+      this.getCurrUserId();
+    });
   }
 
   openCheckoutModal(): void {
@@ -62,14 +62,12 @@ export class ShoppingCartComponent implements OnInit {
   getCurrUserId() {
     const storedUserId = this.authService.getUserId();
     if (storedUserId) {
-      this.userService.getUserById(storedUserId).subscribe((user: User[]) => {
-        this.userId = user[0]._id;
-        if (this.userId.length !== 0) {
-          this.getCartItem();
-        } else {
-          this.router.navigate(['/login']);
-        }
-      });
+      this.userId = storedUserId;
+      if (this.userId.length > 0) {
+        this.getCartItem();
+      } else {
+        this.router.navigate(['/login']);
+      }
     } else {
       this.router.navigate(['/login']);
     }
@@ -77,8 +75,10 @@ export class ShoppingCartComponent implements OnInit {
 
   getCartSummary(products: Product[]) {
     this.subtotal = 0;
-    for (let i = 0; i < products.length; i++) {
-      this.subtotal += this.cartProducts[i].price.$numberDecimal * this.cartItems[i].quantity;
+    if (this.cartItems.length > 0) {
+      for (let i = 0; i < products.length; i++) {
+        this.subtotal += this.cartProducts[i].price.$numberDecimal * this.cartItems[i].quantity;
+      }
     }
     this.subtotal = parseFloat((this.subtotal).toFixed(2));
 
@@ -90,23 +90,26 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getCartItem() {
-    if (this.userId.length !== 0) {
+    if (this.userId.length > 0) {
       this.orderService.getUnpaidCartItem(this.userId).subscribe((cartItems: CartItem[]) => {
         this.cartItems = cartItems;
-        const productObservables = this.cartItems.map(item =>
-          this.productService.getProductById(item._productId)
-        );
-  
-        forkJoin(productObservables).subscribe(
-          (products: Product[][]) => {
-            // Flatten the array of arrays into a single array of products
-            this.cartProducts = products.flat();
-            this.getCartSummary(this.cartProducts);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+        if (this.cartItems.length > 0) {
+          const productObservables = this.cartItems.map(item =>
+            this.productService.getProductById(item._productId)
+          );
+    
+          forkJoin(productObservables).subscribe(
+            (products: Product[][]) => {
+              // Flatten the array of arrays into a single array of products
+              this.cartProducts = products.flat();
+              this.getCartSummary(this.cartProducts);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
+        this.getCartSummary(this.cartProducts);
       }, (error) => {
         console.log(error);
       })
