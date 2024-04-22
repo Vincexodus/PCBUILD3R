@@ -1,52 +1,53 @@
 <div *ngIf="show" class="section-vspacing">
-  <div class="columns my-6">
-    <div class="column content is-two-thirds has-text-centered m-auto">
-      <h2 class="block">PCBUILD3R</h2>
-      <p class="block is-size-6">Elevating Hardware Proficiency through 3D Simulation and Comprehensive Guideline on Personal 
-        Computer Building.</p>
+  <div class="has-text-justified">
+    <div class="is-flex block">
+      <img src="../../../.././assets/images/icon.png" alt="" width="5%">
+      <div class="my-auto">
+        <h1 class="block my-auto">PCBUILD3R</h1>
+        <h3 class="block">Elevating Hardware Proficiency through 3D Simulation and Comprehensive Guideline on Personal Computer Building</h3>
+      </div>
     </div>
-  </div>
-  <div class="columns my-6">
-    <div class="column content is-two-thirds has-text-centered m-auto">
+    <div class="block">
       <h2 class="block">Introduction</h2>
-      <p class="block is-size-6">PCBUILD3R is a full stack website project built using the MEAN stack, Three.js, and relevant 3D rendering modules. 
-        <span class="has-text-weight-bold">Disclaimer: This is a demo project used for the purpose of Final Year Project (FYP).</span>
-      </p>
+      <h3>PCBUILD3R is a full stack website built using the MEAN stack together with Three.js. 
+        <span class="has-text-weight-bold">Disclaimer: This website is used for the purpose of Final Year Project (FYP).</span> Therefore, the content, including text,
+        images, and any other material, are obtained externally and used solely to showcase the functionality of the website. This website does not offer any payment gateway
+        services and does not involve any acutal real-world server hosting.
+      </h3>
     </div>
-  </div>
-  <div class="columns my-6">
-    <div class="column content is-two-thirds has-text-centered m-auto">
+    <div class="block">
       <h2 class="block">Objectives</h2>
-      <ul class="has-text-justified">
+      <div class="content">
         <li>To aid consumers in defining their preferences in PC building in terms of budget, purpose, performance, and design.</li>
         <li>To offer consumers personalized build recommendations, recommending them the hardware components based on their needs.</li>
         <li>To provide immersive and enjoyable learning experience by leveraging elements of gamification such as 3D simulation and reward system.</li>
         <li>To nurture a mutually beneficial situation where users get to acquire valuable skills while platform focuses on user engagement and revenue generation.</li>
-      </ul>
+      </div>
     </div>
-  </div>
-  <div class="columns my-6">
-    <div class="column content is-two-thirds has-text-centered m-auto">
-      <h2 class="">Features</h2>
-      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-        <div ngxSlickItem *ngFor="let features of featuresSlides" class="slide">
-          <img src="{{ features.directory }}" alt="" width="100%">
-          <div class="pt-3">
-            <p class="is-size-6 m-auto">{{ features.description }}</p>
+    <div class="block">
+      <h2 class="block">Features</h2>
+      <div class="pt-3 has-background-primary feature-width mx-auto">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+          <div ngxSlickItem *ngFor="let features of featuresSlides" class="slide">
+            <img src="../../../.././assets/readme images/{{ features.directory }}" alt="" width="100%" class="my-auto">
+            <div class="py-3 has-text-centered">
+              <p class="is-size-6 m-auto">{{ features.description }}</p>
+            </div>
           </div>
-        </div>
-      </ngx-slick-carousel>
+        </ngx-slick-carousel>
+      </div>
     </div>
-  </div>
-  <div class="columns my-6">
-    <div class="column content is-two-thirds has-text-centered m-auto">
+    <div class="block">
       <h2 class="block">References</h2>
-      <ul class="has-text-justified">
-        <li>To aid consumers in defining their preferences in PC building in terms of budget, purpose, performance, and design.</li>
-        <li>To offer consumers personalized build recommendations, recommending them the hardware components based on their needs.</li>
-        <li>To provide immersive and enjoyable learning experience by leveraging elements of gamification such as 3D simulation and reward system.</li>
-        <li>To nurture a mutually beneficial situation where users get to acquire valuable skills while platform focuses on user engagement and revenue generation.</li>
-      </ul>
+      <div class="content">
+        <li><a href="https://sketchfab.com" target="_blank">SketchFab</a></li>
+        <li><a href="https://www.youtube.com/watch?v=V-CeWkz1MNQ&list=PLIjdNHWULhPSZFDzQU6AnbVQNNo1NTRpd" target="_blank">
+          Build a Task Manager Application From Scratch</a>
+        </li>
+        <li><a href="https://dev.to/calebmcolin/how-to-interactively-drag-3d-models-in-threejs-5a7h#:~:text=A%29%20Moving%20individual%20objects%20%28Object3D%29%201%201%29%20Create,Create%20a%20function%20to%20drag%20the%20object%20" target="_blank">
+          How to click and drag 3D models in ThreeJS</a>
+        </li>
+      </div>
     </div>
   </div>
 </div>

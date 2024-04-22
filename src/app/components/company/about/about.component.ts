@@ -12,21 +12,23 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 export class AboutComponent {
   @Input() show: boolean = false;
 
-  featuresSlides = [ 
-    { directory: 'https://picsum.photos/536/354?342', description: 'Build recommendations' },
-    { directory: 'https://picsum.photos/536/354?342', description: '3D simulation' },
-    { directory: 'https://picsum.photos/536/354?342', description: 'Hardware browsing' },
-    { directory: 'https://picsum.photos/536/354?342', description: 'Rewards redemption' },
-    { directory: 'https://picsum.photos/536/354?342', description: 'Progress tracker' },
-    { directory: 'https://picsum.photos/536/354?342', description: 'Compatability Checking' },
-    { directory: 'https://picsum.photos/536/354?342', description: 'Step by Step Guide' },
-    { directory: 'https://picsum.photos/536/354?342', description: 'Interactive Troubleshooting' },
-    { directory: 'https://picsum.photos/536/354?342', description: 'User account management' },
+  featuresSlides = [
+    { directory: 'signup.png', description: 'Sign Up/Login' },
+    { directory: 'homepage.png', description: 'Homepage' },
+    { directory: 'slideshow.png', description: 'Product Slideshow' },
+    { directory: 'admin_dashboard.png', description: 'Admin Dashboard' },
+    { directory: 'manage_inventory.png', description: 'Inventory Management for Admin' },
+    { directory: 'intro_simulation.png', description: 'Introduction to Simulation' },
+    { directory: 'simulation.png', description: 'Virtual PC Building Simulation' },
+    { directory: 'shop.png', description: 'Hardware Product Browsing' },
+    { directory: 'product_detail.png', description: 'Hardware Product Details' },
+    { directory: 'shopping_cart.png', description: 'Manage Shopping Cart' },
+    { directory: 'view_order.png', description: 'View Order History' },
+    { directory: 'edit_profile.png', description: 'Edit Profile' },
+    { directory: 'help.png', description: 'Help Section' },
+    { directory: 'contact.png', description: 'Contact Page' },
   ]
 
-  slideConfig = {
-    "slidesToShow": 1,
-    "slidesToScroll": 1,
-    "dots": true
-  };
+  slideConfig = { slidesToShow: 1, slidesToScroll: 1, autoplay: true, autoplaySpeed: 6000, infinite: true, arrows: false, dots: true };
+
 }

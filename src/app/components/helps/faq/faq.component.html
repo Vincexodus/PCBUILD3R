@@ -3,7 +3,7 @@
     <h1 class="block has-text-centered">Frequently Asked Questions</h1>
     <div *ngFor="let enquiry of enquiries; let i = index" class="block">
       <button class="accordion pl-6" (click)="expandPanel(i)"
-      [ngStyle]="isPanelExpanded[i] ? {'border-radius': '50px 50px 0px 0px', 'display': 'block'} : {}">
+      [ngStyle]="isPanelExpanded[i] ? {'border-radius': '25px 25px 0px 0px', 'display': 'block'} : {}">
         <div class="is-flex is-justify-content-space-between">
           <h3 class="is-size-5">{{ enquiry.question }}</h3>
           <i class="fa-solid fa-chevron-down px-5 pt-2" 

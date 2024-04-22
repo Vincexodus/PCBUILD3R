@@ -8,12 +8,10 @@ import { catchError, tap, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class WebReqInterceptor {
+  refreshingAccessToken: boolean = false;
+  accessTokenRefreshed: Subject<void> = new Subject();
 
   constructor(private authService: AuthService) { }
-
-  refreshingAccessToken: boolean = false;
-
-  accessTokenRefreshed: Subject<void> = new Subject();
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
     // Handle the request
@@ -71,7 +69,6 @@ export class WebReqInterceptor {
 
   addAuthHeader(request: HttpRequest<any>) {
     const token = this.authService.getAccessToken();
-
     if (token) {
       // append the access token to the request header
       return request.clone({
@@ -82,5 +79,4 @@ export class WebReqInterceptor {
     }
     return request;
   }
-
 }

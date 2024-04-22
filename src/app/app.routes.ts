@@ -34,16 +34,16 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'canvas', component: CanvasComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'shop/:id', component: ShopComponent },
-  { path: 'canvas', component: CanvasComponent },
-
   { path: 'productDetail/:productId', component: ProductDetailComponent },
+
   { path: 'company', component: CompanyComponent,
     children: [
       { path: 'about', component: AboutComponent },
       { path: 'contact', component: ContactComponent },
-      { path: '', redirectTo: 'about', pathMatch: 'full' }, // Default tab
+      { path: '', redirectTo: 'about', pathMatch: 'full' },
     ],
   },
   { path: 'account', component: AccountComponent,

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WebRequestService {
-  
   readonly ROOT_URL;
 
   constructor(private http: HttpClient) {

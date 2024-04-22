@@ -21,31 +21,25 @@ export class FaqComponent {
   
   enquiries: any[] = [
     {
-      question: "Disclaimer: Is PCBuild3R fully functional for real-world use?",
-      answer: "PCBuild3R is a mockup/prototype designed for educational purposes as part of a Final Year Project (FYP). \
-                While it provides an interactive learning experience for PC building, it may not encompass all functionalities required for real-world PC assembly."
+      question: "Is PCBUILD3R fully functional for real-world use?",
+      answer: "No. PCBUILD3R is a mockup/prototype designed for the purpose of my Final Year Project (FYP). \
+                While it provides an interactive learning experience for PC building, it does not encompass all functionalities required for real-world PC assembly."
     },
     {
-      question: "What is PCBuild3R?",
-      answer: "PCBuild3R is a web-based gamified platform aimed at facilitating an enjoyable learning process for PC building. \
-                It offers features such as build recommendations, 3D simulation, hardware browsing, rewards redemption, progress tracking, and more."
+      question: "What is PCBUILD3R?",
+      answer: "PCBUILD3R is a web-based platform aimed at facilitating an enjoyable learning process for PC building. \
+                It offers features such as 3D simulation, hardware browsing, rewards redemption, inventory management and more. Checkout about page to know more."
     },
     {
-      question: "What features does PCBuild3R offer?",
-      answer: "PCBuild3R provides specifications for suitable hardware based on budget and demand, checks compatibility of selected components, \
-                offers step-by-step guides in interactive 3D environments, includes a 3D playground for virtual PC building, \
-                supports augmented reality (AR) mode for viewing built PCs in real life, offers interactive troubleshooting assistance for common issues,\
-                and includes user account management for saving progress and revisiting previous builds."
+      question: "What technologies are used in PCBUILD3R?",
+      answer: "PCBUILD3R employs MEAN stack for its full stack development together with Three.js for virtual PC building simulation using WebGL."
     },
     {
-      question: "What technologies are used in PCBuild3R?",
-      answer: "PCBuild3R employs MEAN stack for both front and backend development, Three.js, Babylon.js, A-Frame, or Phaser for JS 3D game engines, \
-                Blender for 3D modeling, and Unity and WebGL for additional functionalities."
-    },
-    {
-      question: "How does PCBuild3R assist users in building PCs virtually?",
-      answer: "PCBuild3R offers step-by-step guides, visual aids, compatibility checks, and a virtual 3D playground to assist users in the PC building \
-                process. Additionally, interactive troubleshooting helps users resolve common issues."
+      question: "How does PCBUILD3R assist users in building PCs virtually?",
+      answer: "PCBUILD3R offers a step-by-step guide with auto-snapping assembling in a 3D environment, providing users with an immersive experience. \
+                While the assembling simulation offers a streamlined process, it's important to note that in-depth details on assembling are excluded \
+                due to time and resource constraints of the project. Additionally, wire connections and steps beyond assembling are also omitted as \
+                this simulation serves as a proof of concept (POC) to be used as a template for further development and scaling."
     },
   ];
 }

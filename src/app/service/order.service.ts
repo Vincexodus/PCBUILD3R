@@ -65,10 +65,6 @@ export class OrderService {
     return this.webReqService.get(`voucher/${key}`);
   }
   
-  getVoucherByPercent(percent: number) {
-    return this.webReqService.get(`voucher/${percent}`);
-  }
-  
   createVoucher(percent: number, active: boolean) {
     return this.webReqService.post(`voucher`, { percent, active });
   }

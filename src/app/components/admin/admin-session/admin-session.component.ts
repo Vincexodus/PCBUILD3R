@@ -5,8 +5,8 @@ import { UtilService } from '../../../service/util.service';
 import { Session } from '../../../interface/session.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { SessionService } from '../../../service/session.service';
 import { AuthService } from '../../../service/auth.service';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-admin-session',
@@ -26,7 +26,7 @@ export class AdminSessionComponent {
 
   constructor(
     private authService: AuthService,
-    private sessionService: SessionService,
+    private userService: UserService,
     private toast: NgToastService, 
     private util: UtilService,
     private formBuilder: FormBuilder) {
@@ -93,7 +93,7 @@ export class AdminSessionComponent {
   }
 
   getSession() {
-    this.sessionService.getSession().subscribe((session: Session[]) => {
+    this.userService.getSession().subscribe((session: Session[]) => {
       this.sessions = session.sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
@@ -103,7 +103,7 @@ export class AdminSessionComponent {
   }
 
   deletesession(id: string) {
-    this.sessionService.deleteSession(id).subscribe(() => {
+    this.userService.deleteSession(id).subscribe(() => {
       this.toast.error({detail:"SUCCESS",summary:'session Deleted!', duration:2000, position:'topCenter'});
       this.getSession();
       this.closeDeleteModal(id);

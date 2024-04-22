@@ -4,9 +4,9 @@ import { UtilService } from '../../../service/util.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Session } from '../../../interface/session.model';
-import { SessionService } from '../../../service/session.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthService } from '../../../service/auth.service';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-simulation-session',
@@ -25,7 +25,7 @@ export class SimulationSessionComponent {
 
   constructor(
     private authService: AuthService,
-    private sessionService: SessionService,
+    private userService: UserService,
     private util: UtilService,
     private formBuilder: FormBuilder) {
       this.viewForm = this.formBuilder.group({
@@ -71,7 +71,7 @@ export class SimulationSessionComponent {
   }
 
   getSession(userId: string) {
-    this.sessionService.getSessionByUserId(userId).subscribe((session: Session[]) => {
+    this.userService.getSessionByUserId(userId).subscribe((session: Session[]) => {
       this.sessions = session.sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);

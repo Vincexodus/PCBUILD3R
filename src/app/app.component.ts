@@ -15,7 +15,6 @@ import { NgToastModule } from 'ng-angular-popup';
 export class AppComponent {
   title="PCBuild3R";
   isAdmin: boolean = false;
-  currentMessage: string = 'Hello, World';
 
   constructor(private router: Router) {
     this.router.events.subscribe(this.onUrlChange.bind(this));

@@ -1,28 +1,30 @@
 <a name="readme-top"></a>
 
-# PCBUILD3R
-
-A computer hardware e-commerce website built using the MEAN stack.
-
-<img src="/src/assets/images/PCBUILD3R.png"/>
+<h1 align="center">
+  <img src="/src/assets/images/icon.png" style="width:60px; vertical-align: middle;"/>
+  <span style="display: inline-block; vertical-align: middle;">PCBUILD3R</span>
+</h1>
 
 <p align="center">
-  <a href="#about-the-project">About</a> &nbsp;&bull;&nbsp;
-  <a href="#getting-started">Getting Started</a> &nbsp;&bull;&nbsp;
-  <a href="#built-with">Built With</a>
+  <i align="center">Computer hardware e-commerce platform featuring virtual PC assembly simulation 🪛</i>
+</p>
+
+<!-- TODO: Replace with DEMO GIF -->
+<p align="center">
+  <img src="/src/assets/readme images/homepage.png"/>
 </p>
 
 ## Table Of Content
 
 - [About The Project](#about-the-project)
-    - [Aim](#aim)
+    - [Showcase](#showcase)
     - [Features](#features)
     - [Built With](#built-with)
 - [Getting Started](#getting-started)
     - [Folder Structure](#folder-structure)
+    - [Pre-requisites](#pre-requisites)
     - [Installation](#prerequisites)
     - [Setting Up](#setting-up)
-    - [Development Server](#development-server)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
@@ -30,25 +32,26 @@ A computer hardware e-commerce website built using the MEAN stack.
 
 ## About The Project
 
-Disclaimer: This is a demo project used for the purpose of Final Year Project (FYP). PCBUILD3R aims to elevate hardware proficiency through 3D simulation and comprehensive guideline on PC building.
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+Disclaimer: This is a website used for the purpose of Final Year Project (FYP). PCBUILD3R aims to elevate hardware proficiency through 3D simulation and comprehensive guideline on PC building. It offers features such as 3D simulation, hardware browsing, rewards redemption, inventory management and more. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
 
-### Aim
+### Showcase
 
-* To aid consumers in defining their preferences in PC building in terms of budget, purpose, performance, and design.
-* To offer consumers personalized build recommendations, recommending them the hardware components based on their needs.
-* To provide immersive and enjoyable learning experience by leveraging elements of gamification such as 3D simulation and reward system.
-* To nurture a mutually beneficial situation where users get to acquire valuable skills while platform focuses on user engagement and revenue generation.
+| Homepage | Simulation Intro | Simulation  | Shop |
+:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/homepage.png" title="Homepage" width="100%" crossorigin> | <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/intro_simulation.png" title="Simulation Intro" width="100%" crossorigin> | <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/simulation.png" title="Simulation" width="100%" crossorigin> | <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/shop.png" title="Shop" width="100%" crossorigin> |
+
+| Product Detail | Shopping Cart | Admin Dashboard | Manage Inventory |
+:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/product_detail.png" title="Product Detail" width="100%" crossorigin> | <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/shopping_cart.png" title="Shopping Cart" width="100%" crossorigin> | <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/admin_dashboard.png" title="Admin Dashboard" width="100%" crossorigin> | <img src="https://media.githubusercontent.com/media/Vincexodus/PCBuild3R/main/src/assets/readme images/manage_inventory.png" title="Manage Inventory" width="100%" crossorigin> |
 
 ### Features
 
-* Build recommendations.
-* Provide specifications of suitable hardware for given budget and demand.
-* 3D simulation.
-* Hardware browsing.
-* Rewards redemption.
-* Stey by step guide on PC building, from choosing parts to setting up.
-* Provides 3D playground for users to build PC virtually.
+* Stey By Step Virtual PC Assembling Simulation
+* Rewards Redemption
+* Hardware Product Browsing
+* Manage Shopping Cart
+* View Order History & Leave Product Rating
+* Inventory Management
 
 ### Built With
 
@@ -58,68 +61,49 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * [![Node.js]][Node.js-url]
 * [![Three.js]][Three.js-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## Getting Started
 
-To get started, you need to understand the project folder structure for installations.
+To get started, you first need to understand the project folder structure for installations.
 
 ### Folder Structure
 
-    ├── DB Dump                      # MongoDB Schema Document/json files
-    ├── backend                      # Node JS MongoDB and Express JS server folder
-    ├── src                          # Angular website folder
+    ├── DB Dump                      # MongoDB Dummy Schema Document
+    ├── backend                      # Node JS, MongoDB and Express JS server folder
+    ├── src                          # Angular website folder with 3D model and image assets
     ├── .editorconfig
     ├── .gitignore
     ├── README.md
     └── LICENSE.txt
 
+### Pre-requisites
+
+Make sure that you have the following prerequisites installed
+* [MongoDB Compass](https://www.mongodb.com/try/download/compass)
+* [Node.js](https://nodejs.org/en/download/)
+
 ### Installation
 
-There are couple things required before setting up the project. 
-* Install [MongoDB Compass](https://www.mongodb.com/try/download/compass)
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Setting Up
-
 1. Create an free API Key at [Resend](https://resend.com)
-2. Clone the repo
+2. Clone the repo and install dependencies for front end (angular project)
    ```sh
-   git clone https://github.com/Vincexodus/PCBuild3R.git
+   git clone https://github.com/Vincexodus/PCBuild3R.git && cd PCBUILD3R && npm install
    ```
-3. Locate to root directory & install NPM packages
-   ```sh
-   # root
-   npm install
-   ```
-4. Locate to backend directory & install NPM packages
+3. Locate to backend directory and install dependencies
    ```sh
    cd backend
-   # /backend
-   npm install
+   npm i # /backend
    ```
-4. Replace your resend API key in `.env.local`
+4. Replace your resend API key in `.env.local` of `/backend` directory. Rename the file to `.env`
    ```js
    const RESEND_API_KEY='your_resend_api_key';
    ```
 
-### Development server
+### Setting Up
 
-1. In root directory, run command below, then navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-   ```sh
-   # root
-   ng serve
-   ```
-2. Duplicate IDE window, locate to backend directory
-   ```sh
-   # /backend
-   nodemon app.js
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. In root directory, run `ng serve`, navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+2. Open a new IDE window, locate to backend directory and run `nodemon app.js`. Backend is ready when `Connected to MongoDB successfully...` is shown in terminal.
+3. Open MongoDB Compass and navigate to users collection of PCBUILD3R database to import data. In users collection, `add data >> Import JSON or CSV file >> PCBUILD3R.users.json`. The json file is located in `/DB Dump`.
+4. Imported admin email `admin@gmail.com`, password `admin123`. Customer email `customer1@gmail.com`, password `customer1`. Repeat Step 3 for productCategory and product collection.
 
 ## Roadmap
 
@@ -150,13 +134,10 @@ Distributed under the MIT License. See [LICENSE][license-url] for more informati
 
 I've included a few materials that have helped me complete this project
 
-* [Pharmacy Management System](https://github.com/LalanaChami/Pharmacy-Mangment-System/blob/master/backend/middleware/check-auth.js)
 * [Build a Task Manager Application From Scratch](https://www.youtube.com/watch?v=V-CeWkz1MNQ&list=PLIjdNHWULhPSZFDzQU6AnbVQNNo1NTRpd)
-* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
-* [Choose an Open Source License](https://choosealicense.com)
+* [3D Models From SketchFab](https://sketchfab.com)
 * [Click and Drag 3d models in ThreeJS](https://dev.to/calebmcolin/how-to-interactively-drag-3d-models-in-threejs-5a7h#:~:text=A%29%20Moving%20individual%20objects%20%28Object3D%29%201%201%29%20Create,Create%20a%20function%20to%20drag%20the%20object%20)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 
 [MongoDB]: https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white

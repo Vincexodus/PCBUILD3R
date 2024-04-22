@@ -7,8 +7,8 @@ import { AuthService } from '../../service/auth.service';
 import { NgToastService } from 'ng-angular-popup';
 import { OrderService } from '../../service/order.service';
 import { Voucher } from '../../interface/voucher.model';
-import { SessionService } from '../../service/session.service';
 import { Session } from '../../interface/session.model';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-canvas',
@@ -219,9 +219,9 @@ export class CanvasComponent {
     private router: Router, 
     private engServ: EngineService, 
     private authService: AuthService,
+    private userService: UserService,
     private orderService: OrderService,
     private formBuilder: FormBuilder,
-    private sessionService: SessionService,
     private toast: NgToastService) {
       
     this.addReviewForm = this.formBuilder.group({
@@ -233,7 +233,7 @@ export class CanvasComponent {
   ngOnInit(): void {
     const storedUserId = this.authService.getUserId();
     if (storedUserId) {
-      this.sessionService.getSessionByUserId(storedUserId).subscribe((session: Session[]) => {
+      this.userService.getSessionByUserId(storedUserId).subscribe((session: Session[]) => {
         this.sessions = session;
         if (this.sessions) {
           this.arrangeSession(this.sessions);
@@ -353,7 +353,7 @@ export class CanvasComponent {
       this.orderService.createVoucher(selectedBuild.rewardPercent, true).subscribe((voucher: Voucher) => {
         this.earnedVoucherKey = voucher.key;
         
-        this.sessionService.createSession(storedUserId, this.earnedVoucherKey, selectedBuild.level, rating, desc).subscribe(() => {
+        this.userService.createSession(storedUserId, this.earnedVoucherKey, selectedBuild.level, rating, desc).subscribe(() => {
           this.isPostSessionModalActive = false;
           this.isVoucherModalActive = true;
           this.toast.success({detail:"SUCCESS",summary:'You have earned a voucher!', duration:2000, position:'topCenter'});
