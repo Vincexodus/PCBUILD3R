@@ -53,10 +53,10 @@
     </button>
     <div class="">
       <button class="button is-black is-rounded mr-2" (click)="openHelpModal()">
-        About
+        Help
         <i class="fa-solid fa-info pl-2" style="color: #ffffff;"></i>
       </button>
-      <div class="modal is-active" *ngIf="isAboutModalActive">
+      <div class="modal is-active" *ngIf="isHelpModalActive">
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
@@ -136,7 +136,7 @@
       </section>
       <footer class="modal-card-foot">
         <button class="button is-rounded is-success" (click)="startSession()">Yes</button>
-        <button class="button is-rounded is-danger" (click)="terminateSession('/home')">No</button>
+        <button class="button is-rounded is-danger" [routerLink]="['/home']">No</button>
       </footer>
     </div>
   </div>

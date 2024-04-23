@@ -32,6 +32,7 @@ export class EditProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toast: NgToastService) {
 
+      const currentYear = new Date().getFullYear();
       this.profileForm = this.formBuilder.group({
         name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
         email: ['', [Validators.required, Validators.email]],
@@ -45,13 +46,13 @@ export class EditProfileComponent implements OnInit {
 
       this.billingForm = this.formBuilder.group({
         address: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(60)]],
-        city: ['', [Validators.required, Validators.required]],
+        city: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(60)]],
         postalCode: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
-        country: ['', [Validators.required, Validators.required]],
+        country: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
         cardNumber: ['', [Validators.pattern('[0-9]{16}')]],
         CVC: ['', [Validators.pattern('[0-9]{3}')]],
         expireMonth: ['', [Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(12)]],
-        expireYear: ['', [Validators.pattern('[0-9]*'), Validators.min(2024)]],
+        expireYear: ['', [Validators.pattern('[0-9]*'), Validators.min(currentYear)]],
       });
     }
 
@@ -123,7 +124,7 @@ export class EditProfileComponent implements OnInit {
         this.passwordLoading = true;
         this.userService.updateUserPassword(this.userId, currPassword, newPassword).subscribe(() => {
           this.passwordLoading = false;
-          this.toast.success({detail:"SUCCESS",summary:'Password Updated Successfully, Please relogin!', duration:2000, position:'topCenter'});
+          this.toast.success({detail:"SUCCESS",summary:'Password Updated Successfully, Please login again!', duration:2000, position:'topCenter'});
           setTimeout(() => {
             this.authService.logout();
           }, 2000);

@@ -53,7 +53,7 @@ export class ShoppingCartItemComponent implements OnInit {
   
   deleteCartItem(cartItemId: string) {
     this.orderService.deleteCartItem(cartItemId).subscribe(() => {
-      this.toast.success({detail:"SUCCESS",summary:'Cart Item Deleted!', duration:2000, position:'topCenter'});
+      this.toast.success({detail:"SUCCESS",summary:'Cart Item Removed!', duration:2000, position:'topCenter'});
       this.closeDeleteModal(cartItemId);
       this.orderService.emitCartChange(true);
     }, (error) => {

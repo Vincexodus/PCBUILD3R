@@ -25,10 +25,10 @@ export class ContactComponent {
     private userService: UserService
   ) {
     this.contactForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
-      subject: ['', [Validators.required]],
-      message: ['', Validators.required]
+      subject: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
+      message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]]
     });
   }
 

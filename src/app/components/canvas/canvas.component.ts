@@ -1,7 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { EngineService } from '../../service/engine.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -9,16 +9,17 @@ import { OrderService } from '../../service/order.service';
 import { Voucher } from '../../interface/voucher.model';
 import { Session } from '../../interface/session.model';
 import { UserService } from '../../service/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-canvas',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './canvas.component.html',
   styleUrl: './canvas.component.sass'
 })
 
-export class CanvasComponent {
+export class CanvasComponent implements OnDestroy {
   @ViewChild('rendererCanvas', { static: true })
   rendererCanvas!: ElementRef<HTMLCanvasElement>;
   vouchers!: Voucher[];
@@ -27,7 +28,7 @@ export class CanvasComponent {
   earnedVoucherKey: string = "";
   isIntroModalActive: boolean = true;;
   isStepModalActive: boolean = false; 
-  isAboutModalActive: boolean = false;
+  isHelpModalActive: boolean = false;
   isPostSessionModalActive: boolean = false;
   isVoucherModalActive: boolean = false;
   isSessionOngoing: boolean = false;
@@ -36,7 +37,8 @@ export class CanvasComponent {
   isGamingAvailable: boolean = true;
   step: number = 1;
   addReviewForm: FormGroup;
-
+  snapSuccessSubscription!: Subscription;
+  
   partType = ["Computer Case", "Case Fan", "Motherboard", "Processor (CPU)", "CPU Fan", "Memory (RAM)", 
               "Storage Drive", "Graphics Card", "Power Supply"];
 
@@ -235,21 +237,27 @@ export class CanvasComponent {
     if (storedUserId) {
       this.userService.getSessionByUserId(storedUserId).subscribe((session: Session[]) => {
         this.sessions = session;
-        if (this.sessions) {
-          this.arrangeSession(this.sessions);
-        }
+        if (this.sessions) this.arrangeSession(this.sessions);
       });
     } else {
       this.toast.warning({detail:"FAILED",summary:'Please login to access simulation!', duration:2000, position:'topCenter'});
       this.router.navigate(['/login']);
     }
 
-    this.engServ.snapSuccess$.subscribe(() => {
+    this.snapSuccessSubscription = this.engServ.snapSuccess$.subscribe(() => {
       this.onAssemblyStepComplete();
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.snapSuccessSubscription) this.snapSuccessSubscription.unsubscribe();
+  }
+  
   arrangeSession(sessions: Session[]) {
+    if (sessions.length === 3) {
+      this.toast.error({detail:"FAILED",summary:'You have completed all sessions. Please come again!', duration:3000, position:'topCenter'});
+      this.terminateSession('/home');
+    }
     for (const session of sessions) {
       switch (session.level) {
         case 1: // Budget
@@ -264,11 +272,6 @@ export class CanvasComponent {
         default:
           break;
       }
-    }
-    
-    if (sessions.length === 3) {
-      this.toast.error({detail:"FAILED",summary:'You have completed all sessions. Please come again!', duration:3000, position:'topCenter'});
-      this.terminateSession('/home');
     }
   }
 
@@ -301,11 +304,11 @@ export class CanvasComponent {
   }
 
   openHelpModal(): void {
-    this.isAboutModalActive = true;
+    this.isHelpModalActive = true;
   }
 
   closeHelpModal(): void {
-    this.isAboutModalActive = false;
+    this.isHelpModalActive = false;
   }
   
   openStepModal(): void {
@@ -373,11 +376,12 @@ export class CanvasComponent {
   inspectModel(): void {
     this.isStepModalActive = false
     this.toast.success({detail:"SUCCESS",summary:'Drag your mouse around to inspect!', duration:2000, position:'topCenter'});
-    
     this.engServ.inspectModel();
   }
   
   terminateSession(dir: string): void {
+    this.ngOnDestroy();
+    this.engServ.ngOnDestroy();
     this.isPostSessionModalActive = false;
     this.isVoucherModalActive = false;
     this.isSessionOngoing = false;

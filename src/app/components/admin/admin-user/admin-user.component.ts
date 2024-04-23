@@ -39,6 +39,7 @@ export class AdminUserComponent {
     private util: UtilService,
     private formBuilder: FormBuilder) {
 
+      const currentYear = new Date().getFullYear();
       this.addForm = this.formBuilder.group({
         isAdmin: ['false', [Validators.required]],
         name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
@@ -58,13 +59,13 @@ export class AdminUserComponent {
       this.editBillingForm = this.formBuilder.group({
         id: [{value: '', disabled: true}],
         address: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(60)]],
-        city: ['', [Validators.required, Validators.required]],
+        city: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(60)]],
         postalCode: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
-        country: ['', [Validators.required, Validators.required]],
+        country: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
         cardNumber: ['', [Validators.pattern('[0-9]{16}')]],
         CVC: ['', [Validators.pattern('[0-9]{3}')]],
         expireMonth: ['', [Validators.pattern('[0-9]*'), Validators.min(1), Validators.max(12)]],
-        expireYear: ['', [Validators.pattern('[0-9]*'), Validators.min(2024)]],
+        expireYear: ['', [Validators.pattern('[0-9]*'), Validators.min(currentYear)]],
       });
     }
 

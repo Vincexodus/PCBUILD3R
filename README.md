@@ -1,8 +1,8 @@
 <a name="readme-top"></a>
 
-<h1 align="center">
-  <img src="/src/assets/images/icon.png" style="width:60px; vertical-align: middle;"/>
-  <span style="display: inline-block; vertical-align: middle;">PCBUILD3R</span>
+<h1 align="center" style="display: flex; justify-content: center; align-items: center;">
+  <img src="/src/favicon.ico" style="width:60px;"/>
+  <span style="padding-left: 5px;">PCBUILD3R</span>
 </h1>
 
 <p align="center">
@@ -23,7 +23,7 @@
 - [Getting Started](#getting-started)
     - [Folder Structure](#folder-structure)
     - [Pre-requisites](#pre-requisites)
-    - [Installation](#prerequisites)
+    - [Installation](#installation)
     - [Setting Up](#setting-up)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
@@ -32,7 +32,7 @@
 
 ## About The Project
 
-Disclaimer: This is a website used for the purpose of Final Year Project (FYP). PCBUILD3R aims to elevate hardware proficiency through 3D simulation and comprehensive guideline on PC building. It offers features such as 3D simulation, hardware browsing, rewards redemption, inventory management and more. This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+PCBUILD3R aims to elevate hardware proficiency through 3D simulation and comprehensive guideline on PC building. It offers features such as 3D simulation, hardware browsing, rewards redemption, inventory management and more. <span style="font-weight: bold">Disclaimer: This is a website used for the purpose of Final Year Project (FYP).</span> This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
 
 ### Showcase
 
@@ -73,7 +73,7 @@ To get started, you first need to understand the project folder structure for in
     ├── .editorconfig
     ├── .gitignore
     ├── README.md
-    └── LICENSE.txt
+    └── LICENSE
 
 ### Pre-requisites
 

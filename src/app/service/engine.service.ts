@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, NgZone, OnDestroy } from '@angular/core';
+import { ElementRef, Injectable, OnDestroy } from '@angular/core';
 import { NgToastService } from 'ng-angular-popup';
 import { Subject } from 'rxjs';
 import * as THREE from 'three';
@@ -18,17 +18,7 @@ export class EngineService implements OnDestroy {
   private directionalLight!: THREE.DirectionalLight;
 
   private introModel: any;
-  private caseModel: any;
-  private caseFanModel: any;
-  private motherboardModel: any;
-  private cpuModel: any;
-  private cpuFanModel: any;
-  private memory1Model: any;
-  private memory2Model: any;
-  private storageModel: any;
-  private gpuModel: any;
-  private psuModel: any;
-
+  private assemblyModel: any;
   private isInspectMode: boolean = false;
   private clickMouse: any
   private moveMouse: any
@@ -37,6 +27,7 @@ export class EngineService implements OnDestroy {
 
   private snapPos: any;
   private initialPos: any;
+  private eventListenersAdded: boolean = false;
 
   modelAssets = [
     // budget PC
@@ -265,13 +256,16 @@ export class EngineService implements OnDestroy {
   emitSnapSuccess(value: any) {
     this.SnapSuccessSubject.next(value);
   }
-
+  
   public ngOnDestroy(): void {
     if (this.frameId != 0) {
       cancelAnimationFrame(this.frameId);
     }
-    if (this.renderer != null) {
-      this.renderer.dispose();
+    if (this.renderer != null) this.renderer.dispose();
+    if (this.scene) {
+      while(this.scene.children.length > 0){
+        this.scene.remove(this.scene.children[0]); 
+      }
     }
   }
 
@@ -285,7 +279,7 @@ export class EngineService implements OnDestroy {
       switch (step) {
         case 4:
           this.loadGLTFModel(
-            this.motherboardModel,
+            this.assemblyModel,
             'mobo/' + pathItem.motherboard.path,
             pathItem.motherboard.position,
             pathItem.motherboard.scale,
@@ -297,7 +291,7 @@ export class EngineService implements OnDestroy {
           break;
         case 5:
           this.loadGLTFModel(
-            this.caseFanModel,
+            this.assemblyModel,
             'case-fan/' + pathItem.caseFan.path,
             pathItem.caseFan.position,
             pathItem.caseFan.scale,
@@ -309,7 +303,7 @@ export class EngineService implements OnDestroy {
           break;
         case 6:
           this.loadGLTFModel(
-            this.cpuModel,
+            this.assemblyModel,
             'cpu/' + pathItem.cpu.path,
             pathItem.cpu.position,
             pathItem.cpu.scale,
@@ -321,7 +315,7 @@ export class EngineService implements OnDestroy {
           break;
         case 7:
           this.loadGLTFModel(
-            this.memory1Model,
+            this.assemblyModel,
             'ram/' + pathItem.memory1.path,
             pathItem.memory1.position,
             pathItem.memory1.scale,
@@ -333,7 +327,7 @@ export class EngineService implements OnDestroy {
           break;
         case 8:
           this.loadGLTFModel(
-            this.memory2Model,
+            this.assemblyModel,
             'ram/' + pathItem.memory2.path,
             pathItem.memory2.position,
             pathItem.memory2.scale,
@@ -345,7 +339,7 @@ export class EngineService implements OnDestroy {
           break;
         case 9:
           this.loadGLTFModel(
-            this.storageModel,
+            this.assemblyModel,
             'storage/' + pathItem.storage.path,
             pathItem.storage.position,
             pathItem.storage.scale,
@@ -357,7 +351,7 @@ export class EngineService implements OnDestroy {
           break;
         case 10:
           this.loadGLTFModel(
-            this.cpuFanModel,
+            this.assemblyModel,
             'cpu-fan/' + pathItem.cpuFan.path,
             pathItem.cpuFan.position,
             pathItem.cpuFan.scale,
@@ -370,7 +364,7 @@ export class EngineService implements OnDestroy {
         case 11:
           if (level !== 1) {
             this.loadGLTFModel(
-              this.gpuModel,
+              this.assemblyModel,
               'gpu/' + pathItem.gpu.path,
               pathItem.gpu.position,
               pathItem.gpu.scale,
@@ -383,7 +377,7 @@ export class EngineService implements OnDestroy {
           break;
         case 12:
           this.loadGLTFModel(
-            this.psuModel,
+            this.assemblyModel,
             'psu/' + pathItem.psu.path,
             pathItem.psu.position,
             pathItem.psu.scale,
@@ -520,7 +514,7 @@ export class EngineService implements OnDestroy {
     const pathItem = this.modelAssets[level - 1];
     if (pathItem) {
       this.loadGLTFModel(
-        this.caseModel,
+        this.assemblyModel,
         'case/' + pathItem.case.path,
         pathItem.case.position,
         pathItem.case.scale,
@@ -544,9 +538,12 @@ export class EngineService implements OnDestroy {
     this.moveMouse = new THREE.Vector2();
     this.raycaster = new THREE.Raycaster();
 
-    window.addEventListener('click', (event) => this.onMouseClick(event));
-    window.addEventListener('mousemove', (event) => this.onMouseMove(event));
-
+    if (!this.eventListenersAdded) {
+      window.addEventListener('click', (event) => this.onMouseClick(event));
+      window.addEventListener('mousemove', (event) => this.onMouseMove(event));
+      this.eventListenersAdded = true;
+    }
+    
     this.render();
   }
 
@@ -597,7 +594,7 @@ export class EngineService implements OnDestroy {
               
               // disable drag once snapped
               this.draggableModel.isDraggable = false;
-
+              
               this.emitSnapSuccess(true); // emit to canvas to proceed to next step
               // drop the model
               this.draggableModel = undefined;
@@ -636,9 +633,7 @@ export class EngineService implements OnDestroy {
           current = current.parent;
         }
         // set draggableModel to loaded model
-        if (current.isDraggable) {
-          this.draggableModel = current;
-        }
+        if (current.isDraggable) this.draggableModel = current;
       }
     }
   }
