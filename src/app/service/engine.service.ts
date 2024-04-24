@@ -277,7 +277,7 @@ export class EngineService implements OnDestroy {
     const pathItem = this.modelAssets[level - 1];
     if (pathItem) {
       switch (step) {
-        case 4:
+        case 5:
           this.loadGLTFModel(
             this.assemblyModel,
             'mobo/' + pathItem.motherboard.path,
@@ -289,7 +289,7 @@ export class EngineService implements OnDestroy {
           this.initialPos = pathItem.motherboard.position;
           this.snapPos = pathItem.motherboard.snapPosition;
           break;
-        case 5:
+        case 6:
           this.loadGLTFModel(
             this.assemblyModel,
             'case-fan/' + pathItem.caseFan.path,
@@ -301,7 +301,7 @@ export class EngineService implements OnDestroy {
           this.initialPos = pathItem.caseFan.position;
           this.snapPos = pathItem.caseFan.snapPosition;
           break;
-        case 6:
+        case 7:
           this.loadGLTFModel(
             this.assemblyModel,
             'cpu/' + pathItem.cpu.path,
@@ -313,7 +313,7 @@ export class EngineService implements OnDestroy {
           this.initialPos = pathItem.cpu.position;
           this.snapPos = pathItem.cpu.snapPosition;
           break;
-        case 7:
+        case 8:
           this.loadGLTFModel(
             this.assemblyModel,
             'ram/' + pathItem.memory1.path,
@@ -325,7 +325,7 @@ export class EngineService implements OnDestroy {
           this.initialPos = pathItem.memory1.position;
           this.snapPos = pathItem.memory1.snapPosition;
           break;
-        case 8:
+        case 9:
           this.loadGLTFModel(
             this.assemblyModel,
             'ram/' + pathItem.memory2.path,
@@ -337,7 +337,7 @@ export class EngineService implements OnDestroy {
           this.initialPos = pathItem.memory2.position;
           this.snapPos = pathItem.memory2.snapPosition;
           break;
-        case 9:
+        case 10:
           this.loadGLTFModel(
             this.assemblyModel,
             'storage/' + pathItem.storage.path,
@@ -349,7 +349,7 @@ export class EngineService implements OnDestroy {
           this.initialPos = pathItem.storage.position;
           this.snapPos = pathItem.storage.snapPosition;
           break;
-        case 10:
+        case 11:
           this.loadGLTFModel(
             this.assemblyModel,
             'cpu-fan/' + pathItem.cpuFan.path,
@@ -361,7 +361,7 @@ export class EngineService implements OnDestroy {
           this.initialPos = pathItem.cpuFan.position;
           this.snapPos = pathItem.cpuFan.snapPosition;
           break;
-        case 11:
+        case 12:
           if (level !== 1) {
             this.loadGLTFModel(
               this.assemblyModel,
@@ -375,7 +375,7 @@ export class EngineService implements OnDestroy {
             this.snapPos = pathItem.gpu.snapPosition;
           }
           break;
-        case 12:
+        case 13:
           this.loadGLTFModel(
             this.assemblyModel,
             'psu/' + pathItem.psu.path,

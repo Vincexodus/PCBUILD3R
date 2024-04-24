@@ -12,26 +12,27 @@
           <button class="delete" aria-label="close" (click)="closeStepModal()"></button>
         </header>
         <section class="modal-card-body">
-          <div class="" *ngIf="step === 1">
+          <div class="" *ngIf="step === 2">
             <table class="table">
               <thead>
                 <tr>
                   <th>Part Type</th>
                   <th>Part Name</th>
-                  <th>Part Price</th>
+                  <th>Part Price (MYR)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let desc of assemblySteps[step-1].desc; let i = index">
                   <td>{{ partType[i] }}</td>
                   <td>{{ desc }}</td>
-                  <td>MYR {{ partPrice[i] }}</td>
+                  <td>{{ partPrice[i] }}</td>
                 </tr>
               </tbody>
             </table>
             <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step-1].note">Note: {{ assemblySteps[step-1].note }}</h4>
+            <h4 class="is-size-6 has-text-danger mt-2" *ngIf="assemblySteps[step-1].caution">Caution: {{ assemblySteps[step-1].caution }}</h4>
           </div>
-          <div class="block has-text-justified px-2" *ngIf="step > 1">
+          <div class="block has-text-justified px-2" *ngIf="step ===  1 || step > 2">
             <h4 class="is-size-6" *ngFor="let desc of assemblySteps[step-1].desc">{{ desc }}</h4>
             <h4 class="is-size-6 has-text-weight-bold mt-2" *ngIf="assemblySteps[step-1].note">Note: {{ assemblySteps[step-1].note }}</h4>
             <h4 class="is-size-6 has-text-danger mt-2" *ngIf="assemblySteps[step-1].caution">Caution: {{ assemblySteps[step-1].caution }}</h4>
@@ -68,11 +69,12 @@
               <h1 class="block">Welcome to the our virtual PC building experience!</h1>
               <h4 class="block is-size is-size-6">We offer 3 types of virtual PC builds: budget, workstation, and gaming.</h4>
     
-              <h4 class="block is-size is-size-6">During the virtual session, you'll be guided through a step-by-step process ({{ this.assemblySteps.length }} steps in total) to
+              <h4 class="block is-size is-size-6">In this session, you'll be guided through a step-by-step process ({{ this.assemblySteps.length }} steps in total) to
                 assemble your chosen PC type. Our interactive interface allows you to interact with
                 the components and connect them together just like in real life. You'll receive simple
                 explanations at each step to help you understand the process better and ensure a smooth 
-                assembly experience.
+                assembly experience. However, this session does not cover the in-depth detail of assembling such as wire connection, etc.
+                The primary objective is to provide brief idea on the placement of hardware components within a PC.
               </h4>
               <h4 class="block is-size is-size-6">
                 As a reward for completing each session, you'll receive vouchers that you can use towards

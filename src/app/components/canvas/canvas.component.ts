@@ -45,27 +45,37 @@ export class CanvasComponent implements OnDestroy {
   partPrice = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   assemblySteps = [
-    { stepTitle: "", 
-      desc: [],
-      note: "",
+    { stepTitle: "How to Play", 
+      desc: ["1. You'll be presented with a 3D environment representing a PC assembly workplace.",
+              "2. Follow the step-by-step instructions provided on the screen to assemble the components.",
+              "3. Once you are required to select a part, place your cursor above the part and click to drag it around.",
+              "4. Position the part correctly into the correct placement within the computer case.",
+              "5. Click on 'Step explanation' button to read the instructions given.",
+              "6. Click on 'Exit Session' button to discard assembly progress.",
+              "7. Once you have completed all assembly steps, you can inspect your work or complete to claim your voucher reward.",
+            ],
+      note: "Only placement of hardware parts are covered within this simulation. Enjoy the simulation and have fun building \
+              your virtual PC!",
       caution: "",
       wait: false,
     },
-    { stepTitle: "Picking Parts", 
-      desc: ["First you will need these parts to build a computer.",
-              "The parts include:",
-              "1. Computer Case",
-              "2. Case Fan",
-              "3. Motherboard",
-              "4. Processor(CPU)",
-              "5. CPU Fan",
-              "6. Memory(RAM)",
-              "7. Storage Drive",
-              "8. Graphics Card",
-              "9. Power Supply"],
-      note: "You will need screwdriver and ground strap (optional). In this simulation, \
-                we will be excluding the assembling of wires.",
-      caution: "Chosen parts must be compatible (they are chosen in this case).",
+    { stepTitle: "", 
+      desc: [],
+      note: "",
+      caution: "Chosen parts must be compatible (they are chosen in this simulation).",
+      wait: false,
+    },
+    { stepTitle: "Collecting Tools", 
+      desc: ["As the parts have been chosen, you will need these tools before starting:",
+              "1. Screwdriver",
+              "2. Screw Tray",
+              "3. Thermal Paste (although many coolers have pre-applied)",
+              "4. Zip Ties",
+              "5. Pliers",
+              "6. Flashlight",
+              "7. Ground Strap (optional)"],
+      note: "In this simulation, we will be excluding the assembling of wires.",
+      caution: "",
       wait: false,
     },
     { stepTitle: "Open and Prepare the Case.", 
@@ -73,17 +83,16 @@ export class CanvasComponent implements OnDestroy {
                 side panels in place.",
               "To prepare the case, remove any packaging materials that may have been shipped.\
                 Double check the front panel connections like power switch, audio jacks and usb ports."],
-      note: "Panel connections are required for I/O operations, power on and off (excluded in this simulation)",
+      note: "Panel connections are required for I/O operations, power on and off (excluded in this simulation).",
       caution: "Case may have sharp edges. Handle with care to avoid injury. Always wear a grounding\
                 strap when assembling.",
       wait: false,
     },
     { stepTitle: "Install Motherboard",
       desc: ["Install the I/O shield in the opening in the back of the case by pushing in from the inside.",
-            "Install standoffs in the cases into mount the motherboard. Note: Each motherboard has different screw \
-              hole locations.",
+            "Install standoffs in the cases into mount the motherboard.",
             "Lower motherboard into the case and align with the I/O sheild before securing it with screws."],
-      note: "In this simulation, position the board into the case.",
+      note: "Each motherboard has different screw hole locations. In this simulation, position the board into the case. ",
       caution: "To prevent damage to the motherboard, it must only contact the standoffs and screws.",
       wait: true,
     },
@@ -98,12 +107,12 @@ export class CanvasComponent implements OnDestroy {
       desc: ["For Intel processor, find corner mark on the processor. For AMD processor, the corner is marked with an arrow.",
             "Lift the small metal rod next to the socket, make sure the markings are aligned correctly.",
             "Push the rod down to lock the procesor in place."],
-      note: "Simulation has aligned the orientation of the processor, just position the chip onto cpu socket of motherboard",
+      note: "Simulation has aligned the orientation of the processor, just position the chip onto cpu socket of motherboard.",
       caution: "",
       wait: true,
     },
     { stepTitle: "Install First Memory (RAM)",
-      desc: ["Check to see the notch in board is in correct location. Turn around 180 degrees otherwise.",
+      desc: ["Check to see whether the notch of board is in correct location. Turn around 180 degrees otherwise.",
             "Press firmly on both ends of the memory stick into the socket. A click sound is made when tabs\
               are locked into place."],
       note: "Make sure to install the RAM sticks on 2 & 4th ram slot of motherboard if there are 4 ram slots. ",
@@ -111,7 +120,7 @@ export class CanvasComponent implements OnDestroy {
       wait: true,
     },
     { stepTitle: "Install Second Memory (RAM)",
-      desc: ["Check to see the notch in board is in correct location. Turn around 180 degrees otherwise.",
+      desc: ["Check to see whether the notch of board is in correct location. Turn around 180 degrees otherwise.",
             "Press firmly on both ends of the memory stick into the socket. A click sound is made when tabs\
               are locked into place."],
       note: "Make sure to install the RAM sticks on 2 & 4th ram slot of motherboard if there are 4 ram slots. ",
@@ -119,34 +128,34 @@ export class CanvasComponent implements OnDestroy {
       wait: true,
     },
     { stepTitle: "Install Storage",
-      desc: ["Install M.2 solid state drive into M.2 slot of the motherboard (usally above PCLE slot). \
+      desc: ["Install M.2 solid state drive into M.2 slot of the motherboard (usally below PCLE slot). \
             Once SSD is fitted in, press down and secure the drive with small M.2 screw."],
       note: "",
-      caution: "Make sure the ssd drive is lie flat on the motherboard",
+      caution: "Make sure the ssd drive lies flat on the motherboard.",
       wait: true,
     },
     { stepTitle: "Install CPU Fan",
-      desc: ["Place thermal compound to the CPU following the instructions provided.",
-            "Set the fan assembly on the processor with mounting tabs aligned.",
-            "Apply balanced screw pressure into each side of the motherboard.",
-            "Connect the fan assembly's power connetor ot the motherboard.",
+      desc: ["Place thermal compound on CPU chip following the instructions provided.",
+            "Insert the CPU backplate on the motherboards's screw holes for the fran from back side.",
+            "Place the fan onto the CPU while aligning the spring screws to the respective holes on the backplate.",
+            "Tighten the screws in a diagonal pattern to secure the fan in place.",
+            "Connect the power cable to the matching fan header on the motherboard.",
             "Some CPU fan contact area comes with protective layer, make sure to remove it before installing."],
-      note: "Processor comes with stock fan, but in this simulation we'll be using air cooler from external brands",
-      caution: "",
+      note: "In this simulation, position the CPU fan on to the CPU.",
+      caution: "Processor comes with stock fan, but in this simulation we'll be using air cooler from external brands.",
       wait: true,
     },
     { stepTitle: "Install Graphics Card",
-      desc: ["Gently remove expansion slot cover of the graphics card. Unlock PCI expansion slot before lining the graphics card up with\
+      desc: ["Remove expansion slot cover of the graphics card. Unlock PCI expansion slot before lining the graphics card up with\
       it and firmly seat the card in place until a click sound is produced."],
       note: "",
       caution: "Budget Build has no GPU, given the processor chosen must have built-in graphics.",
       wait: true,
     },
     { stepTitle: "Install Power Supply", 
-      desc: ["Align the mounting holes in the case with the power supply.",
-            "Insert screws and tighten."],
-      note: "Cables from power supply are required to power graphics card and motherboard (excluded in this simulation)",
-      caution: "Make sure voltage provided by power supply is sufficient for chosen hardware",
+      desc: ["Align the mounting holes in the case with the power supply. Insert screws and tighten."],
+      note: "Cables from power supply are required to power the PC (excluded in this simulation)",
+      caution: "Make sure voltage provided by power supply is sufficient for chosen hardware.",
       wait: true,
     },
     { stepTitle: "Connect Cables", 
@@ -283,8 +292,8 @@ export class CanvasComponent implements OnDestroy {
 
     let totalPrice = 0;
     if (selectedBuild) {
-      this.assemblySteps[0].stepTitle = "Hardware Parts of " + selectedBuild?.Type;
-      this.assemblySteps[0].desc = [selectedBuild?.case, selectedBuild?.caseFan, selectedBuild?.motherboard, selectedBuild?.cpu, 
+      this.assemblySteps[1].stepTitle = "Hardware Parts of " + selectedBuild?.Type;
+      this.assemblySteps[1].desc = [selectedBuild?.case, selectedBuild?.caseFan, selectedBuild?.motherboard, selectedBuild?.cpu, 
                                     selectedBuild?.cpuFan, selectedBuild?.memory, selectedBuild?.storage, selectedBuild?.gpu, selectedBuild?.psu ];
       this.partPrice = [selectedBuild?.casePrice, selectedBuild?.caseFanPrice, selectedBuild?.motherboardPrice, selectedBuild?.cpuPrice, 
                         selectedBuild?.cpuFanPrice, selectedBuild?.memoryPrice, selectedBuild?.storagePrice, selectedBuild?.gpuPrice, 
@@ -293,11 +302,11 @@ export class CanvasComponent implements OnDestroy {
         totalPrice += this.partPrice[i];
       }
     }
-    this.assemblySteps[0].note =  "Total Price - MYR " + totalPrice;
+    this.assemblySteps[1].note =  "Total Price - MYR " + totalPrice;
 
     // render canvas scene based on level
     if (selectedBuild) {
-      if (selectedBuild.level === 1) this.assemblySteps[10].wait = false; 
+      if (selectedBuild.level === 1) this.assemblySteps[11].wait = false; 
       this.engServ.createScene(this.rendererCanvas, selectedBuild.level);
       this.isStepModalActive = true;
     }
