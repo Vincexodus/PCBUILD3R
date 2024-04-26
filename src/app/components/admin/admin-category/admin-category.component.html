@@ -6,7 +6,7 @@
         <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
       </div>
     </div>
-    <button class="button is-small is-primary is-rounded" (click)="openAddModal()">
+    <button class="button is-small is-success is-rounded has-text-black" (click)="openAddModal()">
       <i class="fa-solid fa-plus pr-2" style="color: #000000;"></i>
       Add Category
     </button>
@@ -54,7 +54,7 @@
           </section>
           <footer class="modal-card-foot">
             <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
-            <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
+            <button class="button is-danger is-rounded is-small" (click)="closeAddModal()">Cancel</button>
           </footer>
         </form>
       </div>
@@ -94,7 +94,7 @@
       </div>
       <div class="column">
         <div class="is-flex">
-          <button class="button is-small is-primary is-rounded" (click)="openEditModal(category._id)">
+          <button class="button is-small is-warning is-rounded" (click)="openEditModal(category._id)">
             <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
             Edit
           </button>
@@ -148,7 +148,7 @@
                 </section>
                 <footer class="modal-card-foot">
                   <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
-                  <button class="button is-rounded is-small" (click)="closeEditModal(category._id)">Cancel</button>
+                  <button class="button is-danger is-rounded is-small" (click)="closeEditModal(category._id)">Cancel</button>
                 </footer>
               </form>
             </div>

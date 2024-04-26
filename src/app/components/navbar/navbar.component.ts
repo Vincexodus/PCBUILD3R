@@ -22,6 +22,9 @@ export class NavbarComponent implements OnInit {
     this.authService.loginSuccess$.subscribe(() => {
       this.onDisplayChange();
     });
+    this.authService.logoutSuccess$.subscribe(() => {
+      this.userEmail = "";
+    });
   }
 
   onDisplayChange() {
@@ -34,7 +37,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.userEmail = "";
+    this.authService.emitLogoutSuccess(true);
     this.authService.logout();
   }
 }

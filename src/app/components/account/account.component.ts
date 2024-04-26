@@ -31,6 +31,7 @@ export class AccountComponent {
   }
   
   logout() {
+    this.authService.emitLogoutSuccess(true);
     this.authService.logout();
   }
 }

@@ -55,7 +55,7 @@
         <h4>MYR {{ order.total.$numberDecimal }}</h4>
       </div>
       <div class="column">
-        <button class="button is-small is-primary is-rounded" (click)="openViewModal(order._id)">
+        <button class="button is-small is-success is-rounded has-text-black" (click)="openViewModal(order._id)">
           <i class="fa-solid fa-eye pr-2" style="color: #000000;"></i>
           View
         </button>
@@ -118,7 +118,7 @@
         </div>
       </div>
       <div class="column">
-        <button class="button is-small is-primary is-rounded ml-2" (click)="openEditModal(order._id)">
+        <button class="button is-small is-warning is-rounded ml-2" (click)="openEditModal(order._id)">
           <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
           Add / Edit
         </button>
@@ -148,7 +148,7 @@
                   <h4 class="column">MYR {{ subtotalById(cartItem._productId, cartItem.quantity)}}</h4>
                   <div class="column">
                     <div class="is-flex">
-                      <button class="button is-small is-primary is-rounded" (click)="openEditReviewModal(cartItem._id)">
+                      <button class="button is-small is-warning is-rounded" (click)="openEditReviewModal(cartItem._id)">
                         <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
                         Add / Edit
                       </button>
@@ -203,7 +203,7 @@
                             </section>
                             <footer class="modal-card-foot">
                               <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
-                              <button class="button is-rounded is-small" (click)="closeEditReviewModal(cartItem._id)">Cancel</button>
+                              <button class="button is-danger is-rounded is-small" (click)="closeEditReviewModal(cartItem._id)">Cancel</button>
                             </footer>
                           </form>
                         </div>

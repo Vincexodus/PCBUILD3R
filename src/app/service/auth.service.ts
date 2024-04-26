@@ -23,6 +23,13 @@ export class AuthService {
   emitLoginSuccess(value: any) {
     this.loginSuccessSubject.next(value);
   }
+
+  private logoutSuccessSubject = new Subject<any>();
+  logoutSuccess$ = this.logoutSuccessSubject.asObservable();
+
+  emitLogoutSuccess(value: any) {
+    this.logoutSuccessSubject.next(value);
+  }
   
   login(email: string, password: string) {
     return this.webService.login(email, password).pipe(

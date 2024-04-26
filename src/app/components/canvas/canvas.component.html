@@ -1,8 +1,8 @@
 <div class="body-width mb-2" *ngIf="isSessionOngoing">
   <div class="is-flex is-justify-content-space-between">
-    <button class="button is-black is-rounded" (click)="openStepModal()">
+    <button class="button is-info is-rounded has-text-black" (click)="openStepModal()">
       Step Explanation
-      <i class="fa-solid fa-shoe-prints pl-2" style="color: #ffffff;"></i>
+      <i class="fa-solid fa-shoe-prints pl-2" style="color: #000000;"></i>
     </button>
     <div class="modal is-active" *ngIf="isStepModalActive">
       <div class="modal-background"></div>
@@ -42,20 +42,20 @@
           <button class="button is-rounded is-success" *ngIf="assemblySteps[step-1].wait" (click)="closeStepModal()">Noted</button>
           <button class="button is-rounded is-success" *ngIf="!assemblySteps[step-1].wait && step !== assemblySteps.length" (click)="openNextStepModal()">Proceed</button>
           <button class="button is-rounded is-success" *ngIf="step === assemblySteps.length" (click)="openPostSessionModal()">Complete</button>
-          <button class="button is-rounded is-warning" *ngIf="step === assemblySteps.length" (click)="inspectModel()">Inspect
-            <i class="fa-solid fa-eye pl-2" style="color: #000000;"></i>
+          <button class="button is-rounded is-warning has-text-white" *ngIf="step === assemblySteps.length" (click)="inspectModel()">Inspect
+            <i class="fa-solid fa-eye pl-2" style="color: #ffffff;"></i>
           </button>
         </footer>
       </div>
     </div>
-    <button class="button is-success is-rounded mr-2" *ngIf="step === assemblySteps.length" (click)="openPostSessionModal()">
+    <button class="button is-success is-rounded mr-2 has-text-black" *ngIf="step === assemblySteps.length" (click)="openPostSessionModal()">
       Claim Reward
-      <i class="fa-solid fa-gift pl-2" style="color: #ffffff;"></i>
+      <i class="fa-solid fa-gift pl-2" style="color: #000000;"></i>
     </button>
     <div class="">
-      <button class="button is-black is-rounded mr-2" (click)="openHelpModal()">
+      <button class="button is-warning is-rounded mr-2 has-text-black" (click)="openHelpModal()">
         Help
-        <i class="fa-solid fa-info pl-2" style="color: #ffffff;"></i>
+        <i class="fa-solid fa-info pl-2" style="color: #000000;"></i>
       </button>
       <div class="modal is-active" *ngIf="isHelpModalActive">
         <div class="modal-background"></div>
@@ -89,9 +89,9 @@
           </footer>
         </div>
       </div>
-      <button class="button is-black is-rounded" (click)="terminateSession('/home')">
+      <button class="button is-danger is-rounded has-text-black" (click)="terminateSession('/home')">
         Exit Session
-        <i class="fa-solid fa-ban pl-2" style="color: #ffffff;"></i>
+        <i class="fa-solid fa-ban pl-2" style="color: #000000;"></i>
       </button>
     </div>
   </div>
@@ -110,29 +110,54 @@
           <h1 class="block">Virtual PC Building</h1>
           <h4 class="block is-size-6">We offer {{ (isBudgetAvailable ? 1 : 0) + (isWorkStationAvailable ? 1 : 0) + (isGamingAvailable ? 1 : 0) }} types of virtual PC builds. Please select one:</h4>
           <div class="block">
-            <div class="control is-flex is-flex-direction-column">
-              <div class="" *ngIf="isBudgetAvailable">
-                <label class="radio">
-                  <input type="radio" [(ngModel)]="buildOption" value="Budget PC" checked>
-                  <span class="is-size-6 ml-2">Budget PC</span>
-                </label>
-              </div>
-              <div class="" *ngIf="isWorkStationAvailable">
-                <label class="radio">
-                  <input type="radio" [(ngModel)]="buildOption" value="Workstation PC">
-                  <span class="is-size-6 ml-2">Workstation PC</span>
-                </label>
-              </div>
-              <div class="" *ngIf="isGamingAvailable">
-                <label class="radio">
-                  <input type="radio" [(ngModel)]="buildOption" value="Gaming PC">
-                  <span class="is-size-6 ml-2">Gaming PC</span>
-                </label>
-              </div>
-            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Build Type</th>
+                  <th>Price</th>
+                  <th>Performance</th>
+                  <th>Upgrade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="isBudgetAvailable">
+                  <td>
+                    <label class="radio">
+                      <input type="radio" [(ngModel)]="buildOption" value="Budget PC" checked>
+                      <span class="is-size-6 has-text-weight-bold ml-2">Budget PC</span>
+                    </label>
+                  </td>
+                  <td>Low</td>
+                  <td>Sufficient</td>
+                  <td>Limited</td>
+                </tr>
+                <tr *ngIf="isWorkStationAvailable">
+                  <td>
+                    <label class="radio">
+                      <input type="radio" [(ngModel)]="buildOption" value="Workstation PC">
+                      <span class="is-size-6 has-text-weight-bold ml-2">Workstation PC</span>
+                    </label>
+                  </td>
+                  <td>Medium</td>
+                  <td>Moderate</td>
+                  <td>Good</td>
+                </tr>
+                <tr *ngIf="isGamingAvailable">
+                  <td>
+                    <label class="radio">
+                      <input type="radio" [(ngModel)]="buildOption" value="Gaming PC">
+                      <span class="is-size-6 has-text-weight-bold ml-2">Gaming PC </span>
+                    </label>
+                  </td>
+                  <td>Medium</td>
+                  <td>Moderate</td>
+                  <td>Good</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <h4 class="block is-size-6">
-            Would you wish to start virtual PC building session?
+            Do you wish to start virtual PC building session?
           </h4>
         </div>
       </section>

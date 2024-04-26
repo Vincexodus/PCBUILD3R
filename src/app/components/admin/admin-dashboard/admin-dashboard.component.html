@@ -1,7 +1,7 @@
 <div *ngIf="show" class="my-5">
   <div class="tile is-ancestor">
     <div *ngFor="let stat of coreStats" class="tile is-parent">
-      <article class="tile is-child box is-rounded">
+      <article class="has-background-success tile is-child box is-rounded">
         <p class="title is-5">{{ stat.title }}</p>
         <p class="subtitle">{{ stat.number }}</p>
       </article>
@@ -9,7 +9,7 @@
   </div>
   <div class="tile is-ancestor">
     <div *ngFor="let stat of additionalStats" class="tile is-parent">
-      <article class="tile is-child box is-rounded">
+      <article class="has-background-warning tile is-child box is-rounded">
         <p class="title is-5">{{ stat.title }}</p>
         <p class="subtitle">{{ stat.number }}</p>
       </article>
@@ -20,10 +20,10 @@
     <div class="tile is-vertical is-9">
       <div class="tile">
         <div class="tile is-8 is-parent">
-          <article class="tile is-child box">
+          <article class="has-background-danger tile is-child box">
             <p class="title is-5">Admin Permissions</p>
             <div class="content">
-              <table class="table">
+              <table class="table has-background-danger">
                 <thead>
                   <tr>
                     <th>Type</th>

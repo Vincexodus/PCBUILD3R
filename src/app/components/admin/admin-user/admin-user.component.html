@@ -6,7 +6,7 @@
         <i class="fa-solid fa-magnifying-glass p-2" style="color: #000000;"></i>
       </div>
     </div>
-    <button class="button is-small is-primary is-rounded" (click)="openAddModal()">
+    <button class="button is-small is-success is-rounded has-text-black" (click)="openAddModal()">
       <i class="fa-solid fa-plus pr-2" style="color: #000000;"></i>
       Add User
     </button>
@@ -62,7 +62,7 @@
           <footer class="modal-card-foot">
             <button class="button is-success is-rounded is-small" 
                     type="submit">Save changes</button>
-            <button class="button is-rounded is-small" (click)="closeAddModal()">Cancel</button>
+            <button class="button is-danger is-rounded is-small" (click)="closeAddModal()">Cancel</button>
           </footer>
         </form>
       </div>
@@ -108,7 +108,7 @@
       </div>
       <div class="column">
         <div class="is-flex">
-          <button class="button is-small is-primary is-rounded" (click)="openEditModal(user._id)">
+          <button class="button is-small is-warning is-rounded" (click)="openEditModal(user._id)">
             <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
             Edit
           </button>
@@ -156,12 +156,12 @@
                 </section>
                 <footer class="modal-card-foot">
                   <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
-                  <button class="button is-rounded is-small" (click)="closeEditModal(user._id)">Cancel</button>
+                  <button class="button is-danger is-rounded is-small" (click)="closeEditModal(user._id)">Cancel</button>
                 </footer>
               </form>
             </div>
           </div>
-          <button class="button is-small is-primary is-rounded ml-2" (click)="openEditBillingModal(user._id)" [disabled]="user.isAdmin">
+          <button class="button is-small is-info is-rounded ml-2" (click)="openEditBillingModal(user._id)" [disabled]="user.isAdmin">
             <i class="fa-solid fa-pen pr-2" style="color: #000000;"></i>
             Billing Info
           </button>
@@ -224,7 +224,7 @@
                 </section>
                 <footer class="modal-card-foot">
                   <button class="button is-success is-rounded is-small" type="submit">Save changes</button>
-                  <button class="button is-rounded is-small" (click)="closeEditBillingModal(user._id)">Cancel</button>
+                  <button class="button is-danger is-rounded is-small" (click)="closeEditBillingModal(user._id)">Cancel</button>
                 </footer>
               </form>
             </div>
