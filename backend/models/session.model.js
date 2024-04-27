@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const SessionSchema = new mongoose.Schema({
   _userId: {
     type: mongoose.Types.ObjectId,
-    required: true
+    required: true,
   },
   voucherKey: {
     type: String,
@@ -12,12 +12,12 @@ const SessionSchema = new mongoose.Schema({
   level: {
     type: Number,
     required: true,
-    default: 1
+    default: 1,
   },
   rating: {
     type: Number,
     required: true,
-    default: 1
+    default: 1,
   },
   desc: {
     type: String,
@@ -27,7 +27,7 @@ const SessionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
     required: true,
-  }
-})
+  },
+});
 
-module.exports = mongoose.model('Session', SessionSchema);
+module.exports = mongoose.model("Session", SessionSchema);

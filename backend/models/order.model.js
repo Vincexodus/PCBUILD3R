@@ -1,14 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
   _userId: {
-      type: mongoose.Types.ObjectId,
-      required: true
+    type: mongoose.Types.ObjectId,
+    required: true,
   },
-  _cartItemIds: [{
+  _cartItemIds: [
+    {
       type: mongoose.Types.ObjectId,
-      required: true
-  }],
+      required: true,
+    },
+  ],
   _voucherId: {
     type: mongoose.Types.ObjectId,
     required: false,
@@ -18,14 +20,14 @@ const OrderSchema = new mongoose.Schema({
     required: true,
   },
   total: {
-      type: mongoose.Types.Decimal128,
-      required: true
+    type: mongoose.Types.Decimal128,
+    required: true,
   },
   createdAt: {
     type: Date,
     default: Date.now,
     required: true,
-  }
-})
+  },
+});
 
-module.exports = mongoose.model('Order', OrderSchema);
+module.exports = mongoose.model("Order", OrderSchema);

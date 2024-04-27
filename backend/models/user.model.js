@@ -115,7 +115,6 @@ UserSchema.statics.getJWTSecret = () => {
 };
 
 UserSchema.statics.findByIdAndToken = function (_id, token) {
-
   const User = this;
 
   return User.findOne({
@@ -174,7 +173,6 @@ UserSchema.pre("save", function (next) {
   let costFactor = 10;
 
   if (user.isModified("password")) {
-
     // Generate salt and hash password
     bcrypt.genSalt(costFactor, (err, salt) => {
       bcrypt.hash(user.password, salt, (err, hash) => {
