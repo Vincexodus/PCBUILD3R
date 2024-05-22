@@ -11,7 +11,7 @@
 
 <!-- TODO: Replace with DEMO GIF -->
 <p align="center">
-  <img src="/src/assets/images/homepage.png"/>
+  <img src="/src/assets/images/PCBUILD3R_Demo.gif"/>
 </p>
 
 ## Table Of Content
